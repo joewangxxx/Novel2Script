@@ -1,0 +1,302 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/joewangxxx/Novel2Script/schemas/screenplay.schema.json",
+  "title": "Novel2Script Screenplay",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "metadata",
+    "source",
+    "adaptation_policy",
+    "characters",
+    "scenes"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "object",
+      "required": [
+        "title",
+        "language",
+        "created_by",
+        "created_at"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "created_by": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "type",
+        "chapter_count",
+        "trace_unit"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "chapter_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "trace_unit": {
+          "type": "string",
+          "enum": [
+            "chapter_paragraph",
+            "chapter_scene",
+            "custom"
+          ]
+        }
+      }
+    },
+    "adaptation_policy": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "target_format": {
+          "type": "string"
+        },
+        "allow_inference": {
+          "type": "boolean"
+        },
+        "preserve_source_order": {
+          "type": "boolean"
+        }
+      }
+    },
+    "characters": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/character"
+      }
+    },
+    "scenes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/scene"
+      }
+    }
+  },
+  "$defs": {
+    "source_trace": {
+      "type": "object",
+      "required": [
+        "chapter",
+        "paragraph_range"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "chapter": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "paragraph_range": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "ai_tags": {
+      "type": "object",
+      "required": [
+        "inferred",
+        "confidence",
+        "needs_human_review"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "inferred": {
+          "type": "boolean"
+        },
+        "confidence": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "needs_human_review": {
+          "type": "boolean"
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "character": {
+      "type": "object",
+      "required": [
+        "id",
+        "name"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "source_trace": {
+          "$ref": "#/$defs/source_trace"
+        }
+      }
+    },
+    "scene": {
+      "type": "object",
+      "required": [
+        "id",
+        "heading",
+        "source_trace",
+        "beats",
+        "elements"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "heading": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        },
+        "source_trace": {
+          "$ref": "#/$defs/source_trace"
+        },
+        "beats": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/beat"
+          }
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/element"
+          }
+        }
+      }
+    },
+    "beat": {
+      "type": "object",
+      "required": [
+        "id",
+        "objective",
+        "tactic",
+        "obstacle",
+        "conflict",
+        "stakes",
+        "turn",
+        "externalized_action",
+        "source_trace",
+        "ai_tags"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "objective": {
+          "type": "string"
+        },
+        "tactic": {
+          "type": "string"
+        },
+        "obstacle": {
+          "type": "string"
+        },
+        "conflict": {
+          "type": "string"
+        },
+        "stakes": {
+          "type": "string"
+        },
+        "turn": {
+          "type": "string"
+        },
+        "externalized_action": {
+          "type": "string"
+        },
+        "source_trace": {
+          "$ref": "#/$defs/source_trace"
+        },
+        "ai_tags": {
+          "$ref": "#/$defs/ai_tags"
+        }
+      }
+    },
+    "element": {
+      "type": "object",
+      "required": [
+        "type",
+        "text",
+        "source_trace",
+        "ai_tags"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "action",
+            "dialogue",
+            "parenthetical",
+            "transition",
+            "note"
+          ]
+        },
+        "character_id": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "source_trace": {
+          "$ref": "#/$defs/source_trace"
+        },
+        "ai_tags": {
+          "$ref": "#/$defs/ai_tags"
+        }
+      }
+    }
+  }
+}

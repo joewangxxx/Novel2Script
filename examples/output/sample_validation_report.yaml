@@ -1,0 +1,42 @@
+schema_validity:
+  score: 5
+  status: "pass"
+  evidence:
+    - "样例包含 schema_version、metadata、source、adaptation_policy、characters、scenes。"
+    - "scene 至少包含 id、source_trace、beats、elements。"
+source_coverage:
+  score: 4
+  status: "review"
+  evidence:
+    - "主要 action 元素已标记章节和段落范围。"
+    - "补足对白已通过 ai_tags 标记为 inferred。"
+beat_completeness:
+  score: 5
+  status: "pass"
+  evidence:
+    - "beat_001 包含 objective、tactic、obstacle、conflict、stakes、turn、externalized_action。"
+character_consistency:
+  score: 4
+  status: "review"
+  evidence:
+    - "林岚对白很少，暂未形成稳定语言风格。"
+dialogue_naturalness:
+  score: 3
+  status: "review"
+  evidence:
+    - "样例对白仅一处，无法充分评估。"
+pacing_quality:
+  score: 4
+  status: "review"
+  evidence:
+    - "场景从钟声推进到信封和警告，转折明确。"
+shootability:
+  score: 4
+  status: "review"
+  evidence:
+    - "心理震惊已通过动作和简短对白外化。"
+rewrite_risk:
+  score: 3
+  status: "needs_human_review"
+  evidence:
+    - "盐痕和对白为改编补足，需要作者确认。"

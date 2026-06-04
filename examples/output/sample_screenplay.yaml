@@ -1,0 +1,93 @@
+schema_version: "0.1.0"
+metadata:
+  title: "灯塔来信"
+  language: "zh-CN"
+  created_by: "Novel2Script phase-one sample"
+  created_at: "2026-06-05"
+source:
+  type: "novel"
+  chapter_count: 3
+  trace_unit: "chapter_paragraph"
+adaptation_policy:
+  target_format: "short_screenplay"
+  allow_inference: true
+  preserve_source_order: true
+characters:
+  - id: "char_lin_lan"
+    name: "林岚"
+    role: "邮局夜班职员，失踪渔民的女儿"
+    source_trace:
+      chapter: 1
+      paragraph_range: [1, 2]
+      note: "第一章交代林岚与父亲失踪背景。"
+  - id: "char_zhou_che"
+    name: "周澈"
+    role: "修灯工，知晓旧灯塔秘密"
+    source_trace:
+      chapter: 2
+      paragraph_range: [1, 1]
+      note: "第二章首次出现并说明灯塔电路异常。"
+scenes:
+  - id: "scene_001"
+    heading: "INT. 旧邮局 - 夜"
+    location: "旧邮局"
+    time: "夜"
+    source_trace:
+      chapter: 1
+      paragraph_range: [1, 2]
+      note: "林岚值夜班时收到蓝色信封。"
+    beats:
+      - id: "beat_001"
+        objective: "林岚想确认钟声和信封是否只是意外。"
+        tactic: "她检查柜台、门缝和信封，试图找到人为投递的痕迹。"
+        obstacle: "邮局门窗紧闭，信封没有邮票，也没有投递记录。"
+        conflict: "理性解释与父亲失踪记忆之间产生冲突。"
+        stakes: "如果信是真的，镇民可能会被即将出现的船引向危险。"
+        turn: "她读到父亲名字和灯塔警告，意识到事件与失踪案有关。"
+        externalized_action: "林岚把信封贴近台灯，发现纸面被海水浸过的盐痕。"
+        source_trace:
+          chapter: 1
+          paragraph_range: [1, 2]
+          note: "由钟声、蓝色信封和警告语改编。"
+        ai_tags:
+          inferred: true
+          confidence: "medium"
+          needs_human_review: true
+          notes:
+            - "盐痕是为了外化诡异感的改编补足。"
+    elements:
+      - type: "action"
+        text: "雾贴着旧邮局的玻璃。林岚抬头，远处停摆多年的钟楼忽然响了一下。"
+        source_trace:
+          chapter: 1
+          paragraph_range: [1, 1]
+          note: "来自第一章钟楼响起。"
+        ai_tags:
+          inferred: false
+          confidence: "high"
+          needs_human_review: false
+          notes: []
+      - type: "action"
+        text: "柜台下方滑出一封蓝色信封，信封没有邮票，却写着她父亲的名字。"
+        source_trace:
+          chapter: 1
+          paragraph_range: [1, 2]
+          note: "来自第一章蓝色信封和父亲名字。"
+        ai_tags:
+          inferred: false
+          confidence: "high"
+          needs_human_review: false
+          notes: []
+      - type: "dialogue"
+        character_id: "char_lin_lan"
+        text: "爸？"
+        source_trace:
+          chapter: 1
+          paragraph_range: [2, 2]
+          note: "原文没有对白，此处将震惊反应外化。"
+        ai_tags:
+          inferred: true
+          confidence: "medium"
+          needs_human_review: true
+          notes:
+            - "对白为改编补足。"
