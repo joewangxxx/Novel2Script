@@ -1,0 +1,38 @@
+{
+  "source_yaml": "examples/output/sample_screenplay.yaml",
+  "fountain_file": "examples/output/generated_screenplay.fountain",
+  "mappings": [
+    {
+      "line_start": 5,
+      "line_end": 5,
+      "scene_id": "scene_001",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[0].heading"
+    },
+    {
+      "line_start": 6,
+      "line_end": 6,
+      "scene_id": "scene_001",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[0].elements[0].text"
+    },
+    {
+      "line_start": 7,
+      "line_end": 7,
+      "scene_id": "scene_001",
+      "beat_id": null,
+      "element_index": 1,
+      "yaml_path": "scenes[0].elements[1].text"
+    },
+    {
+      "line_start": 9,
+      "line_end": 10,
+      "scene_id": "scene_001",
+      "beat_id": null,
+      "element_index": 2,
+      "yaml_path": "scenes[0].elements[2].text"
+    }
+  ]
+}
