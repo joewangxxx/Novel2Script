@@ -1,0 +1,385 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/joewangxxx/Novel2Script/schemas/character_bible.schema.json",
+  "title": "Novel2Script Character Bible",
+  "type": "object",
+  "required": [
+    "character_bible"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "character_bible": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "source_story_map",
+        "characters",
+        "uncertainties"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "type": "string",
+          "const": "0.1.0"
+        },
+        "source_story_map": {
+          "$ref": "#/$defs/source_story_map"
+        },
+        "characters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/character_profile"
+          }
+        },
+        "uncertainties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/uncertainty"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "source_story_map": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "story_map_file"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "type": "string"
+        },
+        "story_map_file": {
+          "type": "string"
+        },
+        "content_hash": {
+          "type": "string"
+        }
+      }
+    },
+    "source_trace": {
+      "type": "object",
+      "required": [
+        "chapter_id",
+        "paragraph_ids"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "chapter_id": {
+          "type": "string",
+          "pattern": "^ch_[0-9]{3}$"
+        },
+        "paragraph_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^p_[0-9]{3}$"
+          }
+        },
+        "event_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^evt_[0-9]{3}$"
+          }
+        },
+        "quote_preview": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "ai_tags": {
+      "type": "object",
+      "required": [
+        "inferred",
+        "confidence",
+        "needs_human_review"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "inferred": {
+          "type": "boolean"
+        },
+        "confidence": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "needs_human_review": {
+          "type": "boolean"
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "evidence_text": {
+      "type": "object",
+      "required": [
+        "text",
+        "source_trace",
+        "ai_tags"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "source_trace": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/source_trace"
+          }
+        },
+        "ai_tags": {
+          "$ref": "#/$defs/ai_tags"
+        }
+      }
+    },
+    "character_profile": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "want",
+        "need",
+        "flaw",
+        "relationships",
+        "voice",
+        "arc",
+        "locked",
+        "source_trace",
+        "ai_tags"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^char_[0-9]{3}$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "want": {
+          "$ref": "#/$defs/evidence_text"
+        },
+        "need": {
+          "$ref": "#/$defs/evidence_text"
+        },
+        "flaw": {
+          "$ref": "#/$defs/evidence_text"
+        },
+        "relationships": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/relationship"
+          }
+        },
+        "voice": {
+          "$ref": "#/$defs/voice"
+        },
+        "arc": {
+          "$ref": "#/$defs/arc"
+        },
+        "locked": {
+          "type": "boolean"
+        },
+        "source_trace": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/source_trace"
+          }
+        },
+        "ai_tags": {
+          "$ref": "#/$defs/ai_tags"
+        }
+      }
+    },
+    "relationship": {
+      "type": "object",
+      "required": [
+        "character_id",
+        "relationship_type",
+        "description",
+        "source_trace",
+        "ai_tags"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "character_id": {
+          "type": "string",
+          "pattern": "^char_[0-9]{3}$"
+        },
+        "relationship_type": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "source_trace": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/source_trace"
+          }
+        },
+        "ai_tags": {
+          "$ref": "#/$defs/ai_tags"
+        }
+      }
+    },
+    "voice": {
+      "type": "object",
+      "required": [
+        "summary",
+        "dialogue_rules",
+        "source_trace",
+        "ai_tags"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "summary": {
+          "type": "string"
+        },
+        "dialogue_rules": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source_trace": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/source_trace"
+          }
+        },
+        "ai_tags": {
+          "$ref": "#/$defs/ai_tags"
+        }
+      }
+    },
+    "arc": {
+      "type": "object",
+      "required": [
+        "start",
+        "turning_points",
+        "end",
+        "source_trace",
+        "ai_tags"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "start": {
+          "type": "string"
+        },
+        "turning_points": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "event_id",
+              "description"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "event_id": {
+                "type": "string",
+                "pattern": "^evt_[0-9]{3}$"
+              },
+              "description": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "end": {
+          "type": "string"
+        },
+        "source_trace": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/source_trace"
+          }
+        },
+        "ai_tags": {
+          "$ref": "#/$defs/ai_tags"
+        }
+      }
+    },
+    "uncertainty": {
+      "type": "object",
+      "required": [
+        "id",
+        "character_id",
+        "category",
+        "description",
+        "severity"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^cb_unc_[0-9]{3}$"
+        },
+        "character_id": {
+          "type": "string",
+          "pattern": "^char_[0-9]{3}$"
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "weak_want_evidence",
+            "weak_need_evidence",
+            "weak_voice_evidence",
+            "relationship_ambiguity",
+            "arc_gap",
+            "other"
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "source_trace": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source_trace"
+          }
+        },
+        "severity": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "suggested_resolution": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

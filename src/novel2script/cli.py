@@ -5,8 +5,10 @@ import sys
 from typing import Sequence
 
 from novel2script.exporters.fountain_exporter import export_fountain
-from novel2script.io import read_text, write_yaml
+from novel2script.io import read_text, read_yaml, write_yaml
 from novel2script.parsers.novel_parser import parse_novel_text
+from novel2script.planners.character_bible_builder import build_character_bible
+from novel2script.planners.outline_builder import build_outline
 from novel2script.validation import validate_screenplay
 
 
@@ -28,6 +30,14 @@ def main(argv: Sequence[str] | None = None) -> int:
     parse_novel_parser.add_argument("input_path")
     parse_novel_parser.add_argument("--out", required=True)
 
+    build_outline_parser = subparsers.add_parser("build-outline")
+    build_outline_parser.add_argument("story_map_path")
+    build_outline_parser.add_argument("--out", required=True)
+
+    build_character_bible_parser = subparsers.add_parser("build-character-bible")
+    build_character_bible_parser.add_argument("story_map_path")
+    build_character_bible_parser.add_argument("--out", required=True)
+
     args = parser.parse_args(argv)
     if args.command == "validate":
         report = validate_screenplay(args.yaml_path, args.schema)
@@ -43,6 +53,25 @@ def main(argv: Sequence[str] | None = None) -> int:
             print(f"parse-novel failed: {exc}", file=sys.stderr)
             return 1
         write_yaml(parse_novel_text(text, input_file=args.input_path), args.out)
+        return 0
+    if args.command == "build-outline":
+        try:
+            story_map = read_yaml(args.story_map_path)
+        except OSError as exc:
+            print(f"build-outline failed: {exc}", file=sys.stderr)
+            return 1
+        write_yaml(build_outline(story_map, story_map_file=args.story_map_path), args.out)
+        return 0
+    if args.command == "build-character-bible":
+        try:
+            story_map = read_yaml(args.story_map_path)
+        except OSError as exc:
+            print(f"build-character-bible failed: {exc}", file=sys.stderr)
+            return 1
+        write_yaml(
+            build_character_bible(story_map, story_map_file=args.story_map_path),
+            args.out,
+        )
         return 0
     return 2
 

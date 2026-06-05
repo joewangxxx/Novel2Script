@@ -1,7 +1,7 @@
 phase: qa
-goal: "Complete Stage 3 deterministic novel parsing."
+goal: "Complete Stage 4 outline and character bible generation."
 ready_for:
-  - stage_4_outline_and_character_bible
+  - stage_5_structured_screenplay_generation
 blocked_by: []
 artifacts:
   prd: null
@@ -17,6 +17,16 @@ artifacts:
   parse_novel_cli_tests: "tests/test_parse_novel_cli.py"
   generated_story_map: "examples/output/generated_story_map.yaml"
   story_map: "examples/output/generated_story_map.yaml"
+  outline_schema: "schemas/outline.schema.json"
+  character_bible_schema: "schemas/character_bible.schema.json"
+  phase_4_plan: "docs/dev/PHASE_4_OUTLINE_AND_CHARACTER_BIBLE.md"
+  outline_builder: "src/novel2script/planners/outline_builder.py"
+  character_bible_builder: "src/novel2script/planners/character_bible_builder.py"
+  outline_builder_tests: "tests/test_outline_builder.py"
+  character_bible_builder_tests: "tests/test_character_bible_builder.py"
+  planner_cli_tests: "tests/test_planner_cli.py"
+  generated_outline: "examples/output/generated_outline.yaml"
+  generated_character_bible: "examples/output/generated_character_bible.yaml"
   design_notes: null
   qa_report: "docs/qa/report.md"
   release_notes: null
@@ -24,7 +34,7 @@ contract_status:
   state: draft
   frozen_at: null
   change_requests_dir: "docs/architecture/change-requests"
-  current_contract: "story_map 0.1.0 draft"
+  current_contract: "outline 0.1.0 draft; character_bible 0.1.0 draft"
 retries:
   fe: 0
   be: 0
@@ -34,7 +44,7 @@ max_retries:
   be: 2
   qa: 2
 last_actor: parent_orchestrator
-last_updated: "2026-06-05T02:44:00+08:00"
+last_updated: "2026-06-05T09:20:59+08:00"
 history:
   - at: "2026-06-05T00:00:00+08:00"
     actor: parent_orchestrator
@@ -51,3 +61,15 @@ history:
   - at: "2026-06-05T02:44:00+08:00"
     actor: parent_orchestrator
     event: "Stage 3 novel parsing QA completed."
+  - at: "2026-06-05T09:12:03+08:00"
+    actor: parent_orchestrator
+    event: "Stage 4A outline and character bible draft contracts defined."
+  - at: "2026-06-05T09:15:42+08:00"
+    actor: parent_orchestrator
+    event: "Stage 4B deterministic outline and character bible builders implemented."
+  - at: "2026-06-05T09:19:04+08:00"
+    actor: parent_orchestrator
+    event: "Stage 4C CLI integration and generated outline/character bible samples completed."
+  - at: "2026-06-05T09:20:59+08:00"
+    actor: parent_orchestrator
+    event: "Stage 4 outline and character bible QA completed."

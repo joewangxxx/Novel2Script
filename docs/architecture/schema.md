@@ -141,3 +141,90 @@ The Phase 3A contract is a draft until explicitly frozen. Once frozen:
   `docs/architecture/change-requests/`.
 - FE, BE, or QA retry counts above the blackboard limit stop the workflow and
   require human intervention.
+
+## Phase 4 Outline And Character Bible
+
+Phase 4 consumes `story_map` and produces two draft planning artifacts:
+
+- `schemas/outline.schema.json`
+- `schemas/character_bible.schema.json`
+
+These contracts are not frozen in Phase 4A. They define what later Stage 4B
+implementation should emit, but they do not authorize generator code, LLM
+integration, screenplay generation, Agent review, or parser changes.
+
+### Shared Stage 4 Source Trace
+
+Stage 4 keeps the Stage 3 chapter/paragraph trace shape and may additionally
+reference Stage 3 event IDs:
+
+```yaml
+source_trace:
+  chapter_id: "ch_001"
+  paragraph_ids: ["p_001"]
+  event_ids: ["evt_001"]
+  quote_preview: "short source excerpt"
+  note: "why this supports the field"
+```
+
+Rules:
+
+- `chapter_id` and `paragraph_ids` remain required.
+- `event_ids` should be used when a field is derived from
+  `story_map.key_events`.
+- Multi-location evidence must be represented as an array of source traces.
+- Full source paragraphs should not be copied into Stage 4 artifacts.
+
+### Outline Fields
+
+`outline` is a planning layer, not screenplay YAML. It includes:
+
+- `logline`: a one-sentence adaptation premise with source evidence and
+  `ai_tags`.
+- `theme_candidates`: possible themes with rationale, trace, and confidence.
+- `act_structure`: high-level act grouping and source-supported summaries.
+- `scene_plan`: planned scene units for later generation. These are not final
+  `scenes`, `beats`, or `elements`.
+- `source_coverage`: coverage accounting from `story_map.key_events` to planned
+  scene/event usage.
+- `uncertainties`: weak evidence, scene merge risks, timeline ambiguity, or
+  adaptation decisions requiring human review.
+
+### Character Bible Fields
+
+`character_bible` is the character planning layer keyed to
+`story_map.characters_detected[].id`. Each character profile includes:
+
+- `want`: external pursuit.
+- `need`: internal or dramatic need.
+- `flaw`: limitation, blind spot, fear, or friction point.
+- `relationships`: links to other `char_###` IDs.
+- `voice`: speech style summary and future dialogue rules.
+- `arc`: start, turning points, and end state.
+- `locked`: prevents later generators from silently overwriting accepted facts.
+- `source_trace`: evidence for the profile.
+- `ai_tags`: inference, confidence, and human-review metadata.
+
+`want`, `need`, `flaw`, `voice`, `arc`, `theme_candidates`, and loglines are
+often inferred. Low-confidence or inferred fields must use:
+
+```yaml
+ai_tags:
+  inferred: true
+  confidence: low
+  needs_human_review: true
+```
+
+If a field cannot be supported by `story_map` evidence, implementations should
+emit an uncertainty instead of filling it silently.
+
+### Stage 4 Contract Governance
+
+The Stage 4A contracts remain draft. After any future freeze:
+
+- FE, BE, QA, and generator work must not silently edit
+  `schemas/outline.schema.json` or `schemas/character_bible.schema.json`.
+- Contract conflicts must be proposed under
+  `docs/architecture/change-requests/`.
+- Stage 4 generators must not bypass `source_trace` or `ai_tags` requirements
+  for convenience.

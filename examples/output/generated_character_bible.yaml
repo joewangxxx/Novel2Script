@@ -1,0 +1,748 @@
+character_bible:
+  schema_version: 0.1.0
+  source_story_map:
+    schema_version: 0.1.0
+    story_map_file: examples/output/generated_story_map.yaml
+  characters:
+  - id: char_001
+    name: 林岚
+    aliases: []
+    want:
+      text: ''
+      source_trace:
+      - chapter_id: ch_001
+        paragraph_ids:
+        - p_001
+        quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_001
+      - chapter_id: ch_001
+        paragraph_ids:
+        - p_002
+        quote_preview: 信封上写着她父亲的名字。父亲七年前出海失踪，镇上的人早已不再提起。林岚拆开信，…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_002
+      - chapter_id: ch_002
+        paragraph_ids:
+        - p_001
+        quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_003
+      ai_tags:
+        inferred: true
+        confidence: low
+        needs_human_review: true
+        notes:
+        - External want is not explicit in story_map.
+    need:
+      text: ''
+      source_trace:
+      - chapter_id: ch_001
+        paragraph_ids:
+        - p_001
+        quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_001
+      - chapter_id: ch_001
+        paragraph_ids:
+        - p_002
+        quote_preview: 信封上写着她父亲的名字。父亲七年前出海失踪，镇上的人早已不再提起。林岚拆开信，…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_002
+      - chapter_id: ch_002
+        paragraph_ids:
+        - p_001
+        quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_003
+      ai_tags:
+        inferred: true
+        confidence: low
+        needs_human_review: true
+        notes:
+        - Internal need is not explicit in story_map.
+    flaw:
+      text: ''
+      source_trace:
+      - chapter_id: ch_001
+        paragraph_ids:
+        - p_001
+        quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_001
+      - chapter_id: ch_001
+        paragraph_ids:
+        - p_002
+        quote_preview: 信封上写着她父亲的名字。父亲七年前出海失踪，镇上的人早已不再提起。林岚拆开信，…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_002
+      - chapter_id: ch_002
+        paragraph_ids:
+        - p_001
+        quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_003
+      ai_tags:
+        inferred: true
+        confidence: low
+        needs_human_review: true
+        notes:
+        - Character flaw is not explicit in story_map.
+    relationships:
+    - character_id: char_002
+      relationship_type: co_occurs_in_event
+      description: Relationship is only evidenced by co-occurrence in a key event.
+      source_trace:
+      - chapter_id: ch_002
+        paragraph_ids:
+        - p_001
+        quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_003
+      ai_tags:
+        inferred: true
+        confidence: low
+        needs_human_review: true
+        notes:
+        - Co-occurrence is not a confirmed relationship and requires review.
+    - character_id: char_003
+      relationship_type: co_occurs_in_event
+      description: Relationship is only evidenced by co-occurrence in a key event.
+      source_trace:
+      - chapter_id: ch_003
+        paragraph_ids:
+        - p_001
+        quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_005
+      ai_tags:
+        inferred: true
+        confidence: low
+        needs_human_review: true
+        notes:
+        - Co-occurrence is not a confirmed relationship and requires review.
+    voice:
+      summary: ''
+      dialogue_rules: []
+      source_trace:
+      - chapter_id: ch_001
+        paragraph_ids:
+        - p_001
+        quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_001
+      - chapter_id: ch_001
+        paragraph_ids:
+        - p_002
+        quote_preview: 信封上写着她父亲的名字。父亲七年前出海失踪，镇上的人早已不再提起。林岚拆开信，…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_002
+      - chapter_id: ch_002
+        paragraph_ids:
+        - p_001
+        quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_003
+      ai_tags:
+        inferred: true
+        confidence: low
+        needs_human_review: true
+        notes:
+        - Voice evidence is limited to source event participation; no full voice model
+          is generated.
+    arc:
+      start: ''
+      turning_points:
+      - event_id: evt_001
+        description: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她以为是风，直到柜台下方滑出一封没有邮票的蓝色信封。
+      - event_id: evt_002
+        description: 信封上写着她父亲的名字。父亲七年前出海失踪，镇上的人早已不再提起。林岚拆开信，里面只有一句话：如果灯塔亮起，别让他们上船。
+      - event_id: evt_003
+        description: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把信递给他，周澈沉默很久，只说当年最后见过她父亲的人并不只有他。
+      end: ''
+      source_trace:
+      - chapter_id: ch_001
+        paragraph_ids:
+        - p_001
+        quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_001
+      - chapter_id: ch_001
+        paragraph_ids:
+        - p_002
+        quote_preview: 信封上写着她父亲的名字。父亲七年前出海失踪，镇上的人早已不再提起。林岚拆开信，…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_002
+      - chapter_id: ch_002
+        paragraph_ids:
+        - p_001
+        quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_003
+      ai_tags:
+        inferred: true
+        confidence: low
+        needs_human_review: true
+        notes:
+        - Arc is a placeholder linked to visible key events, not a complete psychological
+          inference.
+    locked: false
+    source_trace:
+    - chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_001
+    - chapter_id: ch_001
+      paragraph_ids:
+      - p_002
+      quote_preview: 信封上写着她父亲的名字。父亲七年前出海失踪，镇上的人早已不再提起。林岚拆开信，…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_002
+    - chapter_id: ch_002
+      paragraph_ids:
+      - p_001
+      quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_003
+    ai_tags:
+      inferred: true
+      confidence: low
+      needs_human_review: true
+      notes:
+      - Character bible profile is a deterministic shell and requires human review.
+  - id: char_002
+    name: 周澈
+    aliases: []
+    want:
+      text: ''
+      source_trace:
+      - chapter_id: ch_002
+        paragraph_ids:
+        - p_001
+        quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_003
+      - chapter_id: ch_003
+        paragraph_ids:
+        - p_001
+        quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_005
+      ai_tags:
+        inferred: true
+        confidence: low
+        needs_human_review: true
+        notes:
+        - External want is not explicit in story_map.
+    need:
+      text: ''
+      source_trace:
+      - chapter_id: ch_002
+        paragraph_ids:
+        - p_001
+        quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_003
+      - chapter_id: ch_003
+        paragraph_ids:
+        - p_001
+        quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_005
+      ai_tags:
+        inferred: true
+        confidence: low
+        needs_human_review: true
+        notes:
+        - Internal need is not explicit in story_map.
+    flaw:
+      text: ''
+      source_trace:
+      - chapter_id: ch_002
+        paragraph_ids:
+        - p_001
+        quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_003
+      - chapter_id: ch_003
+        paragraph_ids:
+        - p_001
+        quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_005
+      ai_tags:
+        inferred: true
+        confidence: low
+        needs_human_review: true
+        notes:
+        - Character flaw is not explicit in story_map.
+    relationships:
+    - character_id: char_001
+      relationship_type: co_occurs_in_event
+      description: Relationship is only evidenced by co-occurrence in a key event.
+      source_trace:
+      - chapter_id: ch_002
+        paragraph_ids:
+        - p_001
+        quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_003
+      ai_tags:
+        inferred: true
+        confidence: low
+        needs_human_review: true
+        notes:
+        - Co-occurrence is not a confirmed relationship and requires review.
+    - character_id: char_003
+      relationship_type: co_occurs_in_event
+      description: Relationship is only evidenced by co-occurrence in a key event.
+      source_trace:
+      - chapter_id: ch_003
+        paragraph_ids:
+        - p_001
+        quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_005
+      ai_tags:
+        inferred: true
+        confidence: low
+        needs_human_review: true
+        notes:
+        - Co-occurrence is not a confirmed relationship and requires review.
+    voice:
+      summary: ''
+      dialogue_rules: []
+      source_trace:
+      - chapter_id: ch_002
+        paragraph_ids:
+        - p_001
+        quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_003
+      - chapter_id: ch_003
+        paragraph_ids:
+        - p_001
+        quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_005
+      ai_tags:
+        inferred: true
+        confidence: low
+        needs_human_review: true
+        notes:
+        - Voice evidence is limited to source event participation; no full voice model
+          is generated.
+    arc:
+      start: ''
+      turning_points:
+      - event_id: evt_003
+        description: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把信递给他，周澈沉默很久，只说当年最后见过她父亲的人并不只有他。
+      - event_id: evt_005
+        description: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只旧录音机交给她，里面有她父亲最后的留言：船不是回来，是在找替身。
+      end: ''
+      source_trace:
+      - chapter_id: ch_002
+        paragraph_ids:
+        - p_001
+        quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_003
+      - chapter_id: ch_003
+        paragraph_ids:
+        - p_001
+        quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_005
+      ai_tags:
+        inferred: true
+        confidence: low
+        needs_human_review: true
+        notes:
+        - Arc is a placeholder linked to visible key events, not a complete psychological
+          inference.
+    locked: false
+    source_trace:
+    - chapter_id: ch_002
+      paragraph_ids:
+      - p_001
+      quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_003
+    - chapter_id: ch_003
+      paragraph_ids:
+      - p_001
+      quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_005
+    ai_tags:
+      inferred: true
+      confidence: low
+      needs_human_review: true
+      notes:
+      - Character bible profile is a deterministic shell and requires human review.
+  - id: char_003
+    name: 镇长
+    aliases: []
+    want:
+      text: ''
+      source_trace:
+      - chapter_id: ch_003
+        paragraph_ids:
+        - p_001
+        quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_005
+      ai_tags:
+        inferred: true
+        confidence: low
+        needs_human_review: true
+        notes:
+        - External want is not explicit in story_map.
+    need:
+      text: ''
+      source_trace:
+      - chapter_id: ch_003
+        paragraph_ids:
+        - p_001
+        quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_005
+      ai_tags:
+        inferred: true
+        confidence: low
+        needs_human_review: true
+        notes:
+        - Internal need is not explicit in story_map.
+    flaw:
+      text: ''
+      source_trace:
+      - chapter_id: ch_003
+        paragraph_ids:
+        - p_001
+        quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_005
+      ai_tags:
+        inferred: true
+        confidence: low
+        needs_human_review: true
+        notes:
+        - Character flaw is not explicit in story_map.
+    relationships:
+    - character_id: char_001
+      relationship_type: co_occurs_in_event
+      description: Relationship is only evidenced by co-occurrence in a key event.
+      source_trace:
+      - chapter_id: ch_003
+        paragraph_ids:
+        - p_001
+        quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_005
+      ai_tags:
+        inferred: true
+        confidence: low
+        needs_human_review: true
+        notes:
+        - Co-occurrence is not a confirmed relationship and requires review.
+    - character_id: char_002
+      relationship_type: co_occurs_in_event
+      description: Relationship is only evidenced by co-occurrence in a key event.
+      source_trace:
+      - chapter_id: ch_003
+        paragraph_ids:
+        - p_001
+        quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_005
+      ai_tags:
+        inferred: true
+        confidence: low
+        needs_human_review: true
+        notes:
+        - Co-occurrence is not a confirmed relationship and requires review.
+    voice:
+      summary: ''
+      dialogue_rules: []
+      source_trace:
+      - chapter_id: ch_003
+        paragraph_ids:
+        - p_001
+        quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_005
+      ai_tags:
+        inferred: true
+        confidence: low
+        needs_human_review: true
+        notes:
+        - Voice evidence is limited to source event participation; no full voice model
+          is generated.
+    arc:
+      start: ''
+      turning_points:
+      - event_id: evt_005
+        description: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只旧录音机交给她，里面有她父亲最后的留言：船不是回来，是在找替身。
+      end: ''
+      source_trace:
+      - chapter_id: ch_003
+        paragraph_ids:
+        - p_001
+        quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+        note: 动作或状态变化关键词命中
+        event_ids:
+        - evt_005
+      ai_tags:
+        inferred: true
+        confidence: low
+        needs_human_review: true
+        notes:
+        - Arc is a placeholder linked to visible key events, not a complete psychological
+          inference.
+    locked: false
+    source_trace:
+    - chapter_id: ch_003
+      paragraph_ids:
+      - p_001
+      quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_005
+    ai_tags:
+      inferred: true
+      confidence: low
+      needs_human_review: true
+      notes:
+      - Character bible profile is a deterministic shell and requires human review.
+  uncertainties:
+  - id: cb_unc_001
+    character_id: char_001
+    category: weak_want_evidence
+    description: External want is not explicit enough for deterministic confirmation.
+    source_trace:
+    - chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_001
+    - chapter_id: ch_001
+      paragraph_ids:
+      - p_002
+      quote_preview: 信封上写着她父亲的名字。父亲七年前出海失踪，镇上的人早已不再提起。林岚拆开信，…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_002
+    - chapter_id: ch_002
+      paragraph_ids:
+      - p_001
+      quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_003
+    severity: low
+    suggested_resolution: Review source text before using this field in scene generation.
+  - id: cb_unc_002
+    character_id: char_001
+    category: weak_need_evidence
+    description: Internal need is not explicit enough for deterministic confirmation.
+    source_trace:
+    - chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_001
+    - chapter_id: ch_001
+      paragraph_ids:
+      - p_002
+      quote_preview: 信封上写着她父亲的名字。父亲七年前出海失踪，镇上的人早已不再提起。林岚拆开信，…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_002
+    - chapter_id: ch_002
+      paragraph_ids:
+      - p_001
+      quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_003
+    severity: low
+    suggested_resolution: Review source text before using this field in scene generation.
+  - id: cb_unc_003
+    character_id: char_001
+    category: weak_voice_evidence
+    description: Voice rules are not explicit enough for deterministic confirmation.
+    source_trace:
+    - chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_001
+    - chapter_id: ch_001
+      paragraph_ids:
+      - p_002
+      quote_preview: 信封上写着她父亲的名字。父亲七年前出海失踪，镇上的人早已不再提起。林岚拆开信，…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_002
+    - chapter_id: ch_002
+      paragraph_ids:
+      - p_001
+      quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_003
+    severity: low
+    suggested_resolution: Review source text before using this field in scene generation.
+  - id: cb_unc_004
+    character_id: char_002
+    category: weak_want_evidence
+    description: External want is not explicit enough for deterministic confirmation.
+    source_trace:
+    - chapter_id: ch_002
+      paragraph_ids:
+      - p_001
+      quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_003
+    - chapter_id: ch_003
+      paragraph_ids:
+      - p_001
+      quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_005
+    severity: low
+    suggested_resolution: Review source text before using this field in scene generation.
+  - id: cb_unc_005
+    character_id: char_002
+    category: weak_need_evidence
+    description: Internal need is not explicit enough for deterministic confirmation.
+    source_trace:
+    - chapter_id: ch_002
+      paragraph_ids:
+      - p_001
+      quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_003
+    - chapter_id: ch_003
+      paragraph_ids:
+      - p_001
+      quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_005
+    severity: low
+    suggested_resolution: Review source text before using this field in scene generation.
+  - id: cb_unc_006
+    character_id: char_002
+    category: weak_voice_evidence
+    description: Voice rules are not explicit enough for deterministic confirmation.
+    source_trace:
+    - chapter_id: ch_002
+      paragraph_ids:
+      - p_001
+      quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_003
+    - chapter_id: ch_003
+      paragraph_ids:
+      - p_001
+      quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_005
+    severity: low
+    suggested_resolution: Review source text before using this field in scene generation.
+  - id: cb_unc_007
+    character_id: char_003
+    category: weak_want_evidence
+    description: External want is not explicit enough for deterministic confirmation.
+    source_trace:
+    - chapter_id: ch_003
+      paragraph_ids:
+      - p_001
+      quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_005
+    severity: low
+    suggested_resolution: Review source text before using this field in scene generation.
+  - id: cb_unc_008
+    character_id: char_003
+    category: weak_need_evidence
+    description: Internal need is not explicit enough for deterministic confirmation.
+    source_trace:
+    - chapter_id: ch_003
+      paragraph_ids:
+      - p_001
+      quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_005
+    severity: low
+    suggested_resolution: Review source text before using this field in scene generation.
+  - id: cb_unc_009
+    character_id: char_003
+    category: weak_voice_evidence
+    description: Voice rules are not explicit enough for deterministic confirmation.
+    source_trace:
+    - chapter_id: ch_003
+      paragraph_ids:
+      - p_001
+      quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_005
+    severity: low
+    suggested_resolution: Review source text before using this field in scene generation.

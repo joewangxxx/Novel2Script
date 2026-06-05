@@ -54,3 +54,51 @@ as parser code during Phase 3A:
 - QA may add validation tests after implementation artifacts exist.
 - FE and BE must not silently edit the frozen contract to fit implementation
   convenience. They must open a change request instead.
+
+## Phase 4A Files
+
+- `schemas/outline.schema.json`: draft JSON Schema for the Stage 4 outline
+  contract.
+- `schemas/character_bible.schema.json`: draft JSON Schema for the Stage 4
+  character bible contract.
+- `docs/dev/PHASE_4_OUTLINE_AND_CHARACTER_BIBLE.md`: Stage 4 contract notes,
+  source trace rules, low-confidence policy, and implementation plan.
+- `docs/architecture/schema.md`: cross-phase schema notes updated with Stage 4
+  contracts.
+- `docs/architecture/folder-plan.md`: this file, updated with Stage 4 file
+  ownership and planned implementation files.
+
+## Planned Phase 4 Implementation Files
+
+These files are planned for a later implementation task and must not be created
+as generator code during Phase 4A:
+
+- `src/novel2script/planning/__init__.py`: planning package marker.
+- `src/novel2script/planning/outline_builder.py`: deterministic outline shell
+  creation from `story_map`.
+- `src/novel2script/planning/character_bible_builder.py`: deterministic
+  character bible shell creation from `story_map.characters_detected`.
+- `src/novel2script/planning/source_coverage.py`: coverage helper comparing
+  `story_map.key_events` against outline scene/event usage.
+- `tests/test_outline_schema.py`: schema tests for valid and invalid outline
+  samples.
+- `tests/test_character_bible_schema.py`: schema tests for valid and invalid
+  character bible samples.
+- `tests/test_phase4_planning.py`: deterministic Stage 4B planning behavior
+  tests.
+- `examples/output/generated_outline.yaml`: public sample outline from the
+  synthetic story map.
+- `examples/output/generated_character_bible.yaml`: public sample character
+  bible from the synthetic story map.
+
+## Phase 4 Ownership And Gates
+
+- Architecture owns `schemas/outline.schema.json`,
+  `schemas/character_bible.schema.json`, and Stage 4 contract changes.
+- BE/planning implementation may add generator modules only after this draft
+  contract is accepted or prototype mode is explicitly declared by the parent
+  orchestrator.
+- QA may add Stage 4 validation tests after implementation artifacts exist.
+- Later generators must preserve `source_trace`, `ai_tags`, and `locked`
+  semantics. After freeze, schema/API changes require architecture change
+  requests.
