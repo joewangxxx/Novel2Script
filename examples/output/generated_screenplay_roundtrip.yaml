@@ -1,0 +1,732 @@
+schema_version: 0.1.0
+metadata:
+  title: 雾里的钟声
+  language: zh-CN
+  created_by: Novel2Script stage-five deterministic generator
+  created_at: '2026-06-05'
+  semantic_fields_stale: true
+  roundtrip:
+    imported_at: '2026-06-05'
+    fountain_file: C:\Users\JoeWang\AppData\Local\Temp\novel2script_stage7d\edited.fountain
+    map_file: C:\Users\JoeWang\AppData\Local\Temp\novel2script_stage7d\edited.fountain.map.json
+    applied_changes: 2
+source:
+  type: novel
+  chapter_count: 3
+  trace_unit: chapter_paragraph
+  story_map_file: examples/output/generated_story_map.yaml
+  outline_file: examples/output/generated_outline.yaml
+  character_bible_file: examples/output/generated_character_bible.yaml
+  source_trace_strategy: numeric_plus_ids
+adaptation_policy:
+  target_format: short_screenplay
+  allow_inference: true
+  preserve_source_order: true
+  generator_profile: deterministic_screenplay_builder_v0
+characters:
+- id: char_001
+  name: 林岚
+  role: ''
+  source_trace:
+    chapter: 1
+    paragraph_range:
+    - 1
+    - 1
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_001
+    paragraph_ids:
+    - p_001
+    event_ids:
+    - evt_001
+    - evt_002
+    - evt_003
+    quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_002
+  name: 周澈
+  role: ''
+  source_trace:
+    chapter: 2
+    paragraph_range:
+    - 1
+    - 1
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_002
+    paragraph_ids:
+    - p_001
+    event_ids:
+    - evt_003
+    - evt_005
+    quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_003
+  name: 镇长
+  role: ''
+  source_trace:
+    chapter: 3
+    paragraph_range:
+    - 1
+    - 1
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_003
+    paragraph_ids:
+    - p_001
+    event_ids:
+    - evt_005
+    quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+scenes:
+- id: scene_001
+  heading: INT./EXT. ?? - ??
+  location: 邮局
+  time: 连续三晚
+  source_trace:
+    chapter: 1
+    paragraph_range:
+    - 1
+    - 1
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_001
+    paragraph_ids:
+    - p_001
+    event_ids:
+    - evt_001
+    outline_scene_ids:
+    - osp_001
+    quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+    note: 动作或状态变化关键词命中
+  source_outline_scene_id: osp_001
+  source_event_ids:
+  - evt_001
+  beats:
+  - id: beat_001
+    objective: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她以为是风，直到柜台下方滑出一封没有邮票的蓝色信封。
+    tactic: 'Use visible source action: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她以为是风，直到柜台下方滑出一封没有邮票的蓝色信封。'
+    obstacle: Source evidence is incomplete or requires adaptation review.
+    conflict: The visible scene action must be shaped into screen conflict without
+      adding unsupported facts.
+    stakes: Review the source event consequence before treating stakes as canon.
+    turn: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她以为是风，直到柜台下方滑出一封没有邮票的蓝色信封。
+    externalized_action: 后续改编时需要判断是否外化为可拍摄行动。
+    source_trace:
+      chapter: 1
+      paragraph_range:
+      - 1
+      - 1
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      event_ids:
+      - evt_001
+      outline_scene_ids:
+      - osp_001
+      quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Beat fields are deterministic adaptation scaffolding and require human review.
+  elements:
+  - type: action
+    text: ?????????????????????
+    source_trace:
+      chapter: 1
+      paragraph_range:
+      - 1
+      - 1
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      event_ids:
+      - evt_001
+      outline_scene_ids:
+      - osp_001
+      quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Action element is derived from key_event or outline purpose.
+  - type: note
+    text: Review this deterministic scene draft before treating it as final screenplay
+      prose.
+    source_trace:
+      chapter: 1
+      paragraph_range:
+      - 1
+      - 1
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      event_ids:
+      - evt_001
+      outline_scene_ids:
+      - osp_001
+      quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: low
+      needs_human_review: true
+      notes:
+      - Note element records adaptation uncertainty instead of inventing dialogue.
+- id: scene_002
+  heading: INT./EXT. 灯塔 - 七年前
+  location: 灯塔
+  time: 七年前
+  source_trace:
+    chapter: 1
+    paragraph_range:
+    - 2
+    - 2
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_001
+    paragraph_ids:
+    - p_002
+    event_ids:
+    - evt_002
+    outline_scene_ids:
+    - osp_002
+    quote_preview: 信封上写着她父亲的名字。父亲七年前出海失踪，镇上的人早已不再提起。林岚拆开信，…
+    note: 动作或状态变化关键词命中
+  source_outline_scene_id: osp_002
+  source_event_ids:
+  - evt_002
+  beats:
+  - id: beat_002
+    objective: 信封上写着她父亲的名字。父亲七年前出海失踪，镇上的人早已不再提起。林岚拆开信，里面只有一句话：如果灯塔亮起，别让他们上船。
+    tactic: 'Use visible source action: 信封上写着她父亲的名字。父亲七年前出海失踪，镇上的人早已不再提起。林岚拆开信，里面只有一句话：如果灯塔亮起，别让他们上船。'
+    obstacle: Source evidence is incomplete or requires adaptation review.
+    conflict: The visible scene action must be shaped into screen conflict without
+      adding unsupported facts.
+    stakes: Review the source event consequence before treating stakes as canon.
+    turn: 信封上写着她父亲的名字。父亲七年前出海失踪，镇上的人早已不再提起。林岚拆开信，里面只有一句话：如果灯塔亮起，别让他们上船。
+    externalized_action: 信封上写着她父亲的名字。父亲七年前出海失踪，镇上的人早已不再提起。林岚拆开信，里面只有一句话：如果灯塔亮起，别让他们上船。
+    source_trace:
+      chapter: 1
+      paragraph_range:
+      - 2
+      - 2
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_002
+      event_ids:
+      - evt_002
+      outline_scene_ids:
+      - osp_002
+      quote_preview: 信封上写着她父亲的名字。父亲七年前出海失踪，镇上的人早已不再提起。林岚拆开信，…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Beat fields are deterministic adaptation scaffolding and require human review.
+  elements:
+  - type: action
+    text: 信封上写着她父亲的名字。父亲七年前出海失踪，镇上的人早已不再提起。林岚拆开信，里面只有一句话：如果灯塔亮起，别让他们上船。
+    source_trace:
+      chapter: 1
+      paragraph_range:
+      - 2
+      - 2
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_002
+      event_ids:
+      - evt_002
+      outline_scene_ids:
+      - osp_002
+      quote_preview: 信封上写着她父亲的名字。父亲七年前出海失踪，镇上的人早已不再提起。林岚拆开信，…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Action element is derived from key_event or outline purpose.
+  - type: note
+    text: Review this deterministic scene draft before treating it as final screenplay
+      prose.
+    source_trace:
+      chapter: 1
+      paragraph_range:
+      - 2
+      - 2
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_002
+      event_ids:
+      - evt_002
+      outline_scene_ids:
+      - osp_002
+      quote_preview: 信封上写着她父亲的名字。父亲七年前出海失踪，镇上的人早已不再提起。林岚拆开信，…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: low
+      needs_human_review: true
+      notes:
+      - Note element records adaptation uncertainty instead of inventing dialogue.
+- id: scene_003
+  heading: INT./EXT. 邮局 - 第二天傍晚
+  location: 邮局
+  time: 第二天傍晚
+  source_trace:
+    chapter: 2
+    paragraph_range:
+    - 1
+    - 1
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_002
+    paragraph_ids:
+    - p_001
+    event_ids:
+    - evt_003
+    outline_scene_ids:
+    - osp_003
+    quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+    note: 动作或状态变化关键词命中
+  source_outline_scene_id: osp_003
+  source_event_ids:
+  - evt_003
+  beats:
+  - id: beat_003
+    objective: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把信递给他，周澈沉默很久，只说当年最后见过她父亲的人并不只有他。
+    tactic: 'Use visible source action: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把信递给他，周澈沉默很久，只说当年最后见过她父亲的人并不只有他。'
+    obstacle: Source evidence is incomplete or requires adaptation review.
+    conflict: The visible scene action must be shaped into screen conflict without
+      adding unsupported facts.
+    stakes: Review the source event consequence before treating stakes as canon.
+    turn: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把信递给他，周澈沉默很久，只说当年最后见过她父亲的人并不只有他。
+    externalized_action: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把信递给他，周澈沉默很久，只说当年最后见过她父亲的人并不只有他。
+    source_trace:
+      chapter: 2
+      paragraph_range:
+      - 1
+      - 1
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_001
+      event_ids:
+      - evt_003
+      outline_scene_ids:
+      - osp_003
+      quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Beat fields are deterministic adaptation scaffolding and require human review.
+  elements:
+  - type: action
+    text: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把信递给他，周澈沉默很久，只说当年最后见过她父亲的人并不只有他。
+    source_trace:
+      chapter: 2
+      paragraph_range:
+      - 1
+      - 1
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_001
+      event_ids:
+      - evt_003
+      outline_scene_ids:
+      - osp_003
+      quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Action element is derived from key_event or outline purpose.
+  - type: note
+    text: Review this deterministic scene draft before treating it as final screenplay
+      prose.
+    source_trace:
+      chapter: 2
+      paragraph_range:
+      - 1
+      - 1
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_001
+      event_ids:
+      - evt_003
+      outline_scene_ids:
+      - osp_003
+      quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: low
+      needs_human_review: true
+      notes:
+      - Note element records adaptation uncertainty instead of inventing dialogue.
+- id: scene_004
+  heading: INT./EXT. 灯塔 - 夜里
+  location: 灯塔
+  time: 夜里
+  source_trace:
+    chapter: 2
+    paragraph_range:
+    - 2
+    - 2
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_002
+    paragraph_ids:
+    - p_002
+    event_ids:
+    - evt_004
+    outline_scene_ids:
+    - osp_004
+    quote_preview: 夜里，远处废弃灯塔突然亮了。雾像被光切开，一艘没有编号的旧船停在礁石外。船上有…
+    note: 动作或状态变化关键词命中
+  source_outline_scene_id: osp_004
+  source_event_ids:
+  - evt_004
+  beats:
+  - id: beat_004
+    objective: 夜里，远处废弃灯塔突然亮了。雾像被光切开，一艘没有编号的旧船停在礁石外。船上有人影挥手，像是在招呼镇民靠近。
+    tactic: 'Use visible source action: 夜里，远处废弃灯塔突然亮了。雾像被光切开，一艘没有编号的旧船停在礁石外。船上有人影挥手，像是在招呼镇民靠近。'
+    obstacle: Source evidence is incomplete or requires adaptation review.
+    conflict: The visible scene action must be shaped into screen conflict without
+      adding unsupported facts.
+    stakes: Review the source event consequence before treating stakes as canon.
+    turn: 夜里，远处废弃灯塔突然亮了。雾像被光切开，一艘没有编号的旧船停在礁石外。船上有人影挥手，像是在招呼镇民靠近。
+    externalized_action: 夜里，远处废弃灯塔突然亮了。雾像被光切开，一艘没有编号的旧船停在礁石外。船上有人影挥手，像是在招呼镇民靠近。
+    source_trace:
+      chapter: 2
+      paragraph_range:
+      - 2
+      - 2
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_002
+      event_ids:
+      - evt_004
+      outline_scene_ids:
+      - osp_004
+      quote_preview: 夜里，远处废弃灯塔突然亮了。雾像被光切开，一艘没有编号的旧船停在礁石外。船上有…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Beat fields are deterministic adaptation scaffolding and require human review.
+  elements:
+  - type: action
+    text: 夜里，远处废弃灯塔突然亮了。雾像被光切开，一艘没有编号的旧船停在礁石外。船上有人影挥手，像是在招呼镇民靠近。
+    source_trace:
+      chapter: 2
+      paragraph_range:
+      - 2
+      - 2
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_002
+      event_ids:
+      - evt_004
+      outline_scene_ids:
+      - osp_004
+      quote_preview: 夜里，远处废弃灯塔突然亮了。雾像被光切开，一艘没有编号的旧船停在礁石外。船上有…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Action element is derived from key_event or outline purpose.
+  - type: note
+    text: Review this deterministic scene draft before treating it as final screenplay
+      prose.
+    source_trace:
+      chapter: 2
+      paragraph_range:
+      - 2
+      - 2
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_002
+      event_ids:
+      - evt_004
+      outline_scene_ids:
+      - osp_004
+      quote_preview: 夜里，远处废弃灯塔突然亮了。雾像被光切开，一艘没有编号的旧船停在礁石外。船上有…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: low
+      needs_human_review: true
+      notes:
+      - Note element records adaptation uncertainty instead of inventing dialogue.
+- id: scene_005
+  heading: INT./EXT. 码头 - TIME UNKNOWN
+  location: 码头
+  time: ''
+  source_trace:
+    chapter: 3
+    paragraph_range:
+    - 1
+    - 1
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_003
+    paragraph_ids:
+    - p_001
+    event_ids:
+    - evt_005
+    outline_scene_ids:
+    - osp_005
+    quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+    note: 动作或状态变化关键词命中
+  source_outline_scene_id: osp_005
+  source_event_ids:
+  - evt_005
+  beats:
+  - id: beat_005
+    objective: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只旧录音机交给她，里面有她父亲最后的留言：船不是回来，是在找替身。
+    tactic: 'Use visible source action: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只旧录音机交给她，里面有她父亲最后的留言：船不是回来，是在找替身。'
+    obstacle: Source evidence is incomplete or requires adaptation review.
+    conflict: The visible scene action must be shaped into screen conflict without
+      adding unsupported facts.
+    stakes: Review the source event consequence before treating stakes as canon.
+    turn: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只旧录音机交给她，里面有她父亲最后的留言：船不是回来，是在找替身。
+    externalized_action: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只旧录音机交给她，里面有她父亲最后的留言：船不是回来，是在找替身。
+    source_trace:
+      chapter: 3
+      paragraph_range:
+      - 1
+      - 1
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_001
+      event_ids:
+      - evt_005
+      outline_scene_ids:
+      - osp_005
+      quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Beat fields are deterministic adaptation scaffolding and require human review.
+  elements:
+  - type: action
+    text: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只旧录音机交给她，里面有她父亲最后的留言：船不是回来，是在找替身。
+    source_trace:
+      chapter: 3
+      paragraph_range:
+      - 1
+      - 1
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_001
+      event_ids:
+      - evt_005
+      outline_scene_ids:
+      - osp_005
+      quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Action element is derived from key_event or outline purpose.
+  - type: note
+    text: Review this deterministic scene draft before treating it as final screenplay
+      prose.
+    source_trace:
+      chapter: 3
+      paragraph_range:
+      - 1
+      - 1
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_001
+      event_ids:
+      - evt_005
+      outline_scene_ids:
+      - osp_005
+      quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: low
+      needs_human_review: true
+      notes:
+      - Note element records adaptation uncertainty instead of inventing dialogue.
+- id: scene_006
+  heading: INT./EXT. 灯塔 - TIME UNKNOWN
+  location: 灯塔
+  time: ''
+  source_trace:
+    chapter: 3
+    paragraph_range:
+    - 2
+    - 2
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_003
+    paragraph_ids:
+    - p_002
+    event_ids:
+    - evt_006
+    outline_scene_ids:
+    - osp_006
+    quote_preview: 林岚冲进钟楼，敲响旧钟。钟声压过海浪，灯塔的光忽然熄灭。旧船在雾中后退，甲板上…
+    note: 动作或状态变化关键词命中
+  source_outline_scene_id: osp_006
+  source_event_ids:
+  - evt_006
+  beats:
+  - id: beat_006
+    objective: 林岚冲进钟楼，敲响旧钟。钟声压过海浪，灯塔的光忽然熄灭。旧船在雾中后退，甲板上的人影同时转身，看向她。
+    tactic: 'Use visible source action: 林岚冲进钟楼，敲响旧钟。钟声压过海浪，灯塔的光忽然熄灭。旧船在雾中后退，甲板上的人影同时转身，看向她。'
+    obstacle: Source evidence is incomplete or requires adaptation review.
+    conflict: The visible scene action must be shaped into screen conflict without
+      adding unsupported facts.
+    stakes: Review the source event consequence before treating stakes as canon.
+    turn: 林岚冲进钟楼，敲响旧钟。钟声压过海浪，灯塔的光忽然熄灭。旧船在雾中后退，甲板上的人影同时转身，看向她。
+    externalized_action: 林岚冲进钟楼，敲响旧钟。钟声压过海浪，灯塔的光忽然熄灭。旧船在雾中后退，甲板上的人影同时转身，看向她。
+    source_trace:
+      chapter: 3
+      paragraph_range:
+      - 2
+      - 2
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_002
+      event_ids:
+      - evt_006
+      outline_scene_ids:
+      - osp_006
+      quote_preview: 林岚冲进钟楼，敲响旧钟。钟声压过海浪，灯塔的光忽然熄灭。旧船在雾中后退，甲板上…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Beat fields are deterministic adaptation scaffolding and require human review.
+  elements:
+  - type: action
+    text: 林岚冲进钟楼，敲响旧钟。钟声压过海浪，灯塔的光忽然熄灭。旧船在雾中后退，甲板上的人影同时转身，看向她。
+    source_trace:
+      chapter: 3
+      paragraph_range:
+      - 2
+      - 2
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_002
+      event_ids:
+      - evt_006
+      outline_scene_ids:
+      - osp_006
+      quote_preview: 林岚冲进钟楼，敲响旧钟。钟声压过海浪，灯塔的光忽然熄灭。旧船在雾中后退，甲板上…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Action element is derived from key_event or outline purpose.
+  - type: note
+    text: Review this deterministic scene draft before treating it as final screenplay
+      prose.
+    source_trace:
+      chapter: 3
+      paragraph_range:
+      - 2
+      - 2
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_002
+      event_ids:
+      - evt_006
+      outline_scene_ids:
+      - osp_006
+      quote_preview: 林岚冲进钟楼，敲响旧钟。钟声压过海浪，灯塔的光忽然熄灭。旧船在雾中后退，甲板上…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: low
+      needs_human_review: true
+      notes:
+      - Note element records adaptation uncertainty instead of inventing dialogue.

@@ -198,3 +198,53 @@ Planned Stage 6 CLI and sample files:
   patches, overwrite screenplay YAML, or bypass human approval.
 - After contract freeze, FE, BE, QA, or tooling must not silently change review
   report, screenplay, outline, character bible, or story map contracts.
+
+## Phase 7A Files
+
+- `schemas/fountain_roundtrip_report.schema.json`: draft JSON Schema for
+  Fountain limited import/sync reports.
+- `docs/dev/PHASE_7_FOUNTAIN_LIMITED_ROUNDTRIP.md`: Stage 7 contract, safe
+  field boundary, map behavior, normalization rules, drift policy, and
+  implementation plan.
+- `docs/architecture/schema.md`: cross-phase schema notes updated with Stage 7
+  roundtrip contract.
+- `docs/architecture/folder-plan.md`: this file, updated with Stage 7 file
+  ownership and planned implementation files.
+
+Phase 7A intentionally does not create importer code, does not implement a full
+Fountain parser, does not call LLMs, and does not modify
+`schemas/screenplay.schema.json`.
+
+## Planned Phase 7 Implementation Files
+
+These files are planned for later Stage 7 implementation work and must not be
+created during Phase 7A:
+
+- `src/novel2script/importers/__init__.py`: importer package marker.
+- `src/novel2script/importers/fountain_roundtrip.py`: deterministic limited
+  Fountain sync from mapped line ranges into safe screenplay YAML text fields.
+- `tests/test_fountain_roundtrip.py`: unit tests for heading, action,
+  dialogue, parenthetical, transition, unsafe path, and line drift behavior.
+- `tests/test_fountain_roundtrip_cli.py`: CLI tests for future
+  `import-fountain` behavior.
+- `examples/output/generated_screenplay_roundtrip.yaml`: public sample synced
+  screenplay created only after Stage 7B implementation.
+- `examples/output/generated_fountain_roundtrip_report.yaml`: public sample
+  import report created only after Stage 7B implementation.
+
+## Phase 7 Ownership And Gates
+
+- Architecture owns `schemas/fountain_roundtrip_report.schema.json` and any
+  roundtrip contract change request.
+- BE/importer implementation may add importer modules only after the Phase 7A
+  contract is accepted or prototype mode is explicitly declared by the parent
+  orchestrator.
+- QA may add Stage 7 validation and regression tests after implementation
+  artifacts exist.
+- Importers may update only `scenes[i].heading`,
+  `scenes[i].elements[j].text`, and allowed roundtrip metadata.
+- Importers must not guess repairs for line drift, structure changes, unsafe
+  paths, or map mismatch.
+- After contract freeze, FE, BE, QA, or tooling must not silently change
+  roundtrip report, review report, screenplay, outline, character bible, or
+  story map contracts.

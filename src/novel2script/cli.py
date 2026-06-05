@@ -6,6 +6,7 @@ from typing import Sequence
 
 from novel2script.exporters.fountain_exporter import export_fountain
 from novel2script.generators.screenplay_builder import build_screenplay
+from novel2script.importers.fountain_importer import sync_fountain_to_yaml
 from novel2script.io import read_text, read_yaml, write_yaml
 from novel2script.parsers.novel_parser import parse_novel_text
 from novel2script.planners.character_bible_builder import build_character_bible
@@ -27,6 +28,13 @@ def main(argv: Sequence[str] | None = None) -> int:
     export_parser.add_argument("yaml_path")
     export_parser.add_argument("--out", required=True)
     export_parser.add_argument("--map", dest="map_path")
+
+    import_parser = subparsers.add_parser("import-fountain")
+    import_parser.add_argument("--screenplay", required=True)
+    import_parser.add_argument("--fountain", required=True)
+    import_parser.add_argument("--map", required=True, dest="map_path")
+    import_parser.add_argument("--out", required=True)
+    import_parser.add_argument("--report", required=True)
 
     parse_novel_parser = subparsers.add_parser("parse-novel")
     parse_novel_parser.add_argument("input_path")
@@ -60,6 +68,19 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0 if report["overall_passed"] else 1
     if args.command == "export-fountain":
         export_fountain(args.yaml_path, args.out, args.map_path)
+        return 0
+    if args.command == "import-fountain":
+        try:
+            sync_fountain_to_yaml(
+                args.screenplay,
+                args.fountain,
+                args.map_path,
+                args.out,
+                args.report,
+            )
+        except OSError as exc:
+            print(f"import-fountain failed: {exc}", file=sys.stderr)
+            return 1
         return 0
     if args.command == "parse-novel":
         try:

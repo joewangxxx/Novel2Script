@@ -1,7 +1,7 @@
 phase: qa
-goal: "Complete Stage 6 deterministic multi-agent review."
+goal: "Complete Stage 7 Fountain limited roundtrip."
 ready_for:
-  - stage_7_fountain_limited_roundtrip
+  - stage_8_quality_eval_dashboard
 blocked_by: []
 artifacts:
   prd: null
@@ -47,6 +47,13 @@ artifacts:
   reviewer_tests: "tests/test_character_consistency_reviewer.py; tests/test_pacing_reviewer.py; tests/test_dialogue_naturalness_reviewer.py; tests/test_shootability_reviewer.py; tests/test_review_report.py"
   review_cli_tests: "tests/test_review_cli.py"
   generated_review_report: "examples/output/generated_review_report.yaml"
+  fountain_roundtrip_report_schema: "schemas/fountain_roundtrip_report.schema.json"
+  phase_7_plan: "docs/dev/PHASE_7_FOUNTAIN_LIMITED_ROUNDTRIP.md"
+  fountain_importer: "src/novel2script/importers/fountain_importer.py"
+  fountain_importer_tests: "tests/test_fountain_importer.py"
+  fountain_roundtrip_cli_tests: "tests/test_fountain_roundtrip_cli.py"
+  generated_screenplay_roundtrip: "examples/output/generated_screenplay_roundtrip.yaml"
+  generated_screenplay_roundtrip_report: "examples/output/generated_screenplay_roundtrip_report.yaml"
   design_notes: null
   qa_report: "docs/qa/report.md"
   release_notes: null
@@ -54,7 +61,7 @@ contract_status:
   state: draft
   frozen_at: null
   change_requests_dir: "docs/architecture/change-requests"
-  current_contract: "screenplay 0.1.0 draft; outline 0.1.0 draft; character_bible 0.1.0 draft; review_report 0.1.0 draft"
+  current_contract: "screenplay 0.1.0 draft; outline 0.1.0 draft; character_bible 0.1.0 draft; review_report 0.1.0 draft; fountain_roundtrip_report 0.1.0 draft"
 retries:
   fe: 0
   be: 0
@@ -64,7 +71,7 @@ max_retries:
   be: 2
   qa: 2
 last_actor: parent_orchestrator
-last_updated: "2026-06-05T15:25:25+08:00"
+last_updated: "2026-06-05T17:17:37+08:00"
 history:
   - at: "2026-06-05T00:00:00+08:00"
     actor: parent_orchestrator
@@ -117,3 +124,15 @@ history:
   - at: "2026-06-05T15:25:25+08:00"
     actor: parent_orchestrator
     event: "Stage 6 deterministic multi-agent review QA completed."
+  - at: "2026-06-05T17:03:50+08:00"
+    actor: parent_orchestrator
+    event: "Stage 7A Fountain limited roundtrip contract and implementation boundary defined."
+  - at: "2026-06-05T17:08:37+08:00"
+    actor: parent_orchestrator
+    event: "Stage 7B deterministic Fountain limited importer core implemented."
+  - at: "2026-06-05T17:13:13+08:00"
+    actor: parent_orchestrator
+    event: "Stage 7C import-fountain CLI integration and roundtrip sample outputs completed."
+  - at: "2026-06-05T17:17:37+08:00"
+    actor: parent_orchestrator
+    event: "Stage 7 Fountain limited roundtrip QA completed."

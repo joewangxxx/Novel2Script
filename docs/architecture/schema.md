@@ -404,3 +404,88 @@ The Stage 6A contract remains draft. After a future freeze:
   `docs/architecture/change-requests/`.
 - Reviewers may emit only advisory patch suggestions; direct screenplay writes
   require a separate human-approved application flow.
+
+## Phase 7 Fountain Limited Roundtrip
+
+Phase 7 defines a limited Fountain import/sync contract. It lets users edit an
+already exported Fountain file and sync only safe, mapped text fields back into
+screenplay YAML. It is not a full Fountain parser and cannot create screenplay
+YAML from arbitrary Fountain.
+
+The report schema file is `schemas/fountain_roundtrip_report.schema.json`. The
+initial contract version is `0.1.0`.
+
+### Existing Fountain Map
+
+The current Fountain export sidecar has this shape:
+
+```json
+{
+  "source_yaml": "examples/output/generated_screenplay.yaml",
+  "fountain_file": "examples/output/generated_screenplay.fountain",
+  "mappings": [
+    {
+      "line_start": 5,
+      "line_end": 5,
+      "scene_id": "scene_001",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[0].heading"
+    }
+  ]
+}
+```
+
+`mappings[]` is the authority for limited import. The importer may consider only
+mapped ranges whose `yaml_path` targets one of these safe fields:
+
+- `scenes[i].heading`
+- `scenes[i].elements[j].text`
+
+The importer must not modify source traces, beats, characters,
+`adaptation_policy`, or existing factual `ai_tags` values.
+
+### Roundtrip Report
+
+Every import attempt must produce a report:
+
+```yaml
+fountain_roundtrip_report:
+  schema_version: "0.1.0"
+  source_yaml: "examples/output/generated_screenplay.yaml"
+  fountain_file: "examples/output/generated_screenplay.fountain"
+  map_file: "examples/output/generated_screenplay.fountain.map.json"
+  generated_at: "2026-06-05"
+  status: "blocked"
+  summary:
+    mapped_regions: 12
+    changed_regions: 0
+    applied_changes: 0
+    skipped_changes: 0
+    blocking_issues: 1
+  line_policy:
+    expected_line_count: 22
+    actual_line_count: 23
+    line_drift_detected: true
+    map_match: false
+  changes: []
+  issues:
+    - id: "rt_issue_001"
+      severity: "high"
+      code: "line_drift"
+      message: "Fountain line count changed from baseline export."
+      action: "blocked"
+```
+
+When safe text changes are applied, the importer may add
+`metadata.semantic_fields_stale: true` and a `metadata.roundtrip` record because
+the screenplay schema permits additional metadata fields. That metadata marks
+beat semantics as potentially stale; it does not authorize updating beat fields.
+
+### Drift Policy
+
+Line drift, scene or element insertion/deletion, map mismatch, ordering changes,
+or unsafe paths must stop the global import or skip the affected range with a
+report issue. Implementations must not guess a repair. Dialogue, parenthetical,
+transition, and action normalization is limited to the mapped element text
+rules documented in `docs/dev/PHASE_7_FOUNTAIN_LIMITED_ROUNDTRIP.md`.
