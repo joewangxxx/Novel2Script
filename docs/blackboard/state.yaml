@@ -1,0 +1,53 @@
+phase: qa
+goal: "Complete Stage 3 deterministic novel parsing."
+ready_for:
+  - stage_4_outline_and_character_bible
+blocked_by: []
+artifacts:
+  prd: null
+  uat: null
+  api_contract: null
+  schema: "schemas/screenplay.schema.json"
+  story_map_schema: "schemas/story_map.schema.json"
+  architecture_schema_notes: "docs/architecture/schema.md"
+  folder_plan: "docs/architecture/folder-plan.md"
+  phase_3_plan: "docs/dev/PHASE_3_NOVEL_PARSING.md"
+  parser_module: "src/novel2script/parsers/novel_parser.py"
+  parser_tests: "tests/test_novel_parser.py"
+  parse_novel_cli_tests: "tests/test_parse_novel_cli.py"
+  generated_story_map: "examples/output/generated_story_map.yaml"
+  story_map: "examples/output/generated_story_map.yaml"
+  design_notes: null
+  qa_report: "docs/qa/report.md"
+  release_notes: null
+contract_status:
+  state: draft
+  frozen_at: null
+  change_requests_dir: "docs/architecture/change-requests"
+  current_contract: "story_map 0.1.0 draft"
+retries:
+  fe: 0
+  be: 0
+  qa: 0
+max_retries:
+  fe: 2
+  be: 2
+  qa: 2
+last_actor: parent_orchestrator
+last_updated: "2026-06-05T02:44:00+08:00"
+history:
+  - at: "2026-06-05T00:00:00+08:00"
+    actor: parent_orchestrator
+    event: "Initialized blackboard for Codex multi-agent workflow."
+  - at: "2026-06-05T02:30:32+08:00"
+    actor: parent_orchestrator
+    event: "Completed Phase 3A architecture draft for story_map contract, schema, folder plan, and novel parsing implementation plan."
+  - at: "2026-06-05T02:34:55+08:00"
+    actor: parent_orchestrator
+    event: "Completed Phase 3B fast_path implementation of deterministic Markdown/TXT novel parser and parser unit tests."
+  - at: "2026-06-05T02:39:34+08:00"
+    actor: parent_orchestrator
+    event: "Completed Phase 3C fast_path parse-novel CLI integration, generated story_map sample output, and phase documentation update."
+  - at: "2026-06-05T02:44:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 3 novel parsing QA completed."
