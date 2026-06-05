@@ -294,3 +294,113 @@ Stage 5 first drafts should prefer source-grounded `action` and `note`
 elements. Full dialogue generation remains out of scope unless the dialogue is
 explicitly present in source text or clearly marked as low-confidence
 adaptation.
+
+## Phase 6 Multi-Agent Review
+
+Phase 6 consumes the generated screenplay and upstream Stage 3/4 planning
+artifacts to produce a review report. The report is an advisory artifact only:
+it records issues, evidence, suggestions, and patch proposals, but it must not
+overwrite `screenplay.yaml` or any user draft.
+
+The schema file is `schemas/review_report.schema.json`. The initial contract
+version is `0.1.0`.
+
+```yaml
+review_report:
+  schema_version: "0.1.0"
+  source_screenplay: "examples/output/generated_screenplay.yaml"
+  source_artifacts:
+    story_map: "examples/output/generated_story_map.yaml"
+    outline: "examples/output/generated_outline.yaml"
+    character_bible: "examples/output/generated_character_bible.yaml"
+  generated_at: "2026-06-05"
+  review_profile: "deterministic_review_contract_v0"
+  reviewers:
+    - "character_consistency"
+    - "pacing"
+    - "dialogue_naturalness"
+    - "shootability"
+  summary:
+    total_issues: 0
+    by_severity:
+      low: 0
+      medium: 0
+      high: 0
+    blocking: false
+  issues: []
+```
+
+### Review Issue Contract
+
+Each issue targets exactly one screenplay, scene, beat, element, or character
+record. The issue must include severity, confidence, evidence, suggestion, and a
+suggested patch object:
+
+```yaml
+id: "issue_001"
+reviewer: "shootability"
+target_id: "beat_001"
+target:
+  type: "beat"
+  id: "beat_001"
+  yaml_path: "scenes[0].beats[0]"
+severity: "medium"
+confidence: "high"
+issue: "The beat contains an internal state without a visible action."
+evidence:
+  description: "The beat turn is supported by source trace, but action is vague."
+  source_trace:
+    chapter: 1
+    paragraph_range: [1, 1]
+  source_trace_ids:
+    chapter_id: "ch_001"
+    paragraph_ids: ["p_001"]
+    event_ids: ["evt_001"]
+    outline_scene_ids: ["osp_001"]
+suggestion: "Replace the internal-state wording with visible behavior."
+suggested_patch:
+  operation: "replace"
+  yaml_path: "scenes[0].beats[0].externalized_action"
+  value: "She closes the envelope and hides it under the lamp."
+requires_human_approval: true
+```
+
+`target_id` duplicates `target.id` for filtering and must match it. Evidence may
+carry the Stage 5 numeric `source_trace`, the Stage 3/4 stable
+`source_trace_ids`, or both. If a reviewer cannot attach a source trace, it must
+still provide a concrete `evidence.description`.
+
+Allowed patch operations are `replace`, `add`, and `note_only`. Suggested
+patches are never applied by reviewers. A later approval flow may accept or
+reject them, but Stage 6 itself must treat every patchable change as requiring
+human approval.
+
+### Reviewer Set
+
+The Stage 6A deterministic reviewer set is:
+
+- `character_consistency`: checks character ID validity, character bible
+  alignment, locked field consistency, and unsupported character introductions.
+- `pacing`: checks scene order, beat presence, source event coverage, turn and
+  stakes availability, and fixed-threshold density risks.
+- `dialogue_naturalness`: checks dialogue element validity, empty or excessive
+  dialogue, repeated lines, and low-confidence dialogue tags. It may produce no
+  issues when a deterministic draft contains no dialogue.
+- `shootability`: checks scene/beat traceability, visible externalized action,
+  shootable action elements, and unresolved internal psychological passages.
+
+These reviewers are bounded to deterministic YAML traversal, fixed thresholds,
+keyword checks, and cross-reference checks. They must not call LLMs, perform
+external HTTP requests, rewrite the screenplay, or make broad creative
+judgments.
+
+### Stage 6 Contract Governance
+
+The Stage 6A contract remains draft. After a future freeze:
+
+- FE, BE, QA, and reviewer implementations must not silently edit
+  `schemas/review_report.schema.json`.
+- Contract conflicts must be proposed under
+  `docs/architecture/change-requests/`.
+- Reviewers may emit only advisory patch suggestions; direct screenplay writes
+  require a separate human-approved application flow.

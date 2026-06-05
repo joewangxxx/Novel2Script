@@ -142,3 +142,59 @@ created during Phase 5A:
   artifacts exist.
 - After contract freeze, FE, BE, QA, or tooling must not silently change
   screenplay, outline, character bible, or story map contracts.
+
+## Phase 6A Files
+
+- `schemas/review_report.schema.json`: draft JSON Schema for deterministic
+  multi-reviewer reports.
+- `docs/dev/PHASE_6_MULTI_AGENT_REVIEW.md`: Stage 6 review contract, reviewer
+  scopes, issue structure, patch policy, and implementation plan.
+- `docs/architecture/schema.md`: cross-phase schema notes updated with Stage 6
+  review report contract.
+- `docs/architecture/folder-plan.md`: this file, updated with Stage 6 file
+  ownership and planned implementation files.
+
+Phase 6A intentionally does not create reviewer code, does not call LLMs, and
+does not modify `schemas/screenplay.schema.json`.
+
+## Planned Phase 6 Implementation Files
+
+These files are planned for later Stage 6 implementation work and must not be
+created during Phase 6A:
+
+- `src/novel2script/reviewers/__init__.py`: reviewer package marker.
+- `src/novel2script/reviewers/review_report.py`: shared report assembly,
+  summary counting, stable issue IDs, and schema-oriented helpers.
+- `src/novel2script/reviewers/character_consistency_reviewer.py`: deterministic
+  character reference and bible-alignment checks.
+- `src/novel2script/reviewers/pacing_reviewer.py`: deterministic scene order,
+  beat density, coverage, turn, and stakes checks.
+- `src/novel2script/reviewers/dialogue_naturalness_reviewer.py`:
+  deterministic dialogue validity, repetition, and low-confidence checks.
+- `src/novel2script/reviewers/shootability_reviewer.py`: deterministic
+  shootability, externalized action, traceability, and internal-state checks.
+- `tests/test_review_report_schema.py`: schema tests for valid and invalid
+  review report fixtures.
+- `tests/test_reviewers.py`: reviewer unit tests for issue shape, source trace,
+  deterministic ordering, and human approval policy.
+
+Planned Stage 6 CLI and sample files:
+
+- `tests/test_review_screenplay_cli.py`: future CLI test for
+  `review-screenplay`.
+- `examples/output/generated_review_report.yaml`: public sample review report
+  from the deterministic screenplay.
+
+## Phase 6 Ownership And Gates
+
+- Architecture owns `schemas/review_report.schema.json` and any review report
+  contract change request.
+- BE/reviewer implementation may add reviewer modules only after the Phase 6A
+  contract is accepted or prototype mode is explicitly declared by the parent
+  orchestrator.
+- QA may add Stage 6 validation and regression tests after implementation
+  artifacts exist.
+- Reviewers may only produce advisory patch suggestions. They must not apply
+  patches, overwrite screenplay YAML, or bypass human approval.
+- After contract freeze, FE, BE, QA, or tooling must not silently change review
+  report, screenplay, outline, character bible, or story map contracts.

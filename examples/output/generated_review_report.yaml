@@ -1,0 +1,39 @@
+review_report:
+  schema_version: 0.1.0
+  source_screenplay: examples/output/generated_screenplay.yaml
+  source_artifacts:
+    character_bible: examples/output/generated_character_bible.yaml
+  generated_at: '2026-06-05'
+  review_profile: deterministic_review_contract_v0
+  reviewers:
+  - character_consistency
+  - pacing
+  - dialogue_naturalness
+  - shootability
+  reviewer_results:
+  - reviewer: character_consistency
+    status: completed
+    issues_found: 0
+    notes: []
+  - reviewer: pacing
+    status: completed
+    issues_found: 0
+    notes: []
+  - reviewer: dialogue_naturalness
+    status: skipped
+    issues_found: 0
+    notes:
+    - No dialogue or parenthetical elements to review.
+  - reviewer: shootability
+    status: completed
+    issues_found: 0
+    notes: []
+  summary:
+    total_issues: 0
+    by_severity:
+      low: 0
+      medium: 0
+      high: 0
+    blocking: false
+    requires_human_approval_count: 0
+  issues: []

@@ -1,0 +1,373 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/joewangxxx/Novel2Script/schemas/review_report.schema.json",
+  "title": "Novel2Script Review Report",
+  "type": "object",
+  "required": [
+    "review_report"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "review_report": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "source_screenplay",
+        "generated_at",
+        "reviewers",
+        "summary",
+        "issues"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "type": "string",
+          "const": "0.1.0"
+        },
+        "source_screenplay": {
+          "type": "string"
+        },
+        "source_artifacts": {
+          "$ref": "#/$defs/source_artifacts"
+        },
+        "generated_at": {
+          "type": "string"
+        },
+        "review_profile": {
+          "type": "string"
+        },
+        "reviewers": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/reviewer_name"
+          }
+        },
+        "reviewer_results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/reviewer_result"
+          }
+        },
+        "summary": {
+          "$ref": "#/$defs/summary"
+        },
+        "issues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/issue"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "reviewer_name": {
+      "type": "string",
+      "enum": [
+        "character_consistency",
+        "pacing",
+        "dialogue_naturalness",
+        "shootability"
+      ]
+    },
+    "source_artifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "story_map": {
+          "type": "string"
+        },
+        "outline": {
+          "type": "string"
+        },
+        "character_bible": {
+          "type": "string"
+        }
+      }
+    },
+    "reviewer_result": {
+      "type": "object",
+      "required": [
+        "reviewer",
+        "status",
+        "issues_found"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "reviewer": {
+          "$ref": "#/$defs/reviewer_name"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "completed",
+            "skipped",
+            "failed"
+          ]
+        },
+        "issues_found": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "total_issues",
+        "by_severity",
+        "blocking"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "total_issues": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "by_severity": {
+          "$ref": "#/$defs/severity_counts"
+        },
+        "blocking": {
+          "type": "boolean"
+        },
+        "requires_human_approval_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "severity_counts": {
+      "type": "object",
+      "required": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "low": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "medium": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "high": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "issue": {
+      "type": "object",
+      "required": [
+        "id",
+        "reviewer",
+        "target_id",
+        "target",
+        "severity",
+        "confidence",
+        "issue",
+        "evidence",
+        "suggestion",
+        "suggested_patch",
+        "requires_human_approval"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^issue_[0-9]{3}$"
+        },
+        "reviewer": {
+          "$ref": "#/$defs/reviewer_name"
+        },
+        "target_id": {
+          "type": "string"
+        },
+        "target": {
+          "$ref": "#/$defs/target"
+        },
+        "severity": {
+          "$ref": "#/$defs/severity"
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        },
+        "issue": {
+          "type": "string"
+        },
+        "evidence": {
+          "$ref": "#/$defs/evidence"
+        },
+        "suggestion": {
+          "type": "string"
+        },
+        "suggested_patch": {
+          "$ref": "#/$defs/suggested_patch"
+        },
+        "requires_human_approval": {
+          "type": "boolean"
+        },
+        "blocking": {
+          "type": "boolean"
+        }
+      }
+    },
+    "target": {
+      "type": "object",
+      "required": [
+        "type",
+        "id",
+        "yaml_path"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "screenplay",
+            "scene",
+            "beat",
+            "element",
+            "character"
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "yaml_path": {
+          "type": "string"
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "required": [
+        "description"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "source_trace": {
+          "$ref": "#/$defs/screenplay_source_trace"
+        },
+        "source_trace_ids": {
+          "$ref": "#/$defs/source_trace_ids"
+        },
+        "related_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "screenplay_source_trace": {
+      "type": "object",
+      "required": [
+        "chapter",
+        "paragraph_range"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "chapter": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "paragraph_range": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "source_trace_ids": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "chapter_id": {
+          "type": "string",
+          "pattern": "^ch_[0-9]{3}$"
+        },
+        "paragraph_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^p_[0-9]{3}$"
+          }
+        },
+        "event_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^evt_[0-9]{3}$"
+          }
+        },
+        "outline_scene_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^osp_[0-9]{3}$"
+          }
+        }
+      }
+    },
+    "suggested_patch": {
+      "type": "object",
+      "required": [
+        "operation",
+        "yaml_path",
+        "value"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "operation": {
+          "type": "string",
+          "enum": [
+            "replace",
+            "add",
+            "note_only"
+          ]
+        },
+        "yaml_path": {
+          "type": "string"
+        },
+        "value": true
+      }
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    }
+  }
+}

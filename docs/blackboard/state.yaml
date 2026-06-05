@@ -1,7 +1,7 @@
 phase: qa
-goal: "Complete Stage 5 structured screenplay generation."
+goal: "Complete Stage 6 deterministic multi-agent review."
 ready_for:
-  - stage_6_multi_agent_review
+  - stage_7_fountain_limited_roundtrip
 blocked_by: []
 artifacts:
   prd: null
@@ -36,6 +36,17 @@ artifacts:
   generated_screenplay_fountain: "examples/output/generated_screenplay.fountain"
   generated_screenplay_fountain_map: "examples/output/generated_screenplay.fountain.map.json"
   generated_screenplay: "examples/output/generated_screenplay.yaml"
+  review_report_schema: "schemas/review_report.schema.json"
+  phase_6_plan: "docs/dev/PHASE_6_MULTI_AGENT_REVIEW.md"
+  reviewers_package: "src/novel2script/reviewers"
+  character_consistency_reviewer: "src/novel2script/reviewers/character_consistency.py"
+  pacing_reviewer: "src/novel2script/reviewers/pacing.py"
+  dialogue_naturalness_reviewer: "src/novel2script/reviewers/dialogue_naturalness.py"
+  shootability_reviewer: "src/novel2script/reviewers/shootability.py"
+  review_report_builder: "src/novel2script/reviewers/review_report.py"
+  reviewer_tests: "tests/test_character_consistency_reviewer.py; tests/test_pacing_reviewer.py; tests/test_dialogue_naturalness_reviewer.py; tests/test_shootability_reviewer.py; tests/test_review_report.py"
+  review_cli_tests: "tests/test_review_cli.py"
+  generated_review_report: "examples/output/generated_review_report.yaml"
   design_notes: null
   qa_report: "docs/qa/report.md"
   release_notes: null
@@ -43,7 +54,7 @@ contract_status:
   state: draft
   frozen_at: null
   change_requests_dir: "docs/architecture/change-requests"
-  current_contract: "screenplay 0.1.0 draft; outline 0.1.0 draft; character_bible 0.1.0 draft"
+  current_contract: "screenplay 0.1.0 draft; outline 0.1.0 draft; character_bible 0.1.0 draft; review_report 0.1.0 draft"
 retries:
   fe: 0
   be: 0
@@ -53,7 +64,7 @@ max_retries:
   be: 2
   qa: 2
 last_actor: parent_orchestrator
-last_updated: "2026-06-05T09:49:12+08:00"
+last_updated: "2026-06-05T15:25:25+08:00"
 history:
   - at: "2026-06-05T00:00:00+08:00"
     actor: parent_orchestrator
@@ -94,3 +105,15 @@ history:
   - at: "2026-06-05T09:49:12+08:00"
     actor: parent_orchestrator
     event: "Stage 5 structured screenplay generation QA completed."
+  - at: "2026-06-05T15:10:12+08:00"
+    actor: parent_orchestrator
+    event: "Stage 6A multi-agent review contract and deterministic review scope defined."
+  - at: "2026-06-05T15:17:22+08:00"
+    actor: parent_orchestrator
+    event: "Stage 6B deterministic screenplay reviewers and review report aggregator implemented."
+  - at: "2026-06-05T15:21:23+08:00"
+    actor: parent_orchestrator
+    event: "Stage 6C review-screenplay CLI integration, generated review report sample, schema validation, and regression checks completed."
+  - at: "2026-06-05T15:25:25+08:00"
+    actor: parent_orchestrator
+    event: "Stage 6 deterministic multi-agent review QA completed."
