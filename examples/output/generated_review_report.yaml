@@ -3,6 +3,8 @@ review_report:
   source_screenplay: examples/output/generated_screenplay.yaml
   source_artifacts:
     character_bible: examples/output/generated_character_bible.yaml
+    story_map: examples/output/generated_story_map.yaml
+    outline: examples/output/generated_outline.yaml
   generated_at: '2026-06-05'
   review_profile: deterministic_review_contract_v0
   reviewers:

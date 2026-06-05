@@ -7,8 +7,8 @@ metadata:
   semantic_fields_stale: true
   roundtrip:
     imported_at: '2026-06-05'
-    fountain_file: C:\Users\JoeWang\AppData\Local\Temp\novel2script_stage7d\edited.fountain
-    map_file: C:\Users\JoeWang\AppData\Local\Temp\novel2script_stage7d\edited.fountain.map.json
+    fountain_file: C:\Users\JoeWang\AppData\Local\Temp\novel2script_stage8c\edited.fountain
+    map_file: C:\Users\JoeWang\AppData\Local\Temp\novel2script_stage8c\edited.fountain.map.json
     applied_changes: 2
 source:
   type: novel
@@ -101,7 +101,7 @@ characters:
   locked: false
 scenes:
 - id: scene_001
-  heading: INT./EXT. ?? - ??
+  heading: INT./EXT. POST OFFICE - DAWN
   location: 邮局
   time: 连续三晚
   source_trace:
@@ -157,7 +157,7 @@ scenes:
       - Beat fields are deterministic adaptation scaffolding and require human review.
   elements:
   - type: action
-    text: ?????????????????????
+    text: Lin studies the blue envelope under the counter light.
     source_trace:
       chapter: 1
       paragraph_range:

@@ -248,3 +248,54 @@ created during Phase 7A:
 - After contract freeze, FE, BE, QA, or tooling must not silently change
   roundtrip report, review report, screenplay, outline, character bible, or
   story map contracts.
+
+## Phase 8A Files
+
+- `schemas/quality_report.schema.json`: draft JSON Schema for deterministic
+  quality evaluation reports.
+- `docs/dev/PHASE_8_QUALITY_EVAL_DASHBOARD.md`: Stage 8 contract, quality
+  dimensions, scoring rules, hard-gate behavior, Markdown dashboard boundary,
+  and implementation plan.
+- `docs/architecture/schema.md`: cross-phase schema notes updated with Stage 8
+  quality report contract.
+- `docs/architecture/folder-plan.md`: this file, updated with Stage 8 file
+  ownership and planned implementation files.
+
+Phase 8A intentionally does not create quality evaluator code, does not create a
+Web UI, does not call LLMs, does not apply review patches, and does not modify
+existing screenplay, review, or roundtrip contracts.
+
+## Planned Phase 8 Implementation Files
+
+These files are planned for later Stage 8 implementation work and must not be
+created during Phase 8A:
+
+- `src/novel2script/quality/__init__.py`: quality package marker.
+- `src/novel2script/quality/quality_report.py`: deterministic aggregation from
+  validation, review, roundtrip, and screenplay metadata into quality YAML.
+- `src/novel2script/quality/markdown_dashboard.py`: deterministic Markdown
+  dashboard rendering from quality report data.
+- `tests/test_quality_report.py`: unit tests for scoring, hard gates, evidence,
+  and schema-valid report shape.
+- `tests/test_quality_dashboard.py`: unit tests for Markdown section rendering.
+- `tests/test_quality_cli.py`: future CLI test for quality report and dashboard
+  generation.
+- `examples/output/generated_quality_report.yaml`: public sample quality report.
+- `examples/output/generated_quality_dashboard.md`: public sample Markdown
+  dashboard.
+
+## Phase 8 Ownership And Gates
+
+- Architecture owns `schemas/quality_report.schema.json` and any quality report
+  contract change request.
+- BE/quality implementation may add aggregator modules only after the Phase 8A
+  contract is accepted or prototype mode is explicitly declared by the parent
+  orchestrator.
+- QA may add Stage 8 validation and regression tests after implementation
+  artifacts exist.
+- Quality evaluators may aggregate and explain existing deterministic reports
+  only. They must not rewrite screenplay YAML, apply suggested patches, call
+  LLMs, or change prior report schemas.
+- After contract freeze, FE, BE, QA, or tooling must not silently change quality
+  report, roundtrip report, review report, screenplay, outline, character bible,
+  or story map contracts.

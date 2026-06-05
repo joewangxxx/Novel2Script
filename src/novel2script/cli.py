@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import sys
+from pathlib import Path
 from typing import Sequence
 
 from novel2script.exporters.fountain_exporter import export_fountain
@@ -11,6 +12,7 @@ from novel2script.io import read_text, read_yaml, write_yaml
 from novel2script.parsers.novel_parser import parse_novel_text
 from novel2script.planners.character_bible_builder import build_character_bible
 from novel2script.planners.outline_builder import build_outline
+from novel2script.quality.quality_report import build_quality_report, render_quality_dashboard
 from novel2script.reviewers.review_report import build_review_report
 from novel2script.validation import validate_screenplay
 
@@ -60,6 +62,14 @@ def main(argv: Sequence[str] | None = None) -> int:
     review_screenplay_parser.add_argument("--story-map")
     review_screenplay_parser.add_argument("--outline")
     review_screenplay_parser.add_argument("--out", required=True)
+
+    quality_parser = subparsers.add_parser("evaluate-quality")
+    quality_parser.add_argument("--screenplay", required=True)
+    quality_parser.add_argument("--validation-report", required=True)
+    quality_parser.add_argument("--review-report", required=True)
+    quality_parser.add_argument("--roundtrip-report")
+    quality_parser.add_argument("--out", required=True)
+    quality_parser.add_argument("--markdown")
 
     args = parser.parse_args(argv)
     if args.command == "validate":
@@ -154,6 +164,41 @@ def main(argv: Sequence[str] | None = None) -> int:
             ),
             args.out,
         )
+        return 0
+    if args.command == "evaluate-quality":
+        try:
+            screenplay = read_yaml(args.screenplay)
+            validation_report = read_yaml(args.validation_report)
+            review_report = read_yaml(args.review_report)
+            roundtrip_report = (
+                read_yaml(args.roundtrip_report) if args.roundtrip_report else None
+            )
+        except OSError as exc:
+            print(f"evaluate-quality failed: {exc}", file=sys.stderr)
+            return 1
+        quality_report = build_quality_report(
+            screenplay,
+            validation_report,
+            review_report,
+            roundtrip_report_doc=roundtrip_report,
+            source_paths={
+                "screenplay": args.screenplay,
+                "validation_report": args.validation_report,
+                "review_report": args.review_report,
+                "fountain_roundtrip_report": args.roundtrip_report or "",
+                "quality_report_yaml": args.out,
+                "quality_dashboard_markdown": args.markdown or "",
+            },
+        )
+        write_yaml(quality_report, args.out)
+        if args.markdown:
+            markdown_path = Path(args.markdown)
+            markdown_path.parent.mkdir(parents=True, exist_ok=True)
+            markdown_path.write_text(
+                render_quality_dashboard(quality_report),
+                encoding="utf-8",
+                newline="\n",
+            )
         return 0
     return 2
 

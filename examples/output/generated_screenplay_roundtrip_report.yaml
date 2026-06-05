@@ -1,8 +1,8 @@
 fountain_roundtrip_report:
   schema_version: 0.1.0
   source_yaml: examples/output/generated_screenplay.yaml
-  fountain_file: C:\Users\JoeWang\AppData\Local\Temp\novel2script_stage7d\edited.fountain
-  map_file: C:\Users\JoeWang\AppData\Local\Temp\novel2script_stage7d\edited.fountain.map.json
+  fountain_file: C:\Users\JoeWang\AppData\Local\Temp\novel2script_stage8c\edited.fountain
+  map_file: C:\Users\JoeWang\AppData\Local\Temp\novel2script_stage8c\edited.fountain.map.json
   generated_at: '2026-06-05'
   status: applied
   summary:
@@ -25,8 +25,8 @@ fountain_roundtrip_report:
     line_start: 5
     line_end: 5
     original_text: INT./EXT. 邮局 - 连续三晚
-    new_text: INT./EXT. ?? - ??
-    normalized_text: INT./EXT. ?? - ??
+    new_text: INT./EXT. POST OFFICE - DAWN
+    normalized_text: INT./EXT. POST OFFICE - DAWN
     action: applied
     safe_field: true
   - id: rt_change_002
@@ -37,8 +37,8 @@ fountain_roundtrip_report:
     line_start: 6
     line_end: 6
     original_text: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她以为是风，直到柜台下方滑出一封没有邮票的蓝色信封。
-    new_text: ?????????????????????
-    normalized_text: ?????????????????????
+    new_text: Lin studies the blue envelope under the counter light.
+    normalized_text: Lin studies the blue envelope under the counter light.
     action: applied
     safe_field: true
   issues: []
@@ -46,6 +46,6 @@ fountain_roundtrip_report:
     semantic_fields_stale: true
     roundtrip:
       imported_at: '2026-06-05'
-      fountain_file: C:\Users\JoeWang\AppData\Local\Temp\novel2script_stage7d\edited.fountain
-      map_file: C:\Users\JoeWang\AppData\Local\Temp\novel2script_stage7d\edited.fountain.map.json
+      fountain_file: C:\Users\JoeWang\AppData\Local\Temp\novel2script_stage8c\edited.fountain
+      map_file: C:\Users\JoeWang\AppData\Local\Temp\novel2script_stage8c\edited.fountain.map.json
       applied_changes: 2

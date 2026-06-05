@@ -489,3 +489,84 @@ or unsafe paths must stop the global import or skip the affected range with a
 report issue. Implementations must not guess a repair. Dialogue, parenthetical,
 transition, and action normalization is limited to the mapped element text
 rules documented in `docs/dev/PHASE_7_FOUNTAIN_LIMITED_ROUNDTRIP.md`.
+
+## Phase 8 Quality Eval Dashboard
+
+Phase 8 consumes existing Stage 2 validation reports, Stage 6 review reports,
+Stage 7 Fountain roundtrip reports, and screenplay metadata to produce a unified
+quality report. It is an aggregation and explanation layer only. It does not
+call LLMs, rewrite screenplay YAML, apply review patches, or change prior
+contracts.
+
+The schema file is `schemas/quality_report.schema.json`. The initial contract
+version is `0.1.0`.
+
+```yaml
+quality_report:
+  schema_version: "0.1.0"
+  generated_at: "2026-06-05"
+  report_profile: "deterministic_quality_eval_v0"
+  source_artifacts:
+    screenplay: "examples/output/generated_screenplay.yaml"
+    validation_report: "examples/output/generated_screenplay_validation_report.yaml"
+    review_report: "examples/output/generated_review_report.yaml"
+    fountain_roundtrip_report: "examples/output/generated_screenplay_roundtrip_report.yaml"
+    quality_report_yaml: "examples/output/generated_quality_report.yaml"
+    quality_dashboard_markdown: "examples/output/generated_quality_dashboard.md"
+  dimensions: []
+  overall_readiness:
+    status: "warn"
+    score: 88
+    decision: "ready_with_warnings"
+    hard_gate_failures: []
+    next_actions: []
+  dashboard:
+    format: "markdown"
+    path: "examples/output/generated_quality_dashboard.md"
+```
+
+### Quality Dimensions
+
+Every quality report must include these dimensions:
+
+- `schema_validity`
+- `source_trace_coverage`
+- `beat_completeness`
+- `reference_integrity`
+- `character_consistency`
+- `pacing`
+- `dialogue_naturalness`
+- `shootability`
+- `fountain_roundtrip_safety`
+- `semantic_staleness`
+- `overall_readiness`
+
+Each dimension has a status, integer score from 0 to 100, hard-gate flag,
+summary, evidence references, metrics, and recommendations. Evidence points to
+fields in the existing validation, review, roundtrip, or screenplay metadata
+artifacts. It must not copy full screenplay, Fountain, or novel text.
+
+### Quality Status And Gates
+
+Allowed statuses are `pass`, `warn`, `fail`, and `blocked`.
+
+Hard gates precede score averaging. Schema validity, reference integrity,
+untrustworthy source trace coverage, and blocked Fountain roundtrip safety can
+force `overall_readiness.status: blocked` even when other dimensions score well.
+If no hard gate blocks, `overall_readiness.score` is computed from the dimension
+scores and mapped to `ready_for_author_review`, `ready_with_warnings`,
+`needs_revision`, or `blocked`.
+
+The Markdown dashboard is a companion output for humans. The YAML quality report
+remains the source of truth for automation.
+
+### Stage 8 Contract Governance
+
+The Stage 8A contract remains draft. After a future freeze:
+
+- FE, BE, QA, and quality tooling must not silently edit
+  `schemas/quality_report.schema.json`.
+- Contract conflicts must be proposed under
+  `docs/architecture/change-requests/`.
+- Quality evaluators may aggregate and explain existing reports only; they must
+  not mutate screenplay, review, validation, or roundtrip artifacts.

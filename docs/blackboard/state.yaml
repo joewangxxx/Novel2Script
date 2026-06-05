@@ -1,7 +1,7 @@
 phase: qa
-goal: "Complete Stage 7 Fountain limited roundtrip."
+goal: "Complete Stage 8 quality eval dashboard."
 ready_for:
-  - stage_8_quality_eval_dashboard
+  - stage_9_llm_provider_abstraction
 blocked_by: []
 artifacts:
   prd: null
@@ -54,6 +54,15 @@ artifacts:
   fountain_roundtrip_cli_tests: "tests/test_fountain_roundtrip_cli.py"
   generated_screenplay_roundtrip: "examples/output/generated_screenplay_roundtrip.yaml"
   generated_screenplay_roundtrip_report: "examples/output/generated_screenplay_roundtrip_report.yaml"
+  generated_screenplay_roundtrip_validation_report: "examples/output/generated_screenplay_roundtrip_validation_report.yaml"
+  quality_report_schema: "schemas/quality_report.schema.json"
+  phase_8_plan: "docs/dev/PHASE_8_QUALITY_EVAL_DASHBOARD.md"
+  quality_package: "src/novel2script/quality"
+  quality_report_builder: "src/novel2script/quality/quality_report.py"
+  quality_report_tests: "tests/test_quality_report.py"
+  quality_cli_tests: "tests/test_quality_cli.py"
+  generated_quality_report: "examples/output/generated_quality_report.yaml"
+  generated_quality_dashboard: "examples/output/generated_quality_dashboard.md"
   design_notes: null
   qa_report: "docs/qa/report.md"
   release_notes: null
@@ -61,7 +70,7 @@ contract_status:
   state: draft
   frozen_at: null
   change_requests_dir: "docs/architecture/change-requests"
-  current_contract: "screenplay 0.1.0 draft; outline 0.1.0 draft; character_bible 0.1.0 draft; review_report 0.1.0 draft; fountain_roundtrip_report 0.1.0 draft"
+  current_contract: "screenplay 0.1.0 draft; outline 0.1.0 draft; character_bible 0.1.0 draft; review_report 0.1.0 draft; fountain_roundtrip_report 0.1.0 draft; quality_report 0.1.0 draft"
 retries:
   fe: 0
   be: 0
@@ -71,7 +80,7 @@ max_retries:
   be: 2
   qa: 2
 last_actor: parent_orchestrator
-last_updated: "2026-06-05T17:17:37+08:00"
+last_updated: "2026-06-05T20:25:53+08:00"
 history:
   - at: "2026-06-05T00:00:00+08:00"
     actor: parent_orchestrator
@@ -136,3 +145,12 @@ history:
   - at: "2026-06-05T17:17:37+08:00"
     actor: parent_orchestrator
     event: "Stage 7 Fountain limited roundtrip QA completed."
+  - at: "2026-06-05T20:14:48+08:00"
+    actor: parent_orchestrator
+    event: "Stage 8A quality eval dashboard contract defined."
+  - at: "2026-06-05T20:20:08+08:00"
+    actor: parent_orchestrator
+    event: "Stage 8B deterministic quality aggregation and evaluate-quality CLI implemented."
+  - at: "2026-06-05T20:25:53+08:00"
+    actor: parent_orchestrator
+    event: "Stage 8 quality eval dashboard QA completed."
