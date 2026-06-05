@@ -1,0 +1,342 @@
+from __future__ import annotations
+
+import hashlib
+from pathlib import Path
+from typing import Any
+
+from novel2script.io import read_yaml, write_yaml
+from novel2script.llm.router import LLMRouter
+from novel2script.llm.types import LLMRequest
+
+
+AGENT_ID = "story_semantic_parser"
+SCHEMA_VERSION = "0.1.0"
+MAX_EXCERPTS = 8
+MAX_EXCERPT_CHARS = 120
+
+
+def run_story_semantic_parser(
+    story_map_path: str | Path,
+    *,
+    out_path: str | Path,
+    run_log_path: str | Path,
+    quality_report_path: str | Path | None = None,
+    router: LLMRouter | None = None,
+    dry_run: bool = True,
+) -> dict[str, Any]:
+    """Run the mock-first story semantic agent and write sidecar artifacts."""
+    story_map_doc = read_yaml(story_map_path)
+    quality_report_doc = read_yaml(quality_report_path) if quality_report_path else None
+    errors = _trace_errors(story_map_doc)
+
+    if errors:
+        report = _semantic_candidates_doc(
+            story_map_path,
+            run_log_path,
+            candidates=[],
+            errors=errors,
+            metadata={
+                "intended_provider_profile": "qwen_long",
+                "resolved_provider_profile": "mock_dry_run",
+                "quality_report": str(quality_report_path or ""),
+            },
+        )
+        write_yaml(report, out_path)
+        write_yaml({"llm_run_records": [], "errors": errors}, run_log_path)
+        return report
+
+    request = _build_request(
+        story_map_doc,
+        story_map_path=story_map_path,
+        quality_report_doc=quality_report_doc,
+        dry_run=dry_run,
+    )
+    routed = (router or LLMRouter.default()).dispatch(request)
+    candidates = _build_candidates(story_map_doc)
+    errors = _candidate_trace_errors(candidates)
+    if errors:
+        candidates = []
+
+    report = _semantic_candidates_doc(
+        story_map_path,
+        run_log_path,
+        candidates=candidates,
+        errors=errors,
+        metadata={
+            "intended_provider_profile": routed.intended_profile,
+            "resolved_provider_profile": routed.resolved_profile,
+            "llm_run_id": routed.response.run_id,
+            "quality_report": str(quality_report_path or ""),
+            "provider_finish_reason": routed.response.finish_reason,
+        },
+    )
+    write_yaml(report, out_path)
+    write_yaml(
+        {
+            "llm_run_records": [routed.run_record],
+            "errors": errors,
+            "provider_response": {
+                "run_id": routed.response.run_id,
+                "provider": routed.response.provider,
+                "model": routed.response.model,
+                "finish_reason": routed.response.finish_reason,
+            },
+        },
+        run_log_path,
+    )
+    return report
+
+
+def _semantic_candidates_doc(
+    story_map_path: str | Path,
+    run_log_path: str | Path,
+    *,
+    candidates: list[dict[str, Any]],
+    errors: list[dict[str, Any]],
+    metadata: dict[str, Any],
+) -> dict[str, Any]:
+    return {
+        "semantic_candidates": {
+            "schema_version": SCHEMA_VERSION,
+            "source_story_map": str(story_map_path),
+            "agent_id": AGENT_ID,
+            "provider_profile": "mock_dry_run",
+            "dry_run": True,
+            "candidates": candidates,
+            "errors": errors,
+            "human_approval_required": True,
+            "run_log": str(run_log_path),
+            "metadata": metadata,
+        }
+    }
+
+
+def _build_request(
+    story_map_doc: dict[str, Any],
+    *,
+    story_map_path: str | Path,
+    quality_report_doc: dict[str, Any] | None,
+    dry_run: bool,
+) -> LLMRequest:
+    excerpts = _bounded_excerpts(story_map_doc)
+    quality_status = _quality_status(quality_report_doc)
+    prompt_lines = [
+        "Agent: story_semantic_parser",
+        "Task: propose source-grounded semantic candidates only.",
+        "Rules: do not merge, do not generate screenplay, require human approval.",
+        f"Dry run: {dry_run}",
+        f"Quality status: {quality_status}",
+        "Bounded excerpts:",
+    ]
+    for excerpt in excerpts:
+        prompt_lines.append(
+            f"- {excerpt['chapter_id']}/{excerpt['paragraph_id']}: {excerpt['text']}"
+        )
+    prompt = "\n".join(prompt_lines)
+    return LLMRequest(
+        agent_id=AGENT_ID,
+        task_type="semantic_candidate_generation",
+        prompt=prompt,
+        response_format="semantic_candidates.yaml",
+        temperature=0.0,
+        max_tokens=1024,
+        trace_id=_trace_id(story_map_path, excerpts),
+        metadata={
+            "source_story_map": str(story_map_path),
+            "excerpt_count": len(excerpts),
+            "dry_run": dry_run,
+        },
+    )
+
+
+def _bounded_excerpts(story_map_doc: dict[str, Any]) -> list[dict[str, str]]:
+    excerpts: list[dict[str, str]] = []
+    for chapter in story_map_doc.get("story_map", {}).get("chapters", []):
+        chapter_id = chapter.get("id", "")
+        for paragraph in chapter.get("paragraphs", []):
+            paragraph_id = paragraph.get("id", "")
+            text = _preview(paragraph.get("text_preview", ""), MAX_EXCERPT_CHARS)
+            excerpts.append(
+                {
+                    "chapter_id": chapter_id,
+                    "paragraph_id": paragraph_id,
+                    "text": text,
+                }
+            )
+            if len(excerpts) >= MAX_EXCERPTS:
+                return excerpts
+    return excerpts
+
+
+def _build_candidates(story_map_doc: dict[str, Any]) -> list[dict[str, Any]]:
+    story_map = story_map_doc.get("story_map", {})
+    candidates: list[dict[str, Any]] = []
+    _append_from_item(
+        candidates,
+        story_map.get("key_events", []),
+        candidate_type="event_candidate",
+        target_field="key_events",
+        summary_prefix="Mock dry-run semantic pass flagged a plot event candidate.",
+        proposed_field_builder=lambda item: {
+            "summary": item.get("summary", ""),
+            "event_type": item.get("event_type", "semantic_candidate"),
+            "source_event_id": item.get("id", ""),
+        },
+    )
+    _append_from_item(
+        candidates,
+        story_map.get("psychological_passages", []),
+        candidate_type="psychological_passage_candidate",
+        target_field="psychological_passages",
+        summary_prefix="Mock dry-run semantic pass flagged an interiority candidate.",
+        proposed_field_builder=lambda item: {
+            "summary": item.get("summary", ""),
+            "passage_type": item.get("passage_type", "other"),
+            "source_psychological_passage_id": item.get("id", ""),
+        },
+    )
+    _append_from_item(
+        candidates,
+        story_map.get("timeline", []),
+        candidate_type="timeline_candidate",
+        target_field="timeline",
+        summary_prefix="Mock dry-run semantic pass flagged a timeline candidate.",
+        proposed_field_builder=lambda item: {
+            "time_text": item.get("time_text", item.get("label", "")),
+            "label": item.get("label", ""),
+            "source_timeline_id": item.get("id", ""),
+        },
+    )
+    return candidates
+
+
+def _append_from_item(
+    candidates: list[dict[str, Any]],
+    items: list[dict[str, Any]],
+    *,
+    candidate_type: str,
+    target_field: str,
+    summary_prefix: str,
+    proposed_field_builder: Any,
+) -> None:
+    if not items:
+        return
+    item = items[0]
+    trace = item.get("source_trace", {})
+    candidates.append(
+        {
+            "id": f"semcand_{len(candidates) + 1:03d}",
+            "type": candidate_type,
+            "confidence": "medium",
+            "evidence": {
+                "summary": summary_prefix,
+                "quote_preview": _preview(trace.get("quote_preview", ""), 120),
+                "reasoning_note": "Generated through mock_dry_run for contract verification.",
+            },
+            "source_trace_ids": {
+                "chapter_id": trace.get("chapter_id", ""),
+                "paragraph_ids": list(trace.get("paragraph_ids", [])),
+            },
+            "proposed_fields": proposed_field_builder(item),
+            "merge_policy": "human_approval_required",
+            "target_story_map_field": target_field,
+        }
+    )
+
+
+def _trace_errors(story_map_doc: dict[str, Any]) -> list[dict[str, Any]]:
+    story_map = story_map_doc.get("story_map")
+    if not isinstance(story_map, dict):
+        return [
+            {
+                "code": "missing_story_map",
+                "message": "Input does not contain a story_map root.",
+                "retryable": False,
+            }
+        ]
+    chapters = story_map.get("chapters", [])
+    if not chapters:
+        return [
+            {
+                "code": "missing_source_trace",
+                "message": "Cannot propose semantic candidates without chapters.",
+                "retryable": False,
+            }
+        ]
+    errors: list[dict[str, Any]] = []
+    for chapter_index, chapter in enumerate(chapters, start=1):
+        chapter_id = chapter.get("id")
+        if not chapter_id:
+            errors.append(
+                {
+                    "code": "missing_source_trace",
+                    "message": f"Chapter {chapter_index} is missing chapter_id.",
+                    "retryable": False,
+                }
+            )
+            continue
+        paragraphs = chapter.get("paragraphs", [])
+        if not paragraphs:
+            errors.append(
+                {
+                    "code": "missing_source_trace",
+                    "message": f"Chapter {chapter_id} has no paragraph_ids.",
+                    "retryable": False,
+                }
+            )
+            continue
+        for paragraph_index, paragraph in enumerate(paragraphs, start=1):
+            if not paragraph.get("id"):
+                errors.append(
+                    {
+                        "code": "missing_source_trace",
+                        "message": (
+                            f"Chapter {chapter_id} paragraph {paragraph_index} "
+                            "is missing paragraph_ids."
+                        ),
+                        "retryable": False,
+                    }
+                )
+    return errors
+
+
+def _candidate_trace_errors(candidates: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    errors: list[dict[str, Any]] = []
+    for candidate in candidates:
+        trace = candidate.get("source_trace_ids", {})
+        if not trace.get("chapter_id") or not trace.get("paragraph_ids"):
+            errors.append(
+                {
+                    "code": "missing_source_trace",
+                    "message": (
+                        f"Candidate {candidate.get('id', '')} is missing "
+                        "chapter_id or paragraph_ids."
+                    ),
+                    "retryable": False,
+                }
+            )
+    return errors
+
+
+def _quality_status(quality_report_doc: dict[str, Any] | None) -> str:
+    if not quality_report_doc:
+        return "not_provided"
+    readiness = quality_report_doc.get("quality_report", {}).get(
+        "overall_readiness", {}
+    )
+    return str(readiness.get("status") or readiness.get("decision") or "provided")
+
+
+def _trace_id(story_map_path: str | Path, excerpts: list[dict[str, str]]) -> str:
+    seed = str(story_map_path) + "|" + "|".join(
+        f"{item['chapter_id']}/{item['paragraph_id']}" for item in excerpts
+    )
+    digest = hashlib.sha256(seed.encode("utf-8")).hexdigest()[:12]
+    return f"trace_sem_{digest}"
+
+
+def _preview(text: str, limit: int) -> str:
+    compact = " ".join(str(text).split())
+    if len(compact) <= limit:
+        return compact
+    return compact[: limit - 1] + "..."

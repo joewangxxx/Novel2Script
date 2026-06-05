@@ -352,3 +352,54 @@ logging gates are verified without network access.
   real network access or API keys.
 - After contract freeze, FE, BE, QA, agents, or tooling must not silently change
   provider routing, logging, safety, or prior data contracts.
+
+## Phase 10A Files
+
+- `schemas/semantic_candidates.schema.json`: draft JSON Schema for
+  `story_semantic_parser` sidecar candidates.
+- `docs/dev/PHASE_10_STORY_SEMANTIC_AGENT.md`: Stage 10 contract, routing
+  boundary, output artifact, dry-run policy, human-approval policy, and
+  implementation plan.
+- `docs/architecture/schema.md`: cross-phase schema notes updated with Stage 10
+  semantic candidate rules.
+- `docs/architecture/folder-plan.md`: this file, updated with Stage 10 file
+  ownership and planned implementation files.
+
+Phase 10A intentionally does not create agent implementation code, does not run
+real model APIs, does not generate screenplay content, and does not modify
+deterministic `story_map` outputs.
+
+## Planned Phase 10 Implementation Files
+
+These files are planned for later Stage 10 implementation work and must not be
+created during Phase 10A:
+
+- `src/novel2script/agents/__init__.py`: agent package marker.
+- `src/novel2script/agents/story_semantic_parser.py`: mock-first semantic
+  candidate generation through `LLMRouter`.
+- `tests/test_story_semantic_agent.py`: unit tests for candidate shape,
+  routing, source trace, merge policy, and error handling.
+- `tests/test_story_semantic_agent_cli.py`: future CLI tests for semantic
+  candidate generation.
+- `examples/output/generated_semantic_candidates.yaml`: public sample candidate
+  artifact from the synthetic story map.
+- `examples/output/generated_semantic_agent_run_log.yaml`: public sample
+  redacted run log for the semantic agent.
+
+## Phase 10 Ownership And Gates
+
+- Architecture owns `schemas/semantic_candidates.schema.json` and Stage 10
+  semantic candidate contract changes.
+- BE/agent implementation may add the `src/novel2script/agents` package only
+  after the Phase 10A contract is accepted or prototype mode is explicitly
+  declared by the parent orchestrator.
+- QA may add Stage 10 validation and regression tests after implementation
+  artifacts exist.
+- The semantic agent may produce advisory candidates only. It must not directly
+  write or merge into deterministic `story_map`.
+- Agent implementations must use `LLMRouter`; direct provider calls are out of
+  bounds.
+- Tests must default to `mock_dry_run` and must not require real network access
+  or API keys.
+- After contract freeze, FE, BE, QA, agents, or tooling must not silently change
+  semantic candidates, story map, provider routing, or prior data contracts.

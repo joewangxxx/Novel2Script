@@ -1,0 +1,211 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://novel2script.local/schemas/semantic_candidates.schema.json",
+  "title": "Novel2Script Story Semantic Candidates",
+  "type": "object",
+  "required": ["semantic_candidates"],
+  "additionalProperties": false,
+  "properties": {
+    "semantic_candidates": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "source_story_map",
+        "agent_id",
+        "provider_profile",
+        "dry_run",
+        "candidates",
+        "errors",
+        "human_approval_required"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "type": "string",
+          "const": "0.1.0"
+        },
+        "source_story_map": {
+          "type": "string",
+          "minLength": 1
+        },
+        "agent_id": {
+          "type": "string",
+          "const": "story_semantic_parser"
+        },
+        "provider_profile": {
+          "type": "string",
+          "enum": ["mock_dry_run", "qwen_long"]
+        },
+        "dry_run": {
+          "type": "boolean"
+        },
+        "candidates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/candidate"
+          }
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/error"
+          }
+        },
+        "human_approval_required": {
+          "type": "boolean",
+          "const": true
+        },
+        "run_log": {
+          "type": "string",
+          "minLength": 1
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "provider_profile": {
+                "const": "mock_dry_run"
+              }
+            },
+            "required": ["provider_profile"]
+          },
+          "then": {
+            "properties": {
+              "dry_run": {
+                "const": true
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "candidate": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "confidence",
+        "evidence",
+        "source_trace_ids",
+        "proposed_fields",
+        "merge_policy"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^semcand_[0-9]{3}$"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "character_candidate",
+            "location_candidate",
+            "prop_candidate",
+            "event_candidate",
+            "psychological_passage_candidate",
+            "timeline_candidate"
+          ]
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["low", "medium", "high"]
+        },
+        "evidence": {
+          "$ref": "#/$defs/evidence"
+        },
+        "source_trace_ids": {
+          "$ref": "#/$defs/source_trace_ids"
+        },
+        "proposed_fields": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": true
+        },
+        "merge_policy": {
+          "type": "string",
+          "const": "human_approval_required"
+        },
+        "target_story_map_field": {
+          "type": "string",
+          "enum": [
+            "characters_detected",
+            "locations_detected",
+            "props_detected",
+            "key_events",
+            "timeline",
+            "psychological_passages"
+          ]
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["summary"],
+      "additionalProperties": false,
+      "properties": {
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "quote_preview": {
+          "type": "string",
+          "maxLength": 240
+        },
+        "reasoning_note": {
+          "type": "string"
+        }
+      }
+    },
+    "source_trace_ids": {
+      "type": "object",
+      "required": ["chapter_id", "paragraph_ids"],
+      "additionalProperties": false,
+      "properties": {
+        "chapter_id": {
+          "type": "string",
+          "pattern": "^ch_[0-9]{3}$"
+        },
+        "paragraph_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^p_[0-9]{3}$"
+          }
+        }
+      }
+    },
+    "error": {
+      "type": "object",
+      "required": ["code", "message"],
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_trace_ids": {
+          "$ref": "#/$defs/source_trace_ids"
+        },
+        "retryable": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 from typing import Sequence
 
+from novel2script.agents.story_semantic_parser import run_story_semantic_parser
 from novel2script.exporters.fountain_exporter import export_fountain
 from novel2script.generators.screenplay_builder import build_screenplay
 from novel2script.importers.fountain_importer import sync_fountain_to_yaml
@@ -70,6 +71,14 @@ def main(argv: Sequence[str] | None = None) -> int:
     quality_parser.add_argument("--roundtrip-report")
     quality_parser.add_argument("--out", required=True)
     quality_parser.add_argument("--markdown")
+
+    run_agent_parser = subparsers.add_parser("run-agent")
+    run_agent_parser.add_argument("agent_name", choices=["story-semantic-parser"])
+    run_agent_parser.add_argument("--story-map", required=True)
+    run_agent_parser.add_argument("--out", required=True)
+    run_agent_parser.add_argument("--run-log", required=True)
+    run_agent_parser.add_argument("--quality-report")
+    run_agent_parser.add_argument("--dry-run", action="store_true", default=True)
 
     args = parser.parse_args(argv)
     if args.command == "validate":
@@ -199,6 +208,19 @@ def main(argv: Sequence[str] | None = None) -> int:
                 encoding="utf-8",
                 newline="\n",
             )
+        return 0
+    if args.command == "run-agent" and args.agent_name == "story-semantic-parser":
+        try:
+            run_story_semantic_parser(
+                args.story_map,
+                out_path=args.out,
+                run_log_path=args.run_log,
+                quality_report_path=args.quality_report,
+                dry_run=args.dry_run,
+            )
+        except OSError as exc:
+            print(f"run-agent story-semantic-parser failed: {exc}", file=sys.stderr)
+            return 1
         return 0
     return 2
 

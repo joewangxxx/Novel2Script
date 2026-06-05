@@ -570,3 +570,69 @@ The Stage 8A contract remains draft. After a future freeze:
   `docs/architecture/change-requests/`.
 - Quality evaluators may aggregate and explain existing reports only; they must
   not mutate screenplay, review, validation, or roundtrip artifacts.
+
+## Phase 10 Story Semantic Agent
+
+Phase 10 introduces the first LLM-agent sidecar artifact:
+`semantic_candidates`. The artifact records proposed enrichments for an
+existing deterministic `story_map`, but it does not modify `story_map` itself.
+The schema file is `schemas/semantic_candidates.schema.json`. The initial
+contract version is `0.1.0`.
+
+```yaml
+semantic_candidates:
+  schema_version: "0.1.0"
+  source_story_map: "examples/output/generated_story_map.yaml"
+  agent_id: "story_semantic_parser"
+  provider_profile: "mock_dry_run"
+  dry_run: true
+  candidates: []
+  errors: []
+  human_approval_required: true
+  run_log: "examples/output/generated_semantic_agent_run_log.yaml"
+```
+
+Each candidate must include stable trace IDs back to the deterministic story
+map:
+
+```yaml
+id: "semcand_001"
+type: "event_candidate"
+confidence: "medium"
+evidence:
+  summary: "short evidence explanation"
+source_trace_ids:
+  chapter_id: "ch_001"
+  paragraph_ids: ["p_001"]
+proposed_fields:
+  summary: "candidate event text"
+merge_policy: "human_approval_required"
+target_story_map_field: "key_events"
+```
+
+Allowed candidate types are `character_candidate`, `location_candidate`,
+`prop_candidate`, `event_candidate`, `psychological_passage_candidate`, and
+`timeline_candidate`.
+
+### Stage 10 Routing And Safety
+
+`story_semantic_parser` must route through the Stage 9 `LLMRouter`. The intended
+provider profile is `qwen_long`, but the default resolved profile remains
+`mock_dry_run`. Real network use is allowed only in a later implementation when
+the user explicitly opts in, the required environment variable is present, and
+the latest official provider API documentation has been checked and cited in
+the provider architecture or phase document.
+
+The semantic agent must not update deterministic `story_map` arrays, alter
+`source_trace`, generate screenplay content, or persist full novel text in logs.
+Every proposed merge requires human approval.
+
+### Stage 10 Contract Governance
+
+The Stage 10A contract remains draft. After a future freeze:
+
+- Agents, BE, FE, QA, and tooling must not silently edit
+  `schemas/semantic_candidates.schema.json`.
+- Contract conflicts must be proposed under
+  `docs/architecture/change-requests/`.
+- Agent implementations must use `LLMRouter` and redacted Stage 9 run records.
