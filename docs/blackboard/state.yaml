@@ -1,7 +1,7 @@
 phase: qa
-goal: "Complete Stage 8 quality eval dashboard."
+goal: "Complete Stage 9 LLM provider abstraction."
 ready_for:
-  - stage_9_llm_provider_abstraction
+  - stage_10_first_llm_agent_integration
 blocked_by: []
 artifacts:
   prd: null
@@ -63,6 +63,18 @@ artifacts:
   quality_cli_tests: "tests/test_quality_cli.py"
   generated_quality_report: "examples/output/generated_quality_report.yaml"
   generated_quality_dashboard: "examples/output/generated_quality_dashboard.md"
+  phase_9_plan: "docs/dev/PHASE_9_LLM_PROVIDER_ABSTRACTION.md"
+  llm_provider_architecture: "docs/architecture/llm-provider.md"
+  llm_provider_package: "src/novel2script/llm"
+  llm_provider_config: "config/llm_providers.example.yaml"
+  llm_provider_tests: "tests/test_llm_provider.py; tests/test_llm_router.py"
+  agent_prompt_registry: "docs/prompts"
+  agent_routing_doc: "docs/prompts/agent-routing.md"
+  agent_routing_config: "config/agent_routing.example.yaml"
+  prompt_registry: "docs/prompts"
+  llm_package: "src/novel2script/llm"
+  generated_llm_run_log: "examples/output/generated_llm_run_log.yaml"
+  generated_agent_routing_report: "examples/output/generated_agent_routing_report.yaml"
   design_notes: null
   qa_report: "docs/qa/report.md"
   release_notes: null
@@ -70,7 +82,7 @@ contract_status:
   state: draft
   frozen_at: null
   change_requests_dir: "docs/architecture/change-requests"
-  current_contract: "screenplay 0.1.0 draft; outline 0.1.0 draft; character_bible 0.1.0 draft; review_report 0.1.0 draft; fountain_roundtrip_report 0.1.0 draft; quality_report 0.1.0 draft"
+  current_contract: "screenplay 0.1.0 draft; outline 0.1.0 draft; character_bible 0.1.0 draft; review_report 0.1.0 draft; fountain_roundtrip_report 0.1.0 draft; quality_report 0.1.0 draft; llm_provider 0.1.0 draft; agent_prompt_registry 0.1.0 draft"
 retries:
   fe: 0
   be: 0
@@ -80,7 +92,7 @@ max_retries:
   be: 2
   qa: 2
 last_actor: parent_orchestrator
-last_updated: "2026-06-05T20:25:53+08:00"
+last_updated: "2026-06-05T20:45:00+08:00"
 history:
   - at: "2026-06-05T00:00:00+08:00"
     actor: parent_orchestrator
@@ -154,3 +166,15 @@ history:
   - at: "2026-06-05T20:25:53+08:00"
     actor: parent_orchestrator
     event: "Stage 8 quality eval dashboard QA completed."
+  - at: "2026-06-05T20:35:26+08:00"
+    actor: parent_orchestrator
+    event: "Stage 9A LLM provider abstraction contract defined."
+  - at: "2026-06-05T20:38:38+08:00"
+    actor: parent_orchestrator
+    event: "Stage 9B mock-first LLM provider abstraction implemented."
+  - at: "2026-06-05T20:40:16+08:00"
+    actor: parent_orchestrator
+    event: "Stage 9C agent prompt registry completed."
+  - at: "2026-06-05T20:45:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 9 LLM provider abstraction and agent routing QA completed."

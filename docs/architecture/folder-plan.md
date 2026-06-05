@@ -299,3 +299,56 @@ created during Phase 8A:
 - After contract freeze, FE, BE, QA, or tooling must not silently change quality
   report, roundtrip report, review report, screenplay, outline, character bible,
   or story map contracts.
+
+## Phase 9A Files
+
+- `docs/dev/PHASE_9_LLM_PROVIDER_ABSTRACTION.md`: Stage 9 provider abstraction
+  contract, routing table, key boundary, logging boundary, safety gates, and
+  implementation plan.
+- `docs/architecture/llm-provider.md`: architecture source of truth for
+  `LLMRequest`, `LLMResponse`, `LLMRunRecord`, provider profiles, agent routing,
+  audit records, costs, and privacy rules.
+- `docs/architecture/folder-plan.md`: this file, updated with Stage 9 ownership
+  and planned implementation files.
+
+Phase 9A intentionally does not add provider implementation code, does not call
+real model APIs, does not commit API keys, and does not modify existing
+screenplay, review, roundtrip, or quality contracts.
+
+## Planned Phase 9 Implementation Files
+
+These files are planned for later Stage 9 implementation work and must not be
+created during Phase 9A:
+
+- `src/novel2script/llm/__init__.py`: provider abstraction package marker.
+- `src/novel2script/llm/contracts.py`: typed request, response, run record, and
+  error structures.
+- `src/novel2script/llm/provider_profiles.py`: registered provider profile
+  definitions and environment variable names.
+- `src/novel2script/llm/router.py`: agent-to-provider routing and dry-run
+  resolution.
+- `src/novel2script/llm/mock_provider.py`: no-network mock provider for tests,
+  dry runs, and local contract verification.
+- `src/novel2script/llm/run_records.py`: redacted run record assembly and
+  persistence helpers.
+- `tests/test_llm_contracts.py`: contract tests for request/response/run record
+  shape.
+- `tests/test_llm_router.py`: routing, dry-run, and blocked-route tests.
+- `tests/test_mock_provider.py`: no-network mock provider tests.
+
+Real provider clients may be added only after mock-first routing and redacted
+logging gates are verified without network access.
+
+## Phase 9 Ownership And Gates
+
+- Architecture owns `docs/architecture/llm-provider.md` and provider routing
+  contract changes.
+- BE/provider implementation may add the `src/novel2script/llm` package only
+  after the Phase 9A contract is accepted or prototype mode is explicitly
+  declared by the parent orchestrator.
+- QA may add provider abstraction tests after implementation artifacts exist.
+- Agents must use the provider abstraction instead of direct model calls.
+- Tests must use `mock_dry_run` or injected fake clients and must not require
+  real network access or API keys.
+- After contract freeze, FE, BE, QA, agents, or tooling must not silently change
+  provider routing, logging, safety, or prior data contracts.

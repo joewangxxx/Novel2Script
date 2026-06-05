@@ -1,0 +1,45 @@
+default_provider: mock_dry_run
+dry_run_default: true
+agents:
+  story_semantic_parser:
+    provider_profile: qwen_long
+    fallback_profile: mock_dry_run
+    prompt_file: docs/prompts/story_semantic_parser.md
+    output_policy: advisory
+  adaptation_planner:
+    provider_profile: kimi_creative
+    fallback_profile: mock_dry_run
+    prompt_file: docs/prompts/adaptation_planner.md
+    output_policy: advisory
+  character_bible_agent:
+    provider_profile: kimi_creative
+    fallback_profile: mock_dry_run
+    prompt_file: docs/prompts/character_bible_agent.md
+    output_policy: advisory
+  scene_writer_agent:
+    provider_profile: kimi_creative
+    fallback_profile: mock_dry_run
+    prompt_file: docs/prompts/scene_writer_agent.md
+    output_policy: human_approval_required
+  dialogue_optimizer_agent:
+    provider_profile: doubao_dialogue
+    fallback_profile: mock_dry_run
+    prompt_file: docs/prompts/dialogue_optimizer_agent.md
+    output_policy: human_approval_required
+  beat_dramaturgy_agent:
+    provider_profile: deepseek_reasoning
+    fallback_profile: mock_dry_run
+    prompt_file: docs/prompts/beat_dramaturgy_agent.md
+    output_policy: human_approval_required
+  source_fidelity_reviewer:
+    provider_profile:
+      - qwen_long
+      - deepseek_reasoning
+    fallback_profile: mock_dry_run
+    prompt_file: docs/prompts/source_fidelity_reviewer.md
+    output_policy: advisory
+  yaml_repair_agent:
+    provider_profile: glm_structured
+    fallback_profile: mock_dry_run
+    prompt_file: docs/prompts/yaml_repair_agent.md
+    output_policy: human_approval_required
