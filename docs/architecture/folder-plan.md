@@ -102,3 +102,43 @@ as generator code during Phase 4A:
 - Later generators must preserve `source_trace`, `ai_tags`, and `locked`
   semantics. After freeze, schema/API changes require architecture change
   requests.
+
+## Phase 5A Files
+
+- `docs/dev/PHASE_5_STRUCTURED_SCREENPLAY_GENERATION.md`: Stage 5 mapping
+  contract from `story_map`, `outline`, and `character_bible` to
+  `screenplay.yaml`.
+- `docs/architecture/schema.md`: cross-phase schema notes updated with Stage 5
+  source trace bridge and mapping summary.
+- `docs/architecture/folder-plan.md`: this file, updated with Stage 5 file
+  ownership and planned implementation files.
+
+Phase 5A intentionally does not create generator code and does not modify
+`schemas/screenplay.schema.json`.
+
+## Planned Phase 5 Implementation Files
+
+These files are planned for later Stage 5 implementation work and must not be
+created during Phase 5A:
+
+- `src/novel2script/generators/__init__.py`: generator package marker.
+- `src/novel2script/generators/screenplay_builder.py`: deterministic builder
+  from Stage 3/4 artifacts into screenplay YAML.
+- `tests/test_screenplay_builder.py`: unit tests for scene, beat, element,
+  source trace, `ai_tags`, and locked-character behavior.
+- `tests/test_screenplay_cli.py`: CLI tests for future `build-screenplay`
+  behavior.
+- `examples/output/generated_screenplay.yaml`: generated sample screenplay YAML
+  from the public synthetic pipeline.
+
+## Phase 5 Ownership And Gates
+
+- Architecture owns Stage 5 mapping rules and any screenplay schema change
+  request.
+- BE/generator implementation may add screenplay builder modules only after the
+  Phase 5A mapping contract is accepted or prototype mode is explicitly
+  declared by the parent orchestrator.
+- QA may add Stage 5 validation and regression tests after implementation
+  artifacts exist.
+- After contract freeze, FE, BE, QA, or tooling must not silently change
+  screenplay, outline, character bible, or story map contracts.

@@ -228,3 +228,69 @@ The Stage 4A contracts remain draft. After any future freeze:
   `docs/architecture/change-requests/`.
 - Stage 4 generators must not bypass `source_trace` or `ai_tags` requirements
   for convenience.
+
+## Phase 5 Structured Screenplay Generation
+
+Phase 5 consumes `story_map`, `outline`, and `character_bible` to define a
+deterministic mapping into the existing `schemas/screenplay.schema.json`
+contract. Phase 5A does not implement a generator and does not change the
+screenplay schema.
+
+### Screenplay Schema Fit
+
+The current screenplay schema is sufficient for the Stage 5 first draft:
+
+- `characters` can carry character bible IDs, names, roles, `source_trace`,
+  optional `ai_tags`, and optional `locked` values.
+- `scenes` can carry outline scene candidates as screenplay scene records with
+  headings, locations, times, beats, and elements.
+- `beats` already require objective, tactic, obstacle, conflict, stakes, turn,
+  externalized action, `source_trace`, and `ai_tags`.
+- `elements` already support `action`, `dialogue`, `parenthetical`,
+  `transition`, and `note`.
+
+Stage 5 should not widen the schema unless implementation proves a real
+contract gap. If the screenplay contract is frozen before that point, changes
+must be proposed under `docs/architecture/change-requests/`.
+
+### Stage 5 Source Trace Bridge
+
+The screenplay schema currently requires numeric source traces:
+
+```yaml
+source_trace:
+  chapter: 1
+  paragraph_range: [1, 2]
+  note: "derived from outline scene osp_001 and key_event evt_001"
+```
+
+Stage 3 and Stage 4 use stable source IDs. Stage 5 generators must convert ID
+traces to numeric traces for schema compatibility and should preserve the
+original stable IDs in an additional `source_trace_ids` field:
+
+```yaml
+source_trace_ids:
+  chapter_id: "ch_001"
+  paragraph_ids: ["p_001"]
+  event_ids: ["evt_001"]
+  outline_scene_ids: ["osp_001"]
+```
+
+### Stage 5 Mapping Summary
+
+- `outline.scene_plan[]` maps to `scenes[]`.
+- `outline.scene_plan[].source_event_ids` and related `story_map.key_events[]`
+  map to scene source traces, beat fields, and action or note elements.
+- `character_bible.characters[]` maps to screenplay `characters[]`; locked
+  profiles must not be silently changed.
+- `story_map.locations_detected[]` and `story_map.timeline[]` may fill scene
+  `location` and `time` when evidence is explicit.
+- `story_map.psychological_passages[]` may inform
+  `beats[].externalized_action`, but only as a reviewable adaptation hint.
+- Low-confidence upstream fields must keep or escalate `ai_tags` in downstream
+  beats and elements.
+
+Stage 5 first drafts should prefer source-grounded `action` and `note`
+elements. Full dialogue generation remains out of scope unless the dialogue is
+explicitly present in source text or clearly marked as low-confidence
+adaptation.

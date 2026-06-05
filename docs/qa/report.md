@@ -2,13 +2,19 @@
 
 ## Scope
 
-Stage 4 QA covered deterministic outline and character bible generation,
-including schemas, builders, CLI commands, generated sample outputs, Phase 4
-documentation, and Stage 2/Stage 3 regression commands.
+Stage 5 QA covered deterministic structured screenplay generation from Stage 3
+and Stage 4 artifacts, including:
 
-This pass did not implement new product behavior beyond Stage 4C, did not
-connect to any LLM or external model service, did not generate screenplay YAML,
-did not add UI/API behavior, and did not run Agent review.
+- `screenplay` builder output.
+- `build-screenplay` CLI integration.
+- generated `screenplay.yaml` sample output.
+- Schema, source trace, beat completeness, and reference validation.
+- Fountain export and sidecar map generation from the generated screenplay.
+- Regression coverage for Stage 2, Stage 3, and Stage 4 commands.
+
+This pass did not connect to any LLM or external model service, did not run
+multi-Agent review, did not implement Fountain round-trip editing, and did not
+add UI/API behavior.
 
 ## Commands Run
 
@@ -17,8 +23,9 @@ python -m pytest
 python -m novel2script.cli parse-novel examples/input/sample_novel_3_chapters.md --out examples/output/generated_story_map.yaml
 python -m novel2script.cli build-outline examples/output/generated_story_map.yaml --out examples/output/generated_outline.yaml
 python -m novel2script.cli build-character-bible examples/output/generated_story_map.yaml --out examples/output/generated_character_bible.yaml
-python -m novel2script.cli validate examples/output/sample_screenplay.yaml --schema schemas/screenplay.schema.json --out examples/output/generated_validation_report.yaml
-python -m novel2script.cli export-fountain examples/output/sample_screenplay.yaml --out examples/output/generated_screenplay.fountain --map examples/output/generated_screenplay.fountain.map.json
+python -m novel2script.cli build-screenplay --story-map examples/output/generated_story_map.yaml --outline examples/output/generated_outline.yaml --character-bible examples/output/generated_character_bible.yaml --out examples/output/generated_screenplay.yaml
+python -m novel2script.cli validate examples/output/generated_screenplay.yaml --schema schemas/screenplay.schema.json --out examples/output/generated_screenplay_validation_report.yaml
+python -m novel2script.cli export-fountain examples/output/generated_screenplay.yaml --out examples/output/generated_screenplay.fountain --map examples/output/generated_screenplay.fountain.map.json
 git status --short
 ```
 
@@ -27,47 +34,77 @@ Additional structural checks:
 ```bash
 python - <<'PY'
 from pathlib import Path
+import json
 import yaml
 
-story = yaml.safe_load(Path("examples/output/generated_story_map.yaml").read_text(encoding="utf-8"))["story_map"]
-outline = yaml.safe_load(Path("examples/output/generated_outline.yaml").read_text(encoding="utf-8"))["outline"]
-bible = yaml.safe_load(Path("examples/output/generated_character_bible.yaml").read_text(encoding="utf-8"))["character_bible"]
+screenplay_path = Path("examples/output/generated_screenplay.yaml")
+report_path = Path("examples/output/generated_screenplay_validation_report.yaml")
+fountain_path = Path("examples/output/generated_screenplay.fountain")
+map_path = Path("examples/output/generated_screenplay.fountain.map.json")
 
-assert outline["logline"]
-assert outline["act_structure"]
-assert outline["scene_plan"]
-assert all(scene.get("source_trace") for scene in outline["scene_plan"])
-assert [c["id"] for c in bible["characters"]] == [c["id"] for c in story["characters_detected"]]
-assert all(character.get("source_trace") for character in bible["characters"])
-assert all(character.get("locked") is False for character in bible["characters"])
+for path in [screenplay_path, report_path, fountain_path, map_path]:
+    assert path.exists()
+    assert path.stat().st_size > 0
+
+screenplay = yaml.safe_load(screenplay_path.read_text(encoding="utf-8"))
+report = yaml.safe_load(report_path.read_text(encoding="utf-8"))
+sidecar = json.loads(map_path.read_text(encoding="utf-8"))
+
+assert report["overall_passed"] is True
+assert len(screenplay["scenes"]) >= 1
+assert sidecar["mappings"]
+
+characters = {character["id"] for character in screenplay["characters"]}
+beat_required = {
+    "objective",
+    "tactic",
+    "obstacle",
+    "conflict",
+    "stakes",
+    "turn",
+    "externalized_action",
+}
+for scene in screenplay["scenes"]:
+    assert scene.get("source_trace")
+    assert scene.get("beats")
+    for beat in scene["beats"]:
+        assert beat_required <= set(beat)
+        assert all(str(beat[field]).strip() for field in beat_required)
+        assert beat.get("source_trace")
+        assert beat.get("ai_tags")
+    for element in scene.get("elements", []):
+        if element.get("type") == "dialogue":
+            assert element.get("character_id") in characters
 PY
 ```
 
-LLM-call check:
+External-call check:
 
 ```bash
-Get-ChildItem -Recurse -File src |
+Get-ChildItem -Recurse -File src tests |
   Select-String -Pattern 'openai|anthropic|gemini|llm|chat.completions|responses.create|requests|httpx' -CaseSensitive:$false
 ```
 
 ## Results
 
-- `python -m pytest`: passed, 24 tests collected and 24 passed.
+- `python -m pytest`: passed, 31 tests collected and 31 passed.
 - `parse-novel` CLI: passed, regenerated `examples/output/generated_story_map.yaml`.
-- `build-outline` CLI: passed, generated non-empty `examples/output/generated_outline.yaml`.
-- `build-character-bible` CLI: passed, generated non-empty `examples/output/generated_character_bible.yaml`.
-- `validate` CLI regression: passed, regenerated `examples/output/generated_validation_report.yaml`.
-- `export-fountain` CLI regression: passed, regenerated `examples/output/generated_screenplay.fountain` and sidecar map.
-- Outline structural check: passed. Output includes `logline`, `act_structure`, `scene_plan`, and every scene plan item has `source_trace`.
-- Character bible structural check: passed. Characters match `story_map.characters_detected`, every character has `source_trace`, and `locked` defaults to `false`.
-- LLM-call check: passed. No source code references to external LLM providers or HTTP client calls were found.
+- `build-outline` CLI: passed, regenerated `examples/output/generated_outline.yaml`.
+- `build-character-bible` CLI: passed, regenerated `examples/output/generated_character_bible.yaml`.
+- `build-screenplay` CLI: passed, generated non-empty `examples/output/generated_screenplay.yaml`.
+- Generated screenplay validation: passed, `overall_passed: true`.
+- Generated screenplay Fountain export: passed, generated non-empty Fountain file and sidecar map.
+- Structural screenplay check: passed. Output contains 6 scenes, 3 characters, every scene has at least one beat, required beat fields are populated, scene and beat source traces exist, and inferred/low-confidence generated records carry `ai_tags`.
+- Dialogue reference check: passed. No invalid `dialogue.character_id` references were found; the current deterministic sample emits action and note elements only.
+- External-call check: passed. No source or test references to LLM providers or HTTP client calls were found.
 
 ## Generated Artifacts
 
 - `examples/output/generated_story_map.yaml`
 - `examples/output/generated_outline.yaml`
 - `examples/output/generated_character_bible.yaml`
-- `examples/output/generated_validation_report.yaml`
+- `examples/output/generated_screenplay.yaml`
+- `examples/output/generated_screenplay_validation_report.yaml`
 - `examples/output/generated_screenplay.fountain`
 - `examples/output/generated_screenplay.fountain.map.json`
 
@@ -75,18 +112,18 @@ Get-ChildItem -Recurse -File src |
 
 - Static type checking was not run because the project does not configure a type checker.
 - Linting was not run because the project does not configure a lint command.
-- LLM, Agent, UI, Web API, full screenplay generation, and Fountain round-trip tests were not run because those capabilities are outside Stage 4 scope.
+- Multi-Agent review, UAT, UI/API tests, LLM tests, and Fountain round-trip editing tests were not run because they are outside Stage 5 scope.
 
 ## Risks
 
-- Outline and character bible outputs remain deterministic drafts, not human-approved creative decisions.
-- `want`, `need`, `flaw`, `voice`, and `arc` are deliberately low-confidence placeholders when direct evidence is insufficient.
-- `outline` and `character_bible` contracts are still marked as draft; schema changes after freeze must go through `docs/architecture/change-requests/`.
-- Stage 5 screenplay generation must preserve `source_trace`, `ai_tags`, and `locked` semantics instead of silently expanding low-confidence planning fields.
+- Generated screenplay content is deterministic scaffolding, not polished screenplay prose.
+- The builder intentionally emits conservative action and note elements; full dialogue generation remains out of scope.
+- Stage 5 preserves draft contract status. If the screenplay schema is frozen later, contract changes must go through `docs/architecture/change-requests/`.
+- Source text in the sample artifacts currently displays mojibake from the existing sample encoding path; this does not block structural QA but should be considered before human-facing demos.
 
 ## Gate Decision
 
-Passed. Stage 4 deterministic outline and character bible generation meets the
-current schema, builder, CLI, sample output, documentation, and regression
-requirements. The project is ready for Stage 5 structured screenplay
-generation, subject to normal contract review governance.
+Passed. Stage 5 deterministic structured screenplay generation meets the
+builder, CLI, generated sample, schema validation, Fountain export, source trace,
+`ai_tags`, no-LLM, and regression test requirements. The project is ready for
+Stage 6 multi-Agent review.
