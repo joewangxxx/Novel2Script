@@ -103,3 +103,31 @@ def test_run_agent_story_semantic_parser_returns_nonzero_for_missing_input(
     assert exit_code != 0
     assert not out_path.exists()
     assert not run_log_path.exists()
+
+
+def test_run_agent_story_semantic_parser_allow_network_requires_qwen_key(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    monkeypatch.delenv("N2S_QWEN_API_KEY", raising=False)
+    monkeypatch.setenv("N2S_DISABLE_DOTENV", "1")
+    out_path = tmp_path / "semantic_candidates.yaml"
+    run_log_path = tmp_path / "semantic_run_log.yaml"
+
+    exit_code = main(
+        [
+            "run-agent",
+            "story-semantic-parser",
+            "--story-map",
+            str(STORY_MAP),
+            "--out",
+            str(out_path),
+            "--run-log",
+            str(run_log_path),
+            "--allow-network",
+        ]
+    )
+
+    assert exit_code != 0
+    assert not out_path.exists()
+    assert not run_log_path.exists()

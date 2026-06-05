@@ -42,29 +42,22 @@ provider_profiles:
     purpose: "Tests, local dry runs, contract verification."
   qwen_long:
     provider_type: qwen
+    model: qwen-long
     env_api_key: N2S_QWEN_API_KEY
     env_base_url: N2S_QWEN_BASE_URL
     strengths: ["long_context", "source_fidelity", "semantic_extraction"]
   kimi_creative:
     provider_type: kimi
+    model: kimi-k2.6
     env_api_key: N2S_KIMI_API_KEY
     env_base_url: N2S_KIMI_BASE_URL
-    strengths: ["creative_planning", "adaptation", "character_work"]
-  doubao_dialogue:
-    provider_type: doubao
-    env_api_key: N2S_DOUBAO_API_KEY
-    env_base_url: N2S_DOUBAO_BASE_URL
-    strengths: ["dialogue", "naturalness", "localized_expression"]
+    strengths: ["creative_planning", "adaptation", "character_work", "dialogue"]
   deepseek_reasoning:
     provider_type: deepseek
+    model: deepseek-v4-pro
     env_api_key: N2S_DEEPSEEK_API_KEY
     env_base_url: N2S_DEEPSEEK_BASE_URL
-    strengths: ["reasoning", "dramaturgy", "consistency_review"]
-  glm_structured:
-    provider_type: glm
-    env_api_key: N2S_GLM_API_KEY
-    env_base_url: N2S_GLM_BASE_URL
-    strengths: ["structured_output", "yaml_repair", "schema_following"]
+    strengths: ["reasoning", "dramaturgy", "consistency_review", "yaml_repair"]
 ```
 
 Rules:
@@ -87,10 +80,10 @@ The router maps agent intent to one or more provider profiles:
 | `adaptation_planner` | `kimi_creative` | `mock_dry_run` | Outline and adaptation choices. |
 | `character_bible_agent` | `kimi_creative` | `mock_dry_run` | Character wants, needs, voice, arc. |
 | `scene_writer_agent` | `kimi_creative` | `mock_dry_run` | Scene draft expansion from approved outline. |
-| `dialogue_optimizer_agent` | `doubao_dialogue` | `mock_dry_run` | Dialogue rewrite suggestions only. |
+| `dialogue_optimizer_agent` | `kimi_creative` | `mock_dry_run` | Dialogue rewrite suggestions only. |
 | `beat_dramaturgy_agent` | `deepseek_reasoning` | `mock_dry_run` | Beat objective, conflict, stakes, and turn analysis. |
 | `source_fidelity_reviewer` | `qwen_long` + `deepseek_reasoning` | `mock_dry_run` | Two-pass source check: long-context extraction plus reasoning. |
-| `yaml_repair_agent` | `glm_structured` | `mock_dry_run` | Structured YAML repair under schema validation. |
+| `yaml_repair_agent` | `deepseek_reasoning` | `mock_dry_run` | Structured YAML repair under schema validation. |
 
 Routing rules:
 
@@ -285,17 +278,13 @@ API keys may come only from environment variables:
 
 - `N2S_QWEN_API_KEY`
 - `N2S_KIMI_API_KEY`
-- `N2S_DOUBAO_API_KEY`
 - `N2S_DEEPSEEK_API_KEY`
-- `N2S_GLM_API_KEY`
 
 Optional base URL overrides may come from:
 
 - `N2S_QWEN_BASE_URL`
 - `N2S_KIMI_BASE_URL`
-- `N2S_DOUBAO_BASE_URL`
 - `N2S_DEEPSEEK_BASE_URL`
-- `N2S_GLM_BASE_URL`
 
 Rules:
 

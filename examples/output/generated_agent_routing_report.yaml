@@ -39,7 +39,7 @@ agent_routing_report:
     prompt_hash: sha256:0a7716224fd348959aa74cb6ea68bec5071a8809b73a05839eaa38a0b0fec5fc
     stored_prompt: false
   - agent_id: dialogue_optimizer_agent
-    intended_profile: doubao_dialogue
+    intended_profile: kimi_creative
     resolved_profile: mock_dry_run
     provider: mock_dry_run
     model: mock-model
@@ -66,7 +66,7 @@ agent_routing_report:
     prompt_hash: sha256:508b4b316b88d11e96f27115dc2c3ada54213bf4d5e13d8ff386c54a7b7267f8
     stored_prompt: false
   - agent_id: yaml_repair_agent
-    intended_profile: glm_structured
+    intended_profile: deepseek_reasoning
     resolved_profile: mock_dry_run
     provider: mock_dry_run
     model: mock-model

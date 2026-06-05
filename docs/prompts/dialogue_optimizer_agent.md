@@ -2,7 +2,7 @@
 
 ## Provider Profile
 
-- Preferred China LLM profile: `doubao_dialogue`
+- Preferred China LLM profile: `kimi_creative`
 - Dry-run/test profile: `mock_dry_run`
 
 ## Purpose

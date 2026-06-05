@@ -2,7 +2,7 @@
 
 ## Provider Profile
 
-- Preferred China LLM profile: `glm_structured`
+- Preferred China LLM profile: `deepseek_reasoning`
 - Dry-run/test profile: `mock_dry_run`
 
 ## Purpose

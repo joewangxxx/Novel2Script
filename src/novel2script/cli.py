@@ -10,6 +10,11 @@ from novel2script.exporters.fountain_exporter import export_fountain
 from novel2script.generators.screenplay_builder import build_screenplay
 from novel2script.importers.fountain_importer import sync_fountain_to_yaml
 from novel2script.io import read_text, read_yaml, write_yaml
+from novel2script.llm.openai_compatible_provider import (
+    ProviderConfigurationError,
+    ProviderRuntimeError,
+)
+from novel2script.llm.router import LLMRouter, ProviderRoutingError
 from novel2script.parsers.novel_parser import parse_novel_text
 from novel2script.planners.character_bible_builder import build_character_bible
 from novel2script.planners.outline_builder import build_outline
@@ -79,6 +84,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     run_agent_parser.add_argument("--run-log", required=True)
     run_agent_parser.add_argument("--quality-report")
     run_agent_parser.add_argument("--dry-run", action="store_true", default=True)
+    run_agent_parser.add_argument("--allow-network", action="store_true")
 
     args = parser.parse_args(argv)
     if args.command == "validate":
@@ -216,9 +222,15 @@ def main(argv: Sequence[str] | None = None) -> int:
                 out_path=args.out,
                 run_log_path=args.run_log,
                 quality_report_path=args.quality_report,
-                dry_run=args.dry_run,
+                router=LLMRouter.from_environment(allow_network=args.allow_network),
+                dry_run=not args.allow_network,
             )
-        except OSError as exc:
+        except (
+            OSError,
+            ProviderConfigurationError,
+            ProviderRuntimeError,
+            ProviderRoutingError,
+        ) as exc:
             print(f"run-agent story-semantic-parser failed: {exc}", file=sys.stderr)
             return 1
         return 0

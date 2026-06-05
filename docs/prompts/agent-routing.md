@@ -10,10 +10,10 @@ configuration and environment variables.
 | `adaptation_planner` | `kimi_creative` | story_map, quality report | outline candidates |
 | `character_bible_agent` | `kimi_creative` | story_map, outline | character bible updates |
 | `scene_writer_agent` | `kimi_creative` | outline, character bible, screenplay | scene draft suggestions |
-| `dialogue_optimizer_agent` | `doubao_dialogue` | screenplay dialogue, character bible | dialogue suggestions |
+| `dialogue_optimizer_agent` | `kimi_creative` | screenplay dialogue, character bible | dialogue suggestions |
 | `beat_dramaturgy_agent` | `deepseek_reasoning` | screenplay beats, review report | beat analysis suggestions |
 | `source_fidelity_reviewer` | `qwen_long` + `deepseek_reasoning` | source traces, screenplay | fidelity issues |
-| `yaml_repair_agent` | `glm_structured` | schema errors, invalid YAML | schema repair suggestions |
+| `yaml_repair_agent` | `deepseek_reasoning` | schema errors, invalid YAML | schema repair suggestions |
 
 Routing config example: `config/agent_routing.example.yaml`.
 

@@ -8,31 +8,22 @@ providers:
     network_enabled: false
   qwen_long:
     provider_type: qwen
+    model: qwen-long
     enabled: false
     network_enabled: false
     env_api_key: N2S_QWEN_API_KEY
     env_base_url: N2S_QWEN_BASE_URL
   kimi_creative:
     provider_type: kimi
+    model: kimi-k2.6
     enabled: false
     network_enabled: false
     env_api_key: N2S_KIMI_API_KEY
     env_base_url: N2S_KIMI_BASE_URL
-  doubao_dialogue:
-    provider_type: doubao
-    enabled: false
-    network_enabled: false
-    env_api_key: N2S_DOUBAO_API_KEY
-    env_base_url: N2S_DOUBAO_BASE_URL
   deepseek_reasoning:
     provider_type: deepseek
+    model: deepseek-v4-pro
     enabled: false
     network_enabled: false
     env_api_key: N2S_DEEPSEEK_API_KEY
     env_base_url: N2S_DEEPSEEK_BASE_URL
-  glm_structured:
-    provider_type: glm
-    enabled: false
-    network_enabled: false
-    env_api_key: N2S_GLM_API_KEY
-    env_base_url: N2S_GLM_BASE_URL

@@ -24,7 +24,7 @@ def run_story_semantic_parser(
     router: LLMRouter | None = None,
     dry_run: bool = True,
 ) -> dict[str, Any]:
-    """Run the mock-first story semantic agent and write sidecar artifacts."""
+    """Run the story semantic agent and write sidecar artifacts."""
     story_map_doc = read_yaml(story_map_path)
     quality_report_doc = read_yaml(quality_report_path) if quality_report_path else None
     errors = _trace_errors(story_map_doc)
@@ -35,6 +35,8 @@ def run_story_semantic_parser(
             run_log_path,
             candidates=[],
             errors=errors,
+            provider_profile="mock_dry_run",
+            dry_run=True,
             metadata={
                 "intended_provider_profile": "qwen_long",
                 "resolved_provider_profile": "mock_dry_run",
@@ -62,6 +64,8 @@ def run_story_semantic_parser(
         run_log_path,
         candidates=candidates,
         errors=errors,
+        provider_profile=routed.resolved_profile,
+        dry_run=dry_run,
         metadata={
             "intended_provider_profile": routed.intended_profile,
             "resolved_provider_profile": routed.resolved_profile,
@@ -93,6 +97,8 @@ def _semantic_candidates_doc(
     *,
     candidates: list[dict[str, Any]],
     errors: list[dict[str, Any]],
+    provider_profile: str,
+    dry_run: bool,
     metadata: dict[str, Any],
 ) -> dict[str, Any]:
     return {
@@ -100,8 +106,8 @@ def _semantic_candidates_doc(
             "schema_version": SCHEMA_VERSION,
             "source_story_map": str(story_map_path),
             "agent_id": AGENT_ID,
-            "provider_profile": "mock_dry_run",
-            "dry_run": True,
+            "provider_profile": provider_profile,
+            "dry_run": dry_run,
             "candidates": candidates,
             "errors": errors,
             "human_approval_required": True,

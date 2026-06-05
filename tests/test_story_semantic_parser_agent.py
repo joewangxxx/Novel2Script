@@ -7,6 +7,8 @@ import yaml
 from jsonschema import Draft202012Validator
 
 from novel2script.agents.story_semantic_parser import run_story_semantic_parser
+from novel2script.llm.router import RoutedLLMResult
+from novel2script.llm.types import LLMRequest, LLMResponse
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -106,3 +108,72 @@ def test_story_semantic_parser_returns_structured_error_for_missing_trace(
     run_log = _load_yaml(run_log_path)
     assert run_log["llm_run_records"] == []
     assert run_log["errors"][0]["code"] == "missing_source_trace"
+
+
+class RealLikeRouter:
+    def __init__(self) -> None:
+        self.requests: list[LLMRequest] = []
+
+    def dispatch(self, request: LLMRequest) -> RoutedLLMResult:
+        self.requests.append(request)
+        response = LLMResponse(
+            text="real semantic parser response",
+            model="qwen-long",
+            provider="qwen_long",
+            usage={"input_tokens": 13, "output_tokens": 5, "total_tokens": 18},
+            latency_ms=44,
+            finish_reason="stop",
+            run_id="llm_run_qwen_001",
+        )
+        return RoutedLLMResult(
+            response=response,
+            run_record={
+                "run_id": response.run_id,
+                "trace_id": request.trace_id,
+                "agent_id": request.agent_id,
+                "task_type": request.task_type,
+                "provider": response.provider,
+                "model": response.model,
+                "status": "completed",
+                "finish_reason": response.finish_reason,
+                "prompt_hash": "sha256:test",
+                "prompt_chars": len(request.prompt),
+                "stored_prompt": False,
+                "usage": response.usage,
+                "latency_ms": response.latency_ms,
+                "intended_profile": "qwen_long",
+                "resolved_profile": "qwen_long",
+            },
+            intended_profile="qwen_long",
+            resolved_profile="qwen_long",
+        )
+
+
+def test_story_semantic_parser_records_real_provider_metadata_without_mutating_story_map(
+    tmp_path: Path,
+) -> None:
+    out_path = tmp_path / "semantic_candidates.yaml"
+    run_log_path = tmp_path / "semantic_run_log.yaml"
+    before = STORY_MAP.read_bytes()
+    router = RealLikeRouter()
+
+    result = run_story_semantic_parser(
+        STORY_MAP,
+        out_path=out_path,
+        run_log_path=run_log_path,
+        router=router,
+        dry_run=False,
+    )
+
+    semantic = result["semantic_candidates"]
+    assert STORY_MAP.read_bytes() == before
+    assert semantic["provider_profile"] == "qwen_long"
+    assert semantic["dry_run"] is False
+    assert semantic["metadata"]["resolved_provider_profile"] == "qwen_long"
+    assert semantic["metadata"]["provider_finish_reason"] == "stop"
+    assert router.requests[0].metadata["dry_run"] is False
+
+    run_log = _load_yaml(run_log_path)
+    assert run_log["llm_run_records"][0]["provider"] == "qwen_long"
+    assert run_log["llm_run_records"][0]["stored_prompt"] is False
+    assert "real semantic parser response" not in run_log_path.read_text(encoding="utf-8")

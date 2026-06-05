@@ -89,7 +89,7 @@ llm_run_log:
       output_tokens: 26
       total_tokens: 47
     latency_ms: 0
-    intended_profile: doubao_dialogue
+    intended_profile: kimi_creative
     resolved_profile: mock_dry_run
   - run_id: llm_run_4cb229715a35
     trace_id: stage9d_trace_006
@@ -143,5 +143,5 @@ llm_run_log:
       output_tokens: 24
       total_tokens: 44
     latency_ms: 0
-    intended_profile: glm_structured
+    intended_profile: deepseek_reasoning
     resolved_profile: mock_dry_run

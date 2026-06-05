@@ -136,3 +136,106 @@ Get-ChildItem -Path src,tests -Recurse -File |
 Passed. Stage 10 first LLM Agent integration is stable in mock/dry-run mode,
 safe by default, auditable, and non-mutating. The project is ready for
 `stage_11_semantic_candidate_merge_review`.
+
+# Stage 11 QA: Real LLM Provider Opt-In
+
+## Commands
+
+```powershell
+python -m pytest
+
+python -m novel2script.cli run-agent story-semantic-parser `
+  --story-map examples/output/generated_story_map.yaml `
+  --out temp/semantic_candidates.stage11.yaml `
+  --run-log temp/semantic_agent_run_log.stage11.yaml
+
+python -m novel2script.cli validate temp/semantic_candidates.stage11.yaml `
+  --schema schemas/semantic_candidates.schema.json `
+  --out temp/semantic_candidates_stage11_validation.yaml
+
+$env:N2S_QWEN_API_KEY=$null
+python -m novel2script.cli run-agent story-semantic-parser `
+  --story-map examples/output/generated_story_map.yaml `
+  --out temp/semantic_candidates.should_not_exist.yaml `
+  --run-log temp/semantic_agent_run_log.should_not_exist.yaml `
+  --allow-network
+
+Get-ChildItem -Path src,tests,config,docs,examples -Recurse -File |
+  Where-Object { @(".py",".yaml",".yml",".md",".json",".txt") -contains $_.Extension } |
+  Select-String -Pattern "sk-[A-Za-z0-9_-]{20,}|Bearer\s+[A-Za-z0-9._-]+|N2S_DOUBAO|N2S_GLM|doubao_dialogue|glm_structured" -CaseSensitive:$false
+```
+
+## Results
+
+- `python -m pytest`: passed, 77 tests collected and 77 passed.
+- Default `run-agent story-semantic-parser`: passed in dry-run mode.
+- `validate temp/semantic_candidates.stage11.yaml`: passed against
+  `schemas/semantic_candidates.schema.json`.
+- `run-agent story-semantic-parser --allow-network` with
+  `N2S_QWEN_API_KEY` unset: failed closed with a clear provider configuration
+  error and produced no output files.
+- Secret/profile scan: no real `sk-...` API key was found in repository files.
+  Matches were limited to fake test data and documentation safety language.
+- Old optional `doubao_dialogue` and `glm_structured` profiles were removed
+  from active code/config/prompt routes; only an explanatory Stage 11 note
+  remains.
+
+## Tests Not Run
+
+- Real Qwen-Long, Kimi K2.6, or DeepSeek V4-Pro API calls were not executed in
+  automated QA. Real calls remain opt-in through environment variables plus
+  `--allow-network`.
+- Linting and static type checking were not run because the project does not
+  configure those commands.
+
+## Gate Decision
+
+Passed. Stage 11 adds a real OpenAI-compatible provider path that is disabled
+by default, environment-variable-only, redacted in logs, covered by fake
+transport tests, and guarded by explicit `--allow-network`.
+
+## Stage 11 Closeout: Local `.env` And Real Qwen Smoke
+
+### Commands
+
+```powershell
+python -m novel2script.cli run-agent story-semantic-parser `
+  --story-map examples/output/generated_story_map.yaml `
+  --out temp/semantic_candidates.real.retry.yaml `
+  --run-log temp/semantic_agent_run_log.real.retry.yaml `
+  --allow-network
+
+python -m novel2script.cli validate temp/semantic_candidates.real.retry.yaml `
+  --schema schemas/semantic_candidates.schema.json `
+  --out temp/semantic_candidates_real_retry_validation.yaml
+
+python -m pytest
+```
+
+### Results
+
+- Local `.env` was created and confirmed ignored by Git.
+- `.env.example` was added as the only shareable provider-key template.
+- First Qwen smoke attempt failed with a transient TLS EOF error before schema
+  validation.
+- Retry succeeded with:
+  - `provider_profile: qwen_long`
+  - `dry_run: false`
+  - `candidate_count: 3`
+  - `errors: 0`
+  - `run_record_provider: qwen_long`
+  - `run_record_model: qwen-long`
+  - `run_record_status: completed`
+  - `stored_prompt: false`
+  - `finish_reason: length`
+  - `total_tokens: 1455`
+- Real smoke output validated against
+  `schemas/semantic_candidates.schema.json`.
+- Temporary run artifacts were scanned for API keys, bearer tokens, and prompt
+  text markers; no matches were found.
+
+### Gate Decision
+
+Passed with retry note. Real Qwen-Long connectivity is verified, but the first
+attempt showed transient TLS/network instability, so later real-provider stages
+should add retry/backoff around provider calls.

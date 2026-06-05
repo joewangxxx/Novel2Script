@@ -53,9 +53,12 @@ Stage 9A defines these provider profile IDs:
 | `mock_dry_run` | deterministic tests and local dry runs | disabled |
 | `qwen_long` | long-context source parsing and fidelity checks | disabled unless explicitly enabled |
 | `kimi_creative` | adaptation planning, character bible, scene writing | disabled unless explicitly enabled |
-| `doubao_dialogue` | dialogue naturalness and localized expression | disabled unless explicitly enabled |
 | `deepseek_reasoning` | dramaturgy, reasoning, consistency review | disabled unless explicitly enabled |
-| `glm_structured` | structured YAML repair and schema following | disabled unless explicitly enabled |
+
+Stage 11 narrows the active real-provider set to three Chinese models:
+Qwen-Long, Kimi K2.6, and DeepSeek V4-Pro. Earlier optional dialogue and
+structured-repair profiles were folded into `kimi_creative` and
+`deepseek_reasoning`.
 
 `mock_dry_run` is the default profile. A future implementation must not make
 real network calls unless a run explicitly opts in and required environment
@@ -69,10 +72,10 @@ The Stage 9A routing table is:
 - `adaptation_planner` -> `kimi_creative`
 - `character_bible_agent` -> `kimi_creative`
 - `scene_writer_agent` -> `kimi_creative`
-- `dialogue_optimizer_agent` -> `doubao_dialogue`
+- `dialogue_optimizer_agent` -> `kimi_creative`
 - `beat_dramaturgy_agent` -> `deepseek_reasoning`
 - `source_fidelity_reviewer` -> `qwen_long` + `deepseek_reasoning`
-- `yaml_repair_agent` -> `glm_structured`
+- `yaml_repair_agent` -> `deepseek_reasoning`
 
 Every route falls back to `mock_dry_run` when dry-run mode is enabled or when
 tests inject mock clients.
@@ -143,17 +146,13 @@ API keys are allowed only through environment variables:
 
 - `N2S_QWEN_API_KEY`
 - `N2S_KIMI_API_KEY`
-- `N2S_DOUBAO_API_KEY`
 - `N2S_DEEPSEEK_API_KEY`
-- `N2S_GLM_API_KEY`
 
 Optional base URL overrides may use:
 
 - `N2S_QWEN_BASE_URL`
 - `N2S_KIMI_BASE_URL`
-- `N2S_DOUBAO_BASE_URL`
 - `N2S_DEEPSEEK_BASE_URL`
-- `N2S_GLM_BASE_URL`
 
 Rules:
 
