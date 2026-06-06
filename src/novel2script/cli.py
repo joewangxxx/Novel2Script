@@ -225,7 +225,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0
     if args.command == "run-agent" and args.agent_name == "story-semantic-parser":
         try:
-            run_story_semantic_parser(
+            result = run_story_semantic_parser(
                 args.story_map,
                 out_path=args.out,
                 run_log_path=args.run_log,
@@ -241,6 +241,24 @@ def main(argv: Sequence[str] | None = None) -> int:
         ) as exc:
             print(f"run-agent story-semantic-parser failed: {exc}", file=sys.stderr)
             return 1
+        if args.allow_network:
+            semantic = result["semantic_candidates"]
+            blocking_codes = {
+                "empty_model_output",
+                "malformed_model_json",
+                "invalid_model_output_schema",
+                "truncated_model_output",
+            }
+            error_codes = {
+                error.get("code", "") for error in semantic.get("errors", [])
+            }
+            if error_codes & blocking_codes or not semantic.get("candidates"):
+                print(
+                    "run-agent story-semantic-parser failed: "
+                    "real model output was not accepted.",
+                    file=sys.stderr,
+                )
+                return 1
         return 0
     if args.command == "merge-semantic-candidates":
         try:

@@ -1,10 +1,14 @@
 from __future__ import annotations
 
 import hashlib
+import json
 from pathlib import Path
 from typing import Any
 
-from novel2script.io import read_yaml, write_yaml
+from jsonschema import Draft202012Validator
+from jsonschema.exceptions import ValidationError
+
+from novel2script.io import read_json, read_yaml, write_yaml
 from novel2script.llm.router import LLMRouter
 from novel2script.llm.types import LLMRequest
 
@@ -13,6 +17,8 @@ AGENT_ID = "story_semantic_parser"
 SCHEMA_VERSION = "0.1.0"
 MAX_EXCERPTS = 8
 MAX_EXCERPT_CHARS = 120
+ROOT = Path(__file__).resolve().parents[3]
+MODEL_OUTPUT_SCHEMA = ROOT / "schemas" / "qwen_semantic_model_output.schema.json"
 
 
 def run_story_semantic_parser(
@@ -54,10 +60,17 @@ def run_story_semantic_parser(
         dry_run=dry_run,
     )
     routed = (router or LLMRouter.default()).dispatch(request)
-    candidates = _build_candidates(story_map_doc)
-    errors = _candidate_trace_errors(candidates)
-    if errors:
-        candidates = []
+    if dry_run:
+        candidates = _build_candidates(story_map_doc)
+        errors = _candidate_trace_errors(candidates)
+        if errors:
+            candidates = []
+    else:
+        candidates, errors = _parse_real_candidates(
+            routed.response.text,
+            finish_reason=routed.response.finish_reason,
+            excerpts=_bounded_excerpts(story_map_doc),
+        )
 
     report = _semantic_candidates_doc(
         story_map_path,
@@ -128,8 +141,60 @@ def _build_request(
     quality_status = _quality_status(quality_report_doc)
     prompt_lines = [
         "Agent: story_semantic_parser",
-        "Task: propose source-grounded semantic candidates only.",
-        "Rules: do not merge, do not generate screenplay, require human approval.",
+        "Task: return source-grounded semantic candidate drafts.",
+        'The only allowed root structure is {"candidates": [...]}.',
+        "Return 0 to 3 candidates. Never return more than 3 candidates.",
+        (
+            "Every candidate must contain exactly these fields: type, confidence, "
+            "evidence, source_trace_ids, target_story_map_field, proposed_fields."
+        ),
+        "confidence must be one of: low, medium, high.",
+        (
+            "evidence must contain summary and may contain only quote_preview "
+            "and reasoning_note."
+        ),
+        (
+            "source_trace_ids must contain chapter_id and paragraph_ids. Use only "
+            "the chapter_id and paragraph_id values in Bounded excerpts below."
+        ),
+        "Allowed type -> target_story_map_field mappings:",
+        "- character_candidate -> characters_detected",
+        "- location_candidate -> locations_detected",
+        "- prop_candidate -> props_detected",
+        "- event_candidate -> key_events",
+        "- psychological_passage_candidate -> psychological_passages",
+        "- timeline_candidate -> timeline",
+        "Allowed proposed_fields by type:",
+        "- character_candidate: name; optional aliases, description_hint",
+        "- location_candidate: name; optional location_type, description_hint",
+        "- prop_candidate: name; optional prop_type, description_hint",
+        "- event_candidate: summary; optional event_type",
+        (
+            "- psychological_passage_candidate: summary; optional passage_type, "
+            "externalization_hint"
+        ),
+        "- timeline_candidate: label; optional time_text",
+        (
+            "Do not output semantic_traces, semantic_concept, description, "
+            "sources, candidate ID, merge_policy, file paths, run metadata, "
+            "Markdown fences, explanatory prose, or a thinking process."
+        ),
+        "Keep every field concise.",
+        "Valid event_candidate JSON example:",
+        (
+            '{"candidates": [{"type": "event_candidate", "confidence": "medium", '
+            '"evidence": {"summary": "A concrete source-grounded event occurs."}, '
+            '"source_trace_ids": {"chapter_id": "ch_001", '
+            '"paragraph_ids": ["p_001"]}, '
+            '"target_story_map_field": "key_events", '
+            '"proposed_fields": {"summary": "The event changes the situation.", '
+            '"event_type": "discovery"}}]}'
+        ),
+        (
+            "Replace example trace IDs only with IDs listed below. Do not add "
+            "fields that are not shown in the contract."
+        ),
+        "Safety rules: do not merge and do not generate screenplay content.",
         f"Dry run: {dry_run}",
         f"Quality status: {quality_status}",
         "Bounded excerpts:",
@@ -138,14 +203,17 @@ def _build_request(
         prompt_lines.append(
             f"- {excerpt['chapter_id']}/{excerpt['paragraph_id']}: {excerpt['text']}"
         )
+    prompt_lines.append(
+        "Only return the JSON object. Do not return Markdown or explanatory text."
+    )
     prompt = "\n".join(prompt_lines)
     return LLMRequest(
         agent_id=AGENT_ID,
         task_type="semantic_candidate_generation",
         prompt=prompt,
-        response_format="semantic_candidates.yaml",
+        response_format="semantic_candidates.yaml" if dry_run else "json_object",
         temperature=0.0,
-        max_tokens=1024,
+        max_tokens=1024 if dry_run else 2048,
         trace_id=_trace_id(story_map_path, excerpts),
         metadata={
             "source_story_map": str(story_map_path),
@@ -153,6 +221,109 @@ def _build_request(
             "dry_run": dry_run,
         },
     )
+
+
+def _parse_real_candidates(
+    text: str,
+    *,
+    finish_reason: str,
+    excerpts: list[dict[str, str]],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    if finish_reason == "length":
+        return [], [
+            _model_error(
+                "truncated_model_output",
+                "Provider stopped because the output token limit was reached.",
+            )
+        ]
+    if not text.strip():
+        return [], [_model_error("empty_model_output", "Provider returned no JSON content.")]
+    try:
+        model_doc = json.loads(text)
+    except json.JSONDecodeError:
+        return [], [
+            _model_error(
+                "malformed_model_json",
+                "Provider response was not valid JSON.",
+            )
+        ]
+    try:
+        Draft202012Validator(read_json(MODEL_OUTPUT_SCHEMA)).validate(model_doc)
+    except ValidationError:
+        return [], [
+            _model_error(
+                "invalid_model_output_schema",
+                "Provider JSON did not match qwen semantic model-output schema.",
+            )
+        ]
+
+    whitelist: dict[str, set[str]] = {}
+    for excerpt in excerpts:
+        whitelist.setdefault(excerpt["chapter_id"], set()).add(
+            excerpt["paragraph_id"]
+        )
+
+    candidates: list[dict[str, Any]] = []
+    errors: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for draft in model_doc["candidates"]:
+        trace = draft["source_trace_ids"]
+        chapter_id = trace["chapter_id"]
+        paragraph_ids = trace["paragraph_ids"]
+        if chapter_id not in whitelist or any(
+            paragraph_id not in whitelist[chapter_id]
+            for paragraph_id in paragraph_ids
+        ):
+            errors.append(
+                _model_error(
+                    "hallucinated_source_trace",
+                    "Candidate referenced a chapter or paragraph outside the sent excerpts.",
+                )
+            )
+            continue
+        fingerprint = _candidate_fingerprint(draft)
+        if fingerprint in seen:
+            errors.append(
+                _model_error(
+                    "duplicate_candidate",
+                    "Duplicate model candidate was excluded.",
+                )
+            )
+            continue
+        seen.add(fingerprint)
+        candidates.append(
+            {
+                "id": f"semcand_{len(candidates) + 1:03d}",
+                **draft,
+                "merge_policy": "human_approval_required",
+            }
+        )
+    return candidates, errors
+
+
+def _candidate_fingerprint(candidate: dict[str, Any]) -> str:
+    canonical = {
+        "type": candidate["type"],
+        "target_story_map_field": candidate["target_story_map_field"],
+        "source_trace_ids": candidate["source_trace_ids"],
+        "proposed_fields": candidate["proposed_fields"],
+    }
+    return hashlib.sha256(
+        json.dumps(
+            canonical,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    ).hexdigest()
+
+
+def _model_error(code: str, message: str) -> dict[str, Any]:
+    return {
+        "code": code,
+        "message": message,
+        "retryable": False,
+    }
 
 
 def _bounded_excerpts(story_map_doc: dict[str, Any]) -> list[dict[str, str]]:

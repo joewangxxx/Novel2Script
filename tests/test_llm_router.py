@@ -111,3 +111,27 @@ def test_router_from_environment_registers_selected_chinese_model_profiles(monke
     assert router.providers["qwen_long"].model == "qwen-long"  # type: ignore[attr-defined]
     assert router.providers["kimi_creative"].model == "kimi-k2.6"  # type: ignore[attr-defined]
     assert router.providers["deepseek_reasoning"].model == "deepseek-v4-pro"  # type: ignore[attr-defined]
+
+
+def test_router_loads_base_url_from_same_dotenv_as_provider_key(
+    tmp_path,
+    monkeypatch,
+):
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.delenv("N2S_QWEN_API_KEY", raising=False)
+    monkeypatch.delenv("N2S_QWEN_BASE_URL", raising=False)
+    monkeypatch.delenv("N2S_DISABLE_DOTENV", raising=False)
+    (tmp_path / ".env").write_text(
+        "\n".join(
+            [
+                "N2S_QWEN_API_KEY=dotenv-qwen-key",
+                "N2S_QWEN_BASE_URL=https://dotenv.example/v1",
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+    router = LLMRouter.from_environment(allow_network=True)
+    provider = router.providers["qwen_long"]
+
+    assert provider.base_url == "https://dotenv.example/v1"  # type: ignore[attr-defined]

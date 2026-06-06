@@ -1,10 +1,12 @@
 from __future__ import annotations
 
-import os
 from dataclasses import dataclass
 
 from novel2script.llm.mock_provider import MockLLMProvider
-from novel2script.llm.openai_compatible_provider import OpenAICompatibleProvider
+from novel2script.llm.openai_compatible_provider import (
+    OpenAICompatibleProvider,
+    provider_env_value,
+)
 from novel2script.llm.run_log import build_run_record
 from novel2script.llm.types import LLMRequest, LLMResponse, LLMRunRecord
 
@@ -83,9 +85,9 @@ class LLMRouter:
                     provider_type=config["provider_type"],
                     model=config["model"],
                     env_api_key=config["env_api_key"],
-                    base_url=os.getenv(
-                        config["env_base_url"],
-                        config["default_base_url"],
+                    base_url=(
+                        provider_env_value(config["env_base_url"])
+                        or config["default_base_url"]
                     ),
                 )
         return cls(providers=providers, allow_network=allow_network)

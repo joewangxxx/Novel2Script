@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from copy import deepcopy
 from pathlib import Path
 
@@ -110,19 +111,49 @@ def test_story_semantic_parser_returns_structured_error_for_missing_trace(
     assert run_log["errors"][0]["code"] == "missing_source_trace"
 
 
+def _model_candidate(
+    *,
+    chapter_id: str = "ch_001",
+    paragraph_ids: list[str] | None = None,
+    summary: str = "A source-grounded event from Qwen.",
+) -> dict:
+    return {
+        "type": "event_candidate",
+        "confidence": "high",
+        "evidence": {
+            "summary": "The excerpt contains a concrete event.",
+            "quote_preview": "bounded evidence",
+        },
+        "source_trace_ids": {
+            "chapter_id": chapter_id,
+            "paragraph_ids": paragraph_ids or ["p_001"],
+        },
+        "target_story_map_field": "key_events",
+        "proposed_fields": {
+            "summary": summary,
+            "event_type": "discovery",
+        },
+    }
+
+
 class RealLikeRouter:
-    def __init__(self) -> None:
+    def __init__(self, *, text: str | None = None, finish_reason: str = "stop") -> None:
         self.requests: list[LLMRequest] = []
+        self.text = text or json.dumps(
+            {"candidates": [_model_candidate()]},
+            ensure_ascii=False,
+        )
+        self.finish_reason = finish_reason
 
     def dispatch(self, request: LLMRequest) -> RoutedLLMResult:
         self.requests.append(request)
         response = LLMResponse(
-            text="real semantic parser response",
+            text=self.text,
             model="qwen-long",
             provider="qwen_long",
             usage={"input_tokens": 13, "output_tokens": 5, "total_tokens": 18},
             latency_ms=44,
-            finish_reason="stop",
+            finish_reason=self.finish_reason,
             run_id="llm_run_qwen_001",
         )
         return RoutedLLMResult(
@@ -172,8 +203,205 @@ def test_story_semantic_parser_records_real_provider_metadata_without_mutating_s
     assert semantic["metadata"]["resolved_provider_profile"] == "qwen_long"
     assert semantic["metadata"]["provider_finish_reason"] == "stop"
     assert router.requests[0].metadata["dry_run"] is False
+    assert router.requests[0].response_format == "json_object"
+    assert router.requests[0].max_tokens == 2048
+    prompt = router.requests[0].prompt
+    assert '{"candidates": [' in prompt
+    assert "0 to 3 candidates" in prompt
+    assert "Keep every field concise" in prompt
+    assert "thinking process" in prompt
+    for field in (
+        "type",
+        "confidence",
+        "evidence",
+        "source_trace_ids",
+        "target_story_map_field",
+        "proposed_fields",
+    ):
+        assert field in prompt
+    for prohibited_field in (
+        "semantic_traces",
+        "semantic_concept",
+        "description",
+        "sources",
+        "candidate ID",
+        "merge_policy",
+        "Markdown fences",
+    ):
+        assert prohibited_field in prompt
+    assert "event_candidate -> key_events" in prompt
+    assert '"type": "event_candidate"' in prompt
+    assert '"target_story_map_field": "key_events"' in prompt
+    assert "Only return the JSON object" in prompt
+    assert semantic["errors"] == []
+    assert semantic["candidates"] == [
+        {
+            "id": "semcand_001",
+            **_model_candidate(),
+            "merge_policy": "human_approval_required",
+        }
+    ]
 
     run_log = _load_yaml(run_log_path)
     assert run_log["llm_run_records"][0]["provider"] == "qwen_long"
     assert run_log["llm_run_records"][0]["stored_prompt"] is False
-    assert "real semantic parser response" not in run_log_path.read_text(encoding="utf-8")
+    assert router.text not in run_log_path.read_text(encoding="utf-8")
+
+
+def test_story_semantic_parser_rejects_malformed_real_json(tmp_path: Path) -> None:
+    result = run_story_semantic_parser(
+        STORY_MAP,
+        out_path=tmp_path / "semantic_candidates.yaml",
+        run_log_path=tmp_path / "semantic_run_log.yaml",
+        router=RealLikeRouter(text='{"candidates": [}'),
+        dry_run=False,
+    )
+
+    semantic = result["semantic_candidates"]
+    assert semantic["candidates"] == []
+    assert semantic["errors"][0]["code"] == "malformed_model_json"
+
+
+def test_story_semantic_parser_rejects_empty_real_response(tmp_path: Path) -> None:
+    result = run_story_semantic_parser(
+        STORY_MAP,
+        out_path=tmp_path / "semantic_candidates.yaml",
+        run_log_path=tmp_path / "semantic_run_log.yaml",
+        router=RealLikeRouter(text=" "),
+        dry_run=False,
+    )
+
+    semantic = result["semantic_candidates"]
+    assert semantic["candidates"] == []
+    assert semantic["errors"][0]["code"] == "empty_model_output"
+
+
+def test_story_semantic_parser_rejects_truncated_real_response(tmp_path: Path) -> None:
+    result = run_story_semantic_parser(
+        STORY_MAP,
+        out_path=tmp_path / "semantic_candidates.yaml",
+        run_log_path=tmp_path / "semantic_run_log.yaml",
+        router=RealLikeRouter(finish_reason="length"),
+        dry_run=False,
+    )
+
+    semantic = result["semantic_candidates"]
+    assert semantic["candidates"] == []
+    assert semantic["errors"][0]["code"] == "truncated_model_output"
+
+
+def test_story_semantic_parser_excludes_hallucinated_trace(tmp_path: Path) -> None:
+    text = json.dumps(
+        {"candidates": [_model_candidate(chapter_id="ch_999")]},
+        ensure_ascii=False,
+    )
+    result = run_story_semantic_parser(
+        STORY_MAP,
+        out_path=tmp_path / "semantic_candidates.yaml",
+        run_log_path=tmp_path / "semantic_run_log.yaml",
+        router=RealLikeRouter(text=text),
+        dry_run=False,
+    )
+
+    semantic = result["semantic_candidates"]
+    assert semantic["candidates"] == []
+    assert semantic["errors"][0]["code"] == "hallucinated_source_trace"
+
+
+def test_story_semantic_parser_deduplicates_real_candidates(tmp_path: Path) -> None:
+    candidate = _model_candidate()
+    text = json.dumps(
+        {"candidates": [candidate, deepcopy(candidate)]},
+        ensure_ascii=False,
+    )
+    result = run_story_semantic_parser(
+        STORY_MAP,
+        out_path=tmp_path / "semantic_candidates.yaml",
+        run_log_path=tmp_path / "semantic_run_log.yaml",
+        router=RealLikeRouter(text=text),
+        dry_run=False,
+    )
+
+    semantic = result["semantic_candidates"]
+    assert [item["id"] for item in semantic["candidates"]] == ["semcand_001"]
+    assert semantic["errors"][0]["code"] == "duplicate_candidate"
+
+
+def test_story_semantic_parser_rejects_unknown_model_output_field(
+    tmp_path: Path,
+) -> None:
+    candidate = _model_candidate()
+    candidate["model_generated_id"] = "semcand_999"
+    result = run_story_semantic_parser(
+        STORY_MAP,
+        out_path=tmp_path / "semantic_candidates.yaml",
+        run_log_path=tmp_path / "semantic_run_log.yaml",
+        router=RealLikeRouter(
+            text=json.dumps({"candidates": [candidate]}, ensure_ascii=False)
+        ),
+        dry_run=False,
+    )
+
+    semantic = result["semantic_candidates"]
+    assert semantic["candidates"] == []
+    assert semantic["errors"][0]["code"] == "invalid_model_output_schema"
+
+
+def test_story_semantic_parser_redacts_schema_validation_instance(
+    tmp_path: Path,
+) -> None:
+    marker = "SENSITIVE_MODEL_RESPONSE_MARKER_9f7a"
+    candidate = _model_candidate()
+    candidate["description"] = marker
+    out_path = tmp_path / "semantic_candidates.yaml"
+    run_log_path = tmp_path / "semantic_run_log.yaml"
+
+    result = run_story_semantic_parser(
+        STORY_MAP,
+        out_path=out_path,
+        run_log_path=run_log_path,
+        router=RealLikeRouter(
+            text=json.dumps({"candidates": [candidate]}, ensure_ascii=False)
+        ),
+        dry_run=False,
+    )
+
+    error = result["semantic_candidates"]["errors"][0]
+    assert error == {
+        "code": "invalid_model_output_schema",
+        "message": "Provider JSON did not match qwen semantic model-output schema.",
+        "retryable": False,
+    }
+    assert marker not in json.dumps(result, ensure_ascii=False)
+    assert marker not in out_path.read_text(encoding="utf-8")
+    assert marker not in run_log_path.read_text(encoding="utf-8")
+
+
+def test_story_semantic_parser_rejects_more_than_three_real_candidates(
+    tmp_path: Path,
+) -> None:
+    candidates = [
+        _model_candidate(summary=f"Candidate event {index}.")
+        for index in range(1, 5)
+    ]
+    result = run_story_semantic_parser(
+        STORY_MAP,
+        out_path=tmp_path / "semantic_candidates.yaml",
+        run_log_path=tmp_path / "semantic_run_log.yaml",
+        router=RealLikeRouter(
+            text=json.dumps({"candidates": candidates}, ensure_ascii=False)
+        ),
+        dry_run=False,
+    )
+
+    semantic = result["semantic_candidates"]
+    assert semantic["candidates"] == []
+    assert semantic["errors"] == [
+        {
+            "code": "invalid_model_output_schema",
+            "message": (
+                "Provider JSON did not match qwen semantic model-output schema."
+            ),
+            "retryable": False,
+        }
+    ]
