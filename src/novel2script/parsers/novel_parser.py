@@ -209,6 +209,8 @@ def _parse_chapter_heading(line: str) -> tuple[str, str] | None:
 
 def _is_chapter_heading(text: str) -> bool:
     return bool(
+        re.match(r"^第?[一二三四五六七八九十百千万零〇两\d]+回(?:\s*[:：]?\s*.*)?$", text)
+        or
         re.match(r"^第[一二三四五六七八九十百千万\d]+章(?:\s*[:：]?\s*.*)?$", text)
         or re.match(
             r"^[一二三四五六七八九十百千万]+章(?:\s*[:：]?\s*.*)?$", text
@@ -218,6 +220,12 @@ def _is_chapter_heading(text: str) -> bool:
 
 
 def _normalize_chapter_title(text: str) -> str:
+    hui_match = re.match(
+        r"^第?[一二三四五六七八九十百千万零〇两\d]+回\s*[:：]?\s*(.*)$", text
+    )
+    if hui_match:
+        title = hui_match.group(1).strip()
+        return title or text
     zh_match = re.match(
         r"^第?[一二三四五六七八九十百千万\d]+章\s*[:：]?\s*(.*)$", text
     )
