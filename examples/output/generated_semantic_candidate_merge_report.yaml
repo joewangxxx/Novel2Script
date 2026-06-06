@@ -1,0 +1,84 @@
+semantic_candidate_merge_report:
+  schema_version: 0.1.0
+  source_story_map: examples\output\generated_story_map.yaml
+  source_semantic_candidates: examples\output\generated_semantic_candidates.yaml
+  decision_file: examples\output\generated_semantic_candidate_decisions.yaml
+  output_story_map: examples\output\generated_story_map.merged.yaml
+  generated_at: '2026-06-06T09:54:40+08:00'
+  merge_profile: deterministic_semantic_candidate_merge_v0
+  status: success
+  summary:
+    candidates_total: 3
+    decisions_total: 3
+    accepted: 1
+    rejected: 1
+    edited: 1
+    skipped: 0
+    blocked: 0
+    applied_changes: 2
+  decisions:
+  - decision_id: dec_001
+    candidate_id: semcand_001
+    candidate_type: event_candidate
+    target_story_map_field: key_events
+    requested_decision: accept
+    outcome: accepted
+    human_approval:
+      approved: true
+      reviewer_id: author
+      approved_at: '2026-06-06T10:00:00+08:00'
+    reviewer: author
+    reviewed_at: '2026-06-06T10:00:00+08:00'
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+    candidate_hash: sha256:72395e72bddd10de13ec2a7d29cd42595a6a95ab8734f6cc8c3da8c9f396b290
+    reviewer_note: Accept the source-grounded event candidate.
+    created_id: evt_007
+    applied_yaml_path: story_map.key_events[6]
+  - decision_id: dec_002
+    candidate_id: semcand_002
+    candidate_type: psychological_passage_candidate
+    target_story_map_field: psychological_passages
+    requested_decision: reject
+    outcome: rejected
+    human_approval:
+      approved: false
+      reviewer_id: author
+      approved_at: '2026-06-06T10:00:00+08:00'
+    reviewer: author
+    reviewed_at: '2026-06-06T10:00:00+08:00'
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+    candidate_hash: sha256:384676bede10d2e4a26167845f4519e341255fc0ae47c3863ec61187921e87b2
+    reviewer_note: Reject because the deterministic parser already captured this interiority.
+  - decision_id: dec_003
+    candidate_id: semcand_003
+    candidate_type: timeline_candidate
+    target_story_map_field: timeline
+    requested_decision: edit
+    outcome: edited
+    human_approval:
+      approved: true
+      reviewer_id: author
+      approved_at: '2026-06-06T10:00:00+08:00'
+    reviewer: author
+    reviewed_at: '2026-06-06T10:00:00+08:00'
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+    candidate_hash: sha256:fe18801626d7db788cdd9b7d6dfabcf15b78952f7af6e38e92d4c4dc1f57d868
+    reviewer_note: Use a clearer human-approved timeline label.
+    created_id: tl_005
+    applied_yaml_path: story_map.timeline[4]
+  errors: []
+  audit:
+    preserved_original_story_map: true
+    story_map_hash_before: sha256:c16ac434c0a17fb7d3e02c4da708d1bfb672b4499bd6924a66ad4270a49688d7
+    story_map_hash_after: sha256:d02e603e46bdfc37e32dda1504a0f0a4d49d9f4c726b19fd837198f608fa83c6
+    semantic_candidates_hash: sha256:b49a77ac60543d3c918a92d73543c72d00b9d0caabd79a7053cad738a8d66b66
+    decision_file_hash: sha256:a952f3f839cb3325b43b6af63c5a29328d09f934fc565459ab402ca328c8e632

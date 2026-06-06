@@ -403,3 +403,58 @@ created during Phase 10A:
   or API keys.
 - After contract freeze, FE, BE, QA, agents, or tooling must not silently change
   semantic candidates, story map, provider routing, or prior data contracts.
+
+## Phase 12A Files
+
+- `schemas/semantic_candidate_decisions.schema.json`: draft JSON Schema for
+  human accept/reject/edit decisions over semantic candidates.
+- `schemas/semantic_candidate_merge_report.schema.json`: draft JSON Schema for
+  deterministic semantic candidate merge audit reports.
+- `docs/dev/PHASE_12_SEMANTIC_CANDIDATE_REVIEW_AND_MERGE.md`: Stage 12
+  contract, allowed merge targets, approval policy, field mapping rules, error
+  handling, and implementation plan.
+- `docs/architecture/schema.md`: cross-phase schema notes updated with Stage 12
+  decision and merge report rules.
+- `docs/architecture/folder-plan.md`: this file, updated with Stage 12 file
+  ownership and planned implementation files.
+
+Phase 12A intentionally does not create merge implementation code, does not call
+LLMs, does not build a frontend UI, and does not modify any existing story map
+artifact.
+
+## Planned Phase 12 Implementation Files
+
+These files are planned for later Stage 12 implementation work and must not be
+created during Phase 12A:
+
+- `src/novel2script/agents/semantic_candidate_merge.py`: deterministic merge
+  logic from story map, semantic candidates, and human decisions into a new
+  story map plus merge report.
+- `tests/test_semantic_candidate_merge.py`: unit tests for accept, reject,
+  edit, missing approval, invalid trace, disallowed targets, and schema-valid
+  outputs.
+- `tests/test_semantic_candidate_merge_cli.py`: future CLI tests for
+  `merge-semantic-candidates`.
+- `examples/output/generated_semantic_candidate_decisions.yaml`: public sample
+  human decision file.
+- `examples/output/generated_story_map.merged.yaml`: public sample merged story
+  map output.
+- `examples/output/generated_semantic_candidate_merge_report.yaml`: public
+  sample merge report.
+
+## Phase 12 Ownership And Gates
+
+- Architecture owns `schemas/semantic_candidate_decisions.schema.json`,
+  `schemas/semantic_candidate_merge_report.schema.json`, and Stage 12 contract
+  changes.
+- BE/agent implementation may add deterministic merge modules only after the
+  Phase 12A contract is accepted or prototype mode is explicitly declared by
+  the parent orchestrator.
+- QA may add Stage 12 validation and regression tests after implementation
+  artifacts exist.
+- Merge implementations may write only a new output story map and merge report.
+  They must not modify the input story map in place.
+- No semantic candidate may be accepted without explicit human approval.
+- After contract freeze, FE, BE, QA, agents, or tooling must not silently change
+  semantic candidate decisions, merge reports, story map, semantic candidates,
+  provider routing, or prior data contracts.

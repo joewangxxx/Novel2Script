@@ -1,0 +1,322 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://novel2script.local/schemas/semantic_candidate_merge_report.schema.json",
+  "title": "Novel2Script Semantic Candidate Merge Report",
+  "type": "object",
+  "required": ["semantic_candidate_merge_report"],
+  "additionalProperties": false,
+  "properties": {
+    "semantic_candidate_merge_report": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "source_story_map",
+        "source_semantic_candidates",
+        "decision_file",
+        "output_story_map",
+        "generated_at",
+        "merge_profile",
+        "status",
+        "summary",
+        "decisions",
+        "errors",
+        "audit"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "type": "string",
+          "const": "0.1.0"
+        },
+        "source_story_map": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_semantic_candidates": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decision_file": {
+          "type": "string",
+          "minLength": 1
+        },
+        "output_story_map": {
+          "type": "string",
+          "minLength": 1
+        },
+        "generated_at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "merge_profile": {
+          "type": "string",
+          "const": "deterministic_semantic_candidate_merge_v0"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["success", "partial", "blocked"]
+        },
+        "summary": {
+          "$ref": "#/$defs/summary"
+        },
+        "decisions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/decision_result"
+          }
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/error"
+          }
+        },
+        "audit": {
+          "$ref": "#/$defs/audit"
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    }
+  },
+  "$defs": {
+    "summary": {
+      "type": "object",
+      "required": [
+        "candidates_total",
+        "decisions_total",
+        "accepted",
+        "rejected",
+        "edited",
+        "skipped",
+        "blocked",
+        "applied_changes"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "candidates_total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "decisions_total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "accepted": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "rejected": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "edited": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "skipped": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "blocked": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "applied_changes": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "decision_result": {
+      "type": "object",
+      "required": [
+        "decision_id",
+        "candidate_id",
+        "candidate_type",
+        "target_story_map_field",
+        "requested_decision",
+        "outcome",
+        "human_approval",
+        "reviewer",
+        "reviewed_at",
+        "source_trace_ids",
+        "candidate_hash"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "decision_id": {
+          "type": "string",
+          "pattern": "^dec_[0-9]{3}$|^none$"
+        },
+        "candidate_id": {
+          "type": "string",
+          "pattern": "^semcand_[0-9]{3}$"
+        },
+        "candidate_type": {
+          "type": "string",
+          "enum": [
+            "character_candidate",
+            "location_candidate",
+            "prop_candidate",
+            "event_candidate",
+            "psychological_passage_candidate",
+            "timeline_candidate"
+          ]
+        },
+        "target_story_map_field": {
+          "type": "string",
+          "enum": [
+            "characters_detected",
+            "locations_detected",
+            "props_detected",
+            "key_events",
+            "timeline",
+            "psychological_passages"
+          ]
+        },
+        "requested_decision": {
+          "type": "string",
+          "enum": ["accept", "reject", "edit", "none"]
+        },
+        "outcome": {
+          "type": "string",
+          "enum": ["accepted", "rejected", "edited", "skipped", "blocked"]
+        },
+        "applied_yaml_path": {
+          "type": "string"
+        },
+        "created_id": {
+          "type": "string",
+          "pattern": "^(char|loc|prop|evt|tl|psy)_[0-9]{3}$"
+        },
+        "human_approval": {
+          "$ref": "#/$defs/human_approval"
+        },
+        "reviewer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reviewed_at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_trace_ids": {
+          "$ref": "#/$defs/source_trace_ids"
+        },
+        "candidate_hash": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "reviewer_note": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/error"
+          }
+        }
+      }
+    },
+    "human_approval": {
+      "type": "object",
+      "required": ["approved", "reviewer_id", "approved_at"],
+      "additionalProperties": false,
+      "properties": {
+        "approved": {
+          "type": "boolean"
+        },
+        "reviewer_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "approved_at": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "source_trace_ids": {
+      "type": "object",
+      "required": ["chapter_id", "paragraph_ids"],
+      "additionalProperties": false,
+      "properties": {
+        "chapter_id": {
+          "type": "string",
+          "pattern": "^ch_[0-9]{3}$"
+        },
+        "paragraph_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^p_[0-9]{3}$"
+          }
+        }
+      }
+    },
+    "error": {
+      "type": "object",
+      "required": ["code", "message", "severity"],
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["low", "medium", "high"]
+        },
+        "candidate_id": {
+          "type": "string",
+          "pattern": "^semcand_[0-9]{3}$"
+        },
+        "action": {
+          "type": "string",
+          "enum": ["skipped", "blocked"]
+        }
+      }
+    },
+    "audit": {
+      "type": "object",
+      "required": [
+        "preserved_original_story_map",
+        "story_map_hash_before",
+        "story_map_hash_after",
+        "semantic_candidates_hash",
+        "decision_file_hash"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "preserved_original_story_map": {
+          "type": "boolean",
+          "const": true
+        },
+        "story_map_hash_before": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "story_map_hash_after": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "semantic_candidates_hash": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "decision_file_hash": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      }
+    }
+  }
+}

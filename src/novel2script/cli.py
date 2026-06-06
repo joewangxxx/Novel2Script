@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 from typing import Sequence
 
+from novel2script.agents.semantic_candidate_merge import merge_semantic_candidates
 from novel2script.agents.story_semantic_parser import run_story_semantic_parser
 from novel2script.exporters.fountain_exporter import export_fountain
 from novel2script.generators.screenplay_builder import build_screenplay
@@ -85,6 +86,13 @@ def main(argv: Sequence[str] | None = None) -> int:
     run_agent_parser.add_argument("--quality-report")
     run_agent_parser.add_argument("--dry-run", action="store_true", default=True)
     run_agent_parser.add_argument("--allow-network", action="store_true")
+
+    merge_semantic_parser = subparsers.add_parser("merge-semantic-candidates")
+    merge_semantic_parser.add_argument("--story-map", required=True)
+    merge_semantic_parser.add_argument("--semantic-candidates", required=True)
+    merge_semantic_parser.add_argument("--decisions", required=True)
+    merge_semantic_parser.add_argument("--out", required=True)
+    merge_semantic_parser.add_argument("--report", required=True)
 
     args = parser.parse_args(argv)
     if args.command == "validate":
@@ -234,6 +242,20 @@ def main(argv: Sequence[str] | None = None) -> int:
             print(f"run-agent story-semantic-parser failed: {exc}", file=sys.stderr)
             return 1
         return 0
+    if args.command == "merge-semantic-candidates":
+        try:
+            report = merge_semantic_candidates(
+                args.story_map,
+                args.semantic_candidates,
+                args.decisions,
+                out_path=args.out,
+                report_path=args.report,
+            )
+        except OSError as exc:
+            print(f"merge-semantic-candidates failed: {exc}", file=sys.stderr)
+            return 1
+        status = report["semantic_candidate_merge_report"]["status"]
+        return 0 if status in {"success", "partial"} else 1
     return 2
 
 

@@ -636,3 +636,109 @@ The Stage 10A contract remains draft. After a future freeze:
 - Contract conflicts must be proposed under
   `docs/architecture/change-requests/`.
 - Agent implementations must use `LLMRouter` and redacted Stage 9 run records.
+
+## Phase 12 Semantic Candidate Review And Merge
+
+Phase 12 defines the human approval boundary for semantic candidates. It consumes
+the deterministic `story_map`, `semantic_candidates`, and a human decision file,
+then writes a new merged story map plus an auditable merge report. The original
+story map must not be modified in place.
+
+The schema files are:
+
+- `schemas/semantic_candidate_decisions.schema.json`
+- `schemas/semantic_candidate_merge_report.schema.json`
+
+Initial contract version: `0.1.0`.
+
+### Decision Contract
+
+```yaml
+semantic_candidate_decisions:
+  schema_version: "0.1.0"
+  source_story_map: "examples/output/generated_story_map.yaml"
+  source_semantic_candidates: "examples/output/generated_semantic_candidates.yaml"
+  reviewed_by: "author"
+  reviewed_at: "2026-06-06T10:00:00+08:00"
+  decisions:
+    - decision_id: "dec_001"
+      candidate_id: "semcand_001"
+      decision: "accept"
+      target_story_map_field: "key_events"
+      human_approval:
+        approved: true
+        reviewer_id: "author"
+        approved_at: "2026-06-06T10:00:00+08:00"
+```
+
+Allowed decisions are `accept`, `reject`, and `edit`. `accept` and `edit`
+require explicit human approval. `edit` must carry `edited_fields`, and the
+merger must use those edited fields instead of raw model fields. Every decision
+must carry a stable `decision_id` so reports can link outcomes back to the exact
+human review record.
+
+### Allowed Merge Targets
+
+Only these story map arrays may receive accepted or edited candidates:
+
+- `characters_detected`
+- `locations_detected`
+- `props_detected`
+- `key_events`
+- `timeline`
+- `psychological_passages`
+
+The merger must not modify `story_map.source`, `story_map.chapters`,
+paragraphs, existing `source_trace`, deterministic existing items, or downstream
+outline/screenplay/review/quality artifacts.
+
+### Merge Report Contract
+
+```yaml
+semantic_candidate_merge_report:
+  schema_version: "0.1.0"
+  source_story_map: "examples/output/generated_story_map.yaml"
+  source_semantic_candidates: "examples/output/generated_semantic_candidates.yaml"
+  decision_file: "examples/output/generated_semantic_candidate_decisions.yaml"
+  output_story_map: "examples/output/generated_story_map.merged.yaml"
+  generated_at: "2026-06-06T10:00:00+08:00"
+  merge_profile: "deterministic_semantic_candidate_merge_v0"
+  status: "success"
+  summary:
+    candidates_total: 3
+    decisions_total: 3
+    accepted: 1
+    rejected: 1
+    edited: 1
+    skipped: 0
+    blocked: 0
+    applied_changes: 2
+  decisions: []
+  errors: []
+  audit:
+    preserved_original_story_map: true
+    story_map_hash_before: "sha256:..."
+    story_map_hash_after: "sha256:..."
+    semantic_candidates_hash: "sha256:..."
+    decision_file_hash: "sha256:..."
+```
+
+Every candidate should have a report result when possible. Candidates with no
+human decision are skipped or blocked; they are never silently accepted.
+Each merge result must preserve `candidate_id`, `decision_id`,
+`source_trace_ids`, reviewer, and reviewed_at.
+
+Because `story_map.schema.json` is strict and does not allow arbitrary
+`ai_tags`, AI provenance is recorded in the merge report and short
+`source_trace.note` values, not as new story map fields.
+
+### Stage 12 Contract Governance
+
+The Stage 12A contracts remain draft. After a future freeze:
+
+- FE, BE, QA, agents, and tooling must not silently edit semantic candidate
+  decision or merge report schemas.
+- Contract conflicts must be proposed under
+  `docs/architecture/change-requests/`.
+- Merge implementations must fail closed when human approval, source trace, or
+  schema validation is missing.
