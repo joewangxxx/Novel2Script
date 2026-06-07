@@ -14,6 +14,10 @@ from novel2script.agents.kimi_creative_agents import (
     KIMI_CREATIVE_AGENT_IDS,
     run_kimi_creative_agent,
 )
+from novel2script.agents.deepseek_reviewer_agents import (
+    DEEPSEEK_REVIEWER_AGENT_IDS,
+    run_deepseek_reviewer_agent,
+)
 from novel2script.agents.stage24_candidate_review import (
     apply_stage24_candidate_decisions,
     prepare_stage24_candidate_review,
@@ -108,6 +112,9 @@ def main(argv: Sequence[str] | None = None) -> int:
             "character-bible-agent",
             "scene-writer-agent",
             "dialogue-optimizer-agent",
+            "beat-dramaturgy-agent",
+            "source-fidelity-reviewer",
+            "yaml-repair-agent",
         ],
     )
     run_agent_parser.add_argument("--story-map")
@@ -452,6 +459,67 @@ def main(argv: Sequence[str] | None = None) -> int:
                 screenplay_path=args.screenplay,
                 review_report_path=args.review_report,
                 quality_report_path=args.quality_report,
+                out_path=args.out,
+                run_log_path=args.run_log,
+                dry_run=not args.allow_network,
+                router=(
+                    LLMRouter.from_environment(allow_network=True, max_attempts=1)
+                    if args.allow_network
+                    else None
+                ),
+            )
+        except (
+            OSError,
+            ValueError,
+            ProviderConfigurationError,
+            ProviderRuntimeError,
+            ProviderRoutingError,
+        ) as exc:
+            print(f"run-agent {args.agent_name} failed: {exc}", file=sys.stderr)
+            return 1
+        root_key = f"{agent_id}_candidates"
+        sidecar = result[root_key]
+        if sidecar.get("errors") or not sidecar.get("candidates"):
+            print(
+                f"run-agent {args.agent_name} failed: candidates were not accepted.",
+                file=sys.stderr,
+            )
+            return 1
+        return 0
+    if args.command == "run-agent" and args.agent_name.replace("-", "_") in DEEPSEEK_REVIEWER_AGENT_IDS:
+        agent_id = args.agent_name.replace("-", "_")
+        required_by_agent = {
+            "beat_dramaturgy_agent": {
+                "--screenplay": args.screenplay,
+            },
+            "source_fidelity_reviewer": {
+                "--story-map": args.story_map,
+                "--outline": args.outline,
+                "--screenplay": args.screenplay,
+            },
+            "yaml_repair_agent": {
+                "--screenplay": args.screenplay,
+            },
+        }
+        missing = [
+            option
+            for option, value in required_by_agent[agent_id].items()
+            if not value
+        ]
+        if missing:
+            print(
+                f"run-agent {args.agent_name} failed: missing " + ", ".join(missing),
+                file=sys.stderr,
+            )
+            return 1
+        try:
+            result = run_deepseek_reviewer_agent(
+                agent_id=agent_id,
+                story_map_path=args.story_map,
+                outline_path=args.outline,
+                character_bible_path=args.character_bible,
+                screenplay_path=args.screenplay,
+                review_report_path=args.review_report,
                 out_path=args.out,
                 run_log_path=args.run_log,
                 dry_run=not args.allow_network,
