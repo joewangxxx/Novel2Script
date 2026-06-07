@@ -89,11 +89,14 @@ class OpenAICompatibleProvider:
     timeout_seconds: int = 90
     transport: JSONTransport | None = None
     max_attempts: int = 3
+    supports_response_format: bool = True
+    supports_temperature: bool = True
+    extra_body: dict[str, Any] | None = None
     backoff_base_seconds: float = 0.5
     sleep: Callable[[float], None] = time.sleep
 
     def generate(self, request: LLMRequest) -> LLMResponse:
-        api_key = provider_env_value(self.env_api_key)
+        api_key = _normalized_api_key(provider_env_value(self.env_api_key))
         if not api_key:
             raise ProviderConfigurationError(
                 f"Provider {self.profile_id} requires environment variable "
@@ -115,7 +118,13 @@ class OpenAICompatibleProvider:
                         "Authorization": f"Bearer {api_key}",
                         "Content-Type": "application/json",
                     },
-                    payload=_payload_for(request, self.model),
+                    payload=_payload_for(
+                        request,
+                        self.model,
+                        supports_response_format=self.supports_response_format,
+                        supports_temperature=self.supports_temperature,
+                        extra_body=self.extra_body,
+                    ),
                     timeout_seconds=self.timeout_seconds,
                 )
                 break
@@ -192,7 +201,14 @@ class OpenAICompatibleProvider:
         )
 
 
-def _payload_for(request: LLMRequest, model: str) -> dict[str, Any]:
+def _payload_for(
+    request: LLMRequest,
+    model: str,
+    *,
+    supports_response_format: bool = True,
+    supports_temperature: bool = True,
+    extra_body: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     payload = {
         "model": model,
         "messages": [
@@ -205,12 +221,15 @@ def _payload_for(request: LLMRequest, model: str) -> dict[str, Any]:
             },
             {"role": "user", "content": request.prompt},
         ],
-        "temperature": request.temperature,
         "max_tokens": request.max_tokens,
         "stream": False,
     }
-    if request.response_format == "json_object":
+    if supports_temperature:
+        payload["temperature"] = request.temperature
+    if supports_response_format and request.response_format == "json_object":
         payload["response_format"] = {"type": "json_object"}
+    if extra_body:
+        payload.update(extra_body)
     return payload
 
 
@@ -329,6 +348,15 @@ def _is_safe_request_id(value: str) -> bool:
 
 def provider_env_value(name: str) -> str | None:
     return os.getenv(name) or _dotenv_value(name)
+
+
+def _normalized_api_key(value: str | None) -> str | None:
+    if value is None:
+        return None
+    stripped = value.strip()
+    if stripped.lower().startswith("bearer "):
+        return stripped[7:].strip()
+    return stripped
 
 
 def _dotenv_value(name: str, path: str | Path = ".env") -> str | None:

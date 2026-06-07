@@ -26,6 +26,11 @@ agents:
     fallback_profile: mock_dry_run
     prompt_file: docs/prompts/dialogue_optimizer_agent.md
     output_policy: human_approval_required
+  kimi_dialogue_scene_drafter:
+    provider_profile: kimi_creative
+    fallback_profile: mock_dry_run
+    prompt_file: docs/prompts/kimi_dialogue_scene_drafter.md
+    output_policy: human_approval_required
   beat_dramaturgy_agent:
     provider_profile: deepseek_reasoning
     fallback_profile: mock_dry_run

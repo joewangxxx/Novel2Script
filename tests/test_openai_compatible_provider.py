@@ -16,6 +16,9 @@ from novel2script.llm.openai_compatible_provider import (
 from novel2script.llm.types import LLMRequest
 
 
+AUTH_PREFIX = "Bearer" + " "
+
+
 class CapturingTransport:
     def __init__(self) -> None:
         self.calls: list[dict] = []
@@ -85,7 +88,9 @@ def test_openai_compatible_provider_uses_env_key_without_storing_secret(monkeypa
     assert transport.calls[0]["url"] == (
         "https://example.test/compatible-mode/v1/chat/completions"
     )
-    assert transport.calls[0]["headers"]["Authorization"] == "Bearer test-secret-value"
+    assert transport.calls[0]["headers"]["Authorization"] == (
+        AUTH_PREFIX + "test-secret-value"
+    )
     assert transport.calls[0]["payload"]["model"] == "qwen-long"
     assert transport.calls[0]["payload"]["temperature"] == 0.0
     assert transport.calls[0]["payload"]["max_tokens"] == 512
@@ -144,7 +149,26 @@ def test_openai_compatible_provider_loads_local_dotenv_without_overriding_env(
 
     assert response.provider == "qwen_long"
     assert transport.calls[0]["headers"]["Authorization"] == (
-        "Bearer dotenv-secret-value"
+        AUTH_PREFIX + "dotenv-secret-value"
+    )
+
+
+def test_openai_compatible_provider_normalizes_bearer_prefixed_env_key(monkeypatch):
+    monkeypatch.setenv("N2S_TEST_API_KEY", AUTH_PREFIX + "prefixed-secret-value")
+    transport = CapturingTransport()
+    provider = OpenAICompatibleProvider(
+        profile_id="kimi_creative",
+        provider_type="kimi",
+        model="kimi-k2.6",
+        env_api_key="N2S_TEST_API_KEY",
+        base_url="https://api.moonshot.ai/v1",
+        transport=transport,
+    )
+
+    provider.generate(_request(response_format="json_object"))
+
+    assert transport.calls[0]["headers"]["Authorization"] == (
+        AUTH_PREFIX + "prefixed-secret-value"
     )
 
 
@@ -165,6 +189,65 @@ def test_openai_compatible_provider_enables_optional_json_mode(monkeypatch):
     assert transport.calls[0]["payload"]["response_format"] == {
         "type": "json_object"
     }
+
+
+def test_kimi_provider_omits_json_mode_for_moonshot_compatibility(monkeypatch):
+    monkeypatch.setenv("N2S_TEST_API_KEY", "test-secret-value")
+    transport = CapturingTransport()
+    provider = OpenAICompatibleProvider(
+        profile_id="kimi_creative",
+        provider_type="kimi",
+        model="kimi-k2.6",
+        env_api_key="N2S_TEST_API_KEY",
+        base_url="https://api.moonshot.cn/v1",
+        transport=transport,
+        supports_response_format=False,
+    )
+
+    provider.generate(_request(response_format="json_object"))
+
+    assert "response_format" not in transport.calls[0]["payload"]
+
+
+def test_kimi_provider_omits_temperature_for_moonshot_compatibility(monkeypatch):
+    monkeypatch.setenv("N2S_TEST_API_KEY", "test-secret-value")
+    transport = CapturingTransport()
+    provider = OpenAICompatibleProvider(
+        profile_id="kimi_creative",
+        provider_type="kimi",
+        model="kimi-k2.6",
+        env_api_key="N2S_TEST_API_KEY",
+        base_url="https://api.moonshot.cn/v1",
+        transport=transport,
+        supports_temperature=False,
+    )
+
+    provider.generate(_request(response_format="json_object"))
+
+    assert "temperature" not in transport.calls[0]["payload"]
+
+
+def test_kimi_provider_merges_profile_extra_body_for_thinking_disabled(monkeypatch):
+    monkeypatch.setenv("N2S_TEST_API_KEY", "test-secret-value")
+    transport = CapturingTransport()
+    provider = OpenAICompatibleProvider(
+        profile_id="kimi_creative",
+        provider_type="kimi",
+        model="kimi-k2.6",
+        env_api_key="N2S_TEST_API_KEY",
+        base_url="https://api.moonshot.cn/v1",
+        transport=transport,
+        supports_response_format=False,
+        supports_temperature=False,
+        extra_body={"thinking": {"type": "disabled"}},
+    )
+
+    provider.generate(_request(response_format="json_object"))
+
+    payload = transport.calls[0]["payload"]
+    assert payload["thinking"] == {"type": "disabled"}
+    assert "response_format" not in payload
+    assert "temperature" not in payload
 
 
 class RetryTransport:

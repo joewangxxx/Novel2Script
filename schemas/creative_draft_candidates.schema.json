@@ -1,0 +1,306 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://novel2script.local/schemas/creative_draft_candidates.schema.json",
+  "title": "Novel2Script Creative Draft Candidates",
+  "type": "object",
+  "required": ["creative_draft_candidates"],
+  "additionalProperties": false,
+  "properties": {
+    "creative_draft_candidates": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "source_screenplay",
+        "source_author_review_report",
+        "agent_id",
+        "provider_profile",
+        "dry_run",
+        "human_approval_required",
+        "authorization",
+        "candidates",
+        "errors",
+        "metadata"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "0.1.0"
+        },
+        "source_screenplay": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_author_review_report": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_artifacts": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "agent_id": {
+          "const": "kimi_dialogue_scene_drafter"
+        },
+        "provider_profile": {
+          "enum": ["kimi_creative", "mock_dry_run"]
+        },
+        "dry_run": {
+          "type": "boolean"
+        },
+        "human_approval_required": {
+          "const": true
+        },
+        "authorization": {
+          "$ref": "#/$defs/authorization"
+        },
+        "candidates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/candidate"
+          }
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/error"
+          }
+        },
+        "metadata": {
+          "$ref": "#/$defs/metadata"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "authorization": {
+      "type": "object",
+      "required": [
+        "source",
+        "next_stage_authorization",
+        "scope"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "const": "author_review_report"
+        },
+        "next_stage_authorization": {
+          "enum": ["kimi_dialogue_draft", "none", "dramaturgy_review"]
+        },
+        "scope": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "enum": ["dialogue", "scene_action"]
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "target",
+        "proposed_text",
+        "rationale",
+        "source_trace",
+        "source_trace_ids",
+        "constraints_observed",
+        "risks",
+        "confidence",
+        "merge_policy",
+        "requires_author_approval"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^crecand_[0-9]{3}$"
+        },
+        "type": {
+          "enum": [
+            "dialogue_insert",
+            "dialogue_rewrite",
+            "scene_action_enhancement",
+            "beat_externalization",
+            "pacing_trim_suggestion",
+            "reviewer_note"
+          ]
+        },
+        "target": {
+          "$ref": "#/$defs/target"
+        },
+        "proposed_text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "source_trace": {
+          "$ref": "#/$defs/source_trace"
+        },
+        "source_trace_ids": {
+          "$ref": "#/$defs/source_trace_ids"
+        },
+        "constraints_observed": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "risks": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "confidence": {
+          "enum": ["low", "medium", "high"]
+        },
+        "merge_policy": {
+          "const": "human_approval_required"
+        },
+        "requires_author_approval": {
+          "const": true
+        }
+      }
+    },
+    "target": {
+      "type": "object",
+      "required": ["scene_id"],
+      "additionalProperties": false,
+      "properties": {
+        "scene_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "beat_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "element_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "character_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "source_trace": {
+      "type": "object",
+      "required": ["chapter", "paragraph_range", "note"],
+      "additionalProperties": true,
+      "properties": {
+        "chapter": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "paragraph_range": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "source_trace_ids": {
+      "type": "object",
+      "required": ["chapter_id", "paragraph_ids"],
+      "additionalProperties": false,
+      "properties": {
+        "chapter_id": {
+          "type": "string",
+          "pattern": "^ch_[0-9]{3}$"
+        },
+        "paragraph_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^p_[0-9]{3}$"
+          },
+          "uniqueItems": true
+        },
+        "event_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "outline_scene_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "error": {
+      "type": "object",
+      "required": ["code", "message", "severity"],
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        },
+        "severity": {
+          "enum": ["low", "medium", "high", "blocking"]
+        },
+        "target": {
+          "$ref": "#/$defs/target"
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+        "required": [
+          "prompt_retained",
+          "model_response_retained",
+          "provider_body_retained",
+          "full_source_text_retained"
+        ],
+      "additionalProperties": true,
+      "properties": {
+        "prompt_retained": {
+          "const": false
+        },
+        "model_response_retained": {
+          "const": false
+        },
+        "provider_body_retained": {
+          "const": false
+        },
+        "full_source_text_retained": {
+          "const": false
+        }
+      }
+    }
+  }
+}

@@ -11,6 +11,7 @@ configuration and environment variables.
 | `character_bible_agent` | `kimi_creative` | story_map, outline | character bible updates |
 | `scene_writer_agent` | `kimi_creative` | outline, character bible, screenplay | scene draft suggestions |
 | `dialogue_optimizer_agent` | `kimi_creative` | screenplay dialogue, character bible | dialogue suggestions |
+| `kimi_dialogue_scene_drafter` | `kimi_creative` | author review report, screenplay, quality/review reports | human-approved creative draft candidates |
 | `beat_dramaturgy_agent` | `deepseek_reasoning` | screenplay beats, review report | beat analysis suggestions |
 | `source_fidelity_reviewer` | `qwen_long` + `deepseek_reasoning` | source traces, screenplay | fidelity issues |
 | `yaml_repair_agent` | `deepseek_reasoning` | schema errors, invalid YAML | schema repair suggestions |
@@ -26,3 +27,6 @@ Routing config example: `config/agent_routing.example.yaml`.
 - Any patch affecting screenplay semantics requires human approval.
 - Missing evidence must produce a structured error with `code`, `message`, and
   `required_artifacts`.
+- `kimi_dialogue_scene_drafter` may only produce
+  `creative_draft_candidates`; it must not directly modify screenplay YAML,
+  source traces, author-approved structure, or Fountain exports.

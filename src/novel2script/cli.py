@@ -5,6 +5,11 @@ import sys
 from pathlib import Path
 from typing import Sequence
 
+from novel2script.agents.creative_draft import run_kimi_dialogue_scene_drafter
+from novel2script.agents.creative_draft_apply import apply_creative_draft
+from novel2script.agents.creative_draft_readiness import (
+    write_creative_draft_readiness_report,
+)
 from novel2script.agents.semantic_candidate_merge import merge_semantic_candidates
 from novel2script.agents.story_semantic_parser import run_story_semantic_parser
 from novel2script.exporters.fountain_exporter import export_fountain
@@ -79,13 +84,44 @@ def main(argv: Sequence[str] | None = None) -> int:
     quality_parser.add_argument("--markdown")
 
     run_agent_parser = subparsers.add_parser("run-agent")
-    run_agent_parser.add_argument("agent_name", choices=["story-semantic-parser"])
-    run_agent_parser.add_argument("--story-map", required=True)
+    run_agent_parser.add_argument(
+        "agent_name",
+        choices=[
+            "story-semantic-parser",
+            "kimi-dialogue-scene-drafter",
+        ],
+    )
+    run_agent_parser.add_argument("--story-map")
+    run_agent_parser.add_argument("--outline")
+    run_agent_parser.add_argument("--character-bible")
+    run_agent_parser.add_argument("--screenplay")
+    run_agent_parser.add_argument("--author-review-report")
+    run_agent_parser.add_argument("--review-report")
+    run_agent_parser.add_argument("--quality-report")
     run_agent_parser.add_argument("--out", required=True)
     run_agent_parser.add_argument("--run-log", required=True)
-    run_agent_parser.add_argument("--quality-report")
     run_agent_parser.add_argument("--dry-run", action="store_true", default=True)
     run_agent_parser.add_argument("--allow-network", action="store_true")
+
+    real_creative_readiness_parser = subparsers.add_parser(
+        "check-real-creative-draft-readiness"
+    )
+    real_creative_readiness_parser.add_argument("--screenplay", required=True)
+    real_creative_readiness_parser.add_argument("--author-review-report", required=True)
+    real_creative_readiness_parser.add_argument("--mock-candidates", required=True)
+    real_creative_readiness_parser.add_argument("--out", required=True)
+    real_creative_readiness_parser.add_argument(
+        "--routing-config", default="config/agent_routing.example.yaml"
+    )
+    real_creative_readiness_parser.add_argument(
+        "--schema", default="schemas/creative_draft_candidates.schema.json"
+    )
+
+    apply_creative_parser = subparsers.add_parser("apply-creative-draft")
+    apply_creative_parser.add_argument("--screenplay", required=True)
+    apply_creative_parser.add_argument("--creative-candidates", required=True)
+    apply_creative_parser.add_argument("--out", required=True)
+    apply_creative_parser.add_argument("--report", required=True)
 
     merge_semantic_parser = subparsers.add_parser("merge-semantic-candidates")
     merge_semantic_parser.add_argument("--story-map", required=True)
@@ -260,6 +296,90 @@ def main(argv: Sequence[str] | None = None) -> int:
                 )
                 return 1
         return 0
+    if args.command == "run-agent" and args.agent_name == "kimi-dialogue-scene-drafter":
+        missing = [
+            option
+            for option, value in {
+                "--screenplay": args.screenplay,
+                "--author-review-report": args.author_review_report,
+                "--review-report": args.review_report,
+                "--quality-report": args.quality_report,
+            }.items()
+            if not value
+        ]
+        if missing:
+            print(
+                "run-agent kimi-dialogue-scene-drafter failed: missing "
+                + ", ".join(missing),
+                file=sys.stderr,
+            )
+            return 1
+        try:
+            result = run_kimi_dialogue_scene_drafter(
+                screenplay_path=args.screenplay,
+                author_review_report_path=args.author_review_report,
+                review_report_path=args.review_report,
+                quality_report_path=args.quality_report,
+                out_path=args.out,
+                run_log_path=args.run_log,
+                dry_run=not args.allow_network,
+                router=(
+                    LLMRouter.from_environment(allow_network=True, max_attempts=1)
+                    if args.allow_network
+                    else None
+                ),
+            )
+        except (
+            OSError,
+            ProviderConfigurationError,
+            ProviderRuntimeError,
+            ProviderRoutingError,
+        ) as exc:
+            print(
+                f"run-agent kimi-dialogue-scene-drafter failed: {exc}",
+                file=sys.stderr,
+            )
+            return 1
+        creative = result["creative_draft_candidates"]
+        if creative.get("errors") or not creative.get("candidates"):
+            print(
+                "run-agent kimi-dialogue-scene-drafter failed: "
+                "creative draft candidates were not accepted.",
+                file=sys.stderr,
+            )
+            return 1
+        return 0
+    if args.command == "check-real-creative-draft-readiness":
+        try:
+            report = write_creative_draft_readiness_report(
+                screenplay_path=args.screenplay,
+                author_review_report_path=args.author_review_report,
+                mock_candidates_path=args.mock_candidates,
+                out_path=args.out,
+                routing_config_path=args.routing_config,
+                schema_path=args.schema,
+            )
+        except OSError as exc:
+            print(
+                f"check-real-creative-draft-readiness failed: {exc}",
+                file=sys.stderr,
+            )
+            return 1
+        status = report["creative_draft_readiness_report"]["status"]
+        return 0 if status in {"ready", "ready_pending_network_authorization"} else 1
+    if args.command == "apply-creative-draft":
+        try:
+            report = apply_creative_draft(
+                screenplay_path=args.screenplay,
+                creative_candidates_path=args.creative_candidates,
+                out_path=args.out,
+                report_path=args.report,
+            )
+        except OSError as exc:
+            print(f"apply-creative-draft failed: {exc}", file=sys.stderr)
+            return 1
+        blocked = report["creative_draft_apply_report"]["blocked_count"]
+        return 0 if blocked == 0 else 1
     if args.command == "merge-semantic-candidates":
         try:
             report = merge_semantic_candidates(

@@ -13,6 +13,7 @@ from novel2script.llm.types import LLMRequest, LLMResponse, LLMRunRecord
 
 AGENT_PROVIDER_ROUTES = {
     "story_semantic_parser": "qwen_long",
+    "kimi_dialogue_scene_drafter": "kimi_creative",
     "adaptation_planner": "kimi_creative",
     "character_bible_agent": "kimi_creative",
     "scene_writer_agent": "kimi_creative",
@@ -36,7 +37,10 @@ CHINESE_PROVIDER_PROFILES = {
         "model": "kimi-k2.6",
         "env_api_key": "N2S_KIMI_API_KEY",
         "env_base_url": "N2S_KIMI_BASE_URL",
-        "default_base_url": "https://api.moonshot.ai/v1",
+        "default_base_url": "https://api.moonshot.cn/v1",
+        "supports_response_format": False,
+        "supports_temperature": False,
+        "extra_body": {"thinking": {"type": "disabled"}},
     },
     "deepseek_reasoning": {
         "provider_type": "deepseek",
@@ -76,7 +80,9 @@ class LLMRouter:
         return cls()
 
     @classmethod
-    def from_environment(cls, *, allow_network: bool = False) -> "LLMRouter":
+    def from_environment(
+        cls, *, allow_network: bool = False, max_attempts: int = 3
+    ) -> "LLMRouter":
         providers: dict[str, object] = {"mock_dry_run": MockLLMProvider()}
         if allow_network:
             for profile_id, config in CHINESE_PROVIDER_PROFILES.items():
@@ -89,6 +95,12 @@ class LLMRouter:
                         provider_env_value(config["env_base_url"])
                         or config["default_base_url"]
                     ),
+                    max_attempts=max_attempts,
+                    supports_response_format=bool(
+                        config.get("supports_response_format", True)
+                    ),
+                    supports_temperature=bool(config.get("supports_temperature", True)),
+                    extra_body=config.get("extra_body"),
                 )
         return cls(providers=providers, allow_network=allow_network)
 
