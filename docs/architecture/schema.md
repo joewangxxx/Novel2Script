@@ -404,3 +404,405 @@ The Stage 6A contract remains draft. After a future freeze:
   `docs/architecture/change-requests/`.
 - Reviewers may emit only advisory patch suggestions; direct screenplay writes
   require a separate human-approved application flow.
+
+## Phase 7 Fountain Limited Roundtrip
+
+Phase 7 defines a limited Fountain import/sync contract. It lets users edit an
+already exported Fountain file and sync only safe, mapped text fields back into
+screenplay YAML. It is not a full Fountain parser and cannot create screenplay
+YAML from arbitrary Fountain.
+
+The report schema file is `schemas/fountain_roundtrip_report.schema.json`. The
+initial contract version is `0.1.0`.
+
+### Existing Fountain Map
+
+The current Fountain export sidecar has this shape:
+
+```json
+{
+  "source_yaml": "examples/output/generated_screenplay.yaml",
+  "fountain_file": "examples/output/generated_screenplay.fountain",
+  "mappings": [
+    {
+      "line_start": 5,
+      "line_end": 5,
+      "scene_id": "scene_001",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[0].heading"
+    }
+  ]
+}
+```
+
+`mappings[]` is the authority for limited import. The importer may consider only
+mapped ranges whose `yaml_path` targets one of these safe fields:
+
+- `scenes[i].heading`
+- `scenes[i].elements[j].text`
+
+The importer must not modify source traces, beats, characters,
+`adaptation_policy`, or existing factual `ai_tags` values.
+
+### Roundtrip Report
+
+Every import attempt must produce a report:
+
+```yaml
+fountain_roundtrip_report:
+  schema_version: "0.1.0"
+  source_yaml: "examples/output/generated_screenplay.yaml"
+  fountain_file: "examples/output/generated_screenplay.fountain"
+  map_file: "examples/output/generated_screenplay.fountain.map.json"
+  generated_at: "2026-06-05"
+  status: "blocked"
+  summary:
+    mapped_regions: 12
+    changed_regions: 0
+    applied_changes: 0
+    skipped_changes: 0
+    blocking_issues: 1
+  line_policy:
+    expected_line_count: 22
+    actual_line_count: 23
+    line_drift_detected: true
+    map_match: false
+  changes: []
+  issues:
+    - id: "rt_issue_001"
+      severity: "high"
+      code: "line_drift"
+      message: "Fountain line count changed from baseline export."
+      action: "blocked"
+```
+
+When safe text changes are applied, the importer may add
+`metadata.semantic_fields_stale: true` and a `metadata.roundtrip` record because
+the screenplay schema permits additional metadata fields. That metadata marks
+beat semantics as potentially stale; it does not authorize updating beat fields.
+
+### Drift Policy
+
+Line drift, scene or element insertion/deletion, map mismatch, ordering changes,
+or unsafe paths must stop the global import or skip the affected range with a
+report issue. Implementations must not guess a repair. Dialogue, parenthetical,
+transition, and action normalization is limited to the mapped element text
+rules documented in `docs/dev/PHASE_7_FOUNTAIN_LIMITED_ROUNDTRIP.md`.
+
+## Phase 8 Quality Eval Dashboard
+
+Phase 8 consumes existing Stage 2 validation reports, Stage 6 review reports,
+Stage 7 Fountain roundtrip reports, and screenplay metadata to produce a unified
+quality report. It is an aggregation and explanation layer only. It does not
+call LLMs, rewrite screenplay YAML, apply review patches, or change prior
+contracts.
+
+The schema file is `schemas/quality_report.schema.json`. The initial contract
+version is `0.1.0`.
+
+```yaml
+quality_report:
+  schema_version: "0.1.0"
+  generated_at: "2026-06-05"
+  report_profile: "deterministic_quality_eval_v0"
+  source_artifacts:
+    screenplay: "examples/output/generated_screenplay.yaml"
+    validation_report: "examples/output/generated_screenplay_validation_report.yaml"
+    review_report: "examples/output/generated_review_report.yaml"
+    fountain_roundtrip_report: "examples/output/generated_screenplay_roundtrip_report.yaml"
+    quality_report_yaml: "examples/output/generated_quality_report.yaml"
+    quality_dashboard_markdown: "examples/output/generated_quality_dashboard.md"
+  dimensions: []
+  overall_readiness:
+    status: "warn"
+    score: 88
+    decision: "ready_with_warnings"
+    hard_gate_failures: []
+    next_actions: []
+  dashboard:
+    format: "markdown"
+    path: "examples/output/generated_quality_dashboard.md"
+```
+
+### Quality Dimensions
+
+Every quality report must include these dimensions:
+
+- `schema_validity`
+- `source_trace_coverage`
+- `beat_completeness`
+- `reference_integrity`
+- `character_consistency`
+- `pacing`
+- `dialogue_naturalness`
+- `shootability`
+- `fountain_roundtrip_safety`
+- `semantic_staleness`
+- `overall_readiness`
+
+Each dimension has a status, integer score from 0 to 100, hard-gate flag,
+summary, evidence references, metrics, and recommendations. Evidence points to
+fields in the existing validation, review, roundtrip, or screenplay metadata
+artifacts. It must not copy full screenplay, Fountain, or novel text.
+
+### Quality Status And Gates
+
+Allowed statuses are `pass`, `warn`, `fail`, and `blocked`.
+
+Hard gates precede score averaging. Schema validity, reference integrity,
+untrustworthy source trace coverage, and blocked Fountain roundtrip safety can
+force `overall_readiness.status: blocked` even when other dimensions score well.
+If no hard gate blocks, `overall_readiness.score` is computed from the dimension
+scores and mapped to `ready_for_author_review`, `ready_with_warnings`,
+`needs_revision`, or `blocked`.
+
+The Markdown dashboard is a companion output for humans. The YAML quality report
+remains the source of truth for automation.
+
+### Stage 8 Contract Governance
+
+The Stage 8A contract remains draft. After a future freeze:
+
+- FE, BE, QA, and quality tooling must not silently edit
+  `schemas/quality_report.schema.json`.
+- Contract conflicts must be proposed under
+  `docs/architecture/change-requests/`.
+- Quality evaluators may aggregate and explain existing reports only; they must
+  not mutate screenplay, review, validation, or roundtrip artifacts.
+
+## Phase 10 Story Semantic Agent
+
+Phase 10 introduces the first LLM-agent sidecar artifact:
+`semantic_candidates`. The artifact records proposed enrichments for an
+existing deterministic `story_map`, but it does not modify `story_map` itself.
+The schema file is `schemas/semantic_candidates.schema.json`. The initial
+contract version is `0.1.0`.
+
+```yaml
+semantic_candidates:
+  schema_version: "0.1.0"
+  source_story_map: "examples/output/generated_story_map.yaml"
+  agent_id: "story_semantic_parser"
+  provider_profile: "mock_dry_run"
+  dry_run: true
+  candidates: []
+  errors: []
+  human_approval_required: true
+  run_log: "examples/output/generated_semantic_agent_run_log.yaml"
+```
+
+Each candidate must include stable trace IDs back to the deterministic story
+map:
+
+```yaml
+id: "semcand_001"
+type: "event_candidate"
+confidence: "medium"
+evidence:
+  summary: "short evidence explanation"
+source_trace_ids:
+  chapter_id: "ch_001"
+  paragraph_ids: ["p_001"]
+proposed_fields:
+  summary: "candidate event text"
+merge_policy: "human_approval_required"
+target_story_map_field: "key_events"
+```
+
+Allowed candidate types are `character_candidate`, `location_candidate`,
+`prop_candidate`, `event_candidate`, `psychological_passage_candidate`, and
+`timeline_candidate`.
+
+### Stage 10 Routing And Safety
+
+`story_semantic_parser` must route through the Stage 9 `LLMRouter`. The intended
+provider profile is `qwen_long`, but the default resolved profile remains
+`mock_dry_run`. Real network use is allowed only in a later implementation when
+the user explicitly opts in, the required environment variable is present, and
+the latest official provider API documentation has been checked and cited in
+the provider architecture or phase document.
+
+The semantic agent must not update deterministic `story_map` arrays, alter
+`source_trace`, generate screenplay content, or persist full novel text in logs.
+Every proposed merge requires human approval.
+
+### Stage 10 Contract Governance
+
+The Stage 10A contract remains draft. After a future freeze:
+
+- Agents, BE, FE, QA, and tooling must not silently edit
+  `schemas/semantic_candidates.schema.json`.
+- Contract conflicts must be proposed under
+  `docs/architecture/change-requests/`.
+- Agent implementations must use `LLMRouter` and redacted Stage 9 run records.
+
+## Phase 12 Semantic Candidate Review And Merge
+
+Phase 12 defines the human approval boundary for semantic candidates. It consumes
+the deterministic `story_map`, `semantic_candidates`, and a human decision file,
+then writes a new merged story map plus an auditable merge report. The original
+story map must not be modified in place.
+
+The schema files are:
+
+- `schemas/semantic_candidate_decisions.schema.json`
+- `schemas/semantic_candidate_merge_report.schema.json`
+
+Initial contract version: `0.1.0`.
+
+### Decision Contract
+
+```yaml
+semantic_candidate_decisions:
+  schema_version: "0.1.0"
+  source_story_map: "examples/output/generated_story_map.yaml"
+  source_semantic_candidates: "examples/output/generated_semantic_candidates.yaml"
+  reviewed_by: "author"
+  reviewed_at: "2026-06-06T10:00:00+08:00"
+  decisions:
+    - decision_id: "dec_001"
+      candidate_id: "semcand_001"
+      decision: "accept"
+      target_story_map_field: "key_events"
+      human_approval:
+        approved: true
+        reviewer_id: "author"
+        approved_at: "2026-06-06T10:00:00+08:00"
+```
+
+Allowed decisions are `accept`, `reject`, and `edit`. `accept` and `edit`
+require explicit human approval. `edit` must carry `edited_fields`, and the
+merger must use those edited fields instead of raw model fields. Every decision
+must carry a stable `decision_id` so reports can link outcomes back to the exact
+human review record.
+
+### Allowed Merge Targets
+
+Only these story map arrays may receive accepted or edited candidates:
+
+- `characters_detected`
+- `locations_detected`
+- `props_detected`
+- `key_events`
+- `timeline`
+- `psychological_passages`
+
+The merger must not modify `story_map.source`, `story_map.chapters`,
+paragraphs, existing `source_trace`, deterministic existing items, or downstream
+outline/screenplay/review/quality artifacts.
+
+### Merge Report Contract
+
+```yaml
+semantic_candidate_merge_report:
+  schema_version: "0.1.0"
+  source_story_map: "examples/output/generated_story_map.yaml"
+  source_semantic_candidates: "examples/output/generated_semantic_candidates.yaml"
+  decision_file: "examples/output/generated_semantic_candidate_decisions.yaml"
+  output_story_map: "examples/output/generated_story_map.merged.yaml"
+  generated_at: "2026-06-06T10:00:00+08:00"
+  merge_profile: "deterministic_semantic_candidate_merge_v0"
+  status: "success"
+  summary:
+    candidates_total: 3
+    decisions_total: 3
+    accepted: 1
+    rejected: 1
+    edited: 1
+    skipped: 0
+    blocked: 0
+    applied_changes: 2
+  decisions: []
+  errors: []
+  audit:
+    preserved_original_story_map: true
+    story_map_hash_before: "sha256:..."
+    story_map_hash_after: "sha256:..."
+    semantic_candidates_hash: "sha256:..."
+    decision_file_hash: "sha256:..."
+```
+
+Every candidate should have a report result when possible. Candidates with no
+human decision are skipped or blocked; they are never silently accepted.
+Each merge result must preserve `candidate_id`, `decision_id`,
+`source_trace_ids`, reviewer, and reviewed_at.
+
+Because `story_map.schema.json` is strict and does not allow arbitrary
+`ai_tags`, AI provenance is recorded in the merge report and short
+`source_trace.note` values, not as new story map fields.
+
+### Stage 12 Contract Governance
+
+The Stage 12A contracts remain draft. After a future freeze:
+
+- FE, BE, QA, agents, and tooling must not silently edit semantic candidate
+  decision or merge report schemas.
+- Contract conflicts must be proposed under
+  `docs/architecture/change-requests/`.
+- Merge implementations must fail closed when human approval, source trace, or
+  schema validation is missing.
+
+## Phase 17 Kimi Dialogue Scene Draft Candidates
+
+Phase 17 defines a creative candidate sidecar for future Kimi dialogue and
+scene-action drafting. It consumes the Stage 16 author review report and Stage
+15 screenplay context, but it does not modify `screenplay.yaml`.
+
+The schema file is `schemas/creative_draft_candidates.schema.json`. Initial
+contract version: `0.1.0`.
+
+```yaml
+creative_draft_candidates:
+  schema_version: "0.1.0"
+  source_screenplay: "examples/output/test1_sanguo_screenplay.yaml"
+  source_author_review_report: "examples/output/test1_sanguo_author_review_report.yaml"
+  agent_id: "kimi_dialogue_scene_drafter"
+  provider_profile: "kimi_creative"
+  dry_run: false
+  human_approval_required: true
+  authorization:
+    source: "author_review_report"
+    next_stage_authorization: "kimi_dialogue_draft"
+    scope:
+      - "dialogue"
+      - "scene_action"
+  candidates: []
+  errors: []
+  metadata:
+    prompt_retained: false
+    model_response_retained: false
+    provider_body_retained: false
+    full_source_text_retained: false
+```
+
+Allowed candidate types are:
+
+- `dialogue_insert`
+- `dialogue_rewrite`
+- `scene_action_enhancement`
+- `beat_externalization`
+- `pacing_trim_suggestion`
+- `reviewer_note`
+
+Every candidate must target an existing `scene_id` and may reference an
+existing `beat_id`, `element_id`, or `character_id`. Every candidate must carry
+`source_trace`, `source_trace_ids`, `merge_policy:
+human_approval_required`, and `requires_author_approval: true`.
+
+Stage 17 candidates are not patches. They are advisory creative drafts that
+must enter a later human approval flow before any screenplay file can be
+updated. The Kimi drafter must not alter source traces, change author-approved
+structure, add unsupported major events, output full novel text, retain prompt
+or raw response bodies, or trigger Fountain export.
+
+### Stage 17 Contract Governance
+
+The Stage 17 contract remains draft. After a future freeze:
+
+- Agents, FE, BE, QA, and tooling must not silently edit
+  `schemas/creative_draft_candidates.schema.json`.
+- Contract conflicts must be proposed under
+  `docs/architecture/change-requests/`.
+- Kimi creative draft implementations must route through the provider
+  abstraction and emit only human-reviewable sidecar candidates.

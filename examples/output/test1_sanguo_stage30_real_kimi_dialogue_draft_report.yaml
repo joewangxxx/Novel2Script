@@ -1,0 +1,44 @@
+stage30_real_kimi_dialogue_draft_report:
+  schema_version: 0.1.0
+  generated_at: '2026-06-07T17:04:11+08:00'
+  status: passed
+  stage: stage_30_one_shot_real_kimi_dialogue_draft_for_stage26_package
+  real_call_executed: true
+  real_call_count: 1
+  retry_executed: false
+  provider_profile: kimi_creative
+  model: kimi-k2.6
+  finish_reason: stop
+  usage:
+    input_tokens: 491
+    output_tokens: 172
+    total_tokens: 663
+  source_artifacts:
+    screenplay: examples/output/test1_sanguo_screenplay.stage26.yaml
+    author_review_report: examples/output/test1_sanguo_author_review_report.stage26.yaml
+    review_report: examples/output/test1_sanguo_review_report.stage26.yaml
+    quality_report: examples/output/test1_sanguo_quality_report.stage26.yaml
+  generated_artifacts:
+    real_candidates: examples/output/test1_sanguo_creative_draft_candidates.stage26.real_kimi.yaml
+    real_run_log: examples/output/test1_sanguo_creative_draft_run_log.stage26.real_kimi.yaml
+    phase_plan: docs/dev/PHASE_30_ONE_SHOT_REAL_KIMI_DIALOGUE_DRAFT_STAGE26.md
+  validation:
+    creative_candidate_schema_errors: 0
+    candidate_count: 1
+    candidate_errors: 0
+    unresolved_targets: 0
+    finish_reason_length: false
+  retention:
+    prompt_retained: false
+    raw_model_text_retained: false
+    model_response_retained: false
+    provider_payload_retained: false
+    credential_retained: false
+  safety_scan:
+    issues: 0
+    env_ignored_by_git: true
+  next_stage:
+    ready_for: stage_31_human_review_real_kimi_dialogue_candidate
+    auto_apply_allowed: false
+    human_review_required: true
+  blocking_codes: []

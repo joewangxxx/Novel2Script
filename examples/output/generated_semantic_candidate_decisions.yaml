@@ -1,0 +1,37 @@
+semantic_candidate_decisions:
+  schema_version: 0.1.0
+  source_story_map: examples/output/generated_story_map.yaml
+  source_semantic_candidates: examples/output/generated_semantic_candidates.yaml
+  reviewed_by: author
+  reviewed_at: "2026-06-06T10:00:00+08:00"
+  decisions:
+    - decision_id: dec_001
+      candidate_id: semcand_001
+      decision: accept
+      target_story_map_field: key_events
+      reviewer_note: Accept the source-grounded event candidate.
+      human_approval:
+        approved: true
+        reviewer_id: author
+        approved_at: "2026-06-06T10:00:00+08:00"
+    - decision_id: dec_002
+      candidate_id: semcand_002
+      decision: reject
+      target_story_map_field: psychological_passages
+      reviewer_note: Reject because the deterministic parser already captured this interiority.
+      human_approval:
+        approved: false
+        reviewer_id: author
+        approved_at: "2026-06-06T10:00:00+08:00"
+    - decision_id: dec_003
+      candidate_id: semcand_003
+      decision: edit
+      target_story_map_field: timeline
+      edited_fields:
+        label: 人工确认的连续三晚
+        time_text: 人工确认的连续三晚
+      reviewer_note: Use a clearer human-approved timeline label.
+      human_approval:
+        approved: true
+        reviewer_id: author
+        approved_at: "2026-06-06T10:00:00+08:00"

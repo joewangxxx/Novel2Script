@@ -1,0 +1,379 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/joewangxxx/Novel2Script/schemas/quality_report.schema.json",
+  "title": "Novel2Script Quality Report",
+  "type": "object",
+  "required": [
+    "quality_report"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "quality_report": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "generated_at",
+        "report_profile",
+        "source_artifacts",
+        "status_policy",
+        "scoring_policy",
+        "dimensions",
+        "overall_readiness",
+        "dashboard"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "type": "string",
+          "const": "0.1.0"
+        },
+        "generated_at": {
+          "type": "string"
+        },
+        "report_profile": {
+          "type": "string"
+        },
+        "source_artifacts": {
+          "$ref": "#/$defs/source_artifacts"
+        },
+        "status_policy": {
+          "$ref": "#/$defs/status_policy"
+        },
+        "scoring_policy": {
+          "$ref": "#/$defs/scoring_policy"
+        },
+        "dimensions": {
+          "type": "array",
+          "minItems": 11,
+          "items": {
+            "$ref": "#/$defs/dimension"
+          }
+        },
+        "overall_readiness": {
+          "$ref": "#/$defs/overall_readiness"
+        },
+        "dashboard": {
+          "$ref": "#/$defs/dashboard"
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "source_artifacts": {
+      "type": "object",
+      "required": [
+        "screenplay",
+        "validation_report"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "screenplay": {
+          "type": "string"
+        },
+        "validation_report": {
+          "type": "string"
+        },
+        "review_report": {
+          "type": "string"
+        },
+        "fountain_roundtrip_report": {
+          "type": "string"
+        },
+        "quality_report_yaml": {
+          "type": "string"
+        },
+        "quality_dashboard_markdown": {
+          "type": "string"
+        }
+      }
+    },
+    "status_policy": {
+      "type": "object",
+      "required": [
+        "allowed_statuses",
+        "hard_gates_precede_average_score"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "allowed_statuses": {
+          "type": "array",
+          "minItems": 4,
+          "items": {
+            "$ref": "#/$defs/status"
+          }
+        },
+        "hard_gates_precede_average_score": {
+          "type": "boolean",
+          "const": true
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "scoring_policy": {
+      "type": "object",
+      "required": [
+        "score_min",
+        "score_max",
+        "default_pass_threshold",
+        "default_warn_threshold"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "score_min": {
+          "type": "integer",
+          "const": 0
+        },
+        "score_max": {
+          "type": "integer",
+          "const": 100
+        },
+        "default_pass_threshold": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "default_warn_threshold": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "weights": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "dimension": {
+      "type": "object",
+      "required": [
+        "id",
+        "status",
+        "score",
+        "hard_gate",
+        "summary",
+        "evidence",
+        "metrics",
+        "recommendations"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/dimension_id"
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "score": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "hard_gate": {
+          "type": "boolean"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence"
+          }
+        },
+        "metrics": {
+          "type": "object",
+          "additionalProperties": {
+            "type": [
+              "string",
+              "number",
+              "integer",
+              "boolean",
+              "null"
+            ]
+          }
+        },
+        "recommendations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/recommendation"
+          }
+        },
+        "blocking_reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "required": [
+        "source",
+        "path",
+        "summary"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "$ref": "#/$defs/evidence_source"
+        },
+        "path": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "value": true
+      }
+    },
+    "recommendation": {
+      "type": "object",
+      "required": [
+        "priority",
+        "action"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "priority": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "action": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string"
+        }
+      }
+    },
+    "overall_readiness": {
+      "type": "object",
+      "required": [
+        "status",
+        "score",
+        "decision",
+        "hard_gate_failures",
+        "next_actions"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "score": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "decision": {
+          "type": "string",
+          "enum": [
+            "ready_for_author_review",
+            "ready_with_warnings",
+            "needs_revision",
+            "blocked"
+          ]
+        },
+        "hard_gate_failures": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/dimension_id"
+          }
+        },
+        "next_actions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "dashboard": {
+      "type": "object",
+      "required": [
+        "format",
+        "path",
+        "sections"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "type": "string",
+          "const": "markdown"
+        },
+        "path": {
+          "type": "string"
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "summary",
+              "gate_decision",
+              "dimension_scores",
+              "blocking_items",
+              "recommended_next_actions",
+              "source_artifacts",
+              "limitations"
+            ]
+          }
+        }
+      }
+    },
+    "dimension_id": {
+      "type": "string",
+      "enum": [
+        "schema_validity",
+        "source_trace_coverage",
+        "beat_completeness",
+        "reference_integrity",
+        "character_consistency",
+        "pacing",
+        "dialogue_naturalness",
+        "shootability",
+        "fountain_roundtrip_safety",
+        "semantic_staleness",
+        "overall_readiness"
+      ]
+    },
+    "evidence_source": {
+      "type": "string",
+      "enum": [
+        "validation_report",
+        "review_report",
+        "fountain_roundtrip_report",
+        "screenplay_metadata",
+        "quality_policy"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "warn",
+        "fail",
+        "blocked"
+      ]
+    }
+  }
+}

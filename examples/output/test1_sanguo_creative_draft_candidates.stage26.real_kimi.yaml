@@ -1,0 +1,72 @@
+creative_draft_candidates:
+  schema_version: 0.1.0
+  source_screenplay: examples/output/test1_sanguo_screenplay.stage26.yaml
+  source_author_review_report: examples/output/test1_sanguo_author_review_report.stage26.yaml
+  source_artifacts:
+    review_report: examples/output/test1_sanguo_review_report.stage26.yaml
+    quality_report: examples/output/test1_sanguo_quality_report.stage26.yaml
+  agent_id: kimi_dialogue_scene_drafter
+  provider_profile: kimi_creative
+  dry_run: false
+  human_approval_required: true
+  authorization:
+    source: author_review_report
+    next_stage_authorization: kimi_dialogue_draft
+    scope:
+    - dialogue
+    - scene_action
+  candidates:
+  - id: crecand_001
+    type: beat_externalization
+    target:
+      scene_id: scene_001
+      beat_id: beat_001
+      character_id: char_001
+    proposed_text: 她指尖悬在门把上，金属的凉意渗进指腹，三秒后才压下去。
+    rationale: 将原文心理犹豫转化为具身动作，以触觉延迟外化内心挣扎。
+    source_trace:
+      chapter: 1
+      note: 动作或状态变化关键词命中
+      paragraph_range:
+      - 4
+      - 4
+    source_trace_ids:
+      chapter_id: ch_001
+      event_ids:
+      - evt_001
+      outline_scene_ids:
+      - osp_001
+      paragraph_ids:
+      - p_004
+    constraints_observed:
+    - did_not_modify_screenplay
+    - preserved_source_trace
+    - requires_author_approval
+    risks:
+    - requires author review
+    confidence: high
+    merge_policy: human_approval_required
+    requires_author_approval: true
+  errors: []
+  metadata:
+    prompt_retained: false
+    model_response_retained: false
+    provider_body_retained: false
+    full_source_text_retained: false
+    retained_as_fixture: true
+    intended_provider_profile: kimi_creative
+    resolved_provider_profile: kimi_creative
+    model: kimi-k2.6
+    finish_reason: stop
+    usage:
+      input_tokens: 491
+      output_tokens: 172
+      total_tokens: 663
+    source_screenplay_hash_before: sha256:3291a66b76473837b9ccdc1636a5191abb69b95c7c5445dd8cafbeeb5b17dbc9
+    source_screenplay_hash_after: sha256:3291a66b76473837b9ccdc1636a5191abb69b95c7c5445dd8cafbeeb5b17dbc9
+    author_review_report_hash_before: sha256:473f0dddd4a8868b8c34eaf19b20e349ca17f2286326f92fe9b579ca7b692fe7
+    author_review_report_hash_after: sha256:473f0dddd4a8868b8c34eaf19b20e349ca17f2286326f92fe9b579ca7b692fe7
+    author_review_authorization:
+      source: examples/output/test1_sanguo_author_review_report.stage26.yaml
+      next_stage_authorization: kimi_dialogue_draft
+    run_log: examples/output/test1_sanguo_creative_draft_run_log.stage26.real_kimi.yaml

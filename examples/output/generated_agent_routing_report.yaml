@@ -1,0 +1,76 @@
+agent_routing_report:
+  schema_version: 0.1.0
+  default_provider: mock_dry_run
+  routes:
+  - agent_id: story_semantic_parser
+    intended_profile: qwen_long
+    resolved_profile: mock_dry_run
+    provider: mock_dry_run
+    model: mock-model
+    run_id: llm_run_746eb9d1a07d
+    status: dry_run
+    prompt_hash: sha256:5ae24de6dd1754a84689a5829fd9f9097f08689a65db4371c25ba9d268dab706
+    stored_prompt: false
+  - agent_id: adaptation_planner
+    intended_profile: kimi_creative
+    resolved_profile: mock_dry_run
+    provider: mock_dry_run
+    model: mock-model
+    run_id: llm_run_07d4a27ca368
+    status: dry_run
+    prompt_hash: sha256:3812e4ff8bdd6f0026a9f2332b2778785ce75f5fdcc0ac9205fd4013deebe500
+    stored_prompt: false
+  - agent_id: character_bible_agent
+    intended_profile: kimi_creative
+    resolved_profile: mock_dry_run
+    provider: mock_dry_run
+    model: mock-model
+    run_id: llm_run_a5f0525a2c5a
+    status: dry_run
+    prompt_hash: sha256:c9b4ba8683a3e1ce1a5926367e4ecc4397790aeff8734b2e62cf38eea7ac56db
+    stored_prompt: false
+  - agent_id: scene_writer_agent
+    intended_profile: kimi_creative
+    resolved_profile: mock_dry_run
+    provider: mock_dry_run
+    model: mock-model
+    run_id: llm_run_7cabb82e712d
+    status: dry_run
+    prompt_hash: sha256:0a7716224fd348959aa74cb6ea68bec5071a8809b73a05839eaa38a0b0fec5fc
+    stored_prompt: false
+  - agent_id: dialogue_optimizer_agent
+    intended_profile: kimi_creative
+    resolved_profile: mock_dry_run
+    provider: mock_dry_run
+    model: mock-model
+    run_id: llm_run_547f6b374e4c
+    status: dry_run
+    prompt_hash: sha256:7376976d9ea4a85e6974e5805ee46f08775483db5b88905e50cabb0c2b0f1db0
+    stored_prompt: false
+  - agent_id: beat_dramaturgy_agent
+    intended_profile: deepseek_reasoning
+    resolved_profile: mock_dry_run
+    provider: mock_dry_run
+    model: mock-model
+    run_id: llm_run_4cb229715a35
+    status: dry_run
+    prompt_hash: sha256:1c9357bdd5d46db06fa8389c9dbd59266edcd9c4f8bd7f2707e5d69a08ef729b
+    stored_prompt: false
+  - agent_id: source_fidelity_reviewer
+    intended_profile: qwen_long+deepseek_reasoning
+    resolved_profile: mock_dry_run
+    provider: mock_dry_run
+    model: mock-model
+    run_id: llm_run_e9991e4f7f77
+    status: dry_run
+    prompt_hash: sha256:508b4b316b88d11e96f27115dc2c3ada54213bf4d5e13d8ff386c54a7b7267f8
+    stored_prompt: false
+  - agent_id: yaml_repair_agent
+    intended_profile: deepseek_reasoning
+    resolved_profile: mock_dry_run
+    provider: mock_dry_run
+    model: mock-model
+    run_id: llm_run_164521f25200
+    status: dry_run
+    prompt_hash: sha256:850f00956e6fcebd482a981769b5bad3de353688f78338c67cdcbc35d855450d
+    stored_prompt: false

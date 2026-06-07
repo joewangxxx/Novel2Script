@@ -1,0 +1,29 @@
+default_provider: mock_dry_run
+network_enabled_by_default: false
+providers:
+  mock_dry_run:
+    provider_type: mock
+    model: mock-model
+    enabled: true
+    network_enabled: false
+  qwen_long:
+    provider_type: qwen
+    model: qwen-long
+    enabled: false
+    network_enabled: false
+    env_api_key: N2S_QWEN_API_KEY
+    env_base_url: N2S_QWEN_BASE_URL
+  kimi_creative:
+    provider_type: kimi
+    model: kimi-k2.6
+    enabled: false
+    network_enabled: false
+    env_api_key: N2S_KIMI_API_KEY
+    env_base_url: N2S_KIMI_BASE_URL
+  deepseek_reasoning:
+    provider_type: deepseek
+    model: deepseek-v4-pro
+    enabled: false
+    network_enabled: false
+    env_api_key: N2S_DEEPSEEK_API_KEY
+    env_base_url: N2S_DEEPSEEK_BASE_URL

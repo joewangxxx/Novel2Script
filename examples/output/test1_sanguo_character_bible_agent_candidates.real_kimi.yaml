@@ -1,0 +1,66 @@
+character_bible_agent_candidates:
+  schema_version: 0.1.0
+  agent_id: character_bible_agent
+  provider_profile: kimi_creative
+  dry_run: false
+  human_approval_required: true
+  source_artifacts:
+    story_map: examples/output/test1_sanguo_story_map.merged.yaml
+    outline: examples/output/test1_sanguo_outline.yaml
+    character_bible: examples/output/test1_sanguo_character_bible.yaml
+    review_report: examples/output/test1_sanguo_review_report.yaml
+  candidates:
+  - id: charbible_001
+    type: flaw
+    target:
+      character_id: char_001
+      artifact: character_bible
+      path: character_bible.characters[0]
+    proposed_text: 深居宫中，宠信宦官，卖官鬻爵，致使朝政腐败、民不聊生，对黄巾之乱的爆发负有直接责任。
+    proposed_change: {}
+    rationale: 原文明确指出桓帝、灵帝'宠信宦官，致使朝政日益腐败，民不聊生'，且汉灵帝在位时局面恶化，体现其核心性格缺陷为昏庸无能、纵容腐败。
+    source_trace:
+      chapter_id: ch_001
+      note: 角色候选：汉灵帝
+      paragraph_ids:
+      - p_001
+      quote_preview: 东汉末年，桓帝、灵帝宠信宦官，致使朝政日益腐败，民不聊生。到汉灵帝在位的时候，…
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+    ai_tags:
+      inferred: true
+      confidence: high
+      needs_human_review: true
+      notes: []
+    constraints_observed:
+    - Return only minified JSON
+    - Do not output Markdown
+    - Do not include explanations outside JSON
+    - Do not include raw source text
+    - Do not include prompt text
+    - Do not modify source artifacts
+    - Use source_trace and source_trace_ids exactly as provided
+    - Every candidate must require author approval
+    risks:
+    - 汉灵帝在原著中着墨有限，flaw设定可能过度推断其个人能动性，忽略东汉结构性衰亡因素；'卖官鬻爵'为史实但原文未直接提及，存在跨文本嫁接风险
+    confidence: medium
+    merge_policy: human_approval_required
+    requires_author_approval: true
+  errors: []
+  metadata:
+    prompt_retained: false
+    model_response_retained: false
+    provider_payload_retained: false
+    full_source_text_retained: false
+    run_log: examples/output/test1_sanguo_character_bible_agent_run_log.real_kimi.yaml
+    output: examples/output/test1_sanguo_character_bible_agent_candidates.real_kimi.yaml
+    intended_provider_profile: kimi_creative
+    resolved_provider_profile: kimi_creative
+    model: kimi-k2.6
+    finish_reason: stop
+    usage:
+      input_tokens: 395
+      output_tokens: 318
+      total_tokens: 713

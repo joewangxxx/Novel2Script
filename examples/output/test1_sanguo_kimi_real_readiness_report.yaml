@@ -1,0 +1,60 @@
+creative_draft_readiness_report:
+  schema_version: 0.1.0
+  status: ready_pending_network_authorization
+  agent_id: kimi_dialogue_scene_drafter
+  provider_profile: kimi_creative
+  fallback_profile: mock_dry_run
+  source_artifacts:
+    screenplay: examples/output/test1_sanguo_screenplay.yaml
+    author_review_report: examples/output/test1_sanguo_author_review_report.yaml
+    mock_candidates: examples/output/test1_sanguo_creative_draft_candidates.mock.yaml
+    routing_config: config/agent_routing.example.yaml
+    creative_draft_schema: schemas/creative_draft_candidates.schema.json
+  checks:
+    author_review_authorized:
+      status: pass
+      code: ''
+      next_stage_authorization: kimi_dialogue_draft
+      ready_for_next_stage: true
+    mock_candidates_schema_valid:
+      status: pass
+      code: ''
+      error_count: 0
+    candidate_targets_resolve:
+      status: pass
+      code: ''
+      candidate_count: 3
+      unresolved: []
+    agent_routing:
+      status: pass
+      code: ''
+      provider_profile: kimi_creative
+      fallback_profile: mock_dry_run
+      output_policy: human_approval_required
+    kimi_key_present:
+      status: pass
+      code: ''
+      env_var: N2S_KIMI_API_KEY
+      kimi_key_present: true
+    real_call_policy:
+      status: pass
+      max_attempts: 1
+      allow_network: false
+      real_run_authorized: false
+    output_policy:
+      status: pass
+      prompt_retention_allowed: false
+      model_response_retention_allowed: false
+      provider_body_retention_allowed: false
+      auto_apply_allowed: false
+  blocking_codes: []
+  retention_policy:
+    prompt_retention_allowed: false
+    model_response_retention_allowed: false
+    provider_body_retention_allowed: false
+    auto_apply_allowed: false
+  next_required_authorization:
+    network_authorization_required: true
+    real_run_authorized: false
+    max_attempts: 1
+    at_most_one_real_call: true

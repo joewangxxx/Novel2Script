@@ -1,0 +1,123 @@
+creative_draft_candidates:
+  schema_version: 0.1.0
+  source_screenplay: examples/output/test1_sanguo_screenplay.stage26.yaml
+  source_author_review_report: examples/output/test1_sanguo_author_review_report.stage26.yaml
+  source_artifacts:
+    review_report: examples/output/test1_sanguo_review_report.stage26.yaml
+    quality_report: examples/output/test1_sanguo_quality_report.stage26.yaml
+  agent_id: kimi_dialogue_scene_drafter
+  provider_profile: mock_dry_run
+  dry_run: true
+  human_approval_required: true
+  authorization:
+    source: author_review_report
+    next_stage_authorization: kimi_dialogue_draft
+    scope:
+    - dialogue
+    - scene_action
+  candidates:
+  - id: crecand_001
+    type: dialogue_insert
+    target:
+      scene_id: scene_001
+      beat_id: beat_001
+      character_id: char_001
+    proposed_text: Candidate dialogue line for author review.
+    rationale: Adds dialogue because Stage 16 requested a dialogue draft.
+    source_trace:
+      chapter: 1
+      paragraph_range:
+      - 4
+      - 4
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_004
+      event_ids:
+      - evt_001
+      outline_scene_ids:
+      - osp_001
+    constraints_observed:
+    - mock_dry_run
+    - did_not_modify_screenplay
+    - preserved_source_trace
+    - requires_human_approval
+    risks:
+    - mock candidate requires author review before any screenplay update
+    confidence: medium
+    merge_policy: human_approval_required
+    requires_author_approval: true
+  - id: crecand_002
+    type: beat_externalization
+    target:
+      scene_id: scene_001
+      beat_id: beat_001
+    proposed_text: Candidate visible action that externalizes the existing beat.
+    rationale: Turns approved beat intent into an observable draft candidate.
+    source_trace:
+      chapter: 1
+      paragraph_range:
+      - 4
+      - 4
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_004
+      event_ids:
+      - evt_001
+      outline_scene_ids:
+      - osp_001
+    constraints_observed:
+    - mock_dry_run
+    - did_not_modify_screenplay
+    - preserved_source_trace
+    - requires_human_approval
+    risks:
+    - mock candidate requires author review before any screenplay update
+    confidence: medium
+    merge_policy: human_approval_required
+    requires_author_approval: true
+  - id: crecand_003
+    type: scene_action_enhancement
+    target:
+      scene_id: scene_001
+      beat_id: beat_001
+    proposed_text: Candidate scene action beat with clearer blocking for review.
+    rationale: Enhances shootability without changing the approved event order.
+    source_trace:
+      chapter: 1
+      paragraph_range:
+      - 4
+      - 4
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_004
+      event_ids:
+      - evt_001
+      outline_scene_ids:
+      - osp_001
+    constraints_observed:
+    - mock_dry_run
+    - did_not_modify_screenplay
+    - preserved_source_trace
+    - requires_human_approval
+    risks:
+    - mock candidate requires author review before any screenplay update
+    confidence: medium
+    merge_policy: human_approval_required
+    requires_author_approval: true
+  errors: []
+  metadata:
+    prompt_retained: false
+    model_response_retained: false
+    provider_body_retained: false
+    full_source_text_retained: false
+    intended_provider_profile: kimi_creative
+    resolved_provider_profile: mock_dry_run
+    review_issue_count: 1
+    quality_readiness: ready_for_author_review
+    run_log: examples/output/test1_sanguo_creative_draft_run_log.stage26.mock.yaml

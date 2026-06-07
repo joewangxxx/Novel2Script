@@ -1,0 +1,53 @@
+stage24_candidate_decisions:
+  schema_version: 0.1.0
+  status: reviewed
+  source_candidate_sidecars:
+  - examples/output/test1_sanguo_adaptation_planner_candidates.real_kimi.yaml
+  - examples/output/test1_sanguo_character_bible_agent_candidates.real_kimi.yaml
+  - examples/output/test1_sanguo_scene_writer_agent_candidates.real_kimi.yaml
+  - examples/output/test1_sanguo_dialogue_optimizer_agent_candidates.real_kimi.yaml
+  decision_summary:
+    total_count: 4
+    accepted_count: 4
+    edited_count: 0
+    rejected_count: 0
+    pending_count: 0
+  decisions:
+  - agent_id: adaptation_planner
+    candidate_id: adaptplan_001
+    candidate_type: scene_plan_adjustment
+    requires_author_approval: true
+    decision: accept
+    reviewed_by: human_author_via_user_instruction
+    review_notes: Accepted by user instruction to proceed to the next operation.
+    edited_text: ''
+  - agent_id: character_bible_agent
+    candidate_id: charbible_001
+    candidate_type: flaw
+    requires_author_approval: true
+    decision: accept
+    reviewed_by: human_author_via_user_instruction
+    review_notes: Accepted by user instruction to proceed to the next operation.
+    edited_text: ''
+  - agent_id: scene_writer_agent
+    candidate_id: scenewrite_001
+    candidate_type: scene_action
+    requires_author_approval: true
+    decision: accept
+    reviewed_by: human_author_via_user_instruction
+    review_notes: Accepted by user instruction to proceed to the next operation.
+    edited_text: ''
+  - agent_id: dialogue_optimizer_agent
+    candidate_id: dialogueopt_001
+    candidate_type: dialogue_rewrite
+    requires_author_approval: true
+    decision: accept
+    reviewed_by: human_author_via_user_instruction
+    review_notes: Accepted by user instruction to proceed to the next operation.
+    edited_text: ''
+  metadata:
+    prompt_retained: false
+    raw_response_retained: false
+    provider_body_retained: false
+    full_source_text_retained: false
+    packet: examples/output/test1_sanguo_stage24_author_review_packet.md

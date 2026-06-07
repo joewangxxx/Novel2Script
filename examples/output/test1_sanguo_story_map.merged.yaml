@@ -1,0 +1,2002 @@
+story_map:
+  schema_version: 0.1.0
+  source:
+    type: novel
+    input_file: examples\input\test1_sanguo.txt
+    chapter_count: 5
+    trace_unit: chapter_paragraph
+    parser_profile: deterministic_heuristic_v0
+  chapters:
+  - id: ch_001
+    index: 1
+    title: 刘关张桃园结义
+    source_heading: 第一回 刘关张桃园结义
+    paragraphs:
+    - id: p_001
+      index: 1
+      text_preview: 东汉末年，桓帝、灵帝宠信宦官，致使朝政日益腐败，民不聊生。到汉灵帝在位的时候，终于爆发一场大乱，形成诸侯割据、烽烟四起的局面。
+      char_count: 63
+    - id: p_002
+      index: 2
+      text_preview: 巨鹿郡张角、张宝、张梁兄弟三人，在民间瘟疫流行之时，借治病之机广结会众，终于演发成为一场大起义。因起义军都头裹黄巾，故史称为“黄巾起义”。起义军多达四五十万人…
+      char_count: 145
+    - id: p_003
+      index: 3
+      text_preview: 榜文行到涿县，引出了一位英雄。此人不甚好读书，生性宽和，寡言少语，喜怒不形于色；胸怀大志，专好结交天下豪杰。他身长七尺五寸，双手过膝，双耳垂肩，生得仪表堂堂。…
+      char_count: 147
+    - id: p_004
+      index: 4
+      text_preview: 刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家出力，叹什么气！”刘备回头看说话的人，只见他身高八尺，豹头环眼，燕颔虎须，声若巨…
+      char_count: 251
+    - id: p_005
+      index: 5
+      text_preview: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城去投军。”刘备打量此人，见他身高九尺，须长二尺，丹凤眼、卧蚕眉，面如重枣，威风凛…
+      char_count: 343
+    - id: p_006
+      index: 6
+      text_preview: 他们招来能工巧匠打造兵器：刘备打造双股剑；关羽造青龙偃月刀，重八十二斤；张飞造丈八蛇矛。兵器盔甲准备停当，三人率五百多乡勇，投奔太守刘焉，从此开始了征战生涯。…
+      char_count: 112
+    - id: p_007
+      index: 7
+      text_preview: 此时各路诸侯豪杰并起，经过了数月的征战，黄巾军渐渐被剿灭。此时朝廷却更加腐败，卖官鬻爵。刘备没有人情，最终只被安排了一个小官——安喜县县尉。刘备到任后，与百姓…
+      char_count: 108
+    - id: p_008
+      index: 8
+      text_preview: 刘备上任不满四个月，上面就派了一名督邮来巡查。刘备毕恭毕敬地出城迎接。那督邮却趾高气扬，十分傲慢。刘备躬身施礼，督邮仅在马上轻轻挥了挥马鞭算是回答。关张二人见…
+      char_count: 126
+    - id: p_009
+      index: 9
+      text_preview: 刘备回到县里，与县吏商议。县吏说：“督邮大耍威风，无非是想索要贿赂罢了。”刘备道：“我同百姓秋毫无犯，哪来财物给他？”第二天，督邮就将县吏传去，勒令县吏诬告刘…
+      char_count: 103
+    - id: p_010
+      index: 10
+      text_preview: 一天张飞喝了几杯闷酒，骑马经过驿馆，看见五六十个老人都在门前痛哭。张飞上前询问，众老人回答道：“督邮威逼县吏，要加害刘公，我们都是来求情的。谁知不放我们进去，…
+      char_count: 193
+    - id: p_011
+      index: 11
+      text_preview: 张飞折下柳条，朝督邮腿上奋力鞭打，一连打折了十几根柳条。围观百姓拍手称快。刘备听见门前喧闹，急忙出去观看，见被捆打的正是督邮。刘备惊问张飞，张飞道：“如此害民…
+      char_count: 259
+    - id: p_012
+      index: 12
+      text_preview: 不久，四方盗贼又起。刘恢举荐刘备领兵出征。刘备立功后，朝廷免了鞭打督邮之罪，让刘备当了平原县令。
+      char_count: 48
+  - id: ch_002
+    index: 2
+    title: 谋董卓曹操献刀
+    source_heading: 第二回 谋董卓曹操献刀
+    paragraphs:
+    - id: p_001
+      index: 1
+      text_preview: 中平六年四月，汉灵帝病死。大将军何进立太子刘辩为皇帝。不久，何进即与当权的宦官冲突。何进听从袁绍建议，召集各地兵马入京剿灭宦官。宦官张让等人闻讯，急忙设计杀了…
+      char_count: 108
+    - id: p_002
+      index: 2
+      text_preview: 奉命带兵进京的董卓趁机掌握了朝廷大权。董卓为人阴险残暴又飞扬跋扈。他想废了刘辩，另立陈留王刘协为帝，遭到了袁绍和荆州刺史丁原等人的反对。丁原有个义子，姓吕，名…
+      char_count: 162
+    - id: p_003
+      index: 3
+      text_preview: 不久，董卓废掉刘辩，立九岁的陈留王刘协为帝，这就是汉献帝。董卓自己做了相国。此后不久，董卓就派人害死了太后和废帝刘辩。董卓大权在握，开始肆意胡作非为，且纵容部…
+      char_count: 93
+    - id: p_004
+      index: 4
+      text_preview: 董卓专权后，袁绍逃避在外，开始联络司徒王允伺机除掉董卓。一日，王允宴请众臣，在席间忽然掩面大哭。众人问其缘故，王允道：“董卓欺主弄权，天下早晚要丧于董卓之手啊…
+      char_count: 94
+    - id: p_005
+      index: 5
+      text_preview: 席中忽然有一人鼓掌大笑道：“满朝的公卿，从天黑哭到天明，再从天明哭到天黑，能把董卓哭死吗？”王允一看那人，乃是骁骑校尉，姓曹，名操，字孟德。曹操自幼聪明伶俐，…
+      char_count: 207
+    - id: p_006
+      index: 6
+      text_preview: 曹操道：“听说司徒有一口七宝刀，请借给我，我愿到相府刺杀董贼，虽死无憾！”王允大喜，取刀给曹操并敬酒壮行。
+      char_count: 53
+    - id: p_007
+      index: 7
+      text_preview: 次日，曹操佩刀来到相府，见董卓坐于床上，吕布侍立一旁。曹操推说马慢来迟，董卓便让吕布去选一匹西凉好马赐给曹操。曹操见吕布走开，心中暗想：“董贼该死！”便想拔刀…
+      char_count: 253
+    - id: p_008
+      index: 8
+      text_preview: 董卓带曹操出门看马，曹操道：“我想骑上试试。”董卓便让人装好马鞍缰绳。曹操骑上马出了相府，便狠打几鞭，往东南方向去了。
+      char_count: 59
+    - id: p_009
+      index: 9
+      text_preview: 吕布提醒董卓，曹操刚才好像有行刺之意。董卓便派人去查，发现曹操直接骑马出东门去了，便断定曹操意图行刺，于是下令悬赏捉拿曹操。
+      char_count: 62
+    - id: p_010
+      index: 10
+      text_preview: 曹操逃到中牟县，被守关兵士抓获。半夜里，县令陈宫提审曹操。曹操瞒不过，就说了行刺董卓之事和自己欲兴兵讨伐董卓的志向。陈宫深受所感，便弃了官，同曹操一同前往。
+      char_count: 78
+    - id: p_011
+      index: 11
+      text_preview: 二人走了三日，来到成皋。成皋吕伯奢是曹操父亲的好友，二人便到吕家投宿。吕伯奢热情款待，问过情形，便骑驴出门打酒去了。
+      char_count: 58
+    - id: p_012
+      index: 12
+      text_preview: 曹操与陈宫坐了好久，忽然听见庄后有磨刀的声音。曹操道：“吕伯奢不是我的至亲，此去可疑，应该去偷偷听听动静。”二人悄悄来到草堂后面，只听见有人道：“先绑起来再杀…
+      char_count: 175
+    - id: p_013
+      index: 13
+      text_preview: 二人急忙上马出庄，走不到二里，看见吕伯奢骑驴带着酒菜迎面而来。吕伯奢见面问：“贤侄和使君为何要走啊？我已经让家人杀猪款待。”曹操不回答，策马向前，走了几步忽然…
+      char_count: 117
+    - id: p_014
+      index: 14
+      text_preview: 陈宫大惊道：“刚才是误杀，现在这是干什么？！”曹操道：“伯奢到家，见杀死这么多人，岂肯罢休？若领人来追，我们就要遭殃了。”陈宫道：“明知道错还要滥杀，这样太不…
+      char_count: 119
+    - id: p_015
+      index: 15
+      text_preview: 晚上投宿客店，曹操先睡，陈宫寻思：“我本来以为曹操是个好人，弃官跟他，谁知是这么个狼心狗肺之人！”便想拔剑杀了曹操，但转念一想：“我为了国家跟他到此，杀了他未…
+      char_count: 103
+    - id: p_016
+      index: 16
+      text_preview: 曹操醒来，不见了陈宫，想明了缘故，便上马直奔家乡。曹操发出矫诏通报各路诸侯一起讨伐董卓，然后树起“忠义”大旗，散尽家财，招募义兵。应募者不计其数，其中，有乐进…
+      char_count: 116
+  - id: ch_003
+    index: 3
+    title: 虎牢关三英战吕布
+    source_heading: 第三回 虎牢关三英战吕布
+    paragraphs:
+    - id: p_001
+      index: 1
+      text_preview: 各路诸侯接到曹操的檄文后，纷纷响应，起兵前来会盟。一时间，共集合了渤海太守袁绍、南阳太守袁术、北海太守孔融、西凉太守马腾、北平太守公孙瓒、长沙太守孙坚等十七路…
+      char_count: 154
+    - id: p_002
+      index: 2
+      text_preview: 孙坚率本部人马杀奔汜水关，正遇董卓所派大将华雄率五万人马杀来，双方交战互有胜负。此时孙坚营中缺粮，总督粮草的袁术怕孙坚取胜获了头功，故意不发粮草。孙坚军心浮动…
+      char_count: 85
+    - id: p_003
+      index: 3
+      text_preview: 袁绍得知孙坚败阵，聚众商议对策。说起华雄英勇无敌，众人都低头默默不语，只有公孙瓒身后站的三人在那里冷笑。袁绍问其缘故，公孙瓒即将刘备和关张二人引见。袁绍得知刘…
+      char_count: 95
+    - id: p_004
+      index: 4
+      text_preview: 忽然探子来报：华雄前来挑战。袁术部将俞涉出马，战不到三回合，被华雄斩了。韩馥命上将潘凤出马迎战，又被华雄斩了。众人都惊慌失色。袁绍道：“可惜我的上将颜良、文丑…
+      char_count: 99
+    - id: p_005
+      index: 5
+      text_preview: 袁绍话音未落，只听见阶下有人高声叫道：“小将愿去斩了华雄首级，献于帐下！”只见此人身长九尺，髯长二尺，丹凤眼，卧蚕眉，面如重枣。袁绍问是何人，公孙瓒介绍：“这…
+      char_count: 228
+    - id: p_006
+      index: 6
+      text_preview: 曹操叫人斟了一杯热酒，让关羽饮了再上马。关羽道：“酒且放下，我去去就来！”出帐提大刀飞身上马。众人只听见关外鼓声大震，喊声连天，如天崩地裂一般。众人皆惊慌失色…
+      char_count: 126
+    - id: p_007
+      index: 7
+      text_preview: 曹操大喜之时，刘备身后转出张飞，高声大叫：“俺哥哥斩了华雄，现在不杀上关去活捉董卓，还等何时？”袁术大怒喝道：“我们大臣尚且谦让，量你一个县令手下小卒，岂敢在…
+      char_count: 179
+    - id: p_008
+      index: 8
+      text_preview: 董卓得知华雄被杀，立即和吕布统兵十五万，把守虎牢关。袁绍派公孙瓒等八路诸侯前来攻打。吕布亲自出马，头戴紫金冠，坐下赤兔马，手持方天画戟，威风凛凛。诸侯各位战将…
+      char_count: 108
+    - id: p_009
+      index: 9
+      text_preview: 又一天，八路诸侯一齐出战。公孙瓒亲自出马来战吕布。没几个回合，公孙瓒败走。吕布纵赤兔马赶来，眼看就要赶上，吕布举画戟刺向公孙瓒，只见旁边闪出一将，圆睁环眼，倒…
+      char_count: 142
+    - id: p_010
+      index: 10
+      text_preview: 关羽见了，把马一拍，舞动八十二斤的青龙偃月刀来夹攻吕布。又战了三十多回合，仍然战不倒吕布。刘玄德掣双股剑，也上来助阵。三个人围着吕布，如走马灯似的厮杀，八路人…
+      char_count: 86
+    - id: p_011
+      index: 11
+      text_preview: 吕布终究招架不住，虚晃一戟荡开阵角，倒拖画戟飞马而回。兄弟三人拍马赶来。八路人马喊声大震，一齐掩杀。吕布大败而归。
+      char_count: 57
+    - id: p_012
+      index: 12
+      text_preview: 董卓得知吕布兵败，见袁绍势大，便决定放弃洛阳，迁都长安。他命人残杀了洛阳几千家富户，抢掠财物；又搜遍宫，盗掘了先皇陵墓，将金银财宝装了几千车。然后，带着汉献帝…
+      char_count: 123
+    - id: p_013
+      index: 13
+      text_preview: 各路诸侯趁势进了洛阳城。曹操建议袁绍，应该趁董卓逃走之机追杀董卓，然而各路诸侯各怀异心，均按兵不动。曹操大怒，领自己的兵马前来追杀董卓。不料途中中了埋伏，曹操…
+      char_count: 247
+    - id: p_014
+      index: 14
+      text_preview: 袁绍已得到密报，便质问孙坚玉玺之事。孙坚赌咒发誓，瞒过众诸侯。袁绍无法，只得暗中命人前往荆州，让刘表设法截杀孙坚。孙坚路过荆州，被刘表偷袭杀得大败，经几员大将…
+      char_count: 94
+    - id: p_015
+      index: 15
+      text_preview: 此后，刘备也随公孙瓒一起离开，又回到了平原县。各路诸侯也渐渐散去，一场轰轰烈烈的讨伐董卓义举就这样烟消云散了。、
+      char_count: 56
+  - id: ch_004
+    index: 4
+    title: 王允巧使连环计
+    source_heading: 第四回 王允巧使连环计
+    paragraphs:
+    - id: p_001
+      index: 1
+      text_preview: 董卓到了长安，愈加骄横。他征集二十五万民夫，在长安附近替自己修了一座坚固的城堡，选了民间年轻美女八百人住在里面，又聚敛了无数金银财宝，囤积了二十年的粮食。他进…
+      char_count: 111
+    - id: p_002
+      index: 2
+      text_preview: 一天夜里，司徒王允想到董卓的残暴，睡不着觉，便趁着月光来到后花园，仰天落泪。忽然，听到牡丹亭旁边有人在长吁短叹。王允走近一看，原来叹气的是府中歌伎貂蝉。貂蝉自…
+      char_count: 115
+    - id: p_003
+      index: 3
+      text_preview: 王允听了好久，问道：“你难道有什么心事吗？”貂蝉见是王允，慌忙跪下道：“大人从小把我养大，您的恩情我粉身碎骨也难以报答。近来见大人总是皱紧眉头，想来是为国家大…
+      char_count: 122
+    - id: p_004
+      index: 4
+      text_preview: 王允听了，心里有了主意。他把貂蝉叫进里屋，朝貂蝉跪下便拜。貂蝉吃惊地跪倒在地，问道：“大人为何如此？”王允道：“请你可怜可怜天下百姓吧！奸贼董卓想要篡夺皇位，…
+      char_count: 202
+    - id: p_005
+      index: 5
+      text_preview: 第二天，王允取了几颗明珠，请能工巧匠专门精制了一顶金冠送给吕布。吕布大喜，亲自到王允家登门道谢。王允备下佳肴，酒席上对吕布恭维备至。酒至半酣，才召唤貂蝉出来给…
+      char_count: 186
+    - id: p_006
+      index: 6
+      text_preview: 过了几天，王允在朝堂见董卓，便邀请他到家中饮酒。王允故意对董卓大加称颂。酒后，又将董卓请入后堂，让貂蝉出来跳舞；跳完舞，又让貂蝉斟酒。董卓对貂蝉的美貌垂涎不已…
+      char_count: 124
+    - id: p_007
+      index: 7
+      text_preview: 王允回来时，正遇上吕布，便编了一段话说董卓要将貂蝉接去与吕布成亲。吕布信以为真，但回到相府打听，又只听说太师娶了新人。吕布大怒，潜入董卓卧房外窥探。貂蝉正在窗…
+      char_count: 140
+    - id: p_008
+      index: 8
+      text_preview: 不久，董卓偶然患了小病，貂蝉衣不解带精心照顾，董卓心中更喜。吕布入内问安，正碰见董卓酣睡，貂蝉在床后探身望着吕布，用手指心，又用手指董卓，挥泪不止。吕布见了心…
+      char_count: 197
+    - id: p_009
+      index: 9
+      text_preview: 此后一天，吕布趁董卓上朝来找貂蝉。貂蝉偷偷约吕布在后园凤仪亭相见。貂蝉向吕布诉说自己被董卓霸占的痛苦。说完，攀着栏杆就要跳入池中。吕布慌忙抱住。貂蝉哭道：“我…
+      char_count: 178
+    - id: p_010
+      index: 10
+      text_preview: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起画戟大喝一声。吕布大惊，转身就逃。董卓身体肥胖，追不上，便用力将戟向吕布掷去。吕…
+      char_count: 269
+    - id: p_011
+      index: 11
+      text_preview: 王允见时机成熟，便用言语激怒吕布。吕布当即立下誓言，要杀董卓。过了几天，王允派人将董卓骗到长安，说让他来做皇帝。董卓得意扬扬地上了朝堂，发现势头不对，回头大叫…
+      char_count: 170
+    - id: p_012
+      index: 12
+      text_preview: 董卓部将李傕等人听说董卓被杀，便从陕西招兵十余万，分四路杀进长安。吕布抵挡不住，带领家小投奔袁术去了。王允则被李傕等人杀死。大权又落入了李傕等人手中，长安城内…
+      char_count: 86
+  - id: ch_005
+    index: 5
+    title: 陶恭祖三让徐州
+    source_heading: 第五回 陶恭祖三让徐州
+    paragraphs:
+    - id: p_001
+      index: 1
+      text_preview: 曹操在兖州，整顿兵马，广招贤纳士。先后有谋士荀彧、荀攸、程昱，郭嘉、满宠、吕虔等人，武将于禁、典韦等前来投奔，曹操一一予以重用。此时曹操部下文有谋臣，武有猛将…
+      char_count: 177
+    - id: p_002
+      index: 2
+      text_preview: 曹操得到音讯，哭倒在地。曹操切齿道：“陶谦纵容手下杀我父亲，此仇不共戴天！我现在就起大军荡平徐州，方解我心头之恨！”他带领大军，令夏侯渊、于禁、典韦为先锋，竖…
+      char_count: 105
+    - id: p_003
+      index: 3
+      text_preview: 陶谦，字恭祖，本是一个温厚君子，见曹操起兵报仇，杀戮百姓，仰天痛哭。他对部下说，曹军势大，难以抵敌，不如将他绑了，送给曹操，救徐州百姓性命。部下不允。麋竺献计…
+      char_count: 98
+    - id: p_004
+      index: 4
+      text_preview: 麋竺见了孔融，说了来意。正商议间，忽然黄巾余党管亥带领几万人杀向徐州。孔融料想难以抵挡，便派人去向刘备求救。刘备见孔融这样看重自己，当即与关羽、张飞领兵三千去…
+      char_count: 142
+    - id: p_005
+      index: 5
+      text_preview: 孔融将刘备接进城里，摆宴庆贺。孔融又邀请刘备一同去救徐州。刘备答应向公孙瓒借些兵马，随后就来。
+      char_count: 47
+    - id: p_006
+      index: 6
+      text_preview: 刘备借得两千兵马和勇将赵云，连同本部三千人来救徐州。到了徐州城下，张飞一阵冲杀，杀退于禁。刘备入了城，陶谦设宴相待。陶谦见刘备器宇轩昂，言语不俗，心中大喜，便…
+      char_count: 269
+    - id: p_007
+      index: 7
+      text_preview: 刘备写出了书信，劝曹操退兵。曹操得信，大骂刘备。忽然流星马来报，吕布已袭破兖州。原来吕布自逃出长安，先后投奔袁术、袁绍、张杨等人，都不能长久，现在张邈手下来袭…
+      char_count: 111
+    - id: p_008
+      index: 8
+      text_preview: 闻知曹操退兵，陶谦大喜，邀请众人聚会。饮宴后，陶谦请刘备坐于上座，再三要让徐州。刘备道：“刘备来救徐州，是为了大义。现在无缘无故占徐州为己有，天下都将以为刘备…
+      char_count: 196
+    - id: p_009
+      index: 9
+      text_preview: 不久，陶谦染上重病。陶谦自知年高，身体难以好转，便请刘备来商议军务。陶谦再次将印牌相让，并让孙乾、麋竺辅佐刘备。刘备仍然再三推辞，陶谦以手指心而死。关羽、张飞…
+      char_count: 109
+    - id: p_010
+      index: 10
+      text_preview: 却说曹操回到兖州，与吕布多次激战，终于大败吕布。吕布收拾残兵，来徐州投奔刘备。刘备道：“吕布是当今天下的勇士，应该出门迎接！”麋竺劝刘备：“吕布是虎狼之徒，不…
+      char_count: 169
+    - id: p_011
+      index: 11
+      text_preview: 于是刘备率众出城三十里迎接吕布，跟吕布并马进了徐州。谈话间，刘备提出要将徐州相让。吕布大喜，正要伸手去接印牌，只见刘备背后关羽、张飞满面怒容，当即假意推辞说：…
+      char_count: 98
+    - id: p_012
+      index: 12
+      text_preview: 次日，吕布回请刘备，刘备领关张二人同去。饮酒到半酣，吕布请刘备入后堂，让妻妾们出来拜见刘备。刘备再三谦让，吕布说：“贤弟不必推让了！”张飞听了，瞪圆眼大喝道：…
+      char_count: 188
+    - id: p_013
+      index: 13
+      text_preview: 次日，吕布来向刘备辞行。刘备劝慰吕布，又让吕布领兵先到小沛驻扎。
+      char_count: 32
+    - id: p_014
+      index: 14
+      text_preview: 这时，朝中掌权的李傕与郭汜两人发生火并，长安城内一片混乱。大臣杨奉、国舅董承等人乘机保护献帝逃回洛阳，一路上刀兵迭起，狼狈不堪。到洛阳后，改元建安元年。献帝见…
+      char_count: 111
+    - id: p_015
+      index: 15
+      text_preview: 曹操进洛阳击退了李榷、郭汜，自己做了丞相。曹操见洛阳荒废，让献帝迁都许都。献帝不敢不从，群臣惧怕曹操，也不敢有什么异议。于是曹操迁都许都，大兴土木，封官授爵。…
+      char_count: 108
+    - id: p_016
+      index: 16
+      text_preview: 曹操为了让吕布与刘备互相残杀，下诏正式封刘备为徐州牧，并写密信让刘备杀吕布。刘备召吕布前来，将曹操密信出示给吕布，表示决不会做此不义之事。吕布再三拜谢，感激涕…
+      char_count: 176
+  characters_detected:
+  - id: char_001
+    name: 汉灵帝
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      quote_preview: 东汉末年，桓帝、灵帝宠信宦官，致使朝政日益腐败，民不聊生。到汉灵帝在位的时候，…
+      note: 角色候选：汉灵帝
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      quote_preview: 东汉末年，桓帝、灵帝宠信宦官，致使朝政日益腐败，民不聊生。到汉灵帝在位的时候，…
+      note: 角色候选：汉灵帝
+    confidence: medium
+  - id: char_002
+    name: 忽然
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_004
+      quote_preview: 刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家…
+      note: 角色候选：忽然
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_004
+      quote_preview: 刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家…
+      note: 角色候选：忽然
+    confidence: medium
+  - id: char_003
+    name: 回头看
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_004
+      quote_preview: 刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家…
+      note: 角色候选：回头看
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_004
+      quote_preview: 刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家…
+      note: 角色候选：回头看
+    confidence: medium
+  - id: char_004
+    name: 车子停
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_005
+      quote_preview: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城…
+      note: 角色候选：车子停
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_005
+      quote_preview: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城…
+      note: 角色候选：车子停
+    confidence: medium
+  - id: char_005
+    name: 流落
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_005
+      quote_preview: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城…
+      note: 角色候选：流落
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_005
+      quote_preview: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城…
+      note: 角色候选：流落
+    confidence: medium
+  - id: char_006
+    name: 张飞
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_005
+      quote_preview: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城…
+      note: 角色候选：张飞
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_005
+      quote_preview: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城…
+      note: 角色候选：张飞
+    confidence: medium
+  - id: char_007
+    name: 们应当
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_005
+      quote_preview: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城…
+      note: 角色候选：们应当
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_005
+      quote_preview: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城…
+      note: 角色候选：们应当
+    confidence: medium
+  - id: char_008
+    name: 三人
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_005
+      quote_preview: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城…
+      note: 角色候选：三人
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_005
+      quote_preview: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城…
+      note: 角色候选：三人
+    confidence: medium
+  - id: char_009
+    name: 督邮仅
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_008
+      quote_preview: 刘备上任不满四个月，上面就派了一名督邮来巡查。刘备毕恭毕敬地出城迎接。那督邮却…
+      note: 角色候选：督邮仅
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_008
+      quote_preview: 刘备上任不满四个月，上面就派了一名督邮来巡查。刘备毕恭毕敬地出城迎接。那督邮却…
+      note: 角色候选：督邮仅
+    confidence: medium
+  - id: char_010
+    name: 胁刘备
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_008
+      quote_preview: 刘备上任不满四个月，上面就派了一名督邮来巡查。刘备毕恭毕敬地出城迎接。那督邮却…
+      note: 角色候选：胁刘备
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_008
+      quote_preview: 刘备上任不满四个月，上面就派了一名督邮来巡查。刘备毕恭毕敬地出城迎接。那督邮却…
+      note: 角色候选：胁刘备
+    confidence: medium
+  - id: char_011
+    name: 县吏
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_009
+      quote_preview: 刘备回到县里，与县吏商议。县吏说：“督邮大耍威风，无非是想索要贿赂罢了。”刘备…
+      note: 角色候选：县吏
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_009
+      quote_preview: 刘备回到县里，与县吏商议。县吏说：“督邮大耍威风，无非是想索要贿赂罢了。”刘备…
+      note: 角色候选：县吏
+    confidence: medium
+  - id: char_012
+    name: 都被拦
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_009
+      quote_preview: 刘备回到县里，与县吏商议。县吏说：“督邮大耍威风，无非是想索要贿赂罢了。”刘备…
+      note: 角色候选：都被拦
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_009
+      quote_preview: 刘备回到县里，与县吏商议。县吏说：“督邮大耍威风，无非是想索要贿赂罢了。”刘备…
+      note: 角色候选：都被拦
+    confidence: medium
+  - id: char_013
+    name: 人都
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_010
+      quote_preview: 一天张飞喝了几杯闷酒，骑马经过驿馆，看见五六十个老人都在门前痛哭。张飞上前询问…
+      note: 角色候选：人都
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_010
+      quote_preview: 一天张飞喝了几杯闷酒，骑马经过驿馆，看见五六十个老人都在门前痛哭。张飞上前询问…
+      note: 角色候选：人都
+    confidence: medium
+  - id: char_014
+    name: 邮正坐
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_010
+      quote_preview: 一天张飞喝了几杯闷酒，骑马经过驿馆，看见五六十个老人都在门前痛哭。张飞上前询问…
+      note: 角色候选：邮正坐
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_010
+      quote_preview: 一天张飞喝了几杯闷酒，骑马经过驿馆，看见五六十个老人都在门前痛哭。张飞上前询问…
+      note: 角色候选：邮正坐
+    confidence: medium
+  - id: char_015
+    name: 吏绑倒
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_010
+      quote_preview: 一天张飞喝了几杯闷酒，骑马经过驿馆，看见五六十个老人都在门前痛哭。张飞上前询问…
+      note: 角色候选：吏绑倒
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_010
+      quote_preview: 一天张飞喝了几杯闷酒，骑马经过驿馆，看见五六十个老人都在门前痛哭。张飞上前询问…
+      note: 角色候选：吏绑倒
+    confidence: medium
+  - id: char_016
+    name: 刘备
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_011
+      quote_preview: 张飞折下柳条，朝督邮腿上奋力鞭打，一连打折了十几根柳条。围观百姓拍手称快。刘备…
+      note: 角色候选：刘备
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_011
+      quote_preview: 张飞折下柳条，朝督邮腿上奋力鞭打，一连打折了十几根柳条。围观百姓拍手称快。刘备…
+      note: 角色候选：刘备
+    confidence: medium
+  - id: char_017
+    name: 卓大权
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_003
+      quote_preview: 不久，董卓废掉刘辩，立九岁的陈留王刘协为帝，这就是汉献帝。董卓自己做了相国。此…
+      note: 角色候选：卓大权
+    source_trace:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_003
+      quote_preview: 不久，董卓废掉刘辩，立九岁的陈留王刘协为帝，这就是汉献帝。董卓自己做了相国。此…
+      note: 角色候选：卓大权
+    confidence: medium
+  - id: char_018
+    name: 绍逃避
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_004
+      quote_preview: 董卓专权后，袁绍逃避在外，开始联络司徒王允伺机除掉董卓。一日，王允宴请众臣，在…
+      note: 角色候选：绍逃避
+    source_trace:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_004
+      quote_preview: 董卓专权后，袁绍逃避在外，开始联络司徒王允伺机除掉董卓。一日，王允宴请众臣，在…
+      note: 角色候选：绍逃避
+    confidence: medium
+  - id: char_019
+    name: 操佩刀
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_007
+      quote_preview: 次日，曹操佩刀来到相府，见董卓坐于床上，吕布侍立一旁。曹操推说马慢来迟，董卓便…
+      note: 角色候选：操佩刀
+    source_trace:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_007
+      quote_preview: 次日，曹操佩刀来到相府，见董卓坐于床上，吕布侍立一旁。曹操推说马慢来迟，董卓便…
+      note: 角色候选：操佩刀
+    confidence: medium
+  - id: char_020
+    name: 曹操推
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_007
+      quote_preview: 次日，曹操佩刀来到相府，见董卓坐于床上，吕布侍立一旁。曹操推说马慢来迟，董卓便…
+      note: 角色候选：曹操推
+    source_trace:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_007
+      quote_preview: 次日，曹操佩刀来到相府，见董卓坐于床上，吕布侍立一旁。曹操推说马慢来迟，董卓便…
+      note: 角色候选：曹操推
+    confidence: medium
+  - id: char_021
+    name: 人悄悄
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_012
+      quote_preview: 曹操与陈宫坐了好久，忽然听见庄后有磨刀的声音。曹操道：“吕伯奢不是我的至亲，此…
+      note: 角色候选：人悄悄
+    source_trace:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_012
+      quote_preview: 曹操与陈宫坐了好久，忽然听见庄后有磨刀的声音。曹操道：“吕伯奢不是我的至亲，此…
+      note: 角色候选：人悄悄
+    confidence: medium
+  - id: char_022
+    name: 我本来
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_015
+      quote_preview: 晚上投宿客店，曹操先睡，陈宫寻思：“我本来以为曹操是个好人，弃官跟他，谁知是这…
+      note: 角色候选：我本来
+    source_trace:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_015
+      quote_preview: 晚上投宿客店，曹操先睡，陈宫寻思：“我本来以为曹操是个好人，弃官跟他，谁知是这…
+      note: 角色候选：我本来
+    confidence: medium
+  - id: char_023
+    name: 的三人
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_003
+      quote_preview: 袁绍得知孙坚败阵，聚众商议对策。说起华雄英勇无敌，众人都低头默默不语，只有公孙…
+      note: 角色候选：的三人
+    source_trace:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_003
+      quote_preview: 袁绍得知孙坚败阵，聚众商议对策。说起华雄英勇无敌，众人都低头默默不语，只有公孙…
+      note: 角色候选：的三人
+    confidence: medium
+  - id: char_024
+    name: 一个人
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_004
+      quote_preview: 忽然探子来报：华雄前来挑战。袁术部将俞涉出马，战不到三回合，被华雄斩了。韩馥命…
+      note: 角色候选：一个人
+    source_trace:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_004
+      quote_preview: 忽然探子来报：华雄前来挑战。袁术部将俞涉出马，战不到三回合，被华雄斩了。韩馥命…
+      note: 角色候选：一个人
+    confidence: medium
+  - id: char_025
+    name: 操急忙
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_005
+      quote_preview: 袁绍话音未落，只听见阶下有人高声叫道：“小将愿去斩了华雄首级，献于帐下！”只见…
+      note: 角色候选：操急忙
+    source_trace:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_005
+      quote_preview: 袁绍话音未落，只听见阶下有人高声叫道：“小将愿去斩了华雄首级，献于帐下！”只见…
+      note: 角色候选：操急忙
+    confidence: medium
+  - id: char_026
+    name: 众人只
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_006
+      quote_preview: 曹操叫人斟了一杯热酒，让关羽饮了再上马。关羽道：“酒且放下，我去去就来！”出帐…
+      note: 角色候选：众人只
+    source_trace:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_006
+      quote_preview: 曹操叫人斟了一杯热酒，让关羽饮了再上马。关羽道：“酒且放下，我去去就来！”出帐…
+      note: 角色候选：众人只
+    confidence: medium
+  - id: char_027
+    name: 首级掷
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_006
+      quote_preview: 曹操叫人斟了一杯热酒，让关羽饮了再上马。关羽道：“酒且放下，我去去就来！”出帐…
+      note: 角色候选：首级掷
+    source_trace:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_006
+      quote_preview: 曹操叫人斟了一杯热酒，让关羽饮了再上马。关羽道：“酒且放下，我去去就来！”出帐…
+      note: 角色候选：首级掷
+    confidence: medium
+  - id: char_028
+    name: 岂敢
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_007
+      quote_preview: 曹操大喜之时，刘备身后转出张飞，高声大叫：“俺哥哥斩了华雄，现在不杀上关去活捉…
+      note: 角色候选：岂敢
+    source_trace:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_007
+      quote_preview: 曹操大喜之时，刘备身后转出张飞，高声大叫：“俺哥哥斩了华雄，现在不杀上关去活捉…
+      note: 角色候选：岂敢
+    confidence: medium
+  - id: char_029
+    name: 人张飞
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_009
+      quote_preview: 又一天，八路诸侯一齐出战。公孙瓒亲自出马来战吕布。没几个回合，公孙瓒败走。吕布…
+      note: 角色候选：人张飞
+    source_trace:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_009
+      quote_preview: 又一天，八路诸侯一齐出战。公孙瓒亲自出马来战吕布。没几个回合，公孙瓒败走。吕布…
+      note: 角色候选：人张飞
+    confidence: medium
+  - id: char_030
+    name: 卓部下
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_012
+      quote_preview: 董卓得知吕布兵败，见袁绍势大，便决定放弃洛阳，迁都长安。他命人残杀了洛阳几千家…
+      note: 角色候选：卓部下
+    source_trace:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_012
+      quote_preview: 董卓得知吕布兵败，见袁绍势大，便决定放弃洛阳，迁都长安。他命人残杀了洛阳几千家…
+      note: 角色候选：卓部下
+    confidence: medium
+  - id: char_031
+    name: 孙坚
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_013
+      quote_preview: 各路诸侯趁势进了洛阳城。曹操建议袁绍，应该趁董卓逃走之机追杀董卓，然而各路诸侯…
+      note: 角色候选：孙坚
+    source_trace:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_013
+      quote_preview: 各路诸侯趁势进了洛阳城。曹操建议袁绍，应该趁董卓逃走之机追杀董卓，然而各路诸侯…
+      note: 角色候选：孙坚
+    confidence: medium
+  - id: char_032
+    name: 里报告
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_013
+      quote_preview: 各路诸侯趁势进了洛阳城。曹操建议袁绍，应该趁董卓逃走之机追杀董卓，然而各路诸侯…
+      note: 角色候选：里报告
+    source_trace:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_013
+      quote_preview: 各路诸侯趁势进了洛阳城。曹操建议袁绍，应该趁董卓逃走之机追杀董卓，然而各路诸侯…
+      note: 角色候选：里报告
+    confidence: medium
+  - id: char_033
+    name: 百人住
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_001
+      quote_preview: 董卓到了长安，愈加骄横。他征集二十五万民夫，在长安附近替自己修了一座坚固的城堡…
+      note: 角色候选：百人住
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_001
+      quote_preview: 董卓到了长安，愈加骄横。他征集二十五万民夫，在长安附近替自己修了一座坚固的城堡…
+      note: 角色候选：百人住
+    confidence: medium
+  - id: char_034
+    name: 着月光
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_002
+      quote_preview: 一天夜里，司徒王允想到董卓的残暴，睡不着觉，便趁着月光来到后花园，仰天落泪。忽…
+      note: 角色候选：着月光
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_002
+      quote_preview: 一天夜里，司徒王允想到董卓的残暴，睡不着觉，便趁着月光来到后花园，仰天落泪。忽…
+      note: 角色候选：着月光
+    confidence: medium
+  - id: char_035
+    name: 边有人
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_002
+      quote_preview: 一天夜里，司徒王允想到董卓的残暴，睡不着觉，便趁着月光来到后花园，仰天落泪。忽…
+      note: 角色候选：边有人
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_002
+      quote_preview: 一天夜里，司徒王允想到董卓的残暴，睡不着觉，便趁着月光来到后花园，仰天落泪。忽…
+      note: 角色候选：边有人
+    confidence: medium
+  - id: char_036
+    name: 人从小
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_003
+      quote_preview: 王允听了好久，问道：“你难道有什么心事吗？”貂蝉见是王允，慌忙跪下道：“大人从…
+      note: 角色候选：人从小
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_003
+      quote_preview: 王允听了好久，问道：“你难道有什么心事吗？”貂蝉见是王允，慌忙跪下道：“大人从…
+      note: 角色候选：人从小
+    confidence: medium
+  - id: char_037
+    name: 因此
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_003
+      quote_preview: 王允听了好久，问道：“你难道有什么心事吗？”貂蝉见是王允，慌忙跪下道：“大人从…
+      note: 角色候选：因此
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_003
+      quote_preview: 王允听了好久，问道：“你难道有什么心事吗？”貂蝉见是王允，慌忙跪下道：“大人从…
+      note: 角色候选：因此
+    confidence: medium
+  - id: char_038
+    name: 地跪倒
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_004
+      quote_preview: 王允听了，心里有了主意。他把貂蝉叫进里屋，朝貂蝉跪下便拜。貂蝉吃惊地跪倒在地，…
+      note: 角色候选：地跪倒
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_004
+      quote_preview: 王允听了，心里有了主意。他把貂蝉叫进里屋，朝貂蝉跪下便拜。貂蝉吃惊地跪倒在地，…
+      note: 角色候选：地跪倒
+    confidence: medium
+  - id: char_039
+    name: 我先
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_004
+      quote_preview: 王允听了，心里有了主意。他把貂蝉叫进里屋，朝貂蝉跪下便拜。貂蝉吃惊地跪倒在地，…
+      note: 角色候选：我先
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_004
+      quote_preview: 王允听了，心里有了主意。他把貂蝉叫进里屋，朝貂蝉跪下便拜。貂蝉吃惊地跪倒在地，…
+      note: 角色候选：我先
+    confidence: medium
+  - id: char_040
+    name: 允乘机
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_005
+      quote_preview: 第二天，王允取了几颗明珠，请能工巧匠专门精制了一顶金冠送给吕布。吕布大喜，亲自…
+      note: 角色候选：允乘机
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_005
+      quote_preview: 第二天，王允取了几颗明珠，请能工巧匠专门精制了一顶金冠送给吕布。吕布大喜，亲自…
+      note: 角色候选：允乘机
+    confidence: medium
+  - id: char_041
+    name: 王允又
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_005
+      quote_preview: 第二天，王允取了几颗明珠，请能工巧匠专门精制了一顶金冠送给吕布。吕布大喜，亲自…
+      note: 角色候选：王允又
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_005
+      quote_preview: 第二天，王允取了几颗明珠，请能工巧匠专门精制了一顶金冠送给吕布。吕布大喜，亲自…
+      note: 角色候选：王允又
+    confidence: medium
+  - id: char_042
+    name: 王允
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_006
+      quote_preview: 过了几天，王允在朝堂见董卓，便邀请他到家中饮酒。王允故意对董卓大加称颂。酒后，…
+      note: 角色候选：王允
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_006
+      quote_preview: 过了几天，王允在朝堂见董卓，便邀请他到家中饮酒。王允故意对董卓大加称颂。酒后，…
+      note: 角色候选：王允
+    confidence: medium
+  - id: char_043
+    name: 一段话
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_007
+      quote_preview: 王允回来时，正遇上吕布，便编了一段话说董卓要将貂蝉接去与吕布成亲。吕布信以为真…
+      note: 角色候选：一段话
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_007
+      quote_preview: 王允回来时，正遇上吕布，便编了一段话说董卓要将貂蝉接去与吕布成亲。吕布信以为真…
+      note: 角色候选：一段话
+    confidence: medium
+  - id: char_044
+    name: 又只听
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_007
+      quote_preview: 王允回来时，正遇上吕布，便编了一段话说董卓要将貂蝉接去与吕布成亲。吕布信以为真…
+      note: 角色候选：又只听
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_007
+      quote_preview: 王允回来时，正遇上吕布，便编了一段话说董卓要将貂蝉接去与吕布成亲。吕布信以为真…
+      note: 角色候选：又只听
+    confidence: medium
+  - id: char_045
+    name: 貂蝉正
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_007
+      quote_preview: 王允回来时，正遇上吕布，便编了一段话说董卓要将貂蝉接去与吕布成亲。吕布信以为真…
+      note: 角色候选：貂蝉正
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_007
+      quote_preview: 王允回来时，正遇上吕布，便编了一段话说董卓要将貂蝉接去与吕布成亲。吕布信以为真…
+      note: 角色候选：貂蝉正
+    confidence: medium
+  - id: char_046
+    name: 貂蝉
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_008
+      quote_preview: 不久，董卓偶然患了小病，貂蝉衣不解带精心照顾，董卓心中更喜。吕布入内问安，正碰…
+      note: 角色候选：貂蝉
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_008
+      quote_preview: 不久，董卓偶然患了小病，貂蝉衣不解带精心照顾，董卓心中更喜。吕布入内问安，正碰…
+      note: 角色候选：貂蝉
+    confidence: medium
+  - id: char_047
+    name: 约吕布
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_009
+      quote_preview: 此后一天，吕布趁董卓上朝来找貂蝉。貂蝉偷偷约吕布在后园凤仪亭相见。貂蝉向吕布诉…
+      note: 角色候选：约吕布
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_009
+      quote_preview: 此后一天，吕布趁董卓上朝来找貂蝉。貂蝉偷偷约吕布在后园凤仪亭相见。貂蝉向吕布诉…
+      note: 角色候选：约吕布
+    confidence: medium
+  - id: char_048
+    name: 吕布诉
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_009
+      quote_preview: 此后一天，吕布趁董卓上朝来找貂蝉。貂蝉偷偷约吕布在后园凤仪亭相见。貂蝉向吕布诉…
+      note: 角色候选：吕布诉
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_009
+      quote_preview: 此后一天，吕布趁董卓上朝来找貂蝉。貂蝉偷偷约吕布在后园凤仪亭相见。貂蝉向吕布诉…
+      note: 角色候选：吕布诉
+    confidence: medium
+  - id: char_049
+    name: 早就听
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_009
+      quote_preview: 此后一天，吕布趁董卓上朝来找貂蝉。貂蝉偷偷约吕布在后园凤仪亭相见。貂蝉向吕布诉…
+      note: 角色候选：早就听
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_009
+      quote_preview: 此后一天，吕布趁董卓上朝来找貂蝉。貂蝉偷偷约吕布在后园凤仪亭相见。貂蝉向吕布诉…
+      note: 角色候选：早就听
+    confidence: medium
+  - id: char_050
+    name: 董卓
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_010
+      quote_preview: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起…
+      note: 角色候选：董卓
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_010
+      quote_preview: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起…
+      note: 角色候选：董卓
+    confidence: medium
+  - id: char_051
+    name: 画戟靠
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_010
+      quote_preview: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起…
+      note: 角色候选：画戟靠
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_010
+      quote_preview: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起…
+      note: 角色候选：画戟靠
+    confidence: medium
+  - id: char_052
+    name: 两人
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_010
+      quote_preview: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起…
+      note: 角色候选：两人
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_010
+      quote_preview: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起…
+      note: 角色候选：两人
+    confidence: medium
+  - id: char_053
+    name: 亭中
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_010
+      quote_preview: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起…
+      note: 角色候选：亭中
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_010
+      quote_preview: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起…
+      note: 角色候选：亭中
+    confidence: medium
+  - id: char_054
+    name: 戟打落
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_010
+      quote_preview: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起…
+      note: 角色候选：戟打落
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_010
+      quote_preview: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起…
+      note: 角色候选：戟打落
+    confidence: medium
+  - id: char_055
+    name: 又哭着
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_010
+      quote_preview: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起…
+      note: 角色候选：又哭着
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_010
+      quote_preview: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起…
+      note: 角色候选：又哭着
+    confidence: medium
+  - id: char_056
+    name: 布立马
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_010
+      quote_preview: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起…
+      note: 角色候选：布立马
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_010
+      quote_preview: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起…
+      note: 角色候选：布立马
+    confidence: medium
+  - id: char_057
+    name: 儿奉先
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_011
+      quote_preview: 王允见时机成熟，便用言语激怒吕布。吕布当即立下誓言，要杀董卓。过了几天，王允派…
+      note: 角色候选：儿奉先
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_011
+      quote_preview: 王允见时机成熟，便用言语激怒吕布。吕布当即立下誓言，要杀董卓。过了几天，王允派…
+      note: 角色候选：儿奉先
+    confidence: medium
+  - id: char_058
+    name: 体被扔
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_011
+      quote_preview: 王允见时机成熟，便用言语激怒吕布。吕布当即立下誓言，要杀董卓。过了几天，王允派…
+      note: 角色候选：体被扔
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_011
+      quote_preview: 王允见时机成熟，便用言语激怒吕布。吕布当即立下誓言，要杀董卓。过了几天，王允派…
+      note: 角色候选：体被扔
+    confidence: medium
+  - id: char_059
+    name: 等人听
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_012
+      quote_preview: 董卓部将李傕等人听说董卓被杀，便从陕西招兵十余万，分四路杀进长安。吕布抵挡不住…
+      note: 角色候选：等人听
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_012
+      quote_preview: 董卓部将李傕等人听说董卓被杀，便从陕西招兵十余万，分四路杀进长安。吕布抵挡不住…
+      note: 角色候选：等人听
+    confidence: medium
+  - id: char_060
+    name: 曹操
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_005
+      paragraph_ids:
+      - p_001
+      quote_preview: 曹操在兖州，整顿兵马，广招贤纳士。先后有谋士荀彧、荀攸、程昱，郭嘉、满宠、吕虔…
+      note: 角色候选：曹操
+    source_trace:
+      chapter_id: ch_005
+      paragraph_ids:
+      - p_001
+      quote_preview: 曹操在兖州，整顿兵马，广招贤纳士。先后有谋士荀彧、荀攸、程昱，郭嘉、满宠、吕虔…
+      note: 角色候选：曹操
+    confidence: medium
+  - id: char_061
+    name: 哭倒
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_005
+      paragraph_ids:
+      - p_002
+      quote_preview: 曹操得到音讯，哭倒在地。曹操切齿道：“陶谦纵容手下杀我父亲，此仇不共戴天！我现…
+      note: 角色候选：哭倒
+    source_trace:
+      chapter_id: ch_005
+      paragraph_ids:
+      - p_002
+      quote_preview: 曹操得到音讯，哭倒在地。曹操切齿道：“陶谦纵容手下杀我父亲，此仇不共戴天！我现…
+      note: 角色候选：哭倒
+    confidence: medium
+  - id: char_062
+    name: 我现
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_005
+      paragraph_ids:
+      - p_002
+      quote_preview: 曹操得到音讯，哭倒在地。曹操切齿道：“陶谦纵容手下杀我父亲，此仇不共戴天！我现…
+      note: 角色候选：我现
+    source_trace:
+      chapter_id: ch_005
+      paragraph_ids:
+      - p_002
+      quote_preview: 曹操得到音讯，哭倒在地。曹操切齿道：“陶谦纵容手下杀我父亲，此仇不共戴天！我现…
+      note: 角色候选：我现
+    confidence: medium
+  - id: char_063
+    name: 对部下
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_005
+      paragraph_ids:
+      - p_003
+      quote_preview: 陶谦，字恭祖，本是一个温厚君子，见曹操起兵报仇，杀戮百姓，仰天痛哭。他对部下说…
+      note: 角色候选：对部下
+    source_trace:
+      chapter_id: ch_005
+      paragraph_ids:
+      - p_003
+      quote_preview: 陶谦，字恭祖，本是一个温厚君子，见曹操起兵报仇，杀戮百姓，仰天痛哭。他对部下说…
+      note: 角色候选：对部下
+    confidence: medium
+  - id: char_064
+    name: 并不
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_005
+      paragraph_ids:
+      - p_004
+      quote_preview: 麋竺见了孔融，说了来意。正商议间，忽然黄巾余党管亥带领几万人杀向徐州。孔融料想…
+      note: 角色候选：并不
+    source_trace:
+      chapter_id: ch_005
+      paragraph_ids:
+      - p_004
+      quote_preview: 麋竺见了孔融，说了来意。正商议间，忽然黄巾余党管亥带领几万人杀向徐州。孔融料想…
+      note: 角色候选：并不
+    confidence: medium
+  - id: char_065
+    name: 麋竺也
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_005
+      paragraph_ids:
+      - p_006
+      quote_preview: 刘备借得两千兵马和勇将赵云，连同本部三千人来救徐州。到了徐州城下，张飞一阵冲杀…
+      note: 角色候选：麋竺也
+    source_trace:
+      chapter_id: ch_005
+      paragraph_ids:
+      - p_006
+      quote_preview: 刘备借得两千兵马和勇将赵云，连同本部三千人来救徐州。到了徐州城下，张飞一阵冲杀…
+      note: 角色候选：麋竺也
+    confidence: medium
+  - id: char_066
+    name: 下都将
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_005
+      paragraph_ids:
+      - p_008
+      quote_preview: 闻知曹操退兵，陶谦大喜，邀请众人聚会。饮宴后，陶谦请刘备坐于上座，再三要让徐州…
+      note: 角色候选：下都将
+    source_trace:
+      chapter_id: ch_005
+      paragraph_ids:
+      - p_008
+      quote_preview: 闻知曹操退兵，陶谦大喜，邀请众人聚会。饮宴后，陶谦请刘备坐于上座，再三要让徐州…
+      note: 角色候选：下都将
+    confidence: medium
+  - id: char_067
+    name: 刘备先
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_005
+      paragraph_ids:
+      - p_008
+      quote_preview: 闻知曹操退兵，陶谦大喜，邀请众人聚会。饮宴后，陶谦请刘备坐于上座，再三要让徐州…
+      note: 角色候选：刘备先
+    source_trace:
+      chapter_id: ch_005
+      paragraph_ids:
+      - p_008
+      quote_preview: 闻知曹操退兵，陶谦大喜，邀请众人聚会。饮宴后，陶谦请刘备坐于上座，再三要让徐州…
+      note: 角色候选：刘备先
+    confidence: medium
+  - id: char_068
+    name: 意推辞
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_005
+      paragraph_ids:
+      - p_011
+      quote_preview: 于是刘备率众出城三十里迎接吕布，跟吕布并马进了徐州。谈话间，刘备提出要将徐州相…
+      note: 角色候选：意推辞
+    source_trace:
+      chapter_id: ch_005
+      paragraph_ids:
+      - p_011
+      quote_preview: 于是刘备率众出城三十里迎接吕布，跟吕布并马进了徐州。谈话间，刘备提出要将徐州相…
+      note: 角色候选：意推辞
+    confidence: medium
+  - id: char_069
+    name: 吕布
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_005
+      paragraph_ids:
+      - p_012
+      quote_preview: 次日，吕布回请刘备，刘备领关张二人同去。饮酒到半酣，吕布请刘备入后堂，让妻妾们…
+      note: 角色候选：吕布
+    source_trace:
+      chapter_id: ch_005
+      paragraph_ids:
+      - p_012
+      quote_preview: 次日，吕布回请刘备，刘备领关张二人同去。饮酒到半酣，吕布请刘备入后堂，让妻妾们…
+      note: 角色候选：吕布
+    confidence: medium
+  - id: char_070
+    name: 始大权
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_005
+      paragraph_ids:
+      - p_015
+      quote_preview: 曹操进洛阳击退了李榷、郭汜，自己做了丞相。曹操见洛阳荒废，让献帝迁都许都。献帝…
+      note: 角色候选：始大权
+    source_trace:
+      chapter_id: ch_005
+      paragraph_ids:
+      - p_015
+      quote_preview: 曹操进洛阳击退了李榷、郭汜，自己做了丞相。曹操见洛阳荒废，让献帝迁都许都。献帝…
+      note: 角色候选：始大权
+    confidence: medium
+  - id: char_071
+    name: 仍然驻
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_005
+      paragraph_ids:
+      - p_016
+      quote_preview: 曹操为了让吕布与刘备互相残杀，下诏正式封刘备为徐州牧，并写密信让刘备杀吕布。刘…
+      note: 角色候选：仍然驻
+    source_trace:
+      chapter_id: ch_005
+      paragraph_ids:
+      - p_016
+      quote_preview: 曹操为了让吕布与刘备互相残杀，下诏正式封刘备为徐州牧，并写密信让刘备杀吕布。刘…
+      note: 角色候选：仍然驻
+    confidence: medium
+  locations_detected: []
+  props_detected:
+  - id: prop_001
+    name: 灯
+    prop_type: keyword
+    description_hint: ''
+    source_trace:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_010
+      quote_preview: 关羽见了，把马一拍，舞动八十二斤的青龙偃月刀来夹攻吕布。又战了三十多回合，仍然…
+      note: 关键词命中：灯
+    confidence: high
+  - id: prop_002
+    name: 信
+    prop_type: keyword
+    description_hint: ''
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      quote_preview: 东汉末年，桓帝、灵帝宠信宦官，致使朝政日益腐败，民不聊生。到汉灵帝在位的时候，…
+      note: 关键词命中：信
+    confidence: high
+  - id: prop_003
+    name: Green Dragon Crescent Blade
+    prop_type: weapon
+    description_hint: A heavy blade wielded by Guan Yu, symbolizing strength and loyalty.
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_006
+      quote_preview: 刘备打造双股剑；关羽造青龙偃月刀，重八十二斤；张飞造丈八蛇矛。
+      note: Human-approved semantic candidate semcand_003.
+    confidence: medium
+  key_events:
+  - id: evt_001
+    sequence_index: 1
+    summary: 刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家出力，叹什么气！”刘备回头看说话的人，只见他身高八尺，豹头环眼，燕颔虎须，声若巨…
+    event_type: surface_action
+    character_ids:
+    - char_002
+    - char_003
+    - char_006
+    - char_016
+    - char_037
+    location_ids: []
+    prop_ids: []
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_004
+      quote_preview: 刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家…
+      note: 动作或状态变化关键词命中
+    confidence: medium
+  - id: evt_002
+    sequence_index: 2
+    summary: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城去投军。”刘备打量此人，见他身高九尺，须长二尺，丹凤眼、卧蚕眉，面如重枣，威风凛…
+    event_type: surface_action
+    character_ids:
+    - char_004
+    - char_005
+    - char_006
+    - char_007
+    - char_008
+    - char_016
+    location_ids: []
+    prop_ids: []
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_005
+      quote_preview: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城…
+      note: 动作或状态变化关键词命中
+    confidence: medium
+  - id: evt_003
+    sequence_index: 3
+    summary: 张飞折下柳条，朝督邮腿上奋力鞭打，一连打折了十几根柳条。围观百姓拍手称快。刘备听见门前喧闹，急忙出去观看，见被捆打的正是督邮。刘备惊问张飞，张飞道：“如此害民…
+    event_type: surface_action
+    character_ids:
+    - char_006
+    - char_016
+    location_ids: []
+    prop_ids: []
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_011
+      quote_preview: 张飞折下柳条，朝督邮腿上奋力鞭打，一连打折了十几根柳条。围观百姓拍手称快。刘备…
+      note: 动作或状态变化关键词命中
+    confidence: medium
+  - id: evt_004
+    sequence_index: 4
+    summary: 次日，曹操佩刀来到相府，见董卓坐于床上，吕布侍立一旁。曹操推说马慢来迟，董卓便让吕布去选一匹西凉好马赐给曹操。曹操见吕布走开，心中暗想：“董贼该死！”便想拔刀…
+    event_type: surface_action
+    character_ids:
+    - char_019
+    - char_020
+    - char_050
+    - char_060
+    - char_069
+    location_ids: []
+    prop_ids: []
+    source_trace:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_007
+      quote_preview: 次日，曹操佩刀来到相府，见董卓坐于床上，吕布侍立一旁。曹操推说马慢来迟，董卓便…
+      note: 动作或状态变化关键词命中
+    confidence: medium
+  - id: evt_005
+    sequence_index: 5
+    summary: 二人走了三日，来到成皋。成皋吕伯奢是曹操父亲的好友，二人便到吕家投宿。吕伯奢热情款待，问过情形，便骑驴出门打酒去了。
+    event_type: surface_action
+    character_ids:
+    - char_060
+    location_ids: []
+    prop_ids: []
+    source_trace:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_011
+      quote_preview: 二人走了三日，来到成皋。成皋吕伯奢是曹操父亲的好友，二人便到吕家投宿。吕伯奢热…
+      note: 动作或状态变化关键词命中
+    confidence: medium
+  - id: evt_006
+    sequence_index: 6
+    summary: 曹操与陈宫坐了好久，忽然听见庄后有磨刀的声音。曹操道：“吕伯奢不是我的至亲，此去可疑，应该去偷偷听听动静。”二人悄悄来到草堂后面，只听见有人道：“先绑起来再杀…
+    event_type: surface_action
+    character_ids:
+    - char_002
+    - char_021
+    - char_052
+    - char_060
+    location_ids: []
+    prop_ids: []
+    source_trace:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_012
+      quote_preview: 曹操与陈宫坐了好久，忽然听见庄后有磨刀的声音。曹操道：“吕伯奢不是我的至亲，此…
+      note: 动作或状态变化关键词命中
+    confidence: medium
+  - id: evt_007
+    sequence_index: 7
+    summary: 袁绍话音未落，只听见阶下有人高声叫道：“小将愿去斩了华雄首级，献于帐下！”只见此人身长九尺，髯长二尺，丹凤眼，卧蚕眉，面如重枣。袁绍问是何人，公孙瓒介绍：“这…
+    event_type: surface_action
+    character_ids:
+    - char_025
+    - char_060
+    location_ids: []
+    prop_ids: []
+    source_trace:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_005
+      quote_preview: 袁绍话音未落，只听见阶下有人高声叫道：“小将愿去斩了华雄首级，献于帐下！”只见…
+      note: 动作或状态变化关键词命中
+    confidence: medium
+  - id: evt_008
+    sequence_index: 8
+    summary: 曹操叫人斟了一杯热酒，让关羽饮了再上马。关羽道：“酒且放下，我去去就来！”出帐提大刀飞身上马。众人只听见关外鼓声大震，喊声连天，如天崩地裂一般。众人皆惊慌失色…
+    event_type: surface_action
+    character_ids:
+    - char_026
+    - char_027
+    - char_060
+    location_ids: []
+    prop_ids: []
+    source_trace:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_006
+      quote_preview: 曹操叫人斟了一杯热酒，让关羽饮了再上马。关羽道：“酒且放下，我去去就来！”出帐…
+      note: 动作或状态变化关键词命中
+    confidence: medium
+  - id: evt_009
+    sequence_index: 9
+    summary: 一天夜里，司徒王允想到董卓的残暴，睡不着觉，便趁着月光来到后花园，仰天落泪。忽然，听到牡丹亭旁边有人在长吁短叹。王允走近一看，原来叹气的是府中歌伎貂蝉。貂蝉自…
+    event_type: surface_action
+    character_ids:
+    - char_002
+    - char_034
+    - char_035
+    - char_042
+    - char_046
+    - char_050
+    location_ids: []
+    prop_ids: []
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_002
+      quote_preview: 一天夜里，司徒王允想到董卓的残暴，睡不着觉，便趁着月光来到后花园，仰天落泪。忽…
+      note: 动作或状态变化关键词命中
+    confidence: medium
+  - id: evt_010
+    sequence_index: 10
+    summary: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起画戟大喝一声。吕布大惊，转身就逃。董卓身体肥胖，追不上，便用力将戟向吕布掷去。吕…
+    event_type: surface_action
+    character_ids:
+    - char_046
+    - char_050
+    - char_051
+    - char_052
+    - char_053
+    - char_054
+    - char_055
+    - char_056
+    - char_069
+    location_ids: []
+    prop_ids: []
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_010
+      quote_preview: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起…
+      note: 动作或状态变化关键词命中
+    confidence: medium
+  - id: evt_011
+    sequence_index: 11
+    summary: The Yellow Turban Rebellion erupts due to corruption and illness, marking
+      the beginning of widespread conflict.
+    event_type: uprising
+    character_ids: []
+    location_ids: []
+    prop_ids: []
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      - p_002
+      note: Human-approved semantic candidate semcand_001.
+    confidence: high
+  timeline:
+  - id: tl_001
+    order: 1
+    label: 第二天
+    time_text: 第二天
+    event_ids: []
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_009
+      quote_preview: 刘备回到县里，与县吏商议。县吏说：“督邮大耍威风，无非是想索要贿赂罢了。”刘备…
+      note: 时间表达命中
+    confidence: medium
+  - id: tl_002
+    order: 2
+    label: 夜里
+    time_text: 夜里
+    event_ids: []
+    source_trace:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_010
+      quote_preview: 曹操逃到中牟县，被守关兵士抓获。半夜里，县令陈宫提审曹操。曹操瞒不过，就说了行…
+      note: 时间表达命中
+    confidence: medium
+  - id: tl_003
+    order: 3
+    label: 晚上
+    time_text: 晚上
+    event_ids: []
+    source_trace:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_015
+      quote_preview: 晚上投宿客店，曹操先睡，陈宫寻思：“我本来以为曹操是个好人，弃官跟他，谁知是这…
+      note: 时间表达命中
+    confidence: medium
+  - id: tl_004
+    order: 4
+    label: 第二天
+    time_text: 第二天
+    event_ids: []
+    source_trace:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_013
+      quote_preview: 各路诸侯趁势进了洛阳城。曹操建议袁绍，应该趁董卓逃走之机追杀董卓，然而各路诸侯…
+      note: 时间表达命中
+    confidence: medium
+  - id: tl_005
+    order: 5
+    label: 夜里
+    time_text: 夜里
+    event_ids:
+    - evt_009
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_002
+      quote_preview: 一天夜里，司徒王允想到董卓的残暴，睡不着觉，便趁着月光来到后花园，仰天落泪。忽…
+      note: 时间表达命中
+    confidence: medium
+  - id: tl_006
+    order: 6
+    label: 第二天
+    time_text: 第二天
+    event_ids: []
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_005
+      quote_preview: 第二天，王允取了几颗明珠，请能工巧匠专门精制了一顶金冠送给吕布。吕布大喜，亲自…
+      note: 时间表达命中
+    confidence: medium
+  psychological_passages:
+  - id: psy_001
+    character_ids:
+    - char_022
+    - char_060
+    passage_type: motivation
+    summary: 晚上投宿客店，曹操先睡，陈宫寻思：“我本来以为曹操是个好人，弃官跟他，谁知是这么个狼心狗肺之人！”便想拔剑杀了曹操，但转念一想：“我为了国家跟他到此，杀了他未…
+    externalization_hint: 后续改编时需要判断是否外化为可拍摄行动。
+    source_trace:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_015
+      quote_preview: 晚上投宿客店，曹操先睡，陈宫寻思：“我本来以为曹操是个好人，弃官跟他，谁知是这…
+      note: 心理关键词命中：以为
+    confidence: medium
+  - id: psy_002
+    character_ids:
+    - char_031
+    - char_032
+    - char_050
+    - char_060
+    passage_type: motivation
+    summary: 各路诸侯趁势进了洛阳城。曹操建议袁绍，应该趁董卓逃走之机追杀董卓，然而各路诸侯各怀异心，均按兵不动。曹操大怒，领自己的兵马前来追杀董卓。不料途中中了埋伏，曹操…
+    externalization_hint: 后续改编时需要判断是否外化为可拍摄行动。
+    source_trace:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_013
+      quote_preview: 各路诸侯趁势进了洛阳城。曹操建议袁绍，应该趁董卓逃走之机追杀董卓，然而各路诸侯…
+      note: 心理关键词命中：觉得
+    confidence: medium
+  - id: psy_003
+    character_ids:
+    - char_038
+    - char_039
+    - char_042
+    - char_046
+    - char_050
+    - char_069
+    passage_type: motivation
+    summary: 王允听了，心里有了主意。他把貂蝉叫进里屋，朝貂蝉跪下便拜。貂蝉吃惊地跪倒在地，问道：“大人为何如此？”王允道：“请你可怜可怜天下百姓吧！奸贼董卓想要篡夺皇位，…
+    externalization_hint: 后续改编时需要判断是否外化为可拍摄行动。
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_004
+      quote_preview: 王允听了，心里有了主意。他把貂蝉叫进里屋，朝貂蝉跪下便拜。貂蝉吃惊地跪倒在地，…
+      note: 心理关键词命中：心里
+    confidence: medium
+  - id: psy_004
+    character_ids:
+    - char_042
+    - char_043
+    - char_044
+    - char_045
+    - char_046
+    - char_050
+    - char_069
+    passage_type: motivation
+    summary: 王允回来时，正遇上吕布，便编了一段话说董卓要将貂蝉接去与吕布成亲。吕布信以为真，但回到相府打听，又只听说太师娶了新人。吕布大怒，潜入董卓卧房外窥探。貂蝉正在窗…
+    externalization_hint: 后续改编时需要判断是否外化为可拍摄行动。
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_007
+      quote_preview: 王允回来时，正遇上吕布，便编了一段话说董卓要将貂蝉接去与吕布成亲。吕布信以为真…
+      note: 心理关键词命中：以为
+    confidence: medium
+  - id: psy_005
+    character_ids:
+    - char_046
+    - char_050
+    - char_069
+    passage_type: motivation
+    summary: 不久，董卓偶然患了小病，貂蝉衣不解带精心照顾，董卓心中更喜。吕布入内问安，正碰见董卓酣睡，貂蝉在床后探身望着吕布，用手指心，又用手指董卓，挥泪不止。吕布见了心…
+    externalization_hint: 后续改编时需要判断是否外化为可拍摄行动。
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_008
+      quote_preview: 不久，董卓偶然患了小病，貂蝉衣不解带精心照顾，董卓心中更喜。吕布入内问安，正碰…
+      note: 心理关键词命中：心里
+    confidence: medium
+  - id: psy_006
+    character_ids:
+    - char_046
+    - char_047
+    - char_048
+    - char_049
+    - char_050
+    - char_069
+    passage_type: fear
+    summary: 此后一天，吕布趁董卓上朝来找貂蝉。貂蝉偷偷约吕布在后园凤仪亭相见。貂蝉向吕布诉说自己被董卓霸占的痛苦。说完，攀着栏杆就要跳入池中。吕布慌忙抱住。貂蝉哭道：“我…
+    externalization_hint: 后续改编时需要判断是否外化为可拍摄行动。
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_009
+      quote_preview: 此后一天，吕布趁董卓上朝来找貂蝉。貂蝉偷偷约吕布在后园凤仪亭相见。貂蝉向吕布诉…
+      note: 心理关键词命中：害怕
+    confidence: medium
+  - id: psy_007
+    character_ids:
+    - char_006
+    - char_016
+    - char_060
+    - char_065
+    passage_type: motivation
+    summary: 刘备借得两千兵马和勇将赵云，连同本部三千人来救徐州。到了徐州城下，张飞一阵冲杀，杀退于禁。刘备入了城，陶谦设宴相待。陶谦见刘备器宇轩昂，言语不俗，心中大喜，便…
+    externalization_hint: 后续改编时需要判断是否外化为可拍摄行动。
+    source_trace:
+      chapter_id: ch_005
+      paragraph_ids:
+      - p_006
+      quote_preview: 刘备借得两千兵马和勇将赵云，连同本部三千人来救徐州。到了徐州城下，张飞一阵冲杀…
+      note: 心理关键词命中：怀疑
+    confidence: medium
+  - id: psy_008
+    character_ids:
+    - char_006
+    - char_016
+    - char_060
+    - char_066
+    - char_067
+    passage_type: motivation
+    summary: 闻知曹操退兵，陶谦大喜，邀请众人聚会。饮宴后，陶谦请刘备坐于上座，再三要让徐州。刘备道：“刘备来救徐州，是为了大义。现在无缘无故占徐州为己有，天下都将以为刘备…
+    externalization_hint: 后续改编时需要判断是否外化为可拍摄行动。
+    source_trace:
+      chapter_id: ch_005
+      paragraph_ids:
+      - p_008
+      quote_preview: 闻知曹操退兵，陶谦大喜，邀请众人聚会。饮宴后，陶谦请刘备坐于上座，再三要让徐州…
+      note: 心理关键词命中：以为
+    confidence: medium
+  uncertainties:
+  - id: unc_001
+    category: ambiguous_character
+    description: 启发式低置信判断：'他们' 可能需要人工确认。
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_005
+      quote_preview: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城…
+      note: 不确定性关键词命中：他们
+    suggested_resolution: 由后续人工审阅或更强解析阶段确认。
+    severity: low
+  - id: unc_002
+    category: ambiguous_character
+    description: 启发式低置信判断：'他们' 可能需要人工确认。
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_006
+      quote_preview: 他们招来能工巧匠打造兵器：刘备打造双股剑；关羽造青龙偃月刀，重八十二斤；张飞造…
+      note: 不确定性关键词命中：他们
+    suggested_resolution: 由后续人工审阅或更强解析阶段确认。
+    severity: low
+  - id: unc_003
+    category: ambiguous_character
+    description: 启发式低置信判断：'他们' 可能需要人工确认。
+    source_trace:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_004
+      quote_preview: 王允听了，心里有了主意。他把貂蝉叫进里屋，朝貂蝉跪下便拜。貂蝉吃惊地跪倒在地，…
+      note: 不确定性关键词命中：他们
+    suggested_resolution: 由后续人工审阅或更强解析阶段确认。
+    severity: low

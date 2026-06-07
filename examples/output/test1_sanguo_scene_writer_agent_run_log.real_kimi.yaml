@@ -1,0 +1,27 @@
+scene_writer_agent_run_log:
+  schema_version: 0.1.0
+  agent_id: scene_writer_agent
+  provider_profile: kimi_creative
+  intended_provider_profile: kimi_creative
+  dry_run: false
+  trace_id: trace_scene_writer_agent_055e1200dade
+  status: completed
+  model: kimi-k2.6
+  finish_reason: stop
+  usage:
+    input_tokens: 439
+    output_tokens: 551
+    total_tokens: 990
+  prompt_hash: a7a05587ed4d10691627d082a4888366f4aed2bbbe77b049fcc9cb83e2b4e1f7
+  candidate_count: 1
+  error_count: 0
+  stored_prompt: false
+  model_response_retained: false
+  provider_payload_retained: false
+  source_artifacts:
+    story_map: examples/output/test1_sanguo_story_map.merged.yaml
+    outline: examples/output/test1_sanguo_outline.yaml
+    character_bible: examples/output/test1_sanguo_character_bible.yaml
+    screenplay: examples/output/test1_sanguo_screenplay.enhanced.yaml
+    quality_report: examples/output/test1_sanguo_quality_report.enhanced.yaml
+  errors: []

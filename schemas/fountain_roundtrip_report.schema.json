@@ -1,0 +1,311 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/joewangxxx/Novel2Script/schemas/fountain_roundtrip_report.schema.json",
+  "title": "Novel2Script Fountain Limited Roundtrip Report",
+  "type": "object",
+  "required": [
+    "fountain_roundtrip_report"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "fountain_roundtrip_report": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "source_yaml",
+        "fountain_file",
+        "map_file",
+        "generated_at",
+        "status",
+        "summary",
+        "line_policy",
+        "changes",
+        "issues"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "type": "string",
+          "const": "0.1.0"
+        },
+        "source_yaml": {
+          "type": "string"
+        },
+        "fountain_file": {
+          "type": "string"
+        },
+        "map_file": {
+          "type": "string"
+        },
+        "generated_at": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "applied",
+            "partial",
+            "skipped",
+            "blocked",
+            "dry_run"
+          ]
+        },
+        "summary": {
+          "$ref": "#/$defs/summary"
+        },
+        "line_policy": {
+          "$ref": "#/$defs/line_policy"
+        },
+        "changes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/change"
+          }
+        },
+        "issues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/issue"
+          }
+        },
+        "metadata_update": {
+          "$ref": "#/$defs/metadata_update"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "summary": {
+      "type": "object",
+      "required": [
+        "mapped_regions",
+        "changed_regions",
+        "applied_changes",
+        "skipped_changes",
+        "blocking_issues"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "mapped_regions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "changed_regions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "applied_changes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "skipped_changes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "blocking_issues": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "line_policy": {
+      "type": "object",
+      "required": [
+        "expected_line_count",
+        "actual_line_count",
+        "line_drift_detected",
+        "map_match"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "expected_line_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "actual_line_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "line_drift_detected": {
+          "type": "boolean"
+        },
+        "map_match": {
+          "type": "boolean"
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "change": {
+      "type": "object",
+      "required": [
+        "id",
+        "yaml_path",
+        "target_type",
+        "line_start",
+        "line_end",
+        "original_text",
+        "new_text",
+        "normalized_text",
+        "action",
+        "safe_field"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^rt_change_[0-9]{3}$"
+        },
+        "yaml_path": {
+          "type": "string"
+        },
+        "target_type": {
+          "type": "string",
+          "enum": [
+            "scene_heading",
+            "element_text"
+          ]
+        },
+        "scene_id": {
+          "type": "string"
+        },
+        "element_index": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "line_start": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "line_end": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "original_text": {
+          "type": "string"
+        },
+        "new_text": {
+          "type": "string"
+        },
+        "normalized_text": {
+          "type": "string"
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "applied",
+            "skipped"
+          ]
+        },
+        "reason": {
+          "type": "string"
+        },
+        "safe_field": {
+          "type": "boolean"
+        }
+      }
+    },
+    "issue": {
+      "type": "object",
+      "required": [
+        "id",
+        "severity",
+        "code",
+        "message",
+        "action"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^rt_issue_[0-9]{3}$"
+        },
+        "severity": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "code": {
+          "type": "string",
+          "enum": [
+            "line_drift",
+            "map_mismatch",
+            "unsafe_yaml_path",
+            "unsupported_element_type",
+            "structure_changed",
+            "ambiguous_text",
+            "io_error",
+            "other"
+          ]
+        },
+        "message": {
+          "type": "string"
+        },
+        "yaml_path": {
+          "type": "string"
+        },
+        "line_start": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "line_end": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "blocked",
+            "skipped"
+          ]
+        }
+      }
+    },
+    "metadata_update": {
+      "type": "object",
+      "required": [
+        "semantic_fields_stale",
+        "roundtrip"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "semantic_fields_stale": {
+          "type": "boolean",
+          "const": true
+        },
+        "roundtrip": {
+          "type": "object",
+          "required": [
+            "imported_at",
+            "fountain_file",
+            "map_file",
+            "applied_changes"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "imported_at": {
+              "type": "string"
+            },
+            "fountain_file": {
+              "type": "string"
+            },
+            "map_file": {
+              "type": "string"
+            },
+            "applied_changes": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    }
+  }
+}

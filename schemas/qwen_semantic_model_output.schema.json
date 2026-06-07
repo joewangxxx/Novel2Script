@@ -1,0 +1,242 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://novel2script.local/schemas/qwen_semantic_model_output.schema.json",
+  "title": "Novel2Script Qwen Semantic Model Output",
+  "type": "object",
+  "required": ["candidates"],
+  "additionalProperties": false,
+  "properties": {
+    "candidates": {
+      "type": "array",
+      "maxItems": 3,
+      "items": {
+        "oneOf": [
+          {"$ref": "#/$defs/character_candidate"},
+          {"$ref": "#/$defs/location_candidate"},
+          {"$ref": "#/$defs/prop_candidate"},
+          {"$ref": "#/$defs/event_candidate"},
+          {"$ref": "#/$defs/psychological_candidate"},
+          {"$ref": "#/$defs/timeline_candidate"}
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "confidence": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
+    "trace": {
+      "type": "object",
+      "required": ["chapter_id", "paragraph_ids"],
+      "additionalProperties": false,
+      "properties": {
+        "chapter_id": {
+          "type": "string",
+          "pattern": "^ch_[0-9]{3}$"
+        },
+        "paragraph_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^p_[0-9]{3}$"
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["summary"],
+      "additionalProperties": false,
+      "properties": {
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "quote_preview": {
+          "type": "string",
+          "maxLength": 240
+        },
+        "reasoning_note": {
+          "type": "string",
+          "maxLength": 500
+        }
+      }
+    },
+    "base": {
+      "type": "object",
+      "required": [
+        "type",
+        "confidence",
+        "evidence",
+        "source_trace_ids",
+        "target_story_map_field",
+        "proposed_fields"
+      ]
+    },
+    "character_candidate": {
+      "allOf": [
+        {"$ref": "#/$defs/base"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": {"const": "character_candidate"},
+            "confidence": {"$ref": "#/$defs/confidence"},
+            "evidence": {"$ref": "#/$defs/evidence"},
+            "source_trace_ids": {"$ref": "#/$defs/trace"},
+            "target_story_map_field": {"const": "characters_detected"},
+            "proposed_fields": {
+              "type": "object",
+              "required": ["name"],
+              "additionalProperties": false,
+              "properties": {
+                "name": {"type": "string", "minLength": 1},
+                "aliases": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {"type": "string", "minLength": 1}
+                },
+                "description_hint": {"type": "string"}
+              }
+            }
+          }
+        }
+      ]
+    },
+    "location_candidate": {
+      "allOf": [
+        {"$ref": "#/$defs/base"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": {"const": "location_candidate"},
+            "confidence": {"$ref": "#/$defs/confidence"},
+            "evidence": {"$ref": "#/$defs/evidence"},
+            "source_trace_ids": {"$ref": "#/$defs/trace"},
+            "target_story_map_field": {"const": "locations_detected"},
+            "proposed_fields": {
+              "type": "object",
+              "required": ["name"],
+              "additionalProperties": false,
+              "properties": {
+                "name": {"type": "string", "minLength": 1},
+                "location_type": {"type": "string"},
+                "description_hint": {"type": "string"}
+              }
+            }
+          }
+        }
+      ]
+    },
+    "prop_candidate": {
+      "allOf": [
+        {"$ref": "#/$defs/base"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": {"const": "prop_candidate"},
+            "confidence": {"$ref": "#/$defs/confidence"},
+            "evidence": {"$ref": "#/$defs/evidence"},
+            "source_trace_ids": {"$ref": "#/$defs/trace"},
+            "target_story_map_field": {"const": "props_detected"},
+            "proposed_fields": {
+              "type": "object",
+              "required": ["name"],
+              "additionalProperties": false,
+              "properties": {
+                "name": {"type": "string", "minLength": 1},
+                "prop_type": {"type": "string"},
+                "description_hint": {"type": "string"}
+              }
+            }
+          }
+        }
+      ]
+    },
+    "event_candidate": {
+      "allOf": [
+        {"$ref": "#/$defs/base"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": {"const": "event_candidate"},
+            "confidence": {"$ref": "#/$defs/confidence"},
+            "evidence": {"$ref": "#/$defs/evidence"},
+            "source_trace_ids": {"$ref": "#/$defs/trace"},
+            "target_story_map_field": {"const": "key_events"},
+            "proposed_fields": {
+              "type": "object",
+              "required": ["summary"],
+              "additionalProperties": false,
+              "properties": {
+                "summary": {"type": "string", "minLength": 1},
+                "event_type": {"type": "string"}
+              }
+            }
+          }
+        }
+      ]
+    },
+    "psychological_candidate": {
+      "allOf": [
+        {"$ref": "#/$defs/base"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": {"const": "psychological_passage_candidate"},
+            "confidence": {"$ref": "#/$defs/confidence"},
+            "evidence": {"$ref": "#/$defs/evidence"},
+            "source_trace_ids": {"$ref": "#/$defs/trace"},
+            "target_story_map_field": {"const": "psychological_passages"},
+            "proposed_fields": {
+              "type": "object",
+              "required": ["summary"],
+              "additionalProperties": false,
+              "properties": {
+                "summary": {"type": "string", "minLength": 1},
+                "passage_type": {
+                  "type": "string",
+                  "enum": ["emotion", "memory", "motivation", "fear", "desire", "other"]
+                },
+                "externalization_hint": {"type": "string"}
+              }
+            }
+          }
+        }
+      ]
+    },
+    "timeline_candidate": {
+      "allOf": [
+        {"$ref": "#/$defs/base"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": {"const": "timeline_candidate"},
+            "confidence": {"$ref": "#/$defs/confidence"},
+            "evidence": {"$ref": "#/$defs/evidence"},
+            "source_trace_ids": {"$ref": "#/$defs/trace"},
+            "target_story_map_field": {"const": "timeline"},
+            "proposed_fields": {
+              "type": "object",
+              "required": ["label"],
+              "additionalProperties": false,
+              "properties": {
+                "label": {"type": "string", "minLength": 1},
+                "time_text": {"type": "string"}
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

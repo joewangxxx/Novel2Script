@@ -1,0 +1,48 @@
+author_review_report:
+  schema_version: 0.1.0
+  source_decisions: examples/output/test1_sanguo_stage26_author_review_decisions.yaml
+  source_artifacts:
+    screenplay: examples/output/test1_sanguo_screenplay.stage26.yaml
+    review_report: examples/output/test1_sanguo_review_report.stage26.yaml
+    quality_report: examples/output/test1_sanguo_quality_report.stage26.yaml
+    quality_dashboard: examples/output/test1_sanguo_quality_dashboard.stage26.md
+  generated_at: '2026-06-07T16:51:56+08:00'
+  status: approved
+  summary: Author approved the Stage 26 structure, characters, beats, and quality gate; dialogue drafting remains requested before final creative polish.
+  decision_outcomes:
+    structure_decision: approve
+    character_decision: approve
+    beat_decision: approve
+    dialogue_decision: request_dialogue_draft
+    quality_decision: approve
+  next_stage_authorization: kimi_dialogue_draft
+  blocking_reasons: []
+  requested_changes:
+    - id: change_001
+      area: dialogue
+      description: Draft or refine scene dialogue while preserving approved Stage 26 structure, character grounding, source traces, and quality evidence.
+      linked_issue_ids: []
+      linked_artifacts:
+        - examples/output/test1_sanguo_quality_report.stage26.yaml
+        - examples/output/test1_sanguo_quality_dashboard.stage26.md
+  metadata:
+    ready_for_next_stage: true
+    authorized_next_stage: kimi_dialogue_draft
+    user_instruction_recorded: proceed_to_next_operation
+    author_confirmed:
+      structure: true
+      characters: true
+      beats: true
+      quality_gate: true
+    still_needs_human_polish:
+      - dialogue_naturalness
+      - final scene prose polish
+    kimi_creative_scope:
+      allowed:
+        - dialogue_draft
+        - scene_prose_enhancement
+      forbidden:
+        - changing approved story_map source_trace
+        - changing approved structure without a new author decision
+        - overwriting screenplay in place
+        - calling a model without explicit future-stage network authorization

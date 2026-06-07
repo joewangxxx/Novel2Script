@@ -1,0 +1,26 @@
+character_bible_agent_run_log:
+  schema_version: 0.1.0
+  agent_id: character_bible_agent
+  provider_profile: kimi_creative
+  intended_provider_profile: kimi_creative
+  dry_run: false
+  trace_id: trace_character_bible_agent_65c0db784a60
+  status: completed
+  model: kimi-k2.6
+  finish_reason: stop
+  usage:
+    input_tokens: 395
+    output_tokens: 318
+    total_tokens: 713
+  prompt_hash: 3cbe2a40dba54c7d06bf741ba0bd024fb97085394dd9fa7f24d2fe32fc98d1a1
+  candidate_count: 1
+  error_count: 0
+  stored_prompt: false
+  model_response_retained: false
+  provider_payload_retained: false
+  source_artifacts:
+    story_map: examples/output/test1_sanguo_story_map.merged.yaml
+    outline: examples/output/test1_sanguo_outline.yaml
+    character_bible: examples/output/test1_sanguo_character_bible.yaml
+    review_report: examples/output/test1_sanguo_review_report.yaml
+  errors: []

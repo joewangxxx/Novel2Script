@@ -1,0 +1,22 @@
+kimi_probe_report:
+  schema_version: 0.1.0
+  stage: stage_22_kimi_credential_provider_probe
+  generated_at: '2026-06-06T15:10:05.666690+00:00'
+  status: blocked
+  provider_profile: kimi_creative
+  model: kimi-k2.6
+  base_url_host: api.moonshot.ai
+  key_present: true
+  exit_code: 1
+  error_category: authentication
+  http_status: 401
+  finish_reason: null
+  parsed_json_ok: false
+  max_attempts: 1
+  retry_executed: false
+  raw_response_retained: false
+  prompt_retained: false
+  provider_body_retained: false
+  authorization_header_retained: false
+  readiness_for_real_creative_draft: false
+  ready_for: null

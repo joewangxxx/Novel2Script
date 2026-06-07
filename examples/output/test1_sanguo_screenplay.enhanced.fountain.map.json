@@ -1,0 +1,190 @@
+{
+  "source_yaml": "examples/output/test1_sanguo_screenplay.enhanced.yaml",
+  "fountain_file": "examples/output/test1_sanguo_screenplay.enhanced.fountain",
+  "mappings": [
+    {
+      "line_start": 5,
+      "line_end": 5,
+      "scene_id": "scene_001",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[0].heading"
+    },
+    {
+      "line_start": 6,
+      "line_end": 6,
+      "scene_id": "scene_001",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[0].elements[0].text"
+    },
+    {
+      "line_start": 7,
+      "line_end": 7,
+      "scene_id": "scene_001",
+      "beat_id": null,
+      "element_index": 2,
+      "yaml_path": "scenes[0].elements[2].text"
+    },
+    {
+      "line_start": 9,
+      "line_end": 9,
+      "scene_id": "scene_002",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[1].heading"
+    },
+    {
+      "line_start": 10,
+      "line_end": 10,
+      "scene_id": "scene_002",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[1].elements[0].text"
+    },
+    {
+      "line_start": 12,
+      "line_end": 12,
+      "scene_id": "scene_003",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[2].heading"
+    },
+    {
+      "line_start": 13,
+      "line_end": 13,
+      "scene_id": "scene_003",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[2].elements[0].text"
+    },
+    {
+      "line_start": 15,
+      "line_end": 15,
+      "scene_id": "scene_004",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[3].heading"
+    },
+    {
+      "line_start": 16,
+      "line_end": 16,
+      "scene_id": "scene_004",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[3].elements[0].text"
+    },
+    {
+      "line_start": 18,
+      "line_end": 18,
+      "scene_id": "scene_005",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[4].heading"
+    },
+    {
+      "line_start": 19,
+      "line_end": 19,
+      "scene_id": "scene_005",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[4].elements[0].text"
+    },
+    {
+      "line_start": 21,
+      "line_end": 21,
+      "scene_id": "scene_006",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[5].heading"
+    },
+    {
+      "line_start": 22,
+      "line_end": 22,
+      "scene_id": "scene_006",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[5].elements[0].text"
+    },
+    {
+      "line_start": 24,
+      "line_end": 24,
+      "scene_id": "scene_007",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[6].heading"
+    },
+    {
+      "line_start": 25,
+      "line_end": 25,
+      "scene_id": "scene_007",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[6].elements[0].text"
+    },
+    {
+      "line_start": 27,
+      "line_end": 27,
+      "scene_id": "scene_008",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[7].heading"
+    },
+    {
+      "line_start": 28,
+      "line_end": 28,
+      "scene_id": "scene_008",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[7].elements[0].text"
+    },
+    {
+      "line_start": 30,
+      "line_end": 30,
+      "scene_id": "scene_009",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[8].heading"
+    },
+    {
+      "line_start": 31,
+      "line_end": 31,
+      "scene_id": "scene_009",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[8].elements[0].text"
+    },
+    {
+      "line_start": 33,
+      "line_end": 33,
+      "scene_id": "scene_010",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[9].heading"
+    },
+    {
+      "line_start": 34,
+      "line_end": 34,
+      "scene_id": "scene_010",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[9].elements[0].text"
+    },
+    {
+      "line_start": 36,
+      "line_end": 36,
+      "scene_id": "scene_011",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[10].heading"
+    },
+    {
+      "line_start": 37,
+      "line_end": 37,
+      "scene_id": "scene_011",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[10].elements[0].text"
+    }
+  ]
+}

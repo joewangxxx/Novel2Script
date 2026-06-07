@@ -1,0 +1,107 @@
+scene_writer_agent_candidates:
+  schema_version: 0.1.0
+  agent_id: scene_writer_agent
+  provider_profile: kimi_creative
+  dry_run: false
+  human_approval_required: true
+  source_artifacts:
+    story_map: examples/output/test1_sanguo_story_map.merged.yaml
+    outline: examples/output/test1_sanguo_outline.yaml
+    character_bible: examples/output/test1_sanguo_character_bible.yaml
+    screenplay: examples/output/test1_sanguo_screenplay.enhanced.yaml
+    quality_report: examples/output/test1_sanguo_quality_report.enhanced.yaml
+  candidates:
+  - id: scenewrite_001
+    type: scene_action
+    target:
+      artifact: screenplay
+      scene_id: scene_001
+      beat_id: beat_001
+      character_id: char_001
+      path: scenes[0].elements[0]
+    proposed_text: 'EXT. TOWN SQUARE - DAY
+
+
+      A weathered NOTICE BOARD stands at the crossroads, CROWDS milling past. LIU
+      BEI (30s, worn sandals, frayed robes—descended of imperial blood, yet sunk to
+      weaving mats) stops before it. His eyes trace the OFFICIAL PROCLAMATION: a call
+      to arms against the Yellow Turbans.
+
+
+      He exhales—a long, weighted SIGH. Shoulders slump. Fingers tighten on his woven
+      satchel.
+
+
+      VOICE (O.S.)
+
+      (rough, contemptuous)
+
+      A true man who does nothing for his country—
+
+
+      Liu Bei turns.
+
+
+      Zhang Fei (40s, blacksmith''s build, bristling beard) glares at him from two
+      paces away, meat-wine breath, fists like hams.
+
+
+      The SOUND of the crowd DROPS AWAY. Two men locked in the first spark of history.'
+    proposed_change: {}
+    rationale: Establishes Liu Bei's low status against noble lineage (internal conflict),
+      grounds the iconic sigh in physical action, and stages the confrontational meet-cute
+      with Zhang Fei as visual tension rather than exposition. The beat transitions
+      from solitary contemplation to interpersonal catalyst per source event evt_001.
+    source_trace:
+      chapter_id: ch_001
+      event_ids:
+      - evt_001
+      note: 动作或状态变化关键词命中
+      outline_scene_ids:
+      - osp_001
+      paragraph_ids:
+      - p_004
+      quote_preview: 刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家…
+    source_trace_ids:
+      chapter_id: ch_001
+      event_ids:
+      - evt_001
+      outline_scene_ids:
+      - osp_001
+      paragraph_ids:
+      - p_004
+    ai_tags:
+      inferred: true
+      confidence: high
+      needs_human_review: true
+      notes: []
+    constraints_observed:
+    - Screenplay format with sluglines and parentheticals
+    - No voiceover/narration—visual and diegetic sound only
+    - Character introduction includes visual status markers
+    - Beat ends on interpersonal hook for next element
+    risks:
+    - Zhang Fei's dialogue truncated per source; full line may require restoration
+      for fidelity
+    - Liu Bei's mat-weaving backstory inferred from character_bible—verify against
+      preferred exposition density
+    - Tone leans gritty; may conflict if outline specifies romanticized heroism
+    confidence: high
+    merge_policy: human_approval_required
+    requires_author_approval: true
+  errors: []
+  metadata:
+    prompt_retained: false
+    model_response_retained: false
+    provider_payload_retained: false
+    full_source_text_retained: false
+    run_log: examples/output/test1_sanguo_scene_writer_agent_run_log.real_kimi.yaml
+    output: examples/output/test1_sanguo_scene_writer_agent_candidates.real_kimi.yaml
+    intended_provider_profile: kimi_creative
+    resolved_provider_profile: kimi_creative
+    model: kimi-k2.6
+    finish_reason: stop
+    usage:
+      input_tokens: 439
+      output_tokens: 551
+      total_tokens: 990

@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://novel2script.local/schemas/semantic_candidate_decisions.schema.json",
+  "title": "Novel2Script Semantic Candidate Human Decisions",
+  "type": "object",
+  "required": ["semantic_candidate_decisions"],
+  "additionalProperties": false,
+  "properties": {
+    "semantic_candidate_decisions": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "source_story_map",
+        "source_semantic_candidates",
+        "reviewed_by",
+        "reviewed_at",
+        "decisions"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "type": "string",
+          "const": "0.1.0"
+        },
+        "source_story_map": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_semantic_candidates": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reviewed_by": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reviewed_at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decisions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/decision"
+          }
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    }
+  },
+  "$defs": {
+    "decision": {
+      "type": "object",
+      "required": [
+        "decision_id",
+        "candidate_id",
+        "decision",
+        "target_story_map_field",
+        "human_approval"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "decision_id": {
+          "type": "string",
+          "pattern": "^dec_[0-9]{3}$"
+        },
+        "candidate_id": {
+          "type": "string",
+          "pattern": "^semcand_[0-9]{3}$"
+        },
+        "decision": {
+          "type": "string",
+          "enum": ["accept", "reject", "edit"]
+        },
+        "target_story_map_field": {
+          "type": "string",
+          "enum": [
+            "characters_detected",
+            "locations_detected",
+            "props_detected",
+            "key_events",
+            "timeline",
+            "psychological_passages"
+          ]
+        },
+        "edited_fields": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "reviewer_note": {
+          "type": "string"
+        },
+        "source_trace_ids": {
+          "$ref": "#/$defs/source_trace_ids"
+        },
+        "human_approval": {
+          "$ref": "#/$defs/human_approval"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "decision": {
+                "const": "edit"
+              }
+            },
+            "required": ["decision"]
+          },
+          "then": {
+            "required": ["edited_fields"],
+            "properties": {
+              "edited_fields": {
+                "minProperties": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "human_approval": {
+      "type": "object",
+      "required": ["approved", "reviewer_id", "approved_at"],
+      "additionalProperties": false,
+      "properties": {
+        "approved": {
+          "type": "boolean"
+        },
+        "reviewer_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "approved_at": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "source_trace_ids": {
+      "type": "object",
+      "required": ["chapter_id", "paragraph_ids"],
+      "additionalProperties": false,
+      "properties": {
+        "chapter_id": {
+          "type": "string",
+          "pattern": "^ch_[0-9]{3}$"
+        },
+        "paragraph_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^p_[0-9]{3}$"
+          }
+        }
+      }
+    }
+  }
+}

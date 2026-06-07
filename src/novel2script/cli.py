@@ -2,14 +2,48 @@ from __future__ import annotations
 
 import argparse
 import sys
+from pathlib import Path
 from typing import Sequence
 
+from novel2script.agents.creative_draft import run_kimi_dialogue_scene_drafter
+from novel2script.agents.creative_draft_apply import apply_creative_draft
+from novel2script.agents.creative_draft_readiness import (
+    write_creative_draft_readiness_report,
+)
+from novel2script.agents.kimi_creative_agents import (
+    KIMI_CREATIVE_AGENT_IDS,
+    run_kimi_creative_agent,
+)
+from novel2script.agents.deepseek_reviewer_agents import (
+    DEEPSEEK_REVIEWER_AGENT_IDS,
+    run_deepseek_reviewer_agent,
+)
+from novel2script.agents.stage24_candidate_review import (
+    apply_stage24_candidate_decisions,
+    prepare_stage24_candidate_review,
+)
+from novel2script.agents.stage26_selected_candidate_apply import (
+    apply_stage24_selected_candidates_to_artifacts,
+)
+from novel2script.agents.semantic_candidate_merge import merge_semantic_candidates
+from novel2script.agents.story_semantic_parser import run_story_semantic_parser
 from novel2script.exporters.fountain_exporter import export_fountain
 from novel2script.generators.screenplay_builder import build_screenplay
+from novel2script.importers.fountain_importer import sync_fountain_to_yaml
 from novel2script.io import read_text, read_yaml, write_yaml
+from novel2script.llm.openai_compatible_provider import (
+    ProviderConfigurationError,
+    ProviderRuntimeError,
+)
+from novel2script.llm.router import LLMRouter, ProviderRoutingError
 from novel2script.parsers.novel_parser import parse_novel_text
 from novel2script.planners.character_bible_builder import build_character_bible
 from novel2script.planners.outline_builder import build_outline
+from novel2script.quality.quality_report import build_quality_report, render_quality_dashboard
+from novel2script.reviewers.author_review import (
+    build_author_review_decisions_template,
+    render_author_review_packet,
+)
 from novel2script.reviewers.review_report import build_review_report
 from novel2script.validation import validate_screenplay
 
@@ -27,6 +61,13 @@ def main(argv: Sequence[str] | None = None) -> int:
     export_parser.add_argument("yaml_path")
     export_parser.add_argument("--out", required=True)
     export_parser.add_argument("--map", dest="map_path")
+
+    import_parser = subparsers.add_parser("import-fountain")
+    import_parser.add_argument("--screenplay", required=True)
+    import_parser.add_argument("--fountain", required=True)
+    import_parser.add_argument("--map", required=True, dest="map_path")
+    import_parser.add_argument("--out", required=True)
+    import_parser.add_argument("--report", required=True)
 
     parse_novel_parser = subparsers.add_parser("parse-novel")
     parse_novel_parser.add_argument("input_path")
@@ -53,6 +94,102 @@ def main(argv: Sequence[str] | None = None) -> int:
     review_screenplay_parser.add_argument("--outline")
     review_screenplay_parser.add_argument("--out", required=True)
 
+    quality_parser = subparsers.add_parser("evaluate-quality")
+    quality_parser.add_argument("--screenplay", required=True)
+    quality_parser.add_argument("--validation-report", required=True)
+    quality_parser.add_argument("--review-report", required=True)
+    quality_parser.add_argument("--roundtrip-report")
+    quality_parser.add_argument("--out", required=True)
+    quality_parser.add_argument("--markdown")
+
+    run_agent_parser = subparsers.add_parser("run-agent")
+    run_agent_parser.add_argument(
+        "agent_name",
+        choices=[
+            "story-semantic-parser",
+            "kimi-dialogue-scene-drafter",
+            "adaptation-planner",
+            "character-bible-agent",
+            "scene-writer-agent",
+            "dialogue-optimizer-agent",
+            "beat-dramaturgy-agent",
+            "source-fidelity-reviewer",
+            "yaml-repair-agent",
+        ],
+    )
+    run_agent_parser.add_argument("--story-map")
+    run_agent_parser.add_argument("--outline")
+    run_agent_parser.add_argument("--character-bible")
+    run_agent_parser.add_argument("--screenplay")
+    run_agent_parser.add_argument("--author-review-report")
+    run_agent_parser.add_argument("--review-report")
+    run_agent_parser.add_argument("--quality-report")
+    run_agent_parser.add_argument("--out", required=True)
+    run_agent_parser.add_argument("--run-log", required=True)
+    run_agent_parser.add_argument("--dry-run", action="store_true", default=True)
+    run_agent_parser.add_argument("--allow-network", action="store_true")
+
+    merge_semantic_parser = subparsers.add_parser("merge-semantic-candidates")
+    merge_semantic_parser.add_argument("--story-map", required=True)
+    merge_semantic_parser.add_argument("--semantic-candidates", required=True)
+    merge_semantic_parser.add_argument("--decisions", required=True)
+    merge_semantic_parser.add_argument("--out", required=True)
+    merge_semantic_parser.add_argument("--report", required=True)
+
+    author_review_parser = subparsers.add_parser("prepare-author-review")
+    author_review_parser.add_argument("--screenplay", required=True)
+    author_review_parser.add_argument("--review-report", required=True)
+    author_review_parser.add_argument("--quality-report", required=True)
+    author_review_parser.add_argument("--quality-dashboard", required=True)
+    author_review_parser.add_argument("--packet", required=True)
+    author_review_parser.add_argument("--decisions", required=True)
+
+    real_creative_readiness_parser = subparsers.add_parser(
+        "check-real-creative-draft-readiness"
+    )
+    real_creative_readiness_parser.add_argument("--screenplay", required=True)
+    real_creative_readiness_parser.add_argument("--author-review-report", required=True)
+    real_creative_readiness_parser.add_argument("--mock-candidates", required=True)
+    real_creative_readiness_parser.add_argument("--out", required=True)
+    real_creative_readiness_parser.add_argument(
+        "--routing-config", default="config/agent_routing.example.yaml"
+    )
+    real_creative_readiness_parser.add_argument(
+        "--schema", default="schemas/creative_draft_candidates.schema.json"
+    )
+
+    apply_creative_parser = subparsers.add_parser("apply-creative-draft")
+    apply_creative_parser.add_argument("--screenplay", required=True)
+    apply_creative_parser.add_argument("--creative-candidates", required=True)
+    apply_creative_parser.add_argument("--decisions")
+    apply_creative_parser.add_argument("--out", required=True)
+    apply_creative_parser.add_argument("--report", required=True)
+
+    stage24_review_parser = subparsers.add_parser("prepare-stage24-candidate-review")
+    stage24_review_parser.add_argument(
+        "--candidate-sidecar", action="append", required=True
+    )
+    stage24_review_parser.add_argument("--packet", required=True)
+    stage24_review_parser.add_argument("--decisions", required=True)
+
+    stage24_apply_parser = subparsers.add_parser("apply-stage24-candidates")
+    stage24_apply_parser.add_argument(
+        "--candidate-sidecar", action="append", required=True
+    )
+    stage24_apply_parser.add_argument("--decisions", required=True)
+    stage24_apply_parser.add_argument("--selected", required=True)
+    stage24_apply_parser.add_argument("--report", required=True)
+
+    stage26_apply_parser = subparsers.add_parser("apply-stage24-selected-to-artifacts")
+    stage26_apply_parser.add_argument("--selected", required=True)
+    stage26_apply_parser.add_argument("--outline", required=True)
+    stage26_apply_parser.add_argument("--character-bible", required=True)
+    stage26_apply_parser.add_argument("--screenplay", required=True)
+    stage26_apply_parser.add_argument("--outline-out", required=True)
+    stage26_apply_parser.add_argument("--character-bible-out", required=True)
+    stage26_apply_parser.add_argument("--screenplay-out", required=True)
+    stage26_apply_parser.add_argument("--report", required=True)
+
     args = parser.parse_args(argv)
     if args.command == "validate":
         report = validate_screenplay(args.yaml_path, args.schema)
@@ -60,6 +197,19 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0 if report["overall_passed"] else 1
     if args.command == "export-fountain":
         export_fountain(args.yaml_path, args.out, args.map_path)
+        return 0
+    if args.command == "import-fountain":
+        try:
+            sync_fountain_to_yaml(
+                args.screenplay,
+                args.fountain,
+                args.map_path,
+                args.out,
+                args.report,
+            )
+        except OSError as exc:
+            print(f"import-fountain failed: {exc}", file=sys.stderr)
+            return 1
         return 0
     if args.command == "parse-novel":
         try:
@@ -134,6 +284,387 @@ def main(argv: Sequence[str] | None = None) -> int:
             args.out,
         )
         return 0
+    if args.command == "evaluate-quality":
+        try:
+            screenplay = read_yaml(args.screenplay)
+            validation_report = read_yaml(args.validation_report)
+            review_report = read_yaml(args.review_report)
+            roundtrip_report = (
+                read_yaml(args.roundtrip_report) if args.roundtrip_report else None
+            )
+        except OSError as exc:
+            print(f"evaluate-quality failed: {exc}", file=sys.stderr)
+            return 1
+        quality_report = build_quality_report(
+            screenplay,
+            validation_report,
+            review_report,
+            roundtrip_report_doc=roundtrip_report,
+            source_paths={
+                "screenplay": args.screenplay,
+                "validation_report": args.validation_report,
+                "review_report": args.review_report,
+                "fountain_roundtrip_report": args.roundtrip_report or "",
+                "quality_report_yaml": args.out,
+                "quality_dashboard_markdown": args.markdown or "",
+            },
+        )
+        write_yaml(quality_report, args.out)
+        if args.markdown:
+            markdown_path = Path(args.markdown)
+            markdown_path.parent.mkdir(parents=True, exist_ok=True)
+            markdown_path.write_text(
+                render_quality_dashboard(quality_report),
+                encoding="utf-8",
+                newline="\n",
+            )
+        return 0
+    if args.command == "run-agent" and args.agent_name == "story-semantic-parser":
+        if not args.story_map:
+            print(
+                "run-agent story-semantic-parser failed: --story-map is required.",
+                file=sys.stderr,
+            )
+            return 1
+        try:
+            result = run_story_semantic_parser(
+                args.story_map,
+                out_path=args.out,
+                run_log_path=args.run_log,
+                quality_report_path=args.quality_report,
+                router=LLMRouter.from_environment(allow_network=args.allow_network),
+                dry_run=not args.allow_network,
+            )
+        except (
+            OSError,
+            ProviderConfigurationError,
+            ProviderRuntimeError,
+            ProviderRoutingError,
+        ) as exc:
+            print(f"run-agent story-semantic-parser failed: {exc}", file=sys.stderr)
+            return 1
+        if args.allow_network:
+            semantic = result["semantic_candidates"]
+            blocking_codes = {
+                "empty_model_output",
+                "malformed_model_json",
+                "invalid_model_output_schema",
+                "truncated_model_output",
+            }
+            error_codes = {
+                error.get("code", "") for error in semantic.get("errors", [])
+            }
+            if error_codes & blocking_codes or not semantic.get("candidates"):
+                print(
+                    "run-agent story-semantic-parser failed: "
+                    "real model output was not accepted.",
+                    file=sys.stderr,
+                )
+                return 1
+        return 0
+    if args.command == "run-agent" and args.agent_name == "kimi-dialogue-scene-drafter":
+        missing = [
+            option
+            for option, value in {
+                "--screenplay": args.screenplay,
+                "--author-review-report": args.author_review_report,
+                "--review-report": args.review_report,
+                "--quality-report": args.quality_report,
+            }.items()
+            if not value
+        ]
+        if missing:
+            print(
+                "run-agent kimi-dialogue-scene-drafter failed: missing "
+                + ", ".join(missing),
+                file=sys.stderr,
+            )
+            return 1
+        try:
+            result = run_kimi_dialogue_scene_drafter(
+                screenplay_path=args.screenplay,
+                author_review_report_path=args.author_review_report,
+                review_report_path=args.review_report,
+                quality_report_path=args.quality_report,
+                out_path=args.out,
+                run_log_path=args.run_log,
+                dry_run=not args.allow_network,
+                router=(
+                    LLMRouter.from_environment(allow_network=True, max_attempts=1)
+                    if args.allow_network
+                    else None
+                ),
+            )
+        except (
+            OSError,
+            ProviderConfigurationError,
+            ProviderRuntimeError,
+            ProviderRoutingError,
+        ) as exc:
+            print(
+                f"run-agent kimi-dialogue-scene-drafter failed: {exc}",
+                file=sys.stderr,
+            )
+            return 1
+        creative = result["creative_draft_candidates"]
+        if creative.get("errors") or not creative.get("candidates"):
+            print(
+                "run-agent kimi-dialogue-scene-drafter failed: "
+                "creative draft candidates were not accepted.",
+                file=sys.stderr,
+            )
+            return 1
+        return 0
+    if args.command == "run-agent" and args.agent_name.replace("-", "_") in KIMI_CREATIVE_AGENT_IDS:
+        agent_id = args.agent_name.replace("-", "_")
+        required_by_agent = {
+            "adaptation_planner": {
+                "--story-map": args.story_map,
+                "--outline": args.outline,
+                "--quality-report": args.quality_report,
+            },
+            "character_bible_agent": {
+                "--story-map": args.story_map,
+                "--outline": args.outline,
+                "--character-bible": args.character_bible,
+            },
+            "scene_writer_agent": {
+                "--story-map": args.story_map,
+                "--outline": args.outline,
+                "--character-bible": args.character_bible,
+                "--screenplay": args.screenplay,
+            },
+            "dialogue_optimizer_agent": {
+                "--screenplay": args.screenplay,
+                "--character-bible": args.character_bible,
+                "--review-report": args.review_report,
+            },
+        }
+        missing = [
+            option
+            for option, value in required_by_agent[agent_id].items()
+            if not value
+        ]
+        if missing:
+            print(
+                f"run-agent {args.agent_name} failed: missing " + ", ".join(missing),
+                file=sys.stderr,
+            )
+            return 1
+        try:
+            result = run_kimi_creative_agent(
+                agent_id=agent_id,
+                story_map_path=args.story_map,
+                outline_path=args.outline,
+                character_bible_path=args.character_bible,
+                screenplay_path=args.screenplay,
+                review_report_path=args.review_report,
+                quality_report_path=args.quality_report,
+                out_path=args.out,
+                run_log_path=args.run_log,
+                dry_run=not args.allow_network,
+                router=(
+                    LLMRouter.from_environment(allow_network=True, max_attempts=1)
+                    if args.allow_network
+                    else None
+                ),
+            )
+        except (
+            OSError,
+            ValueError,
+            ProviderConfigurationError,
+            ProviderRuntimeError,
+            ProviderRoutingError,
+        ) as exc:
+            print(f"run-agent {args.agent_name} failed: {exc}", file=sys.stderr)
+            return 1
+        root_key = f"{agent_id}_candidates"
+        sidecar = result[root_key]
+        if sidecar.get("errors") or not sidecar.get("candidates"):
+            print(
+                f"run-agent {args.agent_name} failed: candidates were not accepted.",
+                file=sys.stderr,
+            )
+            return 1
+        return 0
+    if args.command == "run-agent" and args.agent_name.replace("-", "_") in DEEPSEEK_REVIEWER_AGENT_IDS:
+        agent_id = args.agent_name.replace("-", "_")
+        required_by_agent = {
+            "beat_dramaturgy_agent": {
+                "--screenplay": args.screenplay,
+            },
+            "source_fidelity_reviewer": {
+                "--story-map": args.story_map,
+                "--outline": args.outline,
+                "--screenplay": args.screenplay,
+            },
+            "yaml_repair_agent": {
+                "--screenplay": args.screenplay,
+            },
+        }
+        missing = [
+            option
+            for option, value in required_by_agent[agent_id].items()
+            if not value
+        ]
+        if missing:
+            print(
+                f"run-agent {args.agent_name} failed: missing " + ", ".join(missing),
+                file=sys.stderr,
+            )
+            return 1
+        try:
+            result = run_deepseek_reviewer_agent(
+                agent_id=agent_id,
+                story_map_path=args.story_map,
+                outline_path=args.outline,
+                character_bible_path=args.character_bible,
+                screenplay_path=args.screenplay,
+                review_report_path=args.review_report,
+                out_path=args.out,
+                run_log_path=args.run_log,
+                dry_run=not args.allow_network,
+                router=(
+                    LLMRouter.from_environment(allow_network=True, max_attempts=1)
+                    if args.allow_network
+                    else None
+                ),
+            )
+        except (
+            OSError,
+            ValueError,
+            ProviderConfigurationError,
+            ProviderRuntimeError,
+            ProviderRoutingError,
+        ) as exc:
+            print(f"run-agent {args.agent_name} failed: {exc}", file=sys.stderr)
+            return 1
+        root_key = f"{agent_id}_candidates"
+        sidecar = result[root_key]
+        if sidecar.get("errors") or not sidecar.get("candidates"):
+            print(
+                f"run-agent {args.agent_name} failed: candidates were not accepted.",
+                file=sys.stderr,
+            )
+            return 1
+        return 0
+    if args.command == "merge-semantic-candidates":
+        try:
+            report = merge_semantic_candidates(
+                args.story_map,
+                args.semantic_candidates,
+                args.decisions,
+                out_path=args.out,
+                report_path=args.report,
+            )
+        except OSError as exc:
+            print(f"merge-semantic-candidates failed: {exc}", file=sys.stderr)
+            return 1
+        status = report["semantic_candidate_merge_report"]["status"]
+        return 0 if status in {"success", "partial"} else 1
+    if args.command == "prepare-author-review":
+        try:
+            screenplay = read_yaml(args.screenplay)
+            review_report = read_yaml(args.review_report)
+            quality_report = read_yaml(args.quality_report)
+            quality_dashboard = read_text(args.quality_dashboard)
+        except OSError as exc:
+            print(f"prepare-author-review failed: {exc}", file=sys.stderr)
+            return 1
+        source_paths = {
+            "screenplay": args.screenplay,
+            "review_report": args.review_report,
+            "quality_report": args.quality_report,
+            "quality_dashboard": args.quality_dashboard,
+        }
+        packet = render_author_review_packet(
+            screenplay,
+            review_report,
+            quality_report,
+            quality_dashboard,
+            source_paths=source_paths,
+        )
+        packet_path = Path(args.packet)
+        packet_path.parent.mkdir(parents=True, exist_ok=True)
+        packet_path.write_text(packet, encoding="utf-8", newline="\n")
+        write_yaml(
+            build_author_review_decisions_template(source_paths=source_paths),
+            args.decisions,
+        )
+        return 0
+    if args.command == "check-real-creative-draft-readiness":
+        try:
+            report = write_creative_draft_readiness_report(
+                screenplay_path=args.screenplay,
+                author_review_report_path=args.author_review_report,
+                mock_candidates_path=args.mock_candidates,
+                out_path=args.out,
+                routing_config_path=args.routing_config,
+                schema_path=args.schema,
+            )
+        except OSError as exc:
+            print(
+                f"check-real-creative-draft-readiness failed: {exc}",
+                file=sys.stderr,
+            )
+            return 1
+        status = report["creative_draft_readiness_report"]["status"]
+        return 0 if status in {"ready", "ready_pending_network_authorization"} else 1
+    if args.command == "apply-creative-draft":
+        try:
+            report = apply_creative_draft(
+                screenplay_path=args.screenplay,
+                creative_candidates_path=args.creative_candidates,
+                out_path=args.out,
+                report_path=args.report,
+                decisions_path=args.decisions,
+            )
+        except (OSError, ValueError) as exc:
+            print(f"apply-creative-draft failed: {exc}", file=sys.stderr)
+            return 1
+        blocked = report["creative_draft_apply_report"]["blocked_count"]
+        return 0 if blocked == 0 else 1
+    if args.command == "prepare-stage24-candidate-review":
+        try:
+            prepare_stage24_candidate_review(
+                candidate_paths=args.candidate_sidecar,
+                packet_path=args.packet,
+                decisions_path=args.decisions,
+            )
+        except OSError as exc:
+            print(f"prepare-stage24-candidate-review failed: {exc}", file=sys.stderr)
+            return 1
+        return 0
+    if args.command == "apply-stage24-candidates":
+        try:
+            report = apply_stage24_candidate_decisions(
+                candidate_paths=args.candidate_sidecar,
+                decisions_path=args.decisions,
+                selected_candidates_path=args.selected,
+                report_path=args.report,
+            )
+        except OSError as exc:
+            print(f"apply-stage24-candidates failed: {exc}", file=sys.stderr)
+            return 1
+        status = report["stage24_candidate_apply_report"]["status"]
+        return 0 if status in {"success", "partial", "blocked_pending_author_review"} else 1
+    if args.command == "apply-stage24-selected-to-artifacts":
+        try:
+            report = apply_stage24_selected_candidates_to_artifacts(
+                selected_candidates_path=args.selected,
+                outline_path=args.outline,
+                character_bible_path=args.character_bible,
+                screenplay_path=args.screenplay,
+                outline_out_path=args.outline_out,
+                character_bible_out_path=args.character_bible_out,
+                screenplay_out_path=args.screenplay_out,
+                report_path=args.report,
+            )
+        except OSError as exc:
+            print(f"apply-stage24-selected-to-artifacts failed: {exc}", file=sys.stderr)
+            return 1
+        status = report["stage26_selected_candidate_apply_report"]["status"]
+        return 0 if status in {"success", "partial"} else 1
     return 2
 
 

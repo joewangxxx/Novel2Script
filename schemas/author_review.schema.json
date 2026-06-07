@@ -1,0 +1,409 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://novel2script.local/schemas/author_review.schema.json",
+  "title": "Novel2Script Author Review",
+  "type": "object",
+  "oneOf": [
+    {
+      "required": [
+        "author_review_decisions"
+      ]
+    },
+    {
+      "required": [
+        "author_review_report"
+      ]
+    }
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "author_review_decisions": {
+      "$ref": "#/$defs/author_review_decisions"
+    },
+    "author_review_report": {
+      "$ref": "#/$defs/author_review_report"
+    }
+  },
+  "$defs": {
+    "author_review_decisions": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "source_artifacts",
+        "reviewed_by",
+        "reviewed_at",
+        "structure_decision",
+        "character_decision",
+        "beat_decision",
+        "dialogue_decision",
+        "quality_decision",
+        "next_stage_authorization"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "type": "string",
+          "const": "0.1.0"
+        },
+        "source_artifacts": {
+          "$ref": "#/$defs/source_artifacts"
+        },
+        "reviewed_by": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reviewed_at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "structure_decision": {
+          "$ref": "#/$defs/standard_decision"
+        },
+        "character_decision": {
+          "$ref": "#/$defs/standard_decision"
+        },
+        "beat_decision": {
+          "$ref": "#/$defs/standard_decision"
+        },
+        "dialogue_decision": {
+          "$ref": "#/$defs/dialogue_decision"
+        },
+        "quality_decision": {
+          "$ref": "#/$defs/standard_decision"
+        },
+        "next_stage_authorization": {
+          "$ref": "#/$defs/next_stage_authorization"
+        },
+        "overall_notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "author_review_report": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "source_decisions",
+        "source_artifacts",
+        "generated_at",
+        "status",
+        "summary",
+        "decision_outcomes",
+        "next_stage_authorization",
+        "blocking_reasons"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "type": "string",
+          "const": "0.1.0"
+        },
+        "source_decisions": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_artifacts": {
+          "$ref": "#/$defs/source_artifacts"
+        },
+        "generated_at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "approved",
+            "changes_requested",
+            "blocked"
+          ]
+        },
+        "summary": {
+          "type": "string"
+        },
+        "decision_outcomes": {
+          "type": "object",
+          "required": [
+            "structure_decision",
+            "character_decision",
+            "beat_decision",
+            "dialogue_decision",
+            "quality_decision"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "structure_decision": {
+              "type": "string"
+            },
+            "character_decision": {
+              "type": "string"
+            },
+            "beat_decision": {
+              "type": "string"
+            },
+            "dialogue_decision": {
+              "type": "string"
+            },
+            "quality_decision": {
+              "type": "string"
+            }
+          }
+        },
+        "next_stage_authorization": {
+          "type": "string",
+          "enum": [
+            "none",
+            "kimi_dialogue_draft",
+            "dramaturgy_review"
+          ]
+        },
+        "blocking_reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "requested_changes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/requested_change"
+          }
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "source_artifacts": {
+      "type": "object",
+      "required": [
+        "screenplay",
+        "review_report",
+        "quality_report",
+        "quality_dashboard"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "screenplay": {
+          "type": "string",
+          "minLength": 1
+        },
+        "review_report": {
+          "type": "string",
+          "minLength": 1
+        },
+        "quality_report": {
+          "type": "string",
+          "minLength": 1
+        },
+        "quality_dashboard": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fountain": {
+          "type": "string"
+        },
+        "validation_report": {
+          "type": "string"
+        },
+        "roundtrip_report": {
+          "type": "string"
+        }
+      }
+    },
+    "standard_decision": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/base_decision"
+        },
+        {
+          "properties": {
+            "decision": {
+              "type": "string",
+              "enum": [
+                "approve",
+                "request_changes",
+                "block"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "dialogue_decision": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/base_decision"
+        },
+        {
+          "properties": {
+            "decision": {
+              "type": "string",
+              "enum": [
+                "approve",
+                "request_dialogue_draft",
+                "block"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "base_decision": {
+      "type": "object",
+      "required": [
+        "reviewer",
+        "reviewed_at",
+        "decision",
+        "notes",
+        "linked_artifacts",
+        "linked_issue_ids",
+        "human_approval_required"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "reviewer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reviewed_at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decision": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "linked_artifacts": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "linked_issue_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^issue_[0-9]{3}$"
+          }
+        },
+        "human_approval_required": {
+          "type": "boolean",
+          "const": true
+        }
+      }
+    },
+    "next_stage_authorization": {
+      "type": "object",
+      "required": [
+        "reviewer",
+        "reviewed_at",
+        "decision",
+        "notes",
+        "linked_artifacts",
+        "linked_issue_ids",
+        "human_approval_required"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "reviewer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reviewed_at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decision": {
+          "type": "string",
+          "enum": [
+            "none",
+            "kimi_dialogue_draft",
+            "dramaturgy_review"
+          ]
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "linked_artifacts": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "linked_issue_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^issue_[0-9]{3}$"
+          }
+        },
+        "human_approval_required": {
+          "type": "boolean",
+          "const": true
+        }
+      }
+    },
+    "requested_change": {
+      "type": "object",
+      "required": [
+        "id",
+        "area",
+        "description",
+        "linked_issue_ids",
+        "linked_artifacts"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^change_[0-9]{3}$"
+        },
+        "area": {
+          "type": "string",
+          "enum": [
+            "structure",
+            "character",
+            "beat",
+            "dialogue",
+            "quality",
+            "other"
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "linked_issue_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^issue_[0-9]{3}$"
+          }
+        },
+        "linked_artifacts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,82 @@
+semantic_candidates:
+  schema_version: 0.1.0
+  source_story_map: examples\output\test1_sanguo_story_map.yaml
+  agent_id: story_semantic_parser
+  provider_profile: qwen_long
+  dry_run: false
+  candidates:
+  - id: semcand_001
+    type: event_candidate
+    confidence: high
+    evidence:
+      summary: The outbreak of the Yellow Turban Rebellion is described, triggered
+        by widespread corruption and disease, leading to large-scale uprising.
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      - p_002
+    target_story_map_field: key_events
+    proposed_fields:
+      summary: The Yellow Turban Rebellion erupts due to corruption and illness, marking
+        the beginning of widespread conflict.
+      event_type: uprising
+    merge_policy: human_approval_required
+  - id: semcand_002
+    type: character_candidate
+    confidence: high
+    evidence:
+      summary: Liu Bei is introduced as a heroic figure with distinct physical traits
+        and a noble demeanor, motivated by the call to serve his country.
+      quote_preview: 此人不甚好读书，生性宽和，寡言少语...双耳垂肩，生得仪表堂堂。
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_003
+      - p_004
+    target_story_map_field: characters_detected
+    proposed_fields:
+      name: Liu Bei
+      description_hint: A calm and ambitious man with a commanding presence, seeking
+        to serve the nation.
+    merge_policy: human_approval_required
+  - id: semcand_003
+    type: prop_candidate
+    confidence: medium
+    evidence:
+      summary: Weapons are forged by Liu Bei and his companions for military service.
+      quote_preview: 刘备打造双股剑；关羽造青龙偃月刀，重八十二斤；张飞造丈八蛇矛。
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_006
+    target_story_map_field: props_detected
+    proposed_fields:
+      name: Green Dragon Crescent Blade
+      prop_type: weapon
+      description_hint: A heavy blade wielded by Guan Yu, symbolizing strength and
+        loyalty.
+    merge_policy: human_approval_required
+  errors: []
+  human_approval_required: true
+  run_log: examples\output\test1_sanguo_semantic_agent_run_log.real.yaml
+  metadata:
+    intended_provider_profile: qwen_long
+    resolved_provider_profile: qwen_long
+    llm_run_id: llm_run_77e69358adec
+    quality_report: ''
+    provider_finish_reason: stop
+    provider_profile: qwen_long
+    model: qwen-long
+    dry_run: false
+    human_approval_required: true
+    source_story_map: examples/output/test1_sanguo_story_map.yaml
+    fixture_source: authorized_real_qwen_smoke
+    created_from_external_input: true
+    retained_as_fixture: true
+    prompt_retained: false
+    provider_body_retained: false
+    full_source_text_retained: false
+    story_map_hash_before: sha256:1109fa161678fd1cb7cf1ec8708b99aec4549ac489e671d0ceeb791e46b6edd5
+    story_map_hash_after: sha256:1109fa161678fd1cb7cf1ec8708b99aec4549ac489e671d0ceeb791e46b6edd5
+    model_text_retained: false

@@ -1,0 +1,58 @@
+semantic_candidate_decisions:
+  schema_version: 0.1.0
+  source_story_map: examples/output/test1_sanguo_story_map.yaml
+  source_semantic_candidates: examples/output/test1_sanguo_semantic_candidates.real.yaml
+  reviewed_by: author_stage14_fixture_review
+  reviewed_at: '2026-06-06T16:49:05+08:00'
+  decisions:
+  - decision_id: dec_001
+    candidate_id: semcand_001
+    decision: accept
+    target_story_map_field: key_events
+    reviewer_note: Accepted as a source-traced real Qwen event candidate for fixture
+      validation.
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      - p_002
+    human_approval:
+      approved: true
+      reviewer_id: author_stage14_fixture_review
+      approved_at: '2026-06-06T16:49:05+08:00'
+  - decision_id: dec_002
+    candidate_id: semcand_002
+    decision: reject
+    target_story_map_field: characters_detected
+    reviewer_note: Rejected in sample review to prove non-mutating rejection path.
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_003
+      - p_004
+    human_approval:
+      approved: false
+      reviewer_id: author_stage14_fixture_review
+      approved_at: '2026-06-06T16:49:05+08:00'
+  - decision_id: dec_003
+    candidate_id: semcand_003
+    decision: edit
+    target_story_map_field: props_detected
+    edited_fields:
+      name: Green Dragon Crescent Blade
+      prop_type: weapon
+      description_hint: A heavy blade wielded by Guan Yu, symbolizing strength and
+        loyalty.
+    reviewer_note: Edited only within the candidate proposed fields while preserving
+      source trace.
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_006
+    human_approval:
+      approved: true
+      reviewer_id: author_stage14_fixture_review
+      approved_at: '2026-06-06T16:49:05+08:00'
+  metadata:
+    fixture_source: test1_sanguo_semantic_candidates.real.yaml
+    covers_accept_reject_edit: true

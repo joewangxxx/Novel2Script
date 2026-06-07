@@ -1,0 +1,20 @@
+fountain_roundtrip_report:
+  schema_version: 0.1.0
+  source_yaml: examples/output/test1_sanguo_screenplay.yaml
+  fountain_file: examples/output/test1_sanguo_screenplay.fountain
+  map_file: examples/output/test1_sanguo_screenplay.fountain.map.json
+  generated_at: '2026-06-05'
+  status: skipped
+  summary:
+    mapped_regions: 22
+    changed_regions: 0
+    applied_changes: 0
+    skipped_changes: 0
+    blocking_issues: 0
+  line_policy:
+    expected_line_count: 36
+    actual_line_count: 36
+    line_drift_detected: false
+    map_match: true
+  changes: []
+  issues: []

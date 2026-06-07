@@ -48,6 +48,12 @@ python -m novel2script.cli export-fountain examples/output/sample_screenplay.yam
 
 The deterministic parser recognizes these chapter heading shapes:
 
+- `第一回 标题`
+- `第二回 标题`
+- `第1回 标题`
+- `# 第一回 标题`
+- `## 第二回 标题`
+
 - `# 第一章 标题`
 - `## 第一章 标题`
 - `第1章 标题`

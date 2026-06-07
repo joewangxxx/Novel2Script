@@ -1,7 +1,6 @@
-phase: qa
-goal: "Complete Stage 6 deterministic multi-agent review."
-ready_for:
-  - stage_7_fountain_limited_roundtrip
+phase: release
+goal: "Stage 32 applied the human-accepted Stage 30 real Kimi dialogue candidate and completed the full end-to-end QA evaluation chain."
+ready_for: []
 blocked_by: []
 artifacts:
   prd: null
@@ -14,7 +13,10 @@ artifacts:
   phase_3_plan: "docs/dev/PHASE_3_NOVEL_PARSING.md"
   parser_module: "src/novel2script/parsers/novel_parser.py"
   parser_tests: "tests/test_novel_parser.py"
+  stage_3_hui_parser_tests: "tests/test_novel_parser_chinese_hui.py"
   parse_novel_cli_tests: "tests/test_parse_novel_cli.py"
+  stage_3_hui_fixture: "examples/input/test1_sanguo.txt"
+  stage_3_hui_fixture_smoke: "examples/input/test1_sanguo.txt parsed as five chapters"
   generated_story_map: "examples/output/generated_story_map.yaml"
   story_map: "examples/output/generated_story_map.yaml"
   outline_schema: "schemas/outline.schema.json"
@@ -47,24 +49,219 @@ artifacts:
   reviewer_tests: "tests/test_character_consistency_reviewer.py; tests/test_pacing_reviewer.py; tests/test_dialogue_naturalness_reviewer.py; tests/test_shootability_reviewer.py; tests/test_review_report.py"
   review_cli_tests: "tests/test_review_cli.py"
   generated_review_report: "examples/output/generated_review_report.yaml"
+  fountain_roundtrip_report_schema: "schemas/fountain_roundtrip_report.schema.json"
+  phase_7_plan: "docs/dev/PHASE_7_FOUNTAIN_LIMITED_ROUNDTRIP.md"
+  fountain_importer: "src/novel2script/importers/fountain_importer.py"
+  fountain_importer_tests: "tests/test_fountain_importer.py"
+  fountain_roundtrip_cli_tests: "tests/test_fountain_roundtrip_cli.py"
+  generated_screenplay_roundtrip: "examples/output/generated_screenplay_roundtrip.yaml"
+  generated_screenplay_roundtrip_report: "examples/output/generated_screenplay_roundtrip_report.yaml"
+  generated_screenplay_roundtrip_validation_report: "examples/output/generated_screenplay_roundtrip_validation_report.yaml"
+  quality_report_schema: "schemas/quality_report.schema.json"
+  phase_8_plan: "docs/dev/PHASE_8_QUALITY_EVAL_DASHBOARD.md"
+  quality_package: "src/novel2script/quality"
+  quality_report_builder: "src/novel2script/quality/quality_report.py"
+  quality_report_tests: "tests/test_quality_report.py"
+  quality_cli_tests: "tests/test_quality_cli.py"
+  generated_quality_report: "examples/output/generated_quality_report.yaml"
+  generated_quality_dashboard: "examples/output/generated_quality_dashboard.md"
+  phase_9_plan: "docs/dev/PHASE_9_LLM_PROVIDER_ABSTRACTION.md"
+  llm_provider_architecture: "docs/architecture/llm-provider.md"
+  llm_provider_package: "src/novel2script/llm"
+  llm_provider_config: "config/llm_providers.example.yaml"
+  llm_provider_tests: "tests/test_llm_provider.py; tests/test_llm_router.py"
+  agent_prompt_registry: "docs/prompts"
+  agent_routing_doc: "docs/prompts/agent-routing.md"
+  agent_routing_config: "config/agent_routing.example.yaml"
+  prompt_registry: "docs/prompts"
+  llm_package: "src/novel2script/llm"
+  generated_llm_run_log: "examples/output/generated_llm_run_log.yaml"
+  generated_agent_routing_report: "examples/output/generated_agent_routing_report.yaml"
+  phase_10_plan: "docs/dev/PHASE_10_STORY_SEMANTIC_AGENT.md"
+  semantic_candidates_schema: "schemas/semantic_candidates.schema.json"
+  story_semantic_agent: "src/novel2script/agents/story_semantic_parser.py"
+  story_semantic_agent_runner: "src/novel2script/agents/story_semantic_parser.py"
+  story_semantic_agent_tests: "tests/test_story_semantic_parser_agent.py"
+  story_semantic_agent_cli_tests: "tests/test_story_semantic_agent_cli.py"
+  generated_semantic_candidates: "examples/output/generated_semantic_candidates.yaml"
+  generated_semantic_agent_run_log: "examples/output/generated_semantic_agent_run_log.yaml"
+  phase_13_plan: "docs/dev/PHASE_13_REAL_QWEN_SEMANTIC_RESPONSE.md"
+  qwen_semantic_model_output_schema: "schemas/qwen_semantic_model_output.schema.json"
+  real_qwen_semantic_parser_tests: "tests/test_story_semantic_parser_agent.py"
+  real_qwen_provider_tests: "tests/test_openai_compatible_provider.py"
+  real_qwen_cli_tests: "tests/test_story_semantic_agent_cli.py"
+  stage_13e_regression_tests: "tests/test_story_semantic_parser_agent.py; tests/test_story_semantic_agent_cli.py; tests/test_openai_compatible_provider.py"
+  stage_13f_candidate_limit_and_budget_tests: "tests/test_story_semantic_parser_agent.py; tests/test_story_semantic_agent_cli.py; tests/test_openai_compatible_provider.py"
+  stage_13g_provider_diagnostics: "src/novel2script/llm/openai_compatible_provider.py"
+  stage_13g_provider_diagnostic_tests: "tests/test_openai_compatible_provider.py; tests/test_llm_router.py"
+  stage_13g_probe_evidence: "docs/qa/report.md"
+  stage_13h_sanguo_fixture: "examples/input/test1_sanguo.txt"
+  stage_13h_qa_evidence: "docs/qa/report.md"
+  stage_13h_validation_harness: "scripts/validate_stage13h_artifacts.py"
+  stage_13h_validation_harness_tests: "tests/test_stage13h_validation_harness.py"
+  phase_14_plan: "docs/dev/PHASE_14_REAL_CANDIDATE_FIXTURE_AND_MERGE.md"
+  stage_14_real_story_map: "examples/output/test1_sanguo_story_map.yaml"
+  stage_14_real_semantic_candidates: "examples/output/test1_sanguo_semantic_candidates.real.yaml"
+  stage_14_real_run_log: "examples/output/test1_sanguo_semantic_agent_run_log.real.yaml"
+  stage_14_real_decisions: "examples/output/test1_sanguo_semantic_candidate_decisions.yaml"
+  stage_14_real_merged_story_map: "examples/output/test1_sanguo_story_map.merged.yaml"
+  stage_14_real_merge_report: "examples/output/test1_sanguo_semantic_candidate_merge_report.yaml"
+  stage_14_qa_report: "docs/qa/report.md"
+  phase_15_plan: "docs/dev/PHASE_15_REAL_MERGED_STORYMAP_E2E_DRAFT.md"
+  stage_15_outline: "examples/output/test1_sanguo_outline.yaml"
+  stage_15_character_bible: "examples/output/test1_sanguo_character_bible.yaml"
+  stage_15_screenplay: "examples/output/test1_sanguo_screenplay.yaml"
+  stage_15_screenplay_validation_report: "examples/output/test1_sanguo_screenplay_validation_report.yaml"
+  stage_15_screenplay_fountain: "examples/output/test1_sanguo_screenplay.fountain"
+  stage_15_screenplay_fountain_map: "examples/output/test1_sanguo_screenplay.fountain.map.json"
+  stage_15_review_report: "examples/output/test1_sanguo_review_report.yaml"
+  stage_15_roundtrip_screenplay: "examples/output/test1_sanguo_screenplay_roundtrip.yaml"
+  stage_15_roundtrip_report: "examples/output/test1_sanguo_screenplay_roundtrip_report.yaml"
+  stage_15_roundtrip_validation_report: "examples/output/test1_sanguo_screenplay_roundtrip_validation_report.yaml"
+  stage_15_quality_report: "examples/output/test1_sanguo_quality_report.yaml"
+  stage_15_quality_dashboard: "examples/output/test1_sanguo_quality_dashboard.md"
+  phase_16_plan: "docs/dev/PHASE_16_AUTHOR_REVIEW_UX_CLI.md"
+  author_review_schema: "schemas/author_review.schema.json"
+  author_review_module: "src/novel2script/reviewers/author_review.py"
+  author_review_tests: "tests/test_author_review.py"
+  author_review_cli_tests: "tests/test_author_review_cli.py"
+  stage_16_author_review_packet: "examples/output/test1_sanguo_author_review_packet.md"
+  stage_16_author_review_decisions: "examples/output/test1_sanguo_author_review_decisions.yaml"
+  stage_16_author_review_report: "examples/output/test1_sanguo_author_review_report.yaml"
+  stage_16_qa_report: "docs/qa/report.md"
+  phase_17_plan: "docs/dev/PHASE_17_KIMI_DIALOGUE_SCENE_DRAFT_CONTRACT.md"
+  creative_draft_candidates_schema: "schemas/creative_draft_candidates.schema.json"
+  kimi_dialogue_scene_drafter_prompt: "docs/prompts/kimi_dialogue_scene_drafter.md"
+  kimi_dialogue_scene_drafter_routing: "config/agent_routing.example.yaml"
+  creative_draft_contract_tests: "tests/test_creative_draft_contract.py"
+  phase_18_plan: "docs/dev/PHASE_18_KIMI_DIALOGUE_SCENE_DRAFT_MOCK_FIRST.md"
+  creative_draft_agent: "src/novel2script/agents/creative_draft.py"
+  creative_draft_agent_tests: "tests/test_creative_draft_agent.py"
+  creative_draft_cli_tests: "tests/test_creative_draft_cli.py"
+  generated_creative_draft_candidates_mock: "examples/output/test1_sanguo_creative_draft_candidates.mock.yaml"
+  generated_creative_draft_run_log_mock: "examples/output/test1_sanguo_creative_draft_run_log.mock.yaml"
+  phase_19_plan: "docs/dev/PHASE_19_KIMI_REAL_CREATIVE_DRAFT_READINESS.md"
+  creative_draft_real_readiness_tests: "tests/test_creative_draft_real_readiness.py"
+  creative_draft_readiness_module: "src/novel2script/agents/creative_draft_readiness.py"
+  generated_kimi_real_readiness_report: "examples/output/test1_sanguo_kimi_real_readiness_report.yaml"
+  stage_19_readiness_qa_report: "docs/qa/report.md"
+  stage_20_real_kimi_attempt_evidence: "docs/qa/report.md"
+  stage_21_provider_repair_tests: "tests/test_openai_compatible_provider.py; tests/test_llm_router.py"
+  creative_draft_apply_module: "src/novel2script/agents/creative_draft_apply.py"
+  creative_draft_apply_tests: "tests/test_creative_draft_apply.py; tests/test_creative_draft_apply_cli.py"
+  stage_21_real_kimi_attempt_evidence: "docs/qa/report.md"
+  stage_22_kimi_probe_report: "examples/output/test1_sanguo_kimi_probe_report.yaml"
+  stage_22b_kimi_cn_probe_report: "examples/output/test1_sanguo_kimi_probe_cn_report.yaml"
+  stage_22d_kimi_cn_compat_probe_report: "examples/output/test1_sanguo_kimi_probe_cn_compat_payload_report.yaml"
+  stage_22_cross_repository_audit: "docs/dev/PHASE_22_KIMI_CROSS_REPOSITORY_AUDIT.md"
+  phase_23_plan: "docs/superpowers/plans/2026-06-07-stage-23-real-kimi-creative-draft.md"
+  stage_23_qa_report: "docs/qa/report.md"
+  stage_23v_real_kimi_run_log: "examples/output/test1_sanguo_creative_draft_run_log.real_kimi.yaml"
+  stage_23x_real_kimi_candidates: "examples/output/test1_sanguo_creative_draft_candidates.real_kimi.yaml"
+  stage_23x_real_kimi_run_log: "examples/output/test1_sanguo_creative_draft_run_log.real_kimi.yaml"
+  stage_23y_enhanced_screenplay: "examples/output/test1_sanguo_screenplay.enhanced.yaml"
+  stage_23y_apply_report: "examples/output/test1_sanguo_creative_draft_apply_report.yaml"
+  stage_23y_enhanced_validation_report: "examples/output/test1_sanguo_screenplay.enhanced_validation_report.yaml"
+  stage_23y_enhanced_fountain: "examples/output/test1_sanguo_screenplay.enhanced.fountain"
+  stage_23y_enhanced_fountain_map: "examples/output/test1_sanguo_screenplay.enhanced.fountain.map.json"
+  stage_23y_enhanced_review_report: "examples/output/test1_sanguo_review_report.enhanced.yaml"
+  stage_23y_enhanced_roundtrip_screenplay: "examples/output/test1_sanguo_screenplay.enhanced_roundtrip.yaml"
+  stage_23y_enhanced_roundtrip_report: "examples/output/test1_sanguo_screenplay.enhanced_roundtrip_report.yaml"
+  stage_23y_enhanced_roundtrip_validation_report: "examples/output/test1_sanguo_screenplay.enhanced_roundtrip_validation_report.yaml"
+  stage_23y_enhanced_quality_report: "examples/output/test1_sanguo_quality_report.enhanced.yaml"
+  stage_23y_enhanced_quality_dashboard: "examples/output/test1_sanguo_quality_dashboard.enhanced.md"
+  stage_24_kimi_creative_agents_module: "src/novel2script/agents/kimi_creative_agents.py"
+  stage_24_kimi_creative_agents_tests: "tests/test_kimi_creative_agents.py; tests/test_kimi_creative_agents_cli.py"
+  stage_24_adaptation_planner_schema: "schemas/adaptation_planner_candidates.schema.json"
+  stage_24_character_bible_agent_schema: "schemas/character_bible_agent_candidates.schema.json"
+  stage_24_scene_writer_agent_schema: "schemas/scene_writer_agent_candidates.schema.json"
+  stage_24_dialogue_optimizer_agent_schema: "schemas/dialogue_optimizer_agent_candidates.schema.json"
+  stage_24_adaptation_planner_real_candidates: "examples/output/test1_sanguo_adaptation_planner_candidates.real_kimi.yaml"
+  stage_24_adaptation_planner_real_run_log: "examples/output/test1_sanguo_adaptation_planner_run_log.real_kimi.yaml"
+  stage_24_character_bible_agent_real_candidates: "examples/output/test1_sanguo_character_bible_agent_candidates.real_kimi.yaml"
+  stage_24_character_bible_agent_real_run_log: "examples/output/test1_sanguo_character_bible_agent_run_log.real_kimi.yaml"
+  stage_24_scene_writer_agent_real_candidates: "examples/output/test1_sanguo_scene_writer_agent_candidates.real_kimi.yaml"
+  stage_24_scene_writer_agent_real_run_log: "examples/output/test1_sanguo_scene_writer_agent_run_log.real_kimi.yaml"
+  stage_24_dialogue_optimizer_agent_real_candidates: "examples/output/test1_sanguo_dialogue_optimizer_agent_candidates.real_kimi.yaml"
+  stage_24_dialogue_optimizer_agent_real_run_log: "examples/output/test1_sanguo_dialogue_optimizer_agent_run_log.real_kimi.yaml"
+  stage_25_author_review_packet: "examples/output/test1_sanguo_stage24_author_review_packet.md"
+  stage_25_candidate_decisions: "examples/output/test1_sanguo_stage24_candidate_decisions.yaml"
+  stage_25_selected_candidates: "examples/output/test1_sanguo_stage24_selected_candidates.yaml"
+  stage_25_candidate_apply_report: "examples/output/test1_sanguo_stage24_candidate_apply_report.yaml"
+  stage_26_selected_candidate_apply_module: "src/novel2script/agents/stage26_selected_candidate_apply.py"
+  stage_26_selected_candidate_apply_tests: "tests/test_stage26_selected_candidate_apply.py"
+  stage_26_outline: "examples/output/test1_sanguo_outline.stage26.yaml"
+  stage_26_character_bible: "examples/output/test1_sanguo_character_bible.stage26.yaml"
+  stage_26_screenplay: "examples/output/test1_sanguo_screenplay.stage26.yaml"
+  stage_26_apply_report: "examples/output/test1_sanguo_stage26_selected_candidate_apply_report.yaml"
+  stage_27_screenplay_validation_report: "examples/output/test1_sanguo_screenplay.stage26_validation_report.yaml"
+  stage_27_fountain: "examples/output/test1_sanguo_screenplay.stage26.fountain"
+  stage_27_fountain_map: "examples/output/test1_sanguo_screenplay.stage26.fountain.map.json"
+  stage_27_review_report: "examples/output/test1_sanguo_review_report.stage26.yaml"
+  stage_27_roundtrip_screenplay: "examples/output/test1_sanguo_screenplay.stage26_roundtrip.yaml"
+  stage_27_roundtrip_report: "examples/output/test1_sanguo_screenplay.stage26_roundtrip_report.yaml"
+  stage_27_roundtrip_validation_report: "examples/output/test1_sanguo_screenplay.stage26_roundtrip_validation_report.yaml"
+  stage_27_quality_report: "examples/output/test1_sanguo_quality_report.stage26.yaml"
+  stage_27_quality_dashboard: "examples/output/test1_sanguo_quality_dashboard.stage26.md"
+  stage_27_author_review_packet: "examples/output/test1_sanguo_stage26_author_review_packet.md"
+  stage_27_author_review_decisions: "examples/output/test1_sanguo_stage26_author_review_decisions.yaml"
+  stage_28_author_review_decisions: "examples/output/test1_sanguo_stage26_author_review_decisions.yaml"
+  stage_28_author_review_report: "examples/output/test1_sanguo_author_review_report.stage26.yaml"
+  phase_29_plan: "docs/dev/PHASE_29_KIMI_DIALOGUE_DRAFT_STAGE26_PLANNING.md"
+  stage_29_mock_candidates: "examples/output/test1_sanguo_creative_draft_candidates.stage26.mock.yaml"
+  stage_29_mock_run_log: "examples/output/test1_sanguo_creative_draft_run_log.stage26.mock.yaml"
+  stage_29_planning_report: "examples/output/test1_sanguo_stage29_kimi_dialogue_draft_planning_report.yaml"
+  phase_30_plan: "docs/dev/PHASE_30_ONE_SHOT_REAL_KIMI_DIALOGUE_DRAFT_STAGE26.md"
+  stage_30_real_candidates: "examples/output/test1_sanguo_creative_draft_candidates.stage26.real_kimi.yaml"
+  stage_30_real_run_log: "examples/output/test1_sanguo_creative_draft_run_log.stage26.real_kimi.yaml"
+  stage_30_real_kimi_report: "examples/output/test1_sanguo_stage30_real_kimi_dialogue_draft_report.yaml"
+  phase_31_plan: "docs/dev/PHASE_31_HUMAN_REVIEW_REAL_KIMI_DIALOGUE_CANDIDATE.md"
+  stage_31_review_packet: "examples/output/test1_sanguo_stage31_real_kimi_candidate_review_packet.md"
+  stage_31_decisions: "examples/output/test1_sanguo_stage31_real_kimi_candidate_decisions.yaml"
+  stage_31_review_report: "examples/output/test1_sanguo_stage31_real_kimi_candidate_review_report.yaml"
+  phase_11_plan: "docs/dev/PHASE_11_REAL_LLM_PROVIDER.md"
+  openai_compatible_provider: "src/novel2script/llm/openai_compatible_provider.py"
+  real_llm_provider_tests: "tests/test_openai_compatible_provider.py; tests/test_llm_router.py"
+  real_llm_cli_tests: "tests/test_story_semantic_agent_cli.py; tests/test_story_semantic_parser_agent.py"
+  phase_12_plan: "docs/dev/PHASE_12_SEMANTIC_CANDIDATE_REVIEW_AND_MERGE.md"
+  semantic_candidate_decisions_schema: "schemas/semantic_candidate_decisions.schema.json"
+  semantic_candidate_merge_report_schema: "schemas/semantic_candidate_merge_report.schema.json"
+  semantic_candidate_merge_module: "src/novel2script/agents/semantic_candidate_merge.py"
+  semantic_candidate_merge_tests: "tests/test_semantic_candidate_merge.py"
+  semantic_candidate_merge_cli_tests: "tests/test_semantic_candidate_merge_cli.py"
+  stage_12_gate_regression_tests: "tests/test_semantic_candidate_merge.py; tests/test_semantic_candidate_merge_cli.py"
+  generated_semantic_candidate_decisions: "examples/output/generated_semantic_candidate_decisions.yaml"
+  generated_merged_story_map: "examples/output/generated_story_map.merged.yaml"
+  generated_semantic_candidate_merge_report: "examples/output/generated_semantic_candidate_merge_report.yaml"
   design_notes: null
   qa_report: "docs/qa/report.md"
   release_notes: null
+  stage_32_screenplay: "examples/output/test1_sanguo_screenplay.stage32.yaml"
+  stage_32_apply_report: "examples/output/test1_sanguo_creative_draft_apply_report.stage32.yaml"
+  stage_32_screenplay_validation_report: "examples/output/test1_sanguo_screenplay.stage32_validation_report.yaml"
+  stage_32_fountain: "examples/output/test1_sanguo_screenplay.stage32.fountain"
+  stage_32_fountain_map: "examples/output/test1_sanguo_screenplay.stage32.fountain.map.json"
+  stage_32_review_report: "examples/output/test1_sanguo_review_report.stage32.yaml"
+  stage_32_roundtrip_screenplay: "examples/output/test1_sanguo_screenplay.stage32_roundtrip.yaml"
+  stage_32_roundtrip_report: "examples/output/test1_sanguo_screenplay.stage32_roundtrip_report.yaml"
+  stage_32_roundtrip_validation_report: "examples/output/test1_sanguo_screenplay.stage32_roundtrip_validation_report.yaml"
+  stage_32_quality_report: "examples/output/test1_sanguo_quality_report.stage32.yaml"
+  stage_32_quality_dashboard: "examples/output/test1_sanguo_quality_dashboard.stage32.md"
 contract_status:
   state: draft
   frozen_at: null
   change_requests_dir: "docs/architecture/change-requests"
-  current_contract: "screenplay 0.1.0 draft; outline 0.1.0 draft; character_bible 0.1.0 draft; review_report 0.1.0 draft"
+  current_contract: "screenplay 0.1.0 draft; outline 0.1.0 draft; character_bible 0.1.0 draft; review_report 0.1.0 draft; fountain_roundtrip_report 0.1.0 draft; quality_report 0.1.0 draft; llm_provider 0.1.0 draft; agent_prompt_registry 0.1.0 draft; semantic_candidates 0.1.0 draft; real_llm_provider_opt_in 0.1.0 draft; semantic_candidate_decisions 0.1.0 draft; semantic_candidate_merge_report 0.1.0 draft; qwen_semantic_model_output 0.1.0 draft; author_review 0.1.0 draft; creative_draft_candidates 0.1.0 draft"
 retries:
   fe: 0
   be: 0
-  qa: 0
+  qa: 2
 max_retries:
   fe: 2
   be: 2
   qa: 2
 last_actor: parent_orchestrator
-last_updated: "2026-06-05T15:25:25+08:00"
+last_updated: "2026-06-07T17:09:13+08:00"
 history:
   - at: "2026-06-05T00:00:00+08:00"
     actor: parent_orchestrator
@@ -117,3 +314,228 @@ history:
   - at: "2026-06-05T15:25:25+08:00"
     actor: parent_orchestrator
     event: "Stage 6 deterministic multi-agent review QA completed."
+  - at: "2026-06-05T17:03:50+08:00"
+    actor: parent_orchestrator
+    event: "Stage 7A Fountain limited roundtrip contract and implementation boundary defined."
+  - at: "2026-06-05T17:08:37+08:00"
+    actor: parent_orchestrator
+    event: "Stage 7B deterministic Fountain limited importer core implemented."
+  - at: "2026-06-05T17:13:13+08:00"
+    actor: parent_orchestrator
+    event: "Stage 7C import-fountain CLI integration and roundtrip sample outputs completed."
+  - at: "2026-06-05T17:17:37+08:00"
+    actor: parent_orchestrator
+    event: "Stage 7 Fountain limited roundtrip QA completed."
+  - at: "2026-06-05T20:14:48+08:00"
+    actor: parent_orchestrator
+    event: "Stage 8A quality eval dashboard contract defined."
+  - at: "2026-06-05T20:20:08+08:00"
+    actor: parent_orchestrator
+    event: "Stage 8B deterministic quality aggregation and evaluate-quality CLI implemented."
+  - at: "2026-06-05T20:25:53+08:00"
+    actor: parent_orchestrator
+    event: "Stage 8 quality eval dashboard QA completed."
+  - at: "2026-06-05T20:35:26+08:00"
+    actor: parent_orchestrator
+    event: "Stage 9A LLM provider abstraction contract defined."
+  - at: "2026-06-05T20:38:38+08:00"
+    actor: parent_orchestrator
+    event: "Stage 9B mock-first LLM provider abstraction implemented."
+  - at: "2026-06-05T20:40:16+08:00"
+    actor: parent_orchestrator
+    event: "Stage 9C agent prompt registry completed."
+  - at: "2026-06-05T20:45:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 9 LLM provider abstraction and agent routing QA completed."
+  - at: "2026-06-05T20:53:44+08:00"
+    actor: parent_orchestrator
+    event: "Stage 10A story semantic agent contract defined."
+  - at: "2026-06-05T20:58:38+08:00"
+    actor: parent_orchestrator
+    event: "Stage 10B story_semantic_parser mock-first agent runner implemented."
+  - at: "2026-06-05T21:01:07+08:00"
+    actor: parent_orchestrator
+    event: "Stage 10C story_semantic_parser CLI integration and sample artifacts completed."
+  - at: "2026-06-06T01:30:32+08:00"
+    actor: parent_orchestrator
+    event: "Stage 10 first LLM agent dry-run integration QA completed."
+  - at: "2026-06-06T02:23:17+08:00"
+    actor: parent_orchestrator
+    event: "Stage 11 real LLM provider opt-in QA completed with explicit allow-network gate and three-model routing."
+  - at: "2026-06-06T02:46:55+08:00"
+    actor: parent_orchestrator
+    event: "Stage 11 closeout completed: local .env ignored, .env.example added, real Qwen smoke passed on retry, and repository prepared for Stage 12 semantic candidate merge review."
+  - at: "2026-06-06T02:53:18+08:00"
+    actor: parent_orchestrator
+    event: "Stage 12A semantic candidate review and merge contract defined."
+  - at: "2026-06-06T03:00:36+08:00"
+    actor: parent_orchestrator
+    event: "Stage 12B semantic candidate merge core, CLI, tests, and sample artifacts completed."
+  - at: "2026-06-06T09:45:50+08:00"
+    actor: parent_orchestrator
+    event: "Stage 12 semantic candidate review and merge QA completed."
+  - at: "2026-06-06T09:55:01+08:00"
+    actor: parent_orchestrator
+    event: "Stage 12 fail-closed merge gates repaired for stale outputs, invalid candidates, unknown decisions, and duplicate decisions."
+  - at: "2026-06-06T10:02:19+08:00"
+    actor: parent_orchestrator
+    event: "Stage 13 real Qwen JSON response parsing, trace whitelist validation, and bounded provider retry implemented."
+  - at: "2026-06-06T10:06:19+08:00"
+    actor: parent_orchestrator
+    event: "Stage 13 real Qwen QA blocked after two schema-invalid smoke responses; validation error output also exposed a response fragment."
+  - at: "2026-06-06T10:23:44+08:00"
+    actor: parent_orchestrator
+    event: "Stage 13E offline fail-closed repairs passed, but the sole resumed real Qwen smoke was blocked by truncated_model_output; automatic retry stopped for human review."
+  - at: "2026-06-06T10:33:56+08:00"
+    actor: parent_orchestrator
+    event: "Stage 13F candidate limit and 2048-token offline gates passed, but the single no-retry real Qwen smoke failed before producing artifacts; QA reached max retries and stopped for human intervention."
+  - at: "2026-06-06T10:42:58+08:00"
+    actor: parent_orchestrator
+    event: "Stage 13G-A offline provider diagnostics passed with structured redacted error categories and consistent dotenv loading; QA retries remain exhausted and the minimal network probe awaits explicit human authorization."
+  - at: "2026-06-06T10:46:51+08:00"
+    actor: parent_orchestrator
+    event: "Stage 13G-B single no-retry Qwen connectivity probe passed with valid JSON and no sensitive artifact retention; full semantic acceptance remains deferred until a test novel is available."
+  - at: "2026-06-06T11:02:09+08:00"
+    actor: parent_orchestrator
+    event: "Fast-path Stage 3 compatibility fix completed: deterministic parser now recognizes Chinese hui chapter headings, and external test1.txt smoke parsed five chapters without tracking the source file."
+  - at: "2026-06-06T11:08:17+08:00"
+    actor: parent_orchestrator
+    event: "Moved the five-chapter Sanguo test novel into examples/input/test1_sanguo.txt, converted the hui parser smoke to a repository fixture test, and verified it parses five stable chapters."
+  - at: "2026-06-06T12:25:18+08:00"
+    actor: parent_orchestrator
+    event: "Stage 13H ran one real Sanguo semantic smoke and the CLI returned success, but the local post-smoke validation harness failed before candidate and security evidence was collected; no automatic rerun was performed."
+  - at: "2026-06-06T12:36:13+08:00"
+    actor: parent_orchestrator
+    event: "Stage 13H validation harness was repaired and offline tests passed; the single human-authorized real Sanguo semantic smoke failed with provider/runtime exit code 1 before sidecar artifacts were produced, so no retry was performed."
+  - at: "2026-06-06T12:39:54+08:00"
+    actor: parent_orchestrator
+    event: "Stage 13H authorized diagnostic rerun passed: real Qwen Sanguo semantic smoke produced three schema-valid candidates with finish_reason stop, no errors, no story-map mutation, and no retained sensitive artifacts."
+  - at: "2026-06-06T16:36:30+08:00"
+    actor: parent_orchestrator
+    event: "Stage 14A real semantic candidate fixture and human-review merge contract defined without schema changes or real model calls."
+  - at: "2026-06-06T16:38:12+08:00"
+    actor: parent_orchestrator
+    event: "Stage 14B blocked before network execution because the required external input C:\\Users\\JoeWang\\Desktop\\test1_sanguo.txt was missing; no fixture or real Qwen call was produced."
+  - at: "2026-06-06T16:39:15+08:00"
+    actor: parent_orchestrator
+    event: "Stage 14C blocked before merge because Stage 14B real story_map and semantic_candidates fixture artifacts were missing; no decisions, merge report, or merged story map were generated."
+  - at: "2026-06-06T16:40:24+08:00"
+    actor: parent_orchestrator
+    event: "Stage 14D closeout blocked because all required Stage 14B/14C fixture, decision, merged story map, and merge report artifacts were missing; no tests, schema validation, or commit were performed."
+  - at: "2026-06-06T17:20:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 14B-R generated a retained real Qwen semantic candidate fixture from examples/input/test1_sanguo.txt with three schema-valid candidates and redacted run log metadata."
+  - at: "2026-06-06T17:20:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 14C-R completed human decisions covering accept, reject, and edit, then merged the real candidates into a separate schema-valid story_map artifact without mutating the source story_map."
+  - at: "2026-06-06T17:20:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 14D-R QA passed with focused Stage 12/13 tests, full pytest, schema validation, Stage 14 artifact security scan, and blackboard closeout."
+  - at: "2026-06-06T17:36:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 15A real merged story_map end-to-end draft sample contract defined without schema changes, provider changes, real LLM calls, or output generation."
+  - at: "2026-06-06T17:48:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 15B generated the deterministic real-enhanced end-to-end sample package from the Stage 14 merged story_map; CLI chain, preliminary schema checks, quality readiness, and story_map hash checks passed."
+  - at: "2026-06-06T18:02:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 15C end-to-end QA passed with focused Stage 4-8 tests, full pytest, schema validation, quality readiness explanation, artifact security scan, and unchanged Stage 14 story_map hashes."
+  - at: "2026-06-06T18:15:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 15D closeout completed: full pytest passed, Stage 14/15 artifacts remained schema-valid, generated artifact security scan passed, .env remained ignored, and commit grouping guidance was recorded."
+  - at: "2026-06-06T18:31:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 16A author review UX/CLI contract and author_review schema defined without LLM calls, screenplay mutation, Stage 15 artifact changes, or automatic Kimi/DeepSeek authorization."
+  - at: "2026-06-06T18:45:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 16B implemented deterministic prepare-author-review CLI with TDD, generated author review packet and schema-valid decisions template, and passed focused plus full pytest."
+  - at: "2026-06-06T18:58:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 16C generated and validated a schema-valid author review report approving structure, characters, beats, and quality while authorizing future Kimi dialogue drafting without running an LLM or modifying Stage 15 artifacts."
+  - at: "2026-06-06T19:10:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 16D author review closeout QA passed with focused/full pytest, schema validation, security scan, .env ignore verification, and Stage 17 Kimi dialogue draft readiness."
+  - at: "2026-06-06T19:28:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 17 Kimi dialogue/scene creative draft contract completed with creative_draft_candidates schema, prompt routing, architecture notes, contract tests, full pytest, and security scan."
+  - at: "2026-06-06T19:50:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 18A Kimi dialogue/scene mock-first runner and CLI completed with schema-valid human-review candidates, redacted run log, focused tests, full pytest, and no real LLM calls."
+  - at: "2026-06-06T20:04:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 18B mock creative draft sample validation completed with schema-valid candidate fixture, target resolution, unchanged source hashes, security scan, focused tests, and full pytest."
+  - at: "2026-06-06T20:18:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 18C closeout completed: creative draft, author review, story semantic, and full pytest passed; mock fixture schema, routing, hashes, .env ignore, and security scan verified for Stage 19 readiness."
+  - at: "2026-06-06T20:35:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 19A real Kimi creative draft readiness contract completed with hard gates, retention rules, schema/routing checks, focused tests, full pytest, .env ignore verification, and no real LLM calls."
+  - at: "2026-06-06T20:55:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 19B offline Kimi creative draft readiness gate implemented with TDD, CLI report generation, key-presence-only diagnostics, target/routing/schema checks, full pytest, and no network calls."
+  - at: "2026-06-06T21:10:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 19C readiness QA completed: focused creative/author tests, full pytest, mock schema validation, readiness status, hash checks, security scan, and .env ignore verification passed without any real Kimi call."
+  - at: "2026-06-06T21:35:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 20 single authorized real Kimi creative draft run attempted exactly once and blocked with provider authentication HTTP 401; no retry, no mock fallback, no retained sidecar, no retained run log, hashes unchanged, tests and safety scan passed."
+  - at: "2026-06-06T22:20:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 21A repaired local Kimi provider key normalization and dotenv base-url coverage, added deterministic creative draft apply support, attempted one authorized real Kimi call, and stopped on provider authentication HTTP 401 without retry, fallback, retained real artifacts, or screenplay mutation."
+  - at: "2026-06-06T23:11:31+08:00"
+    actor: parent_orchestrator
+    event: "Stage 22 completed offline Kimi credential/provider checks and exactly one minimal real Kimi probe; the probe remained blocked by authentication HTTP 401, with no retry, no prompt/raw/provider-body retention, no real creative sidecar, and no enhanced screenplay."
+  - at: "2026-06-06T23:29:23+08:00"
+    actor: parent_orchestrator
+    event: "Stage 22B used the human-authorized Chinese Kimi endpoint https://api.moonshot.cn/v1 for exactly one minimal probe with the existing local key; the failure changed from authentication HTTP 401 to HTTP 400, with no retry, no prompt/raw/provider-body retention, no creative sidecar, and no enhanced screenplay."
+  - at: "2026-06-07T03:43:08+08:00"
+    actor: parent_orchestrator
+    event: "Stage 22C/D completed cross-repository audit against E:\\health_ai_platform_2.0, repaired Kimi default endpoint to api.moonshot.cn, omitted response_format and temperature for Kimi compatibility, added fenced JSON parsing, verified focused/full pytest, and confirmed a minimal Kimi K2.6 provider response without retaining prompt/raw/provider bodies; full real creative drafting remains a separately authorized Stage 23 task."
+  - at: "2026-06-07T03:57:44+08:00"
+    actor: parent_orchestrator
+    event: "Stage 23 attempted exactly one user-authorized real Kimi creative drafter call with max_attempts=1 and stopped on provider/runtime tls_error; no retry, mock fallback, real candidate sidecar, run log, enhanced screenplay, apply report, or enhanced QA artifacts were retained."
+  - at: "2026-06-07T09:50:11+08:00"
+    actor: parent_orchestrator
+    event: "Stage 23R ran non-model DNS/TCP/TLS/HTTPS diagnostics and one user-authorized real Kimi creative drafter retry; TCP 443 reached api.moonshot.cn but Python OpenSSL, urllib, Windows WebRequest, and curl could not complete HTTPS/TLS, and the real drafter again failed with tls_error at attempt 1 of 1 without retained artifacts."
+  - at: "2026-06-07T10:03:47+08:00"
+    actor: parent_orchestrator
+    event: "Stage 23V verified VPN-restored terminal HTTPS access to api.moonshot.cn, executed exactly one authorized real Kimi creative drafter call, and stopped on finish_reason=length with truncated_model_output, zero candidates, no retry, no mock fallback, no real candidate sidecar, no enhanced screenplay, and only a redacted metadata run log retained."
+  - at: "2026-06-07T10:16:42+08:00"
+    actor: parent_orchestrator
+    event: "Stage 23W added TDD-covered Kimi thinking-disabled extra body support and increased the real creative output budget to 32768 tokens, executed exactly one authorized real Kimi creative drafter call, reached finish_reason=stop, and stopped on invalid_creative_draft_schema without retry, mock fallback, real candidate sidecar, enhanced screenplay, or apply report; stricter single-candidate prompt constraints were prepared offline for a future authorized attempt."
+  - at: "2026-06-07T10:32:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 23X used the tightened exact-one-candidate prompt for exactly one user-authorized real Kimi creative drafter call; Kimi returned finish_reason=stop with one schema-valid and target-valid candidate, retained only redacted run metadata, passed output safety scan and full pytest, and did not apply or generate enhanced screenplay pending separate authorization."
+  - at: "2026-06-07T10:45:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 23Y applied the retained real Kimi candidate to a new enhanced screenplay artifact, preserved the original screenplay hash, generated apply, validation, Fountain, review, roundtrip, quality, and dashboard artifacts, passed required focused tests and full pytest, passed output safety scan, and marked the project ready for Stage 24 author review."
+  - at: "2026-06-07T11:20:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 24A-D implemented shared real Kimi creative Agent infrastructure and four Agents: adaptation_planner, character_bible_agent, scene_writer_agent, and dialogue_optimizer_agent; each Agent now has prompt documentation, schema, sidecar output, redacted run log, CLI wiring, tests, AI inference and human-approval markers, one successful real Kimi K2.6 run, schema-valid candidates, safety scan pass, and full pytest pass."
+  - at: "2026-06-07T11:42:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 25 generated an author review packet and pending decisions template for the four Stage 24 Kimi candidates, executed selective apply in protected mode, selected zero candidates because no human accept/edit decisions were present, passed focused/full tests and safety scan, and blocked on pending author review decisions."
+  - at: "2026-06-07T11:55:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 25 accepted all four Stage 24 Kimi candidates under explicit user instruction, reran selective apply, generated selected-candidates sidecar with four accepted candidates, passed safety scan and full pytest, and marked the project ready for Stage 26 artifact apply planning."
+  - at: "2026-06-07T12:12:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 26 applied the four selected Stage 24 Kimi candidates to new outline, character_bible, and screenplay artifacts, preserved the original artifact hashes, generated a success apply report, passed schema validation, safety scan, focused tests, and full pytest, and marked the project ready for Stage 27 roundtrip/quality/author-review QA."
+  - at: "2026-06-07T12:28:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 27 completed validation, Fountain export, review, Fountain roundtrip, roundtrip validation, quality evaluation, quality dashboard, and author-review package generation for the Stage 26 screenplay; quality readiness passed with score 98 and decision ready_for_author_review, safety scan and full pytest passed."
+  - at: "2026-06-07T16:51:56+08:00"
+    actor: parent_orchestrator
+    event: "Stage 28 recorded the user's instruction to proceed as the human author-review decision entry for the Stage 26 package, generated a schema-valid Stage 26 author review report, approved structure/characters/beats/quality, requested dialogue drafting, and authorized future Kimi dialogue draft planning without calling any LLM."
+  - at: "2026-06-07T16:57:54+08:00"
+    actor: parent_orchestrator
+    event: "Stage 29 completed Kimi dialogue draft planning for the Stage 26 package, generated a no-network mock candidate sidecar and redacted mock run log, validated schema and target integrity, wrote the Stage 29 plan and planning report, and marked Stage 30 as the next explicit-authorized one-shot real Kimi dialogue draft stage."
+  - at: "2026-06-07T17:04:11+08:00"
+    actor: parent_orchestrator
+    event: "Stage 30 executed exactly one user-authorized real Kimi dialogue draft call with max_attempts=1, received finish_reason stop from kimi-k2.6, retained one schema-valid and target-valid candidate plus a redacted run log, passed safety checks, and did not apply the candidate."
+  - at: "2026-06-07T17:09:13+08:00"
+    actor: parent_orchestrator
+    event: "Stage 31 recorded human review acceptance of the one Stage 30 real Kimi dialogue candidate, generated review packet, decisions, and review report, retained candidate text only in the original sidecar, and kept application deferred to a protected Stage 32 artifact apply."
+  - at: "2026-06-07T17:40:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 32 applied the human-accepted Stage 30 real Kimi dialogue candidate, and completed the full downstream end-to-end validation, export, review, roundtrip, and quality dashboard QA chain."
