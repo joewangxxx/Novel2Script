@@ -26,6 +26,10 @@ from novel2script.agents.story_semantic_parser import run_story_semantic_parser
 from novel2script.exporters.fountain_exporter import export_fountain
 from novel2script.generators.screenplay_builder import build_screenplay
 from novel2script.importers.fountain_importer import sync_fountain_to_yaml
+from novel2script.reviewers.author_review import (
+    build_author_review_decisions_template,
+    render_author_review_packet,
+)
 from novel2script.io import read_text, read_yaml, write_yaml
 from novel2script.llm.openai_compatible_provider import (
     ProviderConfigurationError,
@@ -162,6 +166,14 @@ def main(argv: Sequence[str] | None = None) -> int:
     stage26_apply_parser.add_argument("--character-bible-out", required=True)
     stage26_apply_parser.add_argument("--screenplay-out", required=True)
     stage26_apply_parser.add_argument("--report", required=True)
+
+    author_review_parser = subparsers.add_parser("prepare-author-review")
+    author_review_parser.add_argument("--screenplay", required=True)
+    author_review_parser.add_argument("--review-report", required=True)
+    author_review_parser.add_argument("--quality-report", required=True)
+    author_review_parser.add_argument("--quality-dashboard", required=True)
+    author_review_parser.add_argument("--packet", required=True)
+    author_review_parser.add_argument("--decisions", required=True)
 
     merge_semantic_parser = subparsers.add_parser("merge-semantic-candidates")
     merge_semantic_parser.add_argument("--story-map", required=True)
@@ -533,6 +545,36 @@ def main(argv: Sequence[str] | None = None) -> int:
             return 1
         status = report["stage26_selected_candidate_apply_report"]["status"]
         return 0 if status in {"success", "partial"} else 1
+    if args.command == "prepare-author-review":
+        try:
+            screenplay = read_yaml(args.screenplay)
+            review_report = read_yaml(args.review_report)
+            quality_report = read_yaml(args.quality_report)
+            quality_dashboard = read_text(args.quality_dashboard)
+        except OSError as exc:
+            print(f"prepare-author-review failed: {exc}", file=sys.stderr)
+            return 1
+        source_paths = {
+            "screenplay": args.screenplay,
+            "review_report": args.review_report,
+            "quality_report": args.quality_report,
+            "quality_dashboard": args.quality_dashboard,
+        }
+        packet = render_author_review_packet(
+            screenplay,
+            review_report,
+            quality_report,
+            quality_dashboard,
+            source_paths=source_paths,
+        )
+        packet_path = Path(args.packet)
+        packet_path.parent.mkdir(parents=True, exist_ok=True)
+        packet_path.write_text(packet, encoding="utf-8", newline="\n")
+        write_yaml(
+            build_author_review_decisions_template(source_paths=source_paths),
+            args.decisions,
+        )
+        return 0
     if args.command == "merge-semantic-candidates":
         try:
             report = merge_semantic_candidates(
