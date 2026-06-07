@@ -190,6 +190,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     stage26_apply_parser.add_argument("--screenplay-out", required=True)
     stage26_apply_parser.add_argument("--report", required=True)
 
+    serve_workbench_parser = subparsers.add_parser("serve-workbench")
+    serve_workbench_parser.add_argument("--port", type=int, default=8000)
+    serve_workbench_parser.add_argument("--host", default="127.0.0.1")
+    serve_workbench_parser.add_argument("--no-browser", action="store_true")
+
     args = parser.parse_args(argv)
     if args.command == "validate":
         report = validate_screenplay(args.yaml_path, args.schema)
@@ -665,6 +670,51 @@ def main(argv: Sequence[str] | None = None) -> int:
             return 1
         status = report["stage26_selected_candidate_apply_report"]["status"]
         return 0 if status in {"success", "partial"} else 1
+    if args.command == "serve-workbench":
+        import http.server
+        import socketserver
+        import webbrowser
+        import threading
+        import time
+
+        workbench_dir = Path.cwd() / "workbench"
+        if not (workbench_dir / "index.html").exists():
+            workbench_dir = Path(__file__).resolve().parent.parent.parent.parent / "workbench"
+
+        if not (workbench_dir / "index.html").exists():
+            workbench_dir = Path.cwd() / "Novel2Script" / "workbench"
+
+        if not (workbench_dir / "index.html").exists():
+            print(
+                f"Error: Could not find workbench directory. Searched: "
+                f"{Path.cwd() / 'workbench'}, "
+                f"{Path(__file__).resolve().parent.parent.parent.parent / 'workbench'}, "
+                f"{Path.cwd() / 'Novel2Script' / 'workbench'}",
+                file=sys.stderr,
+            )
+            return 1
+
+        class DualHandler(http.server.SimpleHTTPRequestHandler):
+            def __init__(self, *args, **kwargs):
+                super().__init__(*args, directory=str(workbench_dir), **kwargs)
+
+        url = f"http://{args.host}:{args.port}/"
+
+        def open_browser():
+            time.sleep(0.5)
+            if not args.no_browser:
+                webbrowser.open(url)
+
+        threading.Thread(target=open_browser, daemon=True).start()
+
+        print(f"Serving workbench from {workbench_dir} at {url} ...")
+        socketserver.TCPServer.allow_reuse_address = True
+        try:
+            with socketserver.TCPServer((args.host, args.port), DualHandler) as httpd:
+                httpd.serve_forever()
+        except KeyboardInterrupt:
+            print("\nStopping server...")
+        return 0
     return 2
 
 

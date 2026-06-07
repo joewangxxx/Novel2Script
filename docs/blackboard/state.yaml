@@ -248,10 +248,31 @@ artifacts:
   stage_32_quality_report: "examples/output/test1_sanguo_quality_report.stage32.yaml"
   stage_32_quality_dashboard: "examples/output/test1_sanguo_quality_dashboard.stage32.md"
 contract_status:
-  state: draft
-  frozen_at: null
+  state: frozen
+  frozen_at: "2026-06-07T17:52:00+08:00"
   change_requests_dir: "docs/architecture/change-requests"
-  current_contract: "screenplay 0.1.0 draft; outline 0.1.0 draft; character_bible 0.1.0 draft; review_report 0.1.0 draft; fountain_roundtrip_report 0.1.0 draft; quality_report 0.1.0 draft; llm_provider 0.1.0 draft; agent_prompt_registry 0.1.0 draft; semantic_candidates 0.1.0 draft; real_llm_provider_opt_in 0.1.0 draft; semantic_candidate_decisions 0.1.0 draft; semantic_candidate_merge_report 0.1.0 draft; qwen_semantic_model_output 0.1.0 draft; author_review 0.1.0 draft; creative_draft_candidates 0.1.0 draft"
+  current_contract: "screenplay 0.1.0 frozen; outline 0.1.0 frozen; character_bible 0.1.0 frozen; review_report 0.1.0 frozen; fountain_roundtrip_report 0.1.0 frozen; quality_report 0.1.0 frozen; llm_provider 0.1.0 frozen; agent_prompt_registry 0.1.0 frozen; semantic_candidates 0.1.0 frozen; real_llm_provider_opt_in 0.1.0 frozen; semantic_candidate_decisions 0.1.0 frozen; semantic_candidate_merge_report 0.1.0 frozen; qwen_semantic_model_output 0.1.0 frozen; author_review 0.1.0 frozen; creative_draft_candidates 0.1.0 frozen"
+  frozen_hashes:
+    schemas/adaptation_planner_candidates.schema.json: "sha256:d6175f6d9a542d5ad92068d67cde0abb2b174de7a7dac0cb707c9a922b2baf39"
+    schemas/author_review.schema.json: "sha256:3af3d5cfa57d2cd66f8a1879b23c6b32b24dfa2408f3dddbb4308ac5f96ecf71"
+    schemas/beat_dramaturgy_agent_candidates.schema.json: "sha256:a0df28f39ebaf651be3ae06cb6cd56f885b1905ca9e70d1c91f2ecaa9ad1e732"
+    schemas/character_bible.schema.json: "sha256:8d1e78f60bac498f596f36efd2ec39025ca1adb0d507a136afc647f966ed886f"
+    schemas/character_bible_agent_candidates.schema.json: "sha256:beea62bdea28dbbc4b27fc047cae8627e9e0d7c59c9cff4e0294dd0e410342d9"
+    schemas/creative_draft_candidates.schema.json: "sha256:3bd484c9f1c76957b23d350ab44d43fdbab83a098916c874a4ecb30b6f6e7293"
+    schemas/dialogue_optimizer_agent_candidates.schema.json: "sha256:ff4d8bec92391800f47bbb443cf14fd90726f8611165f7b0d56f8ad2f10c1390"
+    schemas/fountain_roundtrip_report.schema.json: "sha256:16c74aa1e746ad57130d25dfeaedc4d8dab9bc3008132e5962391a2e9826bf38"
+    schemas/outline.schema.json: "sha256:b25a02c8616238cd7480cde67ab3b1970ace4e57d68687ec7991f8d66962506b"
+    schemas/quality_report.schema.json: "sha256:05ed81a5aeb7be32bb7488c6e0b98dff419b362ae9b034d93628e9d2d04516e8"
+    schemas/qwen_semantic_model_output.schema.json: "sha256:0ee3fe1caf6a350f8137276f0c25bd8b2cee5f554f467c8e7a6d8f2f241bfba1"
+    schemas/review_report.schema.json: "sha256:a3b63e188d861f03d2a4493717cbc73d6db3c42ddd639fa2e63e2010182da63b"
+    schemas/scene_writer_agent_candidates.schema.json: "sha256:858637e8a3b102ceb722168ae77f07d4dd9a86d627d78db0d94ae0c32bb04383"
+    schemas/screenplay.schema.json: "sha256:1fa386edf6cebc769d74c8e11cb83ade412abb2eb891da59fe0163e89c5ed3b8"
+    schemas/semantic_candidate_decisions.schema.json: "sha256:e43ff60c30bc6d3db1afe6183f80b43dcdcd3405b5480c85883dc6ae9dde3a8e"
+    schemas/semantic_candidate_merge_report.schema.json: "sha256:c40680b0af92efac0bbb1a09fe2174e43406e0b7bdea56b5d210aa8ffa86f767"
+    schemas/semantic_candidates.schema.json: "sha256:3a66c66b2f69a8c36869364463671432999a3ec4774e8ad77ade36f203a6da8b"
+    schemas/source_fidelity_reviewer_candidates.schema.json: "sha256:a9d0d67441f2860c9688151145182a79611537442167dd2b2e6b206afec2e06f"
+    schemas/story_map.schema.json: "sha256:9a256d64415e6c086a0a57cf2e00ba4e24118869ce6864b20daddad1dc776a37"
+    schemas/yaml_repair_agent_candidates.schema.json: "sha256:e370b09a74aa97b97ac2360efc6684a096accce6942cafe42d17727aea6ab231"
 retries:
   fe: 0
   be: 0
