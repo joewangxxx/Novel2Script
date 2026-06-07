@@ -1,0 +1,2963 @@
+schema_version: 0.1.0
+metadata:
+  title: 刘关张桃园结义
+  language: zh-CN
+  created_by: Novel2Script stage-five deterministic generator
+  created_at: '2026-06-05'
+source:
+  type: novel
+  chapter_count: 5
+  trace_unit: chapter_paragraph
+  story_map_file: examples/output/test1_sanguo_story_map.merged.yaml
+  outline_file: examples/output/test1_sanguo_outline.yaml
+  character_bible_file: examples/output/test1_sanguo_character_bible.yaml
+  source_trace_strategy: numeric_plus_ids
+adaptation_policy:
+  target_format: short_screenplay
+  allow_inference: true
+  preserve_source_order: true
+  generator_profile: deterministic_screenplay_builder_v0
+characters:
+- id: char_001
+  name: 汉灵帝
+  role: ''
+  source_trace:
+    chapter: 1
+    paragraph_range:
+    - 1
+    - 1
+    note: 角色候选：汉灵帝
+  source_trace_ids:
+    chapter_id: ch_001
+    paragraph_ids:
+    - p_001
+    quote_preview: 东汉末年，桓帝、灵帝宠信宦官，致使朝政日益腐败，民不聊生。到汉灵帝在位的时候，…
+    note: 角色候选：汉灵帝
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_002
+  name: 忽然
+  role: ''
+  source_trace:
+    chapter: 1
+    paragraph_range:
+    - 4
+    - 4
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_001
+    paragraph_ids:
+    - p_004
+    event_ids:
+    - evt_001
+    - evt_006
+    - evt_009
+    quote_preview: 刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_003
+  name: 回头看
+  role: ''
+  source_trace:
+    chapter: 1
+    paragraph_range:
+    - 4
+    - 4
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_001
+    paragraph_ids:
+    - p_004
+    event_ids:
+    - evt_001
+    quote_preview: 刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_004
+  name: 车子停
+  role: ''
+  source_trace:
+    chapter: 1
+    paragraph_range:
+    - 5
+    - 5
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_001
+    paragraph_ids:
+    - p_005
+    event_ids:
+    - evt_002
+    quote_preview: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_005
+  name: 流落
+  role: ''
+  source_trace:
+    chapter: 1
+    paragraph_range:
+    - 5
+    - 5
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_001
+    paragraph_ids:
+    - p_005
+    event_ids:
+    - evt_002
+    quote_preview: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_006
+  name: 张飞
+  role: ''
+  source_trace:
+    chapter: 1
+    paragraph_range:
+    - 4
+    - 4
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_001
+    paragraph_ids:
+    - p_004
+    event_ids:
+    - evt_001
+    - evt_002
+    - evt_003
+    quote_preview: 刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_007
+  name: 们应当
+  role: ''
+  source_trace:
+    chapter: 1
+    paragraph_range:
+    - 5
+    - 5
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_001
+    paragraph_ids:
+    - p_005
+    event_ids:
+    - evt_002
+    quote_preview: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_008
+  name: 三人
+  role: ''
+  source_trace:
+    chapter: 1
+    paragraph_range:
+    - 5
+    - 5
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_001
+    paragraph_ids:
+    - p_005
+    event_ids:
+    - evt_002
+    quote_preview: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_009
+  name: 督邮仅
+  role: ''
+  source_trace:
+    chapter: 1
+    paragraph_range:
+    - 8
+    - 8
+    note: 角色候选：督邮仅
+  source_trace_ids:
+    chapter_id: ch_001
+    paragraph_ids:
+    - p_008
+    quote_preview: 刘备上任不满四个月，上面就派了一名督邮来巡查。刘备毕恭毕敬地出城迎接。那督邮却…
+    note: 角色候选：督邮仅
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_010
+  name: 胁刘备
+  role: ''
+  source_trace:
+    chapter: 1
+    paragraph_range:
+    - 8
+    - 8
+    note: 角色候选：胁刘备
+  source_trace_ids:
+    chapter_id: ch_001
+    paragraph_ids:
+    - p_008
+    quote_preview: 刘备上任不满四个月，上面就派了一名督邮来巡查。刘备毕恭毕敬地出城迎接。那督邮却…
+    note: 角色候选：胁刘备
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_011
+  name: 县吏
+  role: ''
+  source_trace:
+    chapter: 1
+    paragraph_range:
+    - 9
+    - 9
+    note: 角色候选：县吏
+  source_trace_ids:
+    chapter_id: ch_001
+    paragraph_ids:
+    - p_009
+    quote_preview: 刘备回到县里，与县吏商议。县吏说：“督邮大耍威风，无非是想索要贿赂罢了。”刘备…
+    note: 角色候选：县吏
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_012
+  name: 都被拦
+  role: ''
+  source_trace:
+    chapter: 1
+    paragraph_range:
+    - 9
+    - 9
+    note: 角色候选：都被拦
+  source_trace_ids:
+    chapter_id: ch_001
+    paragraph_ids:
+    - p_009
+    quote_preview: 刘备回到县里，与县吏商议。县吏说：“督邮大耍威风，无非是想索要贿赂罢了。”刘备…
+    note: 角色候选：都被拦
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_013
+  name: 人都
+  role: ''
+  source_trace:
+    chapter: 1
+    paragraph_range:
+    - 10
+    - 10
+    note: 角色候选：人都
+  source_trace_ids:
+    chapter_id: ch_001
+    paragraph_ids:
+    - p_010
+    quote_preview: 一天张飞喝了几杯闷酒，骑马经过驿馆，看见五六十个老人都在门前痛哭。张飞上前询问…
+    note: 角色候选：人都
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_014
+  name: 邮正坐
+  role: ''
+  source_trace:
+    chapter: 1
+    paragraph_range:
+    - 10
+    - 10
+    note: 角色候选：邮正坐
+  source_trace_ids:
+    chapter_id: ch_001
+    paragraph_ids:
+    - p_010
+    quote_preview: 一天张飞喝了几杯闷酒，骑马经过驿馆，看见五六十个老人都在门前痛哭。张飞上前询问…
+    note: 角色候选：邮正坐
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_015
+  name: 吏绑倒
+  role: ''
+  source_trace:
+    chapter: 1
+    paragraph_range:
+    - 10
+    - 10
+    note: 角色候选：吏绑倒
+  source_trace_ids:
+    chapter_id: ch_001
+    paragraph_ids:
+    - p_010
+    quote_preview: 一天张飞喝了几杯闷酒，骑马经过驿馆，看见五六十个老人都在门前痛哭。张飞上前询问…
+    note: 角色候选：吏绑倒
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_016
+  name: 刘备
+  role: ''
+  source_trace:
+    chapter: 1
+    paragraph_range:
+    - 4
+    - 4
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_001
+    paragraph_ids:
+    - p_004
+    event_ids:
+    - evt_001
+    - evt_002
+    - evt_003
+    quote_preview: 刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_017
+  name: 卓大权
+  role: ''
+  source_trace:
+    chapter: 2
+    paragraph_range:
+    - 3
+    - 3
+    note: 角色候选：卓大权
+  source_trace_ids:
+    chapter_id: ch_002
+    paragraph_ids:
+    - p_003
+    quote_preview: 不久，董卓废掉刘辩，立九岁的陈留王刘协为帝，这就是汉献帝。董卓自己做了相国。此…
+    note: 角色候选：卓大权
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_018
+  name: 绍逃避
+  role: ''
+  source_trace:
+    chapter: 2
+    paragraph_range:
+    - 4
+    - 4
+    note: 角色候选：绍逃避
+  source_trace_ids:
+    chapter_id: ch_002
+    paragraph_ids:
+    - p_004
+    quote_preview: 董卓专权后，袁绍逃避在外，开始联络司徒王允伺机除掉董卓。一日，王允宴请众臣，在…
+    note: 角色候选：绍逃避
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_019
+  name: 操佩刀
+  role: ''
+  source_trace:
+    chapter: 2
+    paragraph_range:
+    - 7
+    - 7
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_002
+    paragraph_ids:
+    - p_007
+    event_ids:
+    - evt_004
+    quote_preview: 次日，曹操佩刀来到相府，见董卓坐于床上，吕布侍立一旁。曹操推说马慢来迟，董卓便…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_020
+  name: 曹操推
+  role: ''
+  source_trace:
+    chapter: 2
+    paragraph_range:
+    - 7
+    - 7
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_002
+    paragraph_ids:
+    - p_007
+    event_ids:
+    - evt_004
+    quote_preview: 次日，曹操佩刀来到相府，见董卓坐于床上，吕布侍立一旁。曹操推说马慢来迟，董卓便…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_021
+  name: 人悄悄
+  role: ''
+  source_trace:
+    chapter: 2
+    paragraph_range:
+    - 12
+    - 12
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_002
+    paragraph_ids:
+    - p_012
+    event_ids:
+    - evt_006
+    quote_preview: 曹操与陈宫坐了好久，忽然听见庄后有磨刀的声音。曹操道：“吕伯奢不是我的至亲，此…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_022
+  name: 我本来
+  role: ''
+  source_trace:
+    chapter: 2
+    paragraph_range:
+    - 15
+    - 15
+    note: 角色候选：我本来
+  source_trace_ids:
+    chapter_id: ch_002
+    paragraph_ids:
+    - p_015
+    quote_preview: 晚上投宿客店，曹操先睡，陈宫寻思：“我本来以为曹操是个好人，弃官跟他，谁知是这…
+    note: 角色候选：我本来
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_023
+  name: 的三人
+  role: ''
+  source_trace:
+    chapter: 3
+    paragraph_range:
+    - 3
+    - 3
+    note: 角色候选：的三人
+  source_trace_ids:
+    chapter_id: ch_003
+    paragraph_ids:
+    - p_003
+    quote_preview: 袁绍得知孙坚败阵，聚众商议对策。说起华雄英勇无敌，众人都低头默默不语，只有公孙…
+    note: 角色候选：的三人
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_024
+  name: 一个人
+  role: ''
+  source_trace:
+    chapter: 3
+    paragraph_range:
+    - 4
+    - 4
+    note: 角色候选：一个人
+  source_trace_ids:
+    chapter_id: ch_003
+    paragraph_ids:
+    - p_004
+    quote_preview: 忽然探子来报：华雄前来挑战。袁术部将俞涉出马，战不到三回合，被华雄斩了。韩馥命…
+    note: 角色候选：一个人
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_025
+  name: 操急忙
+  role: ''
+  source_trace:
+    chapter: 3
+    paragraph_range:
+    - 5
+    - 5
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_003
+    paragraph_ids:
+    - p_005
+    event_ids:
+    - evt_007
+    quote_preview: 袁绍话音未落，只听见阶下有人高声叫道：“小将愿去斩了华雄首级，献于帐下！”只见…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_026
+  name: 众人只
+  role: ''
+  source_trace:
+    chapter: 3
+    paragraph_range:
+    - 6
+    - 6
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_003
+    paragraph_ids:
+    - p_006
+    event_ids:
+    - evt_008
+    quote_preview: 曹操叫人斟了一杯热酒，让关羽饮了再上马。关羽道：“酒且放下，我去去就来！”出帐…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_027
+  name: 首级掷
+  role: ''
+  source_trace:
+    chapter: 3
+    paragraph_range:
+    - 6
+    - 6
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_003
+    paragraph_ids:
+    - p_006
+    event_ids:
+    - evt_008
+    quote_preview: 曹操叫人斟了一杯热酒，让关羽饮了再上马。关羽道：“酒且放下，我去去就来！”出帐…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_028
+  name: 岂敢
+  role: ''
+  source_trace:
+    chapter: 3
+    paragraph_range:
+    - 7
+    - 7
+    note: 角色候选：岂敢
+  source_trace_ids:
+    chapter_id: ch_003
+    paragraph_ids:
+    - p_007
+    quote_preview: 曹操大喜之时，刘备身后转出张飞，高声大叫：“俺哥哥斩了华雄，现在不杀上关去活捉…
+    note: 角色候选：岂敢
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_029
+  name: 人张飞
+  role: ''
+  source_trace:
+    chapter: 3
+    paragraph_range:
+    - 9
+    - 9
+    note: 角色候选：人张飞
+  source_trace_ids:
+    chapter_id: ch_003
+    paragraph_ids:
+    - p_009
+    quote_preview: 又一天，八路诸侯一齐出战。公孙瓒亲自出马来战吕布。没几个回合，公孙瓒败走。吕布…
+    note: 角色候选：人张飞
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_030
+  name: 卓部下
+  role: ''
+  source_trace:
+    chapter: 3
+    paragraph_range:
+    - 12
+    - 12
+    note: 角色候选：卓部下
+  source_trace_ids:
+    chapter_id: ch_003
+    paragraph_ids:
+    - p_012
+    quote_preview: 董卓得知吕布兵败，见袁绍势大，便决定放弃洛阳，迁都长安。他命人残杀了洛阳几千家…
+    note: 角色候选：卓部下
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_031
+  name: 孙坚
+  role: ''
+  source_trace:
+    chapter: 3
+    paragraph_range:
+    - 13
+    - 13
+    note: 角色候选：孙坚
+  source_trace_ids:
+    chapter_id: ch_003
+    paragraph_ids:
+    - p_013
+    quote_preview: 各路诸侯趁势进了洛阳城。曹操建议袁绍，应该趁董卓逃走之机追杀董卓，然而各路诸侯…
+    note: 角色候选：孙坚
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_032
+  name: 里报告
+  role: ''
+  source_trace:
+    chapter: 3
+    paragraph_range:
+    - 13
+    - 13
+    note: 角色候选：里报告
+  source_trace_ids:
+    chapter_id: ch_003
+    paragraph_ids:
+    - p_013
+    quote_preview: 各路诸侯趁势进了洛阳城。曹操建议袁绍，应该趁董卓逃走之机追杀董卓，然而各路诸侯…
+    note: 角色候选：里报告
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_033
+  name: 百人住
+  role: ''
+  source_trace:
+    chapter: 4
+    paragraph_range:
+    - 1
+    - 1
+    note: 角色候选：百人住
+  source_trace_ids:
+    chapter_id: ch_004
+    paragraph_ids:
+    - p_001
+    quote_preview: 董卓到了长安，愈加骄横。他征集二十五万民夫，在长安附近替自己修了一座坚固的城堡…
+    note: 角色候选：百人住
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_034
+  name: 着月光
+  role: ''
+  source_trace:
+    chapter: 4
+    paragraph_range:
+    - 2
+    - 2
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_004
+    paragraph_ids:
+    - p_002
+    event_ids:
+    - evt_009
+    quote_preview: 一天夜里，司徒王允想到董卓的残暴，睡不着觉，便趁着月光来到后花园，仰天落泪。忽…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_035
+  name: 边有人
+  role: ''
+  source_trace:
+    chapter: 4
+    paragraph_range:
+    - 2
+    - 2
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_004
+    paragraph_ids:
+    - p_002
+    event_ids:
+    - evt_009
+    quote_preview: 一天夜里，司徒王允想到董卓的残暴，睡不着觉，便趁着月光来到后花园，仰天落泪。忽…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_036
+  name: 人从小
+  role: ''
+  source_trace:
+    chapter: 4
+    paragraph_range:
+    - 3
+    - 3
+    note: 角色候选：人从小
+  source_trace_ids:
+    chapter_id: ch_004
+    paragraph_ids:
+    - p_003
+    quote_preview: 王允听了好久，问道：“你难道有什么心事吗？”貂蝉见是王允，慌忙跪下道：“大人从…
+    note: 角色候选：人从小
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_037
+  name: 因此
+  role: ''
+  source_trace:
+    chapter: 1
+    paragraph_range:
+    - 4
+    - 4
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_001
+    paragraph_ids:
+    - p_004
+    event_ids:
+    - evt_001
+    quote_preview: 刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_038
+  name: 地跪倒
+  role: ''
+  source_trace:
+    chapter: 4
+    paragraph_range:
+    - 4
+    - 4
+    note: 角色候选：地跪倒
+  source_trace_ids:
+    chapter_id: ch_004
+    paragraph_ids:
+    - p_004
+    quote_preview: 王允听了，心里有了主意。他把貂蝉叫进里屋，朝貂蝉跪下便拜。貂蝉吃惊地跪倒在地，…
+    note: 角色候选：地跪倒
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_039
+  name: 我先
+  role: ''
+  source_trace:
+    chapter: 4
+    paragraph_range:
+    - 4
+    - 4
+    note: 角色候选：我先
+  source_trace_ids:
+    chapter_id: ch_004
+    paragraph_ids:
+    - p_004
+    quote_preview: 王允听了，心里有了主意。他把貂蝉叫进里屋，朝貂蝉跪下便拜。貂蝉吃惊地跪倒在地，…
+    note: 角色候选：我先
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_040
+  name: 允乘机
+  role: ''
+  source_trace:
+    chapter: 4
+    paragraph_range:
+    - 5
+    - 5
+    note: 角色候选：允乘机
+  source_trace_ids:
+    chapter_id: ch_004
+    paragraph_ids:
+    - p_005
+    quote_preview: 第二天，王允取了几颗明珠，请能工巧匠专门精制了一顶金冠送给吕布。吕布大喜，亲自…
+    note: 角色候选：允乘机
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_041
+  name: 王允又
+  role: ''
+  source_trace:
+    chapter: 4
+    paragraph_range:
+    - 5
+    - 5
+    note: 角色候选：王允又
+  source_trace_ids:
+    chapter_id: ch_004
+    paragraph_ids:
+    - p_005
+    quote_preview: 第二天，王允取了几颗明珠，请能工巧匠专门精制了一顶金冠送给吕布。吕布大喜，亲自…
+    note: 角色候选：王允又
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_042
+  name: 王允
+  role: ''
+  source_trace:
+    chapter: 4
+    paragraph_range:
+    - 2
+    - 2
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_004
+    paragraph_ids:
+    - p_002
+    event_ids:
+    - evt_009
+    quote_preview: 一天夜里，司徒王允想到董卓的残暴，睡不着觉，便趁着月光来到后花园，仰天落泪。忽…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_043
+  name: 一段话
+  role: ''
+  source_trace:
+    chapter: 4
+    paragraph_range:
+    - 7
+    - 7
+    note: 角色候选：一段话
+  source_trace_ids:
+    chapter_id: ch_004
+    paragraph_ids:
+    - p_007
+    quote_preview: 王允回来时，正遇上吕布，便编了一段话说董卓要将貂蝉接去与吕布成亲。吕布信以为真…
+    note: 角色候选：一段话
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_044
+  name: 又只听
+  role: ''
+  source_trace:
+    chapter: 4
+    paragraph_range:
+    - 7
+    - 7
+    note: 角色候选：又只听
+  source_trace_ids:
+    chapter_id: ch_004
+    paragraph_ids:
+    - p_007
+    quote_preview: 王允回来时，正遇上吕布，便编了一段话说董卓要将貂蝉接去与吕布成亲。吕布信以为真…
+    note: 角色候选：又只听
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_045
+  name: 貂蝉正
+  role: ''
+  source_trace:
+    chapter: 4
+    paragraph_range:
+    - 7
+    - 7
+    note: 角色候选：貂蝉正
+  source_trace_ids:
+    chapter_id: ch_004
+    paragraph_ids:
+    - p_007
+    quote_preview: 王允回来时，正遇上吕布，便编了一段话说董卓要将貂蝉接去与吕布成亲。吕布信以为真…
+    note: 角色候选：貂蝉正
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_046
+  name: 貂蝉
+  role: ''
+  source_trace:
+    chapter: 4
+    paragraph_range:
+    - 2
+    - 2
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_004
+    paragraph_ids:
+    - p_002
+    event_ids:
+    - evt_009
+    - evt_010
+    quote_preview: 一天夜里，司徒王允想到董卓的残暴，睡不着觉，便趁着月光来到后花园，仰天落泪。忽…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_047
+  name: 约吕布
+  role: ''
+  source_trace:
+    chapter: 4
+    paragraph_range:
+    - 9
+    - 9
+    note: 角色候选：约吕布
+  source_trace_ids:
+    chapter_id: ch_004
+    paragraph_ids:
+    - p_009
+    quote_preview: 此后一天，吕布趁董卓上朝来找貂蝉。貂蝉偷偷约吕布在后园凤仪亭相见。貂蝉向吕布诉…
+    note: 角色候选：约吕布
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_048
+  name: 吕布诉
+  role: ''
+  source_trace:
+    chapter: 4
+    paragraph_range:
+    - 9
+    - 9
+    note: 角色候选：吕布诉
+  source_trace_ids:
+    chapter_id: ch_004
+    paragraph_ids:
+    - p_009
+    quote_preview: 此后一天，吕布趁董卓上朝来找貂蝉。貂蝉偷偷约吕布在后园凤仪亭相见。貂蝉向吕布诉…
+    note: 角色候选：吕布诉
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_049
+  name: 早就听
+  role: ''
+  source_trace:
+    chapter: 4
+    paragraph_range:
+    - 9
+    - 9
+    note: 角色候选：早就听
+  source_trace_ids:
+    chapter_id: ch_004
+    paragraph_ids:
+    - p_009
+    quote_preview: 此后一天，吕布趁董卓上朝来找貂蝉。貂蝉偷偷约吕布在后园凤仪亭相见。貂蝉向吕布诉…
+    note: 角色候选：早就听
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_050
+  name: 董卓
+  role: ''
+  source_trace:
+    chapter: 2
+    paragraph_range:
+    - 7
+    - 7
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_002
+    paragraph_ids:
+    - p_007
+    event_ids:
+    - evt_004
+    - evt_009
+    - evt_010
+    quote_preview: 次日，曹操佩刀来到相府，见董卓坐于床上，吕布侍立一旁。曹操推说马慢来迟，董卓便…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_051
+  name: 画戟靠
+  role: ''
+  source_trace:
+    chapter: 4
+    paragraph_range:
+    - 10
+    - 10
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_004
+    paragraph_ids:
+    - p_010
+    event_ids:
+    - evt_010
+    quote_preview: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_052
+  name: 两人
+  role: ''
+  source_trace:
+    chapter: 2
+    paragraph_range:
+    - 12
+    - 12
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_002
+    paragraph_ids:
+    - p_012
+    event_ids:
+    - evt_006
+    - evt_010
+    quote_preview: 曹操与陈宫坐了好久，忽然听见庄后有磨刀的声音。曹操道：“吕伯奢不是我的至亲，此…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_053
+  name: 亭中
+  role: ''
+  source_trace:
+    chapter: 4
+    paragraph_range:
+    - 10
+    - 10
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_004
+    paragraph_ids:
+    - p_010
+    event_ids:
+    - evt_010
+    quote_preview: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_054
+  name: 戟打落
+  role: ''
+  source_trace:
+    chapter: 4
+    paragraph_range:
+    - 10
+    - 10
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_004
+    paragraph_ids:
+    - p_010
+    event_ids:
+    - evt_010
+    quote_preview: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_055
+  name: 又哭着
+  role: ''
+  source_trace:
+    chapter: 4
+    paragraph_range:
+    - 10
+    - 10
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_004
+    paragraph_ids:
+    - p_010
+    event_ids:
+    - evt_010
+    quote_preview: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_056
+  name: 布立马
+  role: ''
+  source_trace:
+    chapter: 4
+    paragraph_range:
+    - 10
+    - 10
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_004
+    paragraph_ids:
+    - p_010
+    event_ids:
+    - evt_010
+    quote_preview: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_057
+  name: 儿奉先
+  role: ''
+  source_trace:
+    chapter: 4
+    paragraph_range:
+    - 11
+    - 11
+    note: 角色候选：儿奉先
+  source_trace_ids:
+    chapter_id: ch_004
+    paragraph_ids:
+    - p_011
+    quote_preview: 王允见时机成熟，便用言语激怒吕布。吕布当即立下誓言，要杀董卓。过了几天，王允派…
+    note: 角色候选：儿奉先
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_058
+  name: 体被扔
+  role: ''
+  source_trace:
+    chapter: 4
+    paragraph_range:
+    - 11
+    - 11
+    note: 角色候选：体被扔
+  source_trace_ids:
+    chapter_id: ch_004
+    paragraph_ids:
+    - p_011
+    quote_preview: 王允见时机成熟，便用言语激怒吕布。吕布当即立下誓言，要杀董卓。过了几天，王允派…
+    note: 角色候选：体被扔
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_059
+  name: 等人听
+  role: ''
+  source_trace:
+    chapter: 4
+    paragraph_range:
+    - 12
+    - 12
+    note: 角色候选：等人听
+  source_trace_ids:
+    chapter_id: ch_004
+    paragraph_ids:
+    - p_012
+    quote_preview: 董卓部将李傕等人听说董卓被杀，便从陕西招兵十余万，分四路杀进长安。吕布抵挡不住…
+    note: 角色候选：等人听
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_060
+  name: 曹操
+  role: ''
+  source_trace:
+    chapter: 2
+    paragraph_range:
+    - 7
+    - 7
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_002
+    paragraph_ids:
+    - p_007
+    event_ids:
+    - evt_004
+    - evt_005
+    - evt_006
+    quote_preview: 次日，曹操佩刀来到相府，见董卓坐于床上，吕布侍立一旁。曹操推说马慢来迟，董卓便…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_061
+  name: 哭倒
+  role: ''
+  source_trace:
+    chapter: 5
+    paragraph_range:
+    - 2
+    - 2
+    note: 角色候选：哭倒
+  source_trace_ids:
+    chapter_id: ch_005
+    paragraph_ids:
+    - p_002
+    quote_preview: 曹操得到音讯，哭倒在地。曹操切齿道：“陶谦纵容手下杀我父亲，此仇不共戴天！我现…
+    note: 角色候选：哭倒
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_062
+  name: 我现
+  role: ''
+  source_trace:
+    chapter: 5
+    paragraph_range:
+    - 2
+    - 2
+    note: 角色候选：我现
+  source_trace_ids:
+    chapter_id: ch_005
+    paragraph_ids:
+    - p_002
+    quote_preview: 曹操得到音讯，哭倒在地。曹操切齿道：“陶谦纵容手下杀我父亲，此仇不共戴天！我现…
+    note: 角色候选：我现
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_063
+  name: 对部下
+  role: ''
+  source_trace:
+    chapter: 5
+    paragraph_range:
+    - 3
+    - 3
+    note: 角色候选：对部下
+  source_trace_ids:
+    chapter_id: ch_005
+    paragraph_ids:
+    - p_003
+    quote_preview: 陶谦，字恭祖，本是一个温厚君子，见曹操起兵报仇，杀戮百姓，仰天痛哭。他对部下说…
+    note: 角色候选：对部下
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_064
+  name: 并不
+  role: ''
+  source_trace:
+    chapter: 5
+    paragraph_range:
+    - 4
+    - 4
+    note: 角色候选：并不
+  source_trace_ids:
+    chapter_id: ch_005
+    paragraph_ids:
+    - p_004
+    quote_preview: 麋竺见了孔融，说了来意。正商议间，忽然黄巾余党管亥带领几万人杀向徐州。孔融料想…
+    note: 角色候选：并不
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_065
+  name: 麋竺也
+  role: ''
+  source_trace:
+    chapter: 5
+    paragraph_range:
+    - 6
+    - 6
+    note: 角色候选：麋竺也
+  source_trace_ids:
+    chapter_id: ch_005
+    paragraph_ids:
+    - p_006
+    quote_preview: 刘备借得两千兵马和勇将赵云，连同本部三千人来救徐州。到了徐州城下，张飞一阵冲杀…
+    note: 角色候选：麋竺也
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_066
+  name: 下都将
+  role: ''
+  source_trace:
+    chapter: 5
+    paragraph_range:
+    - 8
+    - 8
+    note: 角色候选：下都将
+  source_trace_ids:
+    chapter_id: ch_005
+    paragraph_ids:
+    - p_008
+    quote_preview: 闻知曹操退兵，陶谦大喜，邀请众人聚会。饮宴后，陶谦请刘备坐于上座，再三要让徐州…
+    note: 角色候选：下都将
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_067
+  name: 刘备先
+  role: ''
+  source_trace:
+    chapter: 5
+    paragraph_range:
+    - 8
+    - 8
+    note: 角色候选：刘备先
+  source_trace_ids:
+    chapter_id: ch_005
+    paragraph_ids:
+    - p_008
+    quote_preview: 闻知曹操退兵，陶谦大喜，邀请众人聚会。饮宴后，陶谦请刘备坐于上座，再三要让徐州…
+    note: 角色候选：刘备先
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_068
+  name: 意推辞
+  role: ''
+  source_trace:
+    chapter: 5
+    paragraph_range:
+    - 11
+    - 11
+    note: 角色候选：意推辞
+  source_trace_ids:
+    chapter_id: ch_005
+    paragraph_ids:
+    - p_011
+    quote_preview: 于是刘备率众出城三十里迎接吕布，跟吕布并马进了徐州。谈话间，刘备提出要将徐州相…
+    note: 角色候选：意推辞
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_069
+  name: 吕布
+  role: ''
+  source_trace:
+    chapter: 2
+    paragraph_range:
+    - 7
+    - 7
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_002
+    paragraph_ids:
+    - p_007
+    event_ids:
+    - evt_004
+    - evt_010
+    quote_preview: 次日，曹操佩刀来到相府，见董卓坐于床上，吕布侍立一旁。曹操推说马慢来迟，董卓便…
+    note: 动作或状态变化关键词命中
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_070
+  name: 始大权
+  role: ''
+  source_trace:
+    chapter: 5
+    paragraph_range:
+    - 15
+    - 15
+    note: 角色候选：始大权
+  source_trace_ids:
+    chapter_id: ch_005
+    paragraph_ids:
+    - p_015
+    quote_preview: 曹操进洛阳击退了李榷、郭汜，自己做了丞相。曹操见洛阳荒废，让献帝迁都许都。献帝…
+    note: 角色候选：始大权
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+- id: char_071
+  name: 仍然驻
+  role: ''
+  source_trace:
+    chapter: 5
+    paragraph_range:
+    - 16
+    - 16
+    note: 角色候选：仍然驻
+  source_trace_ids:
+    chapter_id: ch_005
+    paragraph_ids:
+    - p_016
+    quote_preview: 曹操为了让吕布与刘备互相残杀，下诏正式封刘备为徐州牧，并写密信让刘备杀吕布。刘…
+    note: 角色候选：仍然驻
+  ai_tags:
+    inferred: true
+    confidence: low
+    needs_human_review: true
+    notes:
+    - Character bible profile is a deterministic shell and requires human review.
+  locked: false
+scenes:
+- id: scene_001
+  heading: INT./EXT. UNKNOWN - TIME UNKNOWN
+  location: ''
+  time: ''
+  source_trace:
+    chapter: 1
+    paragraph_range:
+    - 4
+    - 4
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_001
+    paragraph_ids:
+    - p_004
+    event_ids:
+    - evt_001
+    outline_scene_ids:
+    - osp_001
+    quote_preview: 刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家…
+    note: 动作或状态变化关键词命中
+  source_outline_scene_id: osp_001
+  source_event_ids:
+  - evt_001
+  beats:
+  - id: beat_001
+    objective: 刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家出力，叹什么气！”刘备回头看说话的人，只见他身高八尺，豹头环眼，…
+    tactic: 'Use visible source action: 刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家出力，叹什么气！”刘备回头看说话的人，只见他身高八尺，豹头环眼，燕颔虎须，声若巨…'
+    obstacle: Source evidence is incomplete or requires adaptation review.
+    conflict: The visible scene action must be shaped into screen conflict without
+      adding unsupported facts.
+    stakes: Review the source event consequence before treating stakes as canon.
+    turn: 刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家出力，叹什么气！”刘备回头看说话的人，只见他身高八尺，豹头环眼，燕颔虎须，声若巨…
+    externalized_action: 刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家出力，叹什么气！”刘备回头看说话的人，只见他身高八尺，豹头环眼，燕颔虎须，声若巨…
+    source_trace:
+      chapter: 1
+      paragraph_range:
+      - 4
+      - 4
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_004
+      event_ids:
+      - evt_001
+      outline_scene_ids:
+      - osp_001
+      quote_preview: 刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Beat fields are deterministic adaptation scaffolding and require human review.
+  elements:
+  - type: action
+    text: 刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家出力，叹什么气！”刘备回头看说话的人，只见他身高八尺，豹头环眼，燕颔虎须，声若巨…
+    source_trace:
+      chapter: 1
+      paragraph_range:
+      - 4
+      - 4
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_004
+      event_ids:
+      - evt_001
+      outline_scene_ids:
+      - osp_001
+      quote_preview: 刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Action element is derived from key_event or outline purpose.
+  - type: note
+    text: Review this deterministic scene draft before treating it as final screenplay
+      prose.
+    source_trace:
+      chapter: 1
+      paragraph_range:
+      - 4
+      - 4
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_004
+      event_ids:
+      - evt_001
+      outline_scene_ids:
+      - osp_001
+      quote_preview: 刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: low
+      needs_human_review: true
+      notes:
+      - Note element records adaptation uncertainty instead of inventing dialogue.
+  - type: action
+    text: 他指尖悬在门把上方，金属的凉意渗进掌纹，却迟迟不敢压下。
+    source_trace:
+      chapter: 1
+      note: 动作或状态变化关键词命中
+      paragraph_range:
+      - 4
+      - 4
+    source_trace_ids:
+      chapter_id: ch_001
+      event_ids:
+      - evt_001
+      outline_scene_ids:
+      - osp_001
+      paragraph_ids:
+      - p_004
+    ai_tags:
+      inferred: true
+      confidence: high
+      needs_human_review: true
+      notes:
+      - Creative draft candidate crecand_001 requires author approval.
+    creative_draft_candidate_id: crecand_001
+    requires_author_approval: true
+    provider_profile: kimi_creative
+  - type: action
+    text: 'EXT. TOWN SQUARE - DAY
+
+
+      A weathered NOTICE BOARD stands at the crossroads, CROWDS milling past. LIU
+      BEI (30s, worn sandals, frayed robes—descended of imperial blood, yet sunk to
+      weaving mats) stops before it. His eyes trace the OFFICIAL PROCLAMATION: a call
+      to arms against the Yellow Turbans.
+
+
+      He exhales—a long, weighted SIGH. Shoulders slump. Fingers tighten on his woven
+      satchel.
+
+
+      VOICE (O.S.)
+
+      (rough, contemptuous)
+
+      A true man who does nothing for his country—
+
+
+      Liu Bei turns.
+
+
+      Zhang Fei (40s, blacksmith''s build, bristling beard) glares at him from two
+      paces away, meat-wine breath, fists like hams.
+
+
+      The SOUND of the crowd DROPS AWAY. Two men locked in the first spark of history.'
+    source_trace:
+      chapter: 1
+      paragraph_range:
+      - 4
+      - 4
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_001
+      event_ids:
+      - evt_001
+      outline_scene_ids:
+      - osp_001
+      paragraph_ids:
+      - p_004
+    ai_tags:
+      inferred: true
+      confidence: high
+      needs_human_review: true
+      notes:
+      - stage24/scenewrite_001
+      - Applied from stage24/scenewrite_001 after human acceptance.
+    stage24_candidate_id: scenewrite_001
+    stage24_agent_id: scene_writer_agent
+    requires_author_approval: true
+    provider_profile: kimi_creative
+  - type: dialogue
+    text: '(turning from the notice, shoulders heavy)
+
+
+      LIU BEI
+
+      (sighs, low and long)
+
+
+      Another day. Another call to arms I''ll never answer.
+
+
+      A VOICE (O.S.)
+
+      (sharp, cutting)
+
+
+      A real man doesn''t sigh at his country''s wounds!
+
+
+      Liu Bei turns. Behind him, ZHANG FEI — a towering figure, eyes blazing with
+      contempt.'
+    source_trace:
+      chapter: 1
+      paragraph_range:
+      - 4
+      - 4
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_001
+      event_ids:
+      - evt_001
+      outline_scene_ids:
+      - osp_001
+      paragraph_ids:
+      - p_004
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - stage24/dialogueopt_001
+      - Applied from stage24/dialogueopt_001 after human acceptance.
+    stage24_candidate_id: dialogueopt_001
+    stage24_agent_id: dialogue_optimizer_agent
+    requires_author_approval: true
+    provider_profile: kimi_creative
+    character_id: char_001
+  - type: action
+    text: 她指尖悬在门把上，金属的凉意渗进指腹，三秒后才压下去。
+    source_trace:
+      chapter: 1
+      note: 动作或状态变化关键词命中
+      paragraph_range:
+      - 4
+      - 4
+    source_trace_ids:
+      chapter_id: ch_001
+      event_ids:
+      - evt_001
+      outline_scene_ids:
+      - osp_001
+      paragraph_ids:
+      - p_004
+    ai_tags:
+      inferred: true
+      confidence: high
+      needs_human_review: true
+      notes:
+      - Creative draft candidate crecand_001 requires author approval.
+    creative_draft_candidate_id: crecand_001
+    requires_author_approval: true
+    provider_profile: kimi_creative
+- id: scene_002
+  heading: INT./EXT. UNKNOWN - TIME UNKNOWN
+  location: ''
+  time: ''
+  source_trace:
+    chapter: 1
+    paragraph_range:
+    - 5
+    - 5
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_001
+    paragraph_ids:
+    - p_005
+    event_ids:
+    - evt_002
+    outline_scene_ids:
+    - osp_002
+    quote_preview: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城…
+    note: 动作或状态变化关键词命中
+  source_outline_scene_id: osp_002
+  source_event_ids:
+  - evt_002
+  beats:
+  - id: beat_002
+    objective: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城去投军。”刘备打量此人，见他身高九尺，须长二尺，丹凤眼、卧蚕眉，…
+    tactic: 'Use visible source action: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城去投军。”刘备打量此人，见他身高九尺，须长二尺，丹凤眼、卧蚕眉，面如重枣，威风凛…'
+    obstacle: Source evidence is incomplete or requires adaptation review.
+    conflict: The visible scene action must be shaped into screen conflict without
+      adding unsupported facts.
+    stakes: Review the source event consequence before treating stakes as canon.
+    turn: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城去投军。”刘备打量此人，见他身高九尺，须长二尺，丹凤眼、卧蚕眉，面如重枣，威风凛…
+    externalized_action: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城去投军。”刘备打量此人，见他身高九尺，须长二尺，丹凤眼、卧蚕眉，面如重枣，威风凛…
+    source_trace:
+      chapter: 1
+      paragraph_range:
+      - 5
+      - 5
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_005
+      event_ids:
+      - evt_002
+      outline_scene_ids:
+      - osp_002
+      quote_preview: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Beat fields are deterministic adaptation scaffolding and require human review.
+  elements:
+  - type: action
+    text: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城去投军。”刘备打量此人，见他身高九尺，须长二尺，丹凤眼、卧蚕眉，面如重枣，威风凛…
+    source_trace:
+      chapter: 1
+      paragraph_range:
+      - 5
+      - 5
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_005
+      event_ids:
+      - evt_002
+      outline_scene_ids:
+      - osp_002
+      quote_preview: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Action element is derived from key_event or outline purpose.
+  - type: note
+    text: Review this deterministic scene draft before treating it as final screenplay
+      prose.
+    source_trace:
+      chapter: 1
+      paragraph_range:
+      - 5
+      - 5
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_005
+      event_ids:
+      - evt_002
+      outline_scene_ids:
+      - osp_002
+      quote_preview: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: low
+      needs_human_review: true
+      notes:
+      - Note element records adaptation uncertainty instead of inventing dialogue.
+- id: scene_003
+  heading: INT./EXT. UNKNOWN - TIME UNKNOWN
+  location: ''
+  time: ''
+  source_trace:
+    chapter: 1
+    paragraph_range:
+    - 11
+    - 11
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_001
+    paragraph_ids:
+    - p_011
+    event_ids:
+    - evt_003
+    outline_scene_ids:
+    - osp_003
+    quote_preview: 张飞折下柳条，朝督邮腿上奋力鞭打，一连打折了十几根柳条。围观百姓拍手称快。刘备…
+    note: 动作或状态变化关键词命中
+  source_outline_scene_id: osp_003
+  source_event_ids:
+  - evt_003
+  beats:
+  - id: beat_003
+    objective: 张飞折下柳条，朝督邮腿上奋力鞭打，一连打折了十几根柳条。围观百姓拍手称快。刘备听见门前喧闹，急忙出去观看，见被捆打的正是督邮。刘备惊问张飞，张…
+    tactic: 'Use visible source action: 张飞折下柳条，朝督邮腿上奋力鞭打，一连打折了十几根柳条。围观百姓拍手称快。刘备听见门前喧闹，急忙出去观看，见被捆打的正是督邮。刘备惊问张飞，张飞道：“如此害民…'
+    obstacle: Source evidence is incomplete or requires adaptation review.
+    conflict: The visible scene action must be shaped into screen conflict without
+      adding unsupported facts.
+    stakes: Review the source event consequence before treating stakes as canon.
+    turn: 张飞折下柳条，朝督邮腿上奋力鞭打，一连打折了十几根柳条。围观百姓拍手称快。刘备听见门前喧闹，急忙出去观看，见被捆打的正是督邮。刘备惊问张飞，张飞道：“如此害民…
+    externalized_action: 张飞折下柳条，朝督邮腿上奋力鞭打，一连打折了十几根柳条。围观百姓拍手称快。刘备听见门前喧闹，急忙出去观看，见被捆打的正是督邮。刘备惊问张飞，张飞道：“如此害民…
+    source_trace:
+      chapter: 1
+      paragraph_range:
+      - 11
+      - 11
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_011
+      event_ids:
+      - evt_003
+      outline_scene_ids:
+      - osp_003
+      quote_preview: 张飞折下柳条，朝督邮腿上奋力鞭打，一连打折了十几根柳条。围观百姓拍手称快。刘备…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Beat fields are deterministic adaptation scaffolding and require human review.
+  elements:
+  - type: action
+    text: 张飞折下柳条，朝督邮腿上奋力鞭打，一连打折了十几根柳条。围观百姓拍手称快。刘备听见门前喧闹，急忙出去观看，见被捆打的正是督邮。刘备惊问张飞，张飞道：“如此害民…
+    source_trace:
+      chapter: 1
+      paragraph_range:
+      - 11
+      - 11
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_011
+      event_ids:
+      - evt_003
+      outline_scene_ids:
+      - osp_003
+      quote_preview: 张飞折下柳条，朝督邮腿上奋力鞭打，一连打折了十几根柳条。围观百姓拍手称快。刘备…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Action element is derived from key_event or outline purpose.
+  - type: note
+    text: Review this deterministic scene draft before treating it as final screenplay
+      prose.
+    source_trace:
+      chapter: 1
+      paragraph_range:
+      - 11
+      - 11
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_011
+      event_ids:
+      - evt_003
+      outline_scene_ids:
+      - osp_003
+      quote_preview: 张飞折下柳条，朝督邮腿上奋力鞭打，一连打折了十几根柳条。围观百姓拍手称快。刘备…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: low
+      needs_human_review: true
+      notes:
+      - Note element records adaptation uncertainty instead of inventing dialogue.
+- id: scene_004
+  heading: INT./EXT. UNKNOWN - TIME UNKNOWN
+  location: ''
+  time: ''
+  source_trace:
+    chapter: 2
+    paragraph_range:
+    - 7
+    - 7
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_002
+    paragraph_ids:
+    - p_007
+    event_ids:
+    - evt_004
+    outline_scene_ids:
+    - osp_004
+    quote_preview: 次日，曹操佩刀来到相府，见董卓坐于床上，吕布侍立一旁。曹操推说马慢来迟，董卓便…
+    note: 动作或状态变化关键词命中
+  source_outline_scene_id: osp_004
+  source_event_ids:
+  - evt_004
+  beats:
+  - id: beat_004
+    objective: 次日，曹操佩刀来到相府，见董卓坐于床上，吕布侍立一旁。曹操推说马慢来迟，董卓便让吕布去选一匹西凉好马赐给曹操。曹操见吕布走开，心中暗想：“董贼…
+    tactic: 'Use visible source action: 次日，曹操佩刀来到相府，见董卓坐于床上，吕布侍立一旁。曹操推说马慢来迟，董卓便让吕布去选一匹西凉好马赐给曹操。曹操见吕布走开，心中暗想：“董贼该死！”便想拔刀…'
+    obstacle: Source evidence is incomplete or requires adaptation review.
+    conflict: The visible scene action must be shaped into screen conflict without
+      adding unsupported facts.
+    stakes: Review the source event consequence before treating stakes as canon.
+    turn: 次日，曹操佩刀来到相府，见董卓坐于床上，吕布侍立一旁。曹操推说马慢来迟，董卓便让吕布去选一匹西凉好马赐给曹操。曹操见吕布走开，心中暗想：“董贼该死！”便想拔刀…
+    externalized_action: 次日，曹操佩刀来到相府，见董卓坐于床上，吕布侍立一旁。曹操推说马慢来迟，董卓便让吕布去选一匹西凉好马赐给曹操。曹操见吕布走开，心中暗想：“董贼该死！”便想拔刀…
+    source_trace:
+      chapter: 2
+      paragraph_range:
+      - 7
+      - 7
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_007
+      event_ids:
+      - evt_004
+      outline_scene_ids:
+      - osp_004
+      quote_preview: 次日，曹操佩刀来到相府，见董卓坐于床上，吕布侍立一旁。曹操推说马慢来迟，董卓便…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Beat fields are deterministic adaptation scaffolding and require human review.
+  elements:
+  - type: action
+    text: 次日，曹操佩刀来到相府，见董卓坐于床上，吕布侍立一旁。曹操推说马慢来迟，董卓便让吕布去选一匹西凉好马赐给曹操。曹操见吕布走开，心中暗想：“董贼该死！”便想拔刀…
+    source_trace:
+      chapter: 2
+      paragraph_range:
+      - 7
+      - 7
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_007
+      event_ids:
+      - evt_004
+      outline_scene_ids:
+      - osp_004
+      quote_preview: 次日，曹操佩刀来到相府，见董卓坐于床上，吕布侍立一旁。曹操推说马慢来迟，董卓便…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Action element is derived from key_event or outline purpose.
+  - type: note
+    text: Review this deterministic scene draft before treating it as final screenplay
+      prose.
+    source_trace:
+      chapter: 2
+      paragraph_range:
+      - 7
+      - 7
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_007
+      event_ids:
+      - evt_004
+      outline_scene_ids:
+      - osp_004
+      quote_preview: 次日，曹操佩刀来到相府，见董卓坐于床上，吕布侍立一旁。曹操推说马慢来迟，董卓便…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: low
+      needs_human_review: true
+      notes:
+      - Note element records adaptation uncertainty instead of inventing dialogue.
+- id: scene_005
+  heading: INT./EXT. UNKNOWN - TIME UNKNOWN
+  location: ''
+  time: ''
+  source_trace:
+    chapter: 2
+    paragraph_range:
+    - 11
+    - 11
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_002
+    paragraph_ids:
+    - p_011
+    event_ids:
+    - evt_005
+    outline_scene_ids:
+    - osp_005
+    quote_preview: 二人走了三日，来到成皋。成皋吕伯奢是曹操父亲的好友，二人便到吕家投宿。吕伯奢热…
+    note: 动作或状态变化关键词命中
+  source_outline_scene_id: osp_005
+  source_event_ids:
+  - evt_005
+  beats:
+  - id: beat_005
+    objective: 二人走了三日，来到成皋。成皋吕伯奢是曹操父亲的好友，二人便到吕家投宿。吕伯奢热情款待，问过情形，便骑驴出门打酒去了。
+    tactic: 'Use visible source action: 二人走了三日，来到成皋。成皋吕伯奢是曹操父亲的好友，二人便到吕家投宿。吕伯奢热情款待，问过情形，便骑驴出门打酒去了。'
+    obstacle: Source evidence is incomplete or requires adaptation review.
+    conflict: The visible scene action must be shaped into screen conflict without
+      adding unsupported facts.
+    stakes: Review the source event consequence before treating stakes as canon.
+    turn: 二人走了三日，来到成皋。成皋吕伯奢是曹操父亲的好友，二人便到吕家投宿。吕伯奢热情款待，问过情形，便骑驴出门打酒去了。
+    externalized_action: 二人走了三日，来到成皋。成皋吕伯奢是曹操父亲的好友，二人便到吕家投宿。吕伯奢热情款待，问过情形，便骑驴出门打酒去了。
+    source_trace:
+      chapter: 2
+      paragraph_range:
+      - 11
+      - 11
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_011
+      event_ids:
+      - evt_005
+      outline_scene_ids:
+      - osp_005
+      quote_preview: 二人走了三日，来到成皋。成皋吕伯奢是曹操父亲的好友，二人便到吕家投宿。吕伯奢热…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Beat fields are deterministic adaptation scaffolding and require human review.
+  elements:
+  - type: action
+    text: 二人走了三日，来到成皋。成皋吕伯奢是曹操父亲的好友，二人便到吕家投宿。吕伯奢热情款待，问过情形，便骑驴出门打酒去了。
+    source_trace:
+      chapter: 2
+      paragraph_range:
+      - 11
+      - 11
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_011
+      event_ids:
+      - evt_005
+      outline_scene_ids:
+      - osp_005
+      quote_preview: 二人走了三日，来到成皋。成皋吕伯奢是曹操父亲的好友，二人便到吕家投宿。吕伯奢热…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Action element is derived from key_event or outline purpose.
+  - type: note
+    text: Review this deterministic scene draft before treating it as final screenplay
+      prose.
+    source_trace:
+      chapter: 2
+      paragraph_range:
+      - 11
+      - 11
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_011
+      event_ids:
+      - evt_005
+      outline_scene_ids:
+      - osp_005
+      quote_preview: 二人走了三日，来到成皋。成皋吕伯奢是曹操父亲的好友，二人便到吕家投宿。吕伯奢热…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: low
+      needs_human_review: true
+      notes:
+      - Note element records adaptation uncertainty instead of inventing dialogue.
+- id: scene_006
+  heading: INT./EXT. UNKNOWN - TIME UNKNOWN
+  location: ''
+  time: ''
+  source_trace:
+    chapter: 2
+    paragraph_range:
+    - 12
+    - 12
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_002
+    paragraph_ids:
+    - p_012
+    event_ids:
+    - evt_006
+    outline_scene_ids:
+    - osp_006
+    quote_preview: 曹操与陈宫坐了好久，忽然听见庄后有磨刀的声音。曹操道：“吕伯奢不是我的至亲，此…
+    note: 动作或状态变化关键词命中
+  source_outline_scene_id: osp_006
+  source_event_ids:
+  - evt_006
+  beats:
+  - id: beat_006
+    objective: 曹操与陈宫坐了好久，忽然听见庄后有磨刀的声音。曹操道：“吕伯奢不是我的至亲，此去可疑，应该去偷偷听听动静。”二人悄悄来到草堂后面，只听见有人道…
+    tactic: 'Use visible source action: 曹操与陈宫坐了好久，忽然听见庄后有磨刀的声音。曹操道：“吕伯奢不是我的至亲，此去可疑，应该去偷偷听听动静。”二人悄悄来到草堂后面，只听见有人道：“先绑起来再杀…'
+    obstacle: Source evidence is incomplete or requires adaptation review.
+    conflict: The visible scene action must be shaped into screen conflict without
+      adding unsupported facts.
+    stakes: Review the source event consequence before treating stakes as canon.
+    turn: 曹操与陈宫坐了好久，忽然听见庄后有磨刀的声音。曹操道：“吕伯奢不是我的至亲，此去可疑，应该去偷偷听听动静。”二人悄悄来到草堂后面，只听见有人道：“先绑起来再杀…
+    externalized_action: 曹操与陈宫坐了好久，忽然听见庄后有磨刀的声音。曹操道：“吕伯奢不是我的至亲，此去可疑，应该去偷偷听听动静。”二人悄悄来到草堂后面，只听见有人道：“先绑起来再杀…
+    source_trace:
+      chapter: 2
+      paragraph_range:
+      - 12
+      - 12
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_012
+      event_ids:
+      - evt_006
+      outline_scene_ids:
+      - osp_006
+      quote_preview: 曹操与陈宫坐了好久，忽然听见庄后有磨刀的声音。曹操道：“吕伯奢不是我的至亲，此…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Beat fields are deterministic adaptation scaffolding and require human review.
+  elements:
+  - type: action
+    text: 曹操与陈宫坐了好久，忽然听见庄后有磨刀的声音。曹操道：“吕伯奢不是我的至亲，此去可疑，应该去偷偷听听动静。”二人悄悄来到草堂后面，只听见有人道：“先绑起来再杀…
+    source_trace:
+      chapter: 2
+      paragraph_range:
+      - 12
+      - 12
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_012
+      event_ids:
+      - evt_006
+      outline_scene_ids:
+      - osp_006
+      quote_preview: 曹操与陈宫坐了好久，忽然听见庄后有磨刀的声音。曹操道：“吕伯奢不是我的至亲，此…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Action element is derived from key_event or outline purpose.
+  - type: note
+    text: Review this deterministic scene draft before treating it as final screenplay
+      prose.
+    source_trace:
+      chapter: 2
+      paragraph_range:
+      - 12
+      - 12
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_012
+      event_ids:
+      - evt_006
+      outline_scene_ids:
+      - osp_006
+      quote_preview: 曹操与陈宫坐了好久，忽然听见庄后有磨刀的声音。曹操道：“吕伯奢不是我的至亲，此…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: low
+      needs_human_review: true
+      notes:
+      - Note element records adaptation uncertainty instead of inventing dialogue.
+- id: scene_007
+  heading: INT./EXT. UNKNOWN - TIME UNKNOWN
+  location: ''
+  time: ''
+  source_trace:
+    chapter: 3
+    paragraph_range:
+    - 5
+    - 5
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_003
+    paragraph_ids:
+    - p_005
+    event_ids:
+    - evt_007
+    outline_scene_ids:
+    - osp_007
+    quote_preview: 袁绍话音未落，只听见阶下有人高声叫道：“小将愿去斩了华雄首级，献于帐下！”只见…
+    note: 动作或状态变化关键词命中
+  source_outline_scene_id: osp_007
+  source_event_ids:
+  - evt_007
+  beats:
+  - id: beat_007
+    objective: 袁绍话音未落，只听见阶下有人高声叫道：“小将愿去斩了华雄首级，献于帐下！”只见此人身长九尺，髯长二尺，丹凤眼，卧蚕眉，面如重枣。袁绍问是何人，…
+    tactic: 'Use visible source action: 袁绍话音未落，只听见阶下有人高声叫道：“小将愿去斩了华雄首级，献于帐下！”只见此人身长九尺，髯长二尺，丹凤眼，卧蚕眉，面如重枣。袁绍问是何人，公孙瓒介绍：“这…'
+    obstacle: Source evidence is incomplete or requires adaptation review.
+    conflict: The visible scene action must be shaped into screen conflict without
+      adding unsupported facts.
+    stakes: Review the source event consequence before treating stakes as canon.
+    turn: 袁绍话音未落，只听见阶下有人高声叫道：“小将愿去斩了华雄首级，献于帐下！”只见此人身长九尺，髯长二尺，丹凤眼，卧蚕眉，面如重枣。袁绍问是何人，公孙瓒介绍：“这…
+    externalized_action: 袁绍话音未落，只听见阶下有人高声叫道：“小将愿去斩了华雄首级，献于帐下！”只见此人身长九尺，髯长二尺，丹凤眼，卧蚕眉，面如重枣。袁绍问是何人，公孙瓒介绍：“这…
+    source_trace:
+      chapter: 3
+      paragraph_range:
+      - 5
+      - 5
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_005
+      event_ids:
+      - evt_007
+      outline_scene_ids:
+      - osp_007
+      quote_preview: 袁绍话音未落，只听见阶下有人高声叫道：“小将愿去斩了华雄首级，献于帐下！”只见…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Beat fields are deterministic adaptation scaffolding and require human review.
+  elements:
+  - type: action
+    text: 袁绍话音未落，只听见阶下有人高声叫道：“小将愿去斩了华雄首级，献于帐下！”只见此人身长九尺，髯长二尺，丹凤眼，卧蚕眉，面如重枣。袁绍问是何人，公孙瓒介绍：“这…
+    source_trace:
+      chapter: 3
+      paragraph_range:
+      - 5
+      - 5
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_005
+      event_ids:
+      - evt_007
+      outline_scene_ids:
+      - osp_007
+      quote_preview: 袁绍话音未落，只听见阶下有人高声叫道：“小将愿去斩了华雄首级，献于帐下！”只见…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Action element is derived from key_event or outline purpose.
+  - type: note
+    text: Review this deterministic scene draft before treating it as final screenplay
+      prose.
+    source_trace:
+      chapter: 3
+      paragraph_range:
+      - 5
+      - 5
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_005
+      event_ids:
+      - evt_007
+      outline_scene_ids:
+      - osp_007
+      quote_preview: 袁绍话音未落，只听见阶下有人高声叫道：“小将愿去斩了华雄首级，献于帐下！”只见…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: low
+      needs_human_review: true
+      notes:
+      - Note element records adaptation uncertainty instead of inventing dialogue.
+- id: scene_008
+  heading: INT./EXT. UNKNOWN - TIME UNKNOWN
+  location: ''
+  time: ''
+  source_trace:
+    chapter: 3
+    paragraph_range:
+    - 6
+    - 6
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_003
+    paragraph_ids:
+    - p_006
+    event_ids:
+    - evt_008
+    outline_scene_ids:
+    - osp_008
+    quote_preview: 曹操叫人斟了一杯热酒，让关羽饮了再上马。关羽道：“酒且放下，我去去就来！”出帐…
+    note: 动作或状态变化关键词命中
+  source_outline_scene_id: osp_008
+  source_event_ids:
+  - evt_008
+  beats:
+  - id: beat_008
+    objective: 曹操叫人斟了一杯热酒，让关羽饮了再上马。关羽道：“酒且放下，我去去就来！”出帐提大刀飞身上马。众人只听见关外鼓声大震，喊声连天，如天崩地裂一般…
+    tactic: 'Use visible source action: 曹操叫人斟了一杯热酒，让关羽饮了再上马。关羽道：“酒且放下，我去去就来！”出帐提大刀飞身上马。众人只听见关外鼓声大震，喊声连天，如天崩地裂一般。众人皆惊慌失色…'
+    obstacle: Source evidence is incomplete or requires adaptation review.
+    conflict: The visible scene action must be shaped into screen conflict without
+      adding unsupported facts.
+    stakes: Review the source event consequence before treating stakes as canon.
+    turn: 曹操叫人斟了一杯热酒，让关羽饮了再上马。关羽道：“酒且放下，我去去就来！”出帐提大刀飞身上马。众人只听见关外鼓声大震，喊声连天，如天崩地裂一般。众人皆惊慌失色…
+    externalized_action: 曹操叫人斟了一杯热酒，让关羽饮了再上马。关羽道：“酒且放下，我去去就来！”出帐提大刀飞身上马。众人只听见关外鼓声大震，喊声连天，如天崩地裂一般。众人皆惊慌失色…
+    source_trace:
+      chapter: 3
+      paragraph_range:
+      - 6
+      - 6
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_006
+      event_ids:
+      - evt_008
+      outline_scene_ids:
+      - osp_008
+      quote_preview: 曹操叫人斟了一杯热酒，让关羽饮了再上马。关羽道：“酒且放下，我去去就来！”出帐…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Beat fields are deterministic adaptation scaffolding and require human review.
+  elements:
+  - type: action
+    text: 曹操叫人斟了一杯热酒，让关羽饮了再上马。关羽道：“酒且放下，我去去就来！”出帐提大刀飞身上马。众人只听见关外鼓声大震，喊声连天，如天崩地裂一般。众人皆惊慌失色…
+    source_trace:
+      chapter: 3
+      paragraph_range:
+      - 6
+      - 6
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_006
+      event_ids:
+      - evt_008
+      outline_scene_ids:
+      - osp_008
+      quote_preview: 曹操叫人斟了一杯热酒，让关羽饮了再上马。关羽道：“酒且放下，我去去就来！”出帐…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Action element is derived from key_event or outline purpose.
+  - type: note
+    text: Review this deterministic scene draft before treating it as final screenplay
+      prose.
+    source_trace:
+      chapter: 3
+      paragraph_range:
+      - 6
+      - 6
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_006
+      event_ids:
+      - evt_008
+      outline_scene_ids:
+      - osp_008
+      quote_preview: 曹操叫人斟了一杯热酒，让关羽饮了再上马。关羽道：“酒且放下，我去去就来！”出帐…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: low
+      needs_human_review: true
+      notes:
+      - Note element records adaptation uncertainty instead of inventing dialogue.
+- id: scene_009
+  heading: INT./EXT. UNKNOWN - 夜里
+  location: ''
+  time: 夜里
+  source_trace:
+    chapter: 4
+    paragraph_range:
+    - 2
+    - 2
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_004
+    paragraph_ids:
+    - p_002
+    event_ids:
+    - evt_009
+    outline_scene_ids:
+    - osp_009
+    quote_preview: 一天夜里，司徒王允想到董卓的残暴，睡不着觉，便趁着月光来到后花园，仰天落泪。忽…
+    note: 动作或状态变化关键词命中
+  source_outline_scene_id: osp_009
+  source_event_ids:
+  - evt_009
+  beats:
+  - id: beat_009
+    objective: 一天夜里，司徒王允想到董卓的残暴，睡不着觉，便趁着月光来到后花园，仰天落泪。忽然，听到牡丹亭旁边有人在长吁短叹。王允走近一看，原来叹气的是府中…
+    tactic: 'Use visible source action: 一天夜里，司徒王允想到董卓的残暴，睡不着觉，便趁着月光来到后花园，仰天落泪。忽然，听到牡丹亭旁边有人在长吁短叹。王允走近一看，原来叹气的是府中歌伎貂蝉。貂蝉自…'
+    obstacle: Source evidence is incomplete or requires adaptation review.
+    conflict: The visible scene action must be shaped into screen conflict without
+      adding unsupported facts.
+    stakes: Review the source event consequence before treating stakes as canon.
+    turn: 一天夜里，司徒王允想到董卓的残暴，睡不着觉，便趁着月光来到后花园，仰天落泪。忽然，听到牡丹亭旁边有人在长吁短叹。王允走近一看，原来叹气的是府中歌伎貂蝉。貂蝉自…
+    externalized_action: 一天夜里，司徒王允想到董卓的残暴，睡不着觉，便趁着月光来到后花园，仰天落泪。忽然，听到牡丹亭旁边有人在长吁短叹。王允走近一看，原来叹气的是府中歌伎貂蝉。貂蝉自…
+    source_trace:
+      chapter: 4
+      paragraph_range:
+      - 2
+      - 2
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_002
+      event_ids:
+      - evt_009
+      outline_scene_ids:
+      - osp_009
+      quote_preview: 一天夜里，司徒王允想到董卓的残暴，睡不着觉，便趁着月光来到后花园，仰天落泪。忽…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Beat fields are deterministic adaptation scaffolding and require human review.
+  elements:
+  - type: action
+    text: 一天夜里，司徒王允想到董卓的残暴，睡不着觉，便趁着月光来到后花园，仰天落泪。忽然，听到牡丹亭旁边有人在长吁短叹。王允走近一看，原来叹气的是府中歌伎貂蝉。貂蝉自…
+    source_trace:
+      chapter: 4
+      paragraph_range:
+      - 2
+      - 2
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_002
+      event_ids:
+      - evt_009
+      outline_scene_ids:
+      - osp_009
+      quote_preview: 一天夜里，司徒王允想到董卓的残暴，睡不着觉，便趁着月光来到后花园，仰天落泪。忽…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Action element is derived from key_event or outline purpose.
+  - type: note
+    text: Review this deterministic scene draft before treating it as final screenplay
+      prose.
+    source_trace:
+      chapter: 4
+      paragraph_range:
+      - 2
+      - 2
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_002
+      event_ids:
+      - evt_009
+      outline_scene_ids:
+      - osp_009
+      quote_preview: 一天夜里，司徒王允想到董卓的残暴，睡不着觉，便趁着月光来到后花园，仰天落泪。忽…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: low
+      needs_human_review: true
+      notes:
+      - Note element records adaptation uncertainty instead of inventing dialogue.
+- id: scene_010
+  heading: INT./EXT. UNKNOWN - TIME UNKNOWN
+  location: ''
+  time: ''
+  source_trace:
+    chapter: 4
+    paragraph_range:
+    - 10
+    - 10
+    note: 动作或状态变化关键词命中
+  source_trace_ids:
+    chapter_id: ch_004
+    paragraph_ids:
+    - p_010
+    event_ids:
+    - evt_010
+    outline_scene_ids:
+    - osp_010
+    quote_preview: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起…
+    note: 动作或状态变化关键词命中
+  source_outline_scene_id: osp_010
+  source_event_ids:
+  - evt_010
+  beats:
+  - id: beat_010
+    objective: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起画戟大喝一声。吕布大惊，转身就逃。董卓身体肥胖，追不上，便用力将…
+    tactic: 'Use visible source action: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起画戟大喝一声。吕布大惊，转身就逃。董卓身体肥胖，追不上，便用力将戟向吕布掷去。吕…'
+    obstacle: Source evidence is incomplete or requires adaptation review.
+    conflict: The visible scene action must be shaped into screen conflict without
+      adding unsupported facts.
+    stakes: Review the source event consequence before treating stakes as canon.
+    turn: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起画戟大喝一声。吕布大惊，转身就逃。董卓身体肥胖，追不上，便用力将戟向吕布掷去。吕…
+    externalized_action: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起画戟大喝一声。吕布大惊，转身就逃。董卓身体肥胖，追不上，便用力将戟向吕布掷去。吕…
+    source_trace:
+      chapter: 4
+      paragraph_range:
+      - 10
+      - 10
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_010
+      event_ids:
+      - evt_010
+      outline_scene_ids:
+      - osp_010
+      quote_preview: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Beat fields are deterministic adaptation scaffolding and require human review.
+  elements:
+  - type: action
+    text: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起画戟大喝一声。吕布大惊，转身就逃。董卓身体肥胖，追不上，便用力将戟向吕布掷去。吕…
+    source_trace:
+      chapter: 4
+      paragraph_range:
+      - 10
+      - 10
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_010
+      event_ids:
+      - evt_010
+      outline_scene_ids:
+      - osp_010
+      quote_preview: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Action element is derived from key_event or outline purpose.
+  - type: note
+    text: Review this deterministic scene draft before treating it as final screenplay
+      prose.
+    source_trace:
+      chapter: 4
+      paragraph_range:
+      - 10
+      - 10
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_004
+      paragraph_ids:
+      - p_010
+      event_ids:
+      - evt_010
+      outline_scene_ids:
+      - osp_010
+      quote_preview: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起…
+      note: 动作或状态变化关键词命中
+    ai_tags:
+      inferred: true
+      confidence: low
+      needs_human_review: true
+      notes:
+      - Note element records adaptation uncertainty instead of inventing dialogue.
+- id: scene_011
+  heading: INT./EXT. UNKNOWN - TIME UNKNOWN
+  location: ''
+  time: ''
+  source_trace:
+    chapter: 1
+    paragraph_range:
+    - 1
+    - 2
+    note: Human-approved semantic candidate semcand_001.
+  source_trace_ids:
+    chapter_id: ch_001
+    paragraph_ids:
+    - p_001
+    - p_002
+    event_ids:
+    - evt_011
+    outline_scene_ids:
+    - osp_011
+    note: Human-approved semantic candidate semcand_001.
+  source_outline_scene_id: osp_011
+  source_event_ids:
+  - evt_011
+  beats:
+  - id: beat_011
+    objective: The Yellow Turban Rebellion erupts due to corruption and illness, marki…
+    tactic: 'Use visible source action: The Yellow Turban Rebellion erupts due to
+      corruption and illness, marking the beginning of wi...'
+    obstacle: Source evidence is incomplete or requires adaptation review.
+    conflict: The visible scene action must be shaped into screen conflict without
+      adding unsupported facts.
+    stakes: Review the source event consequence before treating stakes as canon.
+    turn: The Yellow Turban Rebellion erupts due to corruption and illness, marking
+      the beginning of widespread conflict.
+    externalized_action: The Yellow Turban Rebellion erupts due to corruption and
+      illness, marking the beginning of widespread conflict.
+    source_trace:
+      chapter: 1
+      paragraph_range:
+      - 1
+      - 2
+      note: Human-approved semantic candidate semcand_001.
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      - p_002
+      event_ids:
+      - evt_011
+      outline_scene_ids:
+      - osp_011
+      note: Human-approved semantic candidate semcand_001.
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Beat fields are deterministic adaptation scaffolding and require human review.
+  elements:
+  - type: action
+    text: The Yellow Turban Rebellion erupts due to corruption and illness, marking
+      the beginning of widespread conflict.
+    source_trace:
+      chapter: 1
+      paragraph_range:
+      - 1
+      - 2
+      note: Human-approved semantic candidate semcand_001.
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      - p_002
+      event_ids:
+      - evt_011
+      outline_scene_ids:
+      - osp_011
+      note: Human-approved semantic candidate semcand_001.
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Action element is derived from key_event or outline purpose.
+  - type: note
+    text: Review this deterministic scene draft before treating it as final screenplay
+      prose.
+    source_trace:
+      chapter: 1
+      paragraph_range:
+      - 1
+      - 2
+      note: Human-approved semantic candidate semcand_001.
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      - p_002
+      event_ids:
+      - evt_011
+      outline_scene_ids:
+      - osp_011
+      note: Human-approved semantic candidate semcand_001.
+    ai_tags:
+      inferred: true
+      confidence: low
+      needs_human_review: true
+      notes:
+      - Note element records adaptation uncertainty instead of inventing dialogue.

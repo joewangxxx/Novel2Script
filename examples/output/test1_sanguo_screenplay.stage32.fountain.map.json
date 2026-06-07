@@ -1,0 +1,214 @@
+{
+  "source_yaml": "examples/output/test1_sanguo_screenplay.stage32.yaml",
+  "fountain_file": "examples/output/test1_sanguo_screenplay.stage32.fountain",
+  "mappings": [
+    {
+      "line_start": 5,
+      "line_end": 5,
+      "scene_id": "scene_001",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[0].heading"
+    },
+    {
+      "line_start": 6,
+      "line_end": 6,
+      "scene_id": "scene_001",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[0].elements[0].text"
+    },
+    {
+      "line_start": 7,
+      "line_end": 7,
+      "scene_id": "scene_001",
+      "beat_id": null,
+      "element_index": 2,
+      "yaml_path": "scenes[0].elements[2].text"
+    },
+    {
+      "line_start": 8,
+      "line_end": 22,
+      "scene_id": "scene_001",
+      "beat_id": null,
+      "element_index": 3,
+      "yaml_path": "scenes[0].elements[3].text"
+    },
+    {
+      "line_start": 24,
+      "line_end": 37,
+      "scene_id": "scene_001",
+      "beat_id": null,
+      "element_index": 4,
+      "yaml_path": "scenes[0].elements[4].text"
+    },
+    {
+      "line_start": 39,
+      "line_end": 39,
+      "scene_id": "scene_001",
+      "beat_id": null,
+      "element_index": 5,
+      "yaml_path": "scenes[0].elements[5].text"
+    },
+    {
+      "line_start": 41,
+      "line_end": 41,
+      "scene_id": "scene_002",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[1].heading"
+    },
+    {
+      "line_start": 42,
+      "line_end": 42,
+      "scene_id": "scene_002",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[1].elements[0].text"
+    },
+    {
+      "line_start": 44,
+      "line_end": 44,
+      "scene_id": "scene_003",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[2].heading"
+    },
+    {
+      "line_start": 45,
+      "line_end": 45,
+      "scene_id": "scene_003",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[2].elements[0].text"
+    },
+    {
+      "line_start": 47,
+      "line_end": 47,
+      "scene_id": "scene_004",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[3].heading"
+    },
+    {
+      "line_start": 48,
+      "line_end": 48,
+      "scene_id": "scene_004",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[3].elements[0].text"
+    },
+    {
+      "line_start": 50,
+      "line_end": 50,
+      "scene_id": "scene_005",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[4].heading"
+    },
+    {
+      "line_start": 51,
+      "line_end": 51,
+      "scene_id": "scene_005",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[4].elements[0].text"
+    },
+    {
+      "line_start": 53,
+      "line_end": 53,
+      "scene_id": "scene_006",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[5].heading"
+    },
+    {
+      "line_start": 54,
+      "line_end": 54,
+      "scene_id": "scene_006",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[5].elements[0].text"
+    },
+    {
+      "line_start": 56,
+      "line_end": 56,
+      "scene_id": "scene_007",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[6].heading"
+    },
+    {
+      "line_start": 57,
+      "line_end": 57,
+      "scene_id": "scene_007",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[6].elements[0].text"
+    },
+    {
+      "line_start": 59,
+      "line_end": 59,
+      "scene_id": "scene_008",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[7].heading"
+    },
+    {
+      "line_start": 60,
+      "line_end": 60,
+      "scene_id": "scene_008",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[7].elements[0].text"
+    },
+    {
+      "line_start": 62,
+      "line_end": 62,
+      "scene_id": "scene_009",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[8].heading"
+    },
+    {
+      "line_start": 63,
+      "line_end": 63,
+      "scene_id": "scene_009",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[8].elements[0].text"
+    },
+    {
+      "line_start": 65,
+      "line_end": 65,
+      "scene_id": "scene_010",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[9].heading"
+    },
+    {
+      "line_start": 66,
+      "line_end": 66,
+      "scene_id": "scene_010",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[9].elements[0].text"
+    },
+    {
+      "line_start": 68,
+      "line_end": 68,
+      "scene_id": "scene_011",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[10].heading"
+    },
+    {
+      "line_start": 69,
+      "line_end": 69,
+      "scene_id": "scene_011",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[10].elements[0].text"
+    }
+  ]
+}

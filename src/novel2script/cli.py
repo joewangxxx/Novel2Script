@@ -161,6 +161,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     apply_creative_parser = subparsers.add_parser("apply-creative-draft")
     apply_creative_parser.add_argument("--screenplay", required=True)
     apply_creative_parser.add_argument("--creative-candidates", required=True)
+    apply_creative_parser.add_argument("--decisions")
     apply_creative_parser.add_argument("--out", required=True)
     apply_creative_parser.add_argument("--report", required=True)
 
@@ -616,8 +617,9 @@ def main(argv: Sequence[str] | None = None) -> int:
                 creative_candidates_path=args.creative_candidates,
                 out_path=args.out,
                 report_path=args.report,
+                decisions_path=args.decisions,
             )
-        except OSError as exc:
+        except (OSError, ValueError) as exc:
             print(f"apply-creative-draft failed: {exc}", file=sys.stderr)
             return 1
         blocked = report["creative_draft_apply_report"]["blocked_count"]
