@@ -45,3 +45,40 @@ Required for all generated scene text before it is written to screenplay YAML.
 
 Return structured error when the requested scene lacks outline evidence, source
 trace, or character grounding.
+
+## Implemented JSON Contract
+
+Return only a JSON object with `{"candidates": [...]}` to the provider caller.
+The runtime wraps accepted model candidates into `scene_writer_agent_candidates`
+sidecar YAML. Each model candidate must include:
+
+- `type`
+- `target`
+- `proposed_text`
+- `rationale`
+- `source_trace`
+- `source_trace_ids`
+- `ai_tags`
+- `constraints_observed`
+- `risks`
+- `confidence`
+
+Allowed `type` values:
+
+- `scene_action`
+- `visual_beat`
+- `element_insert`
+- `element_rewrite`
+- `transition`
+- `reviewer_note`
+
+Every accepted sidecar candidate is normalized with
+`merge_policy: human_approval_required` and
+`requires_author_approval: true`.
+
+## Retention Policy
+
+The run log may retain only metadata such as provider profile, model,
+finish_reason, usage, and prompt hash. It must not retain prompt text, raw model
+response, provider request/response body, API key, bearer token, Authorization
+header value, `.env` content, or full source text.

@@ -42,3 +42,41 @@ and any low-confidence inference.
 
 Return structured error when source coverage would decrease or required traces
 are absent.
+
+## Implemented JSON Contract
+
+Return only a JSON object with `{"candidates": [...]}` to the provider caller.
+The runtime wraps accepted model candidates into
+`adaptation_planner_candidates` sidecar YAML. Each model candidate must include:
+
+- `type`
+- `target`
+- `proposed_text`
+- `rationale`
+- `source_trace`
+- `source_trace_ids`
+- `ai_tags`
+- `constraints_observed`
+- `risks`
+- `confidence`
+
+Allowed `type` values:
+
+- `logline_revision`
+- `theme_candidate`
+- `act_structure_adjustment`
+- `scene_plan_adjustment`
+- `source_coverage_note`
+- `uncertainty`
+- `reviewer_note`
+
+Every accepted sidecar candidate is normalized with
+`merge_policy: human_approval_required` and
+`requires_author_approval: true`.
+
+## Retention Policy
+
+The run log may retain only metadata such as provider profile, model,
+finish_reason, usage, and prompt hash. It must not retain prompt text, raw model
+response, provider request/response body, API key, bearer token, Authorization
+header value, `.env` content, or full source text.

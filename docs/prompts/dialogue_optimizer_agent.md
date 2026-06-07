@@ -41,3 +41,41 @@ Required before replacing any dialogue text or parenthetical.
 
 Return structured error when dialogue targets are missing, character IDs do not
 resolve, or the request asks for semantic plot changes.
+
+## Implemented JSON Contract
+
+Return only a JSON object with `{"candidates": [...]}` to the provider caller.
+The runtime wraps accepted model candidates into
+`dialogue_optimizer_agent_candidates` sidecar YAML. Each model candidate must
+include:
+
+- `type`
+- `target`
+- `proposed_text`
+- `rationale`
+- `source_trace`
+- `source_trace_ids`
+- `ai_tags`
+- `constraints_observed`
+- `risks`
+- `confidence`
+
+Allowed `type` values:
+
+- `dialogue_rewrite`
+- `dialogue_insert`
+- `parenthetical_suggestion`
+- `subtext_note`
+- `voice_consistency_note`
+- `reviewer_note`
+
+Every accepted sidecar candidate is normalized with
+`merge_policy: human_approval_required` and
+`requires_author_approval: true`.
+
+## Retention Policy
+
+The run log may retain only metadata such as provider profile, model,
+finish_reason, usage, and prompt hash. It must not retain prompt text, raw model
+response, provider request/response body, API key, bearer token, Authorization
+header value, `.env` content, or full source text.

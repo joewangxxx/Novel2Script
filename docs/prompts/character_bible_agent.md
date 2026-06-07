@@ -43,3 +43,44 @@ and all inferred fields.
 
 Return structured error when a character lacks source evidence or conflicts
 with a locked profile.
+
+## Implemented JSON Contract
+
+Return only a JSON object with `{"candidates": [...]}` to the provider caller.
+The runtime wraps accepted model candidates into
+`character_bible_agent_candidates` sidecar YAML. Each model candidate must
+include:
+
+- `type`
+- `target`
+- `proposed_text`
+- `rationale`
+- `source_trace`
+- `source_trace_ids`
+- `ai_tags`
+- `constraints_observed`
+- `risks`
+- `confidence`
+
+Allowed `type` values:
+
+- `want`
+- `need`
+- `flaw`
+- `relationship`
+- `voice`
+- `arc`
+- `uncertainty`
+- `conflict_note`
+- `reviewer_note`
+
+Every accepted sidecar candidate is normalized with
+`merge_policy: human_approval_required` and
+`requires_author_approval: true`.
+
+## Retention Policy
+
+The run log may retain only metadata such as provider profile, model,
+finish_reason, usage, and prompt hash. It must not retain prompt text, raw model
+response, provider request/response body, API key, bearer token, Authorization
+header value, `.env` content, or full source text.

@@ -742,3 +742,67 @@ The Stage 12A contracts remain draft. After a future freeze:
   `docs/architecture/change-requests/`.
 - Merge implementations must fail closed when human approval, source trace, or
   schema validation is missing.
+
+## Phase 17 Kimi Dialogue Scene Draft Candidates
+
+Phase 17 defines a creative candidate sidecar for future Kimi dialogue and
+scene-action drafting. It consumes the Stage 16 author review report and Stage
+15 screenplay context, but it does not modify `screenplay.yaml`.
+
+The schema file is `schemas/creative_draft_candidates.schema.json`. Initial
+contract version: `0.1.0`.
+
+```yaml
+creative_draft_candidates:
+  schema_version: "0.1.0"
+  source_screenplay: "examples/output/test1_sanguo_screenplay.yaml"
+  source_author_review_report: "examples/output/test1_sanguo_author_review_report.yaml"
+  agent_id: "kimi_dialogue_scene_drafter"
+  provider_profile: "kimi_creative"
+  dry_run: false
+  human_approval_required: true
+  authorization:
+    source: "author_review_report"
+    next_stage_authorization: "kimi_dialogue_draft"
+    scope:
+      - "dialogue"
+      - "scene_action"
+  candidates: []
+  errors: []
+  metadata:
+    prompt_retained: false
+    model_response_retained: false
+    provider_body_retained: false
+    full_source_text_retained: false
+```
+
+Allowed candidate types are:
+
+- `dialogue_insert`
+- `dialogue_rewrite`
+- `scene_action_enhancement`
+- `beat_externalization`
+- `pacing_trim_suggestion`
+- `reviewer_note`
+
+Every candidate must target an existing `scene_id` and may reference an
+existing `beat_id`, `element_id`, or `character_id`. Every candidate must carry
+`source_trace`, `source_trace_ids`, `merge_policy:
+human_approval_required`, and `requires_author_approval: true`.
+
+Stage 17 candidates are not patches. They are advisory creative drafts that
+must enter a later human approval flow before any screenplay file can be
+updated. The Kimi drafter must not alter source traces, change author-approved
+structure, add unsupported major events, output full novel text, retain prompt
+or raw response bodies, or trigger Fountain export.
+
+### Stage 17 Contract Governance
+
+The Stage 17 contract remains draft. After a future freeze:
+
+- Agents, FE, BE, QA, and tooling must not silently edit
+  `schemas/creative_draft_candidates.schema.json`.
+- Contract conflicts must be proposed under
+  `docs/architecture/change-requests/`.
+- Kimi creative draft implementations must route through the provider
+  abstraction and emit only human-reviewable sidecar candidates.

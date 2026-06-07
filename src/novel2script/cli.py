@@ -10,6 +10,10 @@ from novel2script.agents.creative_draft_apply import apply_creative_draft
 from novel2script.agents.creative_draft_readiness import (
     write_creative_draft_readiness_report,
 )
+from novel2script.agents.kimi_creative_agents import (
+    KIMI_CREATIVE_AGENT_IDS,
+    run_kimi_creative_agent,
+)
 from novel2script.agents.semantic_candidate_merge import merge_semantic_candidates
 from novel2script.agents.story_semantic_parser import run_story_semantic_parser
 from novel2script.exporters.fountain_exporter import export_fountain
@@ -89,6 +93,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         choices=[
             "story-semantic-parser",
             "kimi-dialogue-scene-drafter",
+            "adaptation-planner",
+            "character-bible-agent",
+            "scene-writer-agent",
+            "dialogue-optimizer-agent",
         ],
     )
     run_agent_parser.add_argument("--story-map")
@@ -345,6 +353,78 @@ def main(argv: Sequence[str] | None = None) -> int:
             print(
                 "run-agent kimi-dialogue-scene-drafter failed: "
                 "creative draft candidates were not accepted.",
+                file=sys.stderr,
+            )
+            return 1
+        return 0
+    if args.command == "run-agent" and args.agent_name.replace("-", "_") in KIMI_CREATIVE_AGENT_IDS:
+        agent_id = args.agent_name.replace("-", "_")
+        required_by_agent = {
+            "adaptation_planner": {
+                "--story-map": args.story_map,
+                "--outline": args.outline,
+                "--quality-report": args.quality_report,
+            },
+            "character_bible_agent": {
+                "--story-map": args.story_map,
+                "--outline": args.outline,
+                "--character-bible": args.character_bible,
+            },
+            "scene_writer_agent": {
+                "--story-map": args.story_map,
+                "--outline": args.outline,
+                "--character-bible": args.character_bible,
+                "--screenplay": args.screenplay,
+            },
+            "dialogue_optimizer_agent": {
+                "--screenplay": args.screenplay,
+                "--character-bible": args.character_bible,
+                "--review-report": args.review_report,
+            },
+        }
+        missing = [
+            option
+            for option, value in required_by_agent[agent_id].items()
+            if not value
+        ]
+        if missing:
+            print(
+                f"run-agent {args.agent_name} failed: missing " + ", ".join(missing),
+                file=sys.stderr,
+            )
+            return 1
+        try:
+            result = run_kimi_creative_agent(
+                agent_id=agent_id,
+                story_map_path=args.story_map,
+                outline_path=args.outline,
+                character_bible_path=args.character_bible,
+                screenplay_path=args.screenplay,
+                review_report_path=args.review_report,
+                quality_report_path=args.quality_report,
+                out_path=args.out,
+                run_log_path=args.run_log,
+                dry_run=not args.allow_network,
+                router=(
+                    LLMRouter.from_environment(allow_network=True, max_attempts=1)
+                    if args.allow_network
+                    else None
+                ),
+            )
+        except (
+            OSError,
+            ValueError,
+            ProviderConfigurationError,
+            ProviderRuntimeError,
+            ProviderRoutingError,
+        ) as exc:
+            print(f"run-agent {args.agent_name} failed: {exc}", file=sys.stderr)
+            return 1
+        root_key = f"{agent_id}_candidates"
+        sidecar = result[root_key]
+        if sidecar.get("errors") or not sidecar.get("candidates"):
+            print(
+                f"run-agent {args.agent_name} failed: candidates were not accepted.",
                 file=sys.stderr,
             )
             return 1

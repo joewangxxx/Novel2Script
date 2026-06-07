@@ -458,3 +458,56 @@ created during Phase 12A:
 - After contract freeze, FE, BE, QA, agents, or tooling must not silently change
   semantic candidate decisions, merge reports, story map, semantic candidates,
   provider routing, or prior data contracts.
+
+## Phase 17 Files
+
+- `schemas/creative_draft_candidates.schema.json`: draft JSON Schema for Kimi
+  dialogue and scene-action creative draft sidecar candidates.
+- `docs/dev/PHASE_17_KIMI_DIALOGUE_SCENE_DRAFT_CONTRACT.md`: Stage 17
+  authorization, input priority, output contract, prompt boundary, QA gates,
+  and Stage 18 readiness notes.
+- `docs/prompts/kimi_dialogue_scene_drafter.md`: prompt contract for candidate
+  generation only.
+- `docs/prompts/agent-routing.md`: registry routing notes updated with the new
+  drafter agent.
+- `config/agent_routing.example.yaml`: example route mapping
+  `kimi_dialogue_scene_drafter` to `kimi_creative` with `mock_dry_run`
+  fallback and `human_approval_required` output policy.
+- `tests/test_creative_draft_contract.py`: contract tests for schema, prompt,
+  and routing boundaries.
+
+Stage 17 intentionally does not create Kimi runner code, does not call a real
+model, does not create candidate sample outputs, and does not mutate any Stage
+15 or Stage 16 artifact.
+
+## Planned Phase 18 Implementation Files
+
+These files are planned for later Stage 18 implementation work and must not be
+created during Stage 17:
+
+- `src/novel2script/agents/kimi_dialogue_scene_drafter.py`: mock-first runner
+  through `LLMRouter`, gated by the Stage 16 author review report.
+- `tests/test_kimi_dialogue_scene_drafter.py`: unit tests for authorization,
+  schema-valid candidate output, source trace preservation, and blocked
+  unauthorized requests.
+- `tests/test_kimi_dialogue_scene_drafter_cli.py`: CLI tests for future
+  candidate generation.
+- `examples/output/test1_sanguo_creative_draft_candidates.yaml`: future public
+  mock candidate artifact, only after Stage 18 implementation.
+
+## Phase 17 Ownership And Gates
+
+- Architecture owns `schemas/creative_draft_candidates.schema.json` and any
+  creative draft candidate contract changes.
+- BE/agent implementation may add Kimi drafter code only after the Stage 17
+  contract is accepted or prototype mode is explicitly declared by the parent
+  orchestrator.
+- QA may add implementation tests after Stage 18 artifacts exist.
+- The Kimi drafter may only output human-reviewable sidecar candidates. It must
+  not modify screenplay YAML, source traces, author-approved structure, story
+  maps, quality reports, review reports, or Fountain exports.
+- Tests must default to `mock_dry_run`; real Kimi calls require a later explicit
+  network/model authorization.
+- After contract freeze, FE, BE, QA, agents, or tooling must not silently
+  change creative draft candidates, author review, screenplay, provider
+  routing, or prior data contracts.
