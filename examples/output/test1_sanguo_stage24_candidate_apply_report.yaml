@@ -1,0 +1,25 @@
+stage24_candidate_apply_report:
+  schema_version: 0.1.0
+  status: success
+  source_decisions: examples/output/test1_sanguo_stage24_candidate_decisions.yaml
+  selected_candidates: examples/output/test1_sanguo_stage24_selected_candidates.yaml
+  source_candidate_sidecars:
+  - examples/output/test1_sanguo_adaptation_planner_candidates.real_kimi.yaml
+  - examples/output/test1_sanguo_character_bible_agent_candidates.real_kimi.yaml
+  - examples/output/test1_sanguo_scene_writer_agent_candidates.real_kimi.yaml
+  - examples/output/test1_sanguo_dialogue_optimizer_agent_candidates.real_kimi.yaml
+  selected_count: 4
+  skipped_count: 0
+  blocked_count: 0
+  selected_candidate_ids:
+  - adaptplan_001
+  - charbible_001
+  - scenewrite_001
+  - dialogueopt_001
+  skipped: []
+  blocked: []
+  selected_candidates_hash: sha256:d31788db4eda2792cc069ab3347b04b886bb449c1e46968330d3c8b664052869
+  metadata:
+    prompt_retained: false
+    raw_response_retained: false
+    provider_body_retained: false

@@ -1,0 +1,34 @@
+stage31_real_kimi_candidate_review_report:
+  schema_version: 0.1.0
+  generated_at: '2026-06-07T17:09:13+08:00'
+  status: passed
+  stage: stage_31_human_review_real_kimi_dialogue_candidate
+  source_artifacts:
+    candidate_sidecar: examples/output/test1_sanguo_creative_draft_candidates.stage26.real_kimi.yaml
+    run_log: examples/output/test1_sanguo_creative_draft_run_log.stage26.real_kimi.yaml
+    review_packet: examples/output/test1_sanguo_stage31_real_kimi_candidate_review_packet.md
+    decisions: examples/output/test1_sanguo_stage31_real_kimi_candidate_decisions.yaml
+  review_result:
+    reviewed_by: human_author_via_user_instruction
+    total_count: 1
+    accepted_count: 1
+    edited_count: 0
+    rejected_count: 0
+    pending_count: 0
+    accepted_candidate_ids:
+      - crecand_001
+  validation:
+    source_candidate_schema_errors: 0
+    unresolved_targets: 0
+    run_log_redacted: true
+  retention:
+    candidate_text_copied_into_review_packet: false
+    candidate_text_copied_into_decisions: false
+    prompt_retained: false
+    raw_response_retained: false
+    provider_payload_retained: false
+  next_stage:
+    ready_for: stage_32_protected_apply_real_kimi_dialogue_candidate
+    auto_apply_allowed: false
+    new_screenplay_artifact_required: true
+  blocking_codes: []

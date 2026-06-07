@@ -1,0 +1,16 @@
+schema_validity:
+  passed: true
+  errors: []
+source_coverage:
+  score: 1.0
+  checked_targets: 47
+  missing_targets: []
+  invalid_targets: []
+beat_completeness:
+  score: 1.0
+  total_beats: 11
+  incomplete_beats: []
+reference_integrity:
+  passed: true
+  missing_references: []
+overall_passed: true

@@ -1,0 +1,228 @@
+quality_report:
+  schema_version: 0.1.0
+  generated_at: '2026-06-05'
+  report_profile: deterministic_quality_eval_v0
+  source_artifacts:
+    screenplay: examples/output/test1_sanguo_screenplay.stage26_roundtrip.yaml
+    validation_report: examples/output/test1_sanguo_screenplay.stage26_roundtrip_validation_report.yaml
+    review_report: examples/output/test1_sanguo_review_report.stage26.yaml
+    fountain_roundtrip_report: examples/output/test1_sanguo_screenplay.stage26_roundtrip_report.yaml
+    quality_report_yaml: examples/output/test1_sanguo_quality_report.stage26.yaml
+    quality_dashboard_markdown: examples/output/test1_sanguo_quality_dashboard.stage26.md
+  status_policy:
+    allowed_statuses:
+    - pass
+    - warn
+    - fail
+    - blocked
+    hard_gates_precede_average_score: true
+    notes:
+    - No model call, network call, or screenplay rewrite is used.
+  scoring_policy:
+    score_min: 0
+    score_max: 100
+    default_pass_threshold: 90
+    default_warn_threshold: 70
+    weights:
+      schema_validity: 1
+      source_trace_coverage: 1
+      beat_completeness: 1
+      reference_integrity: 1
+      character_consistency: 1
+      pacing: 1
+      dialogue_naturalness: 1
+      shootability: 1
+      fountain_roundtrip_safety: 1
+      semantic_staleness: 1
+  dimensions:
+  - id: schema_validity
+    status: pass
+    score: 100
+    hard_gate: true
+    summary: Screenplay schema validation passed.
+    evidence:
+    - source: validation_report
+      path: schema_validity.passed
+      summary: Screenplay schema validation passed.
+      value: true
+    metrics:
+      errors: 0
+    recommendations: []
+  - id: source_trace_coverage
+    status: pass
+    score: 100
+    hard_gate: true
+    summary: Source trace coverage is complete.
+    evidence:
+    - source: validation_report
+      path: source_coverage.score
+      summary: Source trace coverage is complete.
+      value: 1.0
+    metrics:
+      checked_targets: 47
+      missing_targets: 0
+      invalid_targets: 0
+    recommendations: []
+  - id: beat_completeness
+    status: pass
+    score: 100
+    hard_gate: false
+    summary: Beat fields are complete.
+    evidence:
+    - source: validation_report
+      path: beat_completeness.score
+      summary: Beat fields are complete.
+      value: 1.0
+    metrics:
+      total_beats: 11
+      incomplete_beats: 0
+    recommendations: []
+  - id: reference_integrity
+    status: pass
+    score: 100
+    hard_gate: true
+    summary: All references resolve.
+    evidence:
+    - source: validation_report
+      path: reference_integrity.passed
+      summary: All references resolve.
+      value: true
+    metrics:
+      missing_references: 0
+    recommendations: []
+  - id: character_consistency
+    status: pass
+    score: 100
+    hard_gate: false
+    summary: character_consistency reported no issues.
+    evidence:
+    - source: review_report
+      path: issues[reviewer=character_consistency]
+      summary: character_consistency reported no issues.
+      value: 0
+    metrics:
+      issues: 0
+      low: 0
+      medium: 0
+      high: 0
+      skipped: false
+    recommendations: []
+  - id: pacing
+    status: pass
+    score: 100
+    hard_gate: false
+    summary: pacing reported no issues.
+    evidence:
+    - source: review_report
+      path: issues[reviewer=pacing]
+      summary: pacing reported no issues.
+      value: 0
+    metrics:
+      issues: 0
+      low: 0
+      medium: 0
+      high: 0
+      skipped: false
+    recommendations: []
+  - id: dialogue_naturalness
+    status: warn
+    score: 80
+    hard_gate: false
+    summary: dialogue_naturalness reported 1 issue(s).
+    evidence:
+    - source: review_report
+      path: issues[reviewer=dialogue_naturalness]
+      summary: dialogue_naturalness reported 1 issue(s).
+      value: 1
+    metrics:
+      issues: 1
+      low: 0
+      medium: 1
+      high: 0
+      skipped: false
+    recommendations:
+    - priority: medium
+      action: Review issue_001 from dialogue_naturalness.
+  - id: shootability
+    status: pass
+    score: 100
+    hard_gate: false
+    summary: shootability reported no issues.
+    evidence:
+    - source: review_report
+      path: issues[reviewer=shootability]
+      summary: shootability reported no issues.
+      value: 0
+    metrics:
+      issues: 0
+      low: 0
+      medium: 0
+      high: 0
+      skipped: false
+    recommendations: []
+  - id: fountain_roundtrip_safety
+    status: pass
+    score: 100
+    hard_gate: true
+    summary: Fountain roundtrip is safe.
+    evidence:
+    - source: fountain_roundtrip_report
+      path: status
+      summary: Fountain roundtrip is safe.
+      value: skipped
+    metrics:
+      applied_changes: 0
+      skipped_changes: 0
+      blocking_issues: 0
+      line_drift_detected: false
+      map_match: true
+    recommendations: []
+  - id: semantic_staleness
+    status: pass
+    score: 100
+    hard_gate: false
+    summary: Semantic fields are not marked stale.
+    evidence:
+    - source: screenplay_metadata
+      path: metadata.semantic_fields_stale
+      summary: Semantic fields are not marked stale.
+      value: false
+    metrics:
+      semantic_fields_stale: false
+    recommendations: []
+  - id: overall_readiness
+    status: pass
+    score: 98
+    hard_gate: false
+    summary: 'Overall decision: ready_for_author_review.'
+    evidence:
+    - source: quality_policy
+      path: overall_readiness
+      summary: Hard gates are applied before average score.
+      value: ready_for_author_review
+    metrics:
+      hard_gate_failures: 0
+    recommendations:
+    - priority: medium
+      action: Review issue_001 from dialogue_naturalness.
+    blocking_reasons: []
+  overall_readiness:
+    status: pass
+    score: 98
+    decision: ready_for_author_review
+    hard_gate_failures: []
+    next_actions:
+    - Review issue_001 from dialogue_naturalness.
+  dashboard:
+    format: markdown
+    path: examples/output/test1_sanguo_quality_dashboard.stage26.md
+    sections:
+    - summary
+    - gate_decision
+    - dimension_scores
+    - blocking_items
+    - recommended_next_actions
+    - source_artifacts
+    - limitations
+  notes:
+  - Quality evaluation aggregates existing deterministic reports only.

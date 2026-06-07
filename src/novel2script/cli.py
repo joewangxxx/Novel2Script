@@ -26,10 +26,6 @@ from novel2script.agents.story_semantic_parser import run_story_semantic_parser
 from novel2script.exporters.fountain_exporter import export_fountain
 from novel2script.generators.screenplay_builder import build_screenplay
 from novel2script.importers.fountain_importer import sync_fountain_to_yaml
-from novel2script.reviewers.author_review import (
-    build_author_review_decisions_template,
-    render_author_review_packet,
-)
 from novel2script.io import read_text, read_yaml, write_yaml
 from novel2script.llm.openai_compatible_provider import (
     ProviderConfigurationError,
@@ -40,6 +36,10 @@ from novel2script.parsers.novel_parser import parse_novel_text
 from novel2script.planners.character_bible_builder import build_character_bible
 from novel2script.planners.outline_builder import build_outline
 from novel2script.quality.quality_report import build_quality_report, render_quality_dashboard
+from novel2script.reviewers.author_review import (
+    build_author_review_decisions_template,
+    render_author_review_packet,
+)
 from novel2script.reviewers.review_report import build_review_report
 from novel2script.validation import validate_screenplay
 
@@ -122,6 +122,21 @@ def main(argv: Sequence[str] | None = None) -> int:
     run_agent_parser.add_argument("--dry-run", action="store_true", default=True)
     run_agent_parser.add_argument("--allow-network", action="store_true")
 
+    merge_semantic_parser = subparsers.add_parser("merge-semantic-candidates")
+    merge_semantic_parser.add_argument("--story-map", required=True)
+    merge_semantic_parser.add_argument("--semantic-candidates", required=True)
+    merge_semantic_parser.add_argument("--decisions", required=True)
+    merge_semantic_parser.add_argument("--out", required=True)
+    merge_semantic_parser.add_argument("--report", required=True)
+
+    author_review_parser = subparsers.add_parser("prepare-author-review")
+    author_review_parser.add_argument("--screenplay", required=True)
+    author_review_parser.add_argument("--review-report", required=True)
+    author_review_parser.add_argument("--quality-report", required=True)
+    author_review_parser.add_argument("--quality-dashboard", required=True)
+    author_review_parser.add_argument("--packet", required=True)
+    author_review_parser.add_argument("--decisions", required=True)
+
     real_creative_readiness_parser = subparsers.add_parser(
         "check-real-creative-draft-readiness"
     )
@@ -166,21 +181,6 @@ def main(argv: Sequence[str] | None = None) -> int:
     stage26_apply_parser.add_argument("--character-bible-out", required=True)
     stage26_apply_parser.add_argument("--screenplay-out", required=True)
     stage26_apply_parser.add_argument("--report", required=True)
-
-    author_review_parser = subparsers.add_parser("prepare-author-review")
-    author_review_parser.add_argument("--screenplay", required=True)
-    author_review_parser.add_argument("--review-report", required=True)
-    author_review_parser.add_argument("--quality-report", required=True)
-    author_review_parser.add_argument("--quality-dashboard", required=True)
-    author_review_parser.add_argument("--packet", required=True)
-    author_review_parser.add_argument("--decisions", required=True)
-
-    merge_semantic_parser = subparsers.add_parser("merge-semantic-candidates")
-    merge_semantic_parser.add_argument("--story-map", required=True)
-    merge_semantic_parser.add_argument("--semantic-candidates", required=True)
-    merge_semantic_parser.add_argument("--decisions", required=True)
-    merge_semantic_parser.add_argument("--out", required=True)
-    merge_semantic_parser.add_argument("--report", required=True)
 
     args = parser.parse_args(argv)
     if args.command == "validate":
@@ -312,6 +312,12 @@ def main(argv: Sequence[str] | None = None) -> int:
             )
         return 0
     if args.command == "run-agent" and args.agent_name == "story-semantic-parser":
+        if not args.story_map:
+            print(
+                "run-agent story-semantic-parser failed: --story-map is required.",
+                file=sys.stderr,
+            )
+            return 1
         try:
             result = run_story_semantic_parser(
                 args.story_map,
@@ -473,6 +479,50 @@ def main(argv: Sequence[str] | None = None) -> int:
             )
             return 1
         return 0
+    if args.command == "merge-semantic-candidates":
+        try:
+            report = merge_semantic_candidates(
+                args.story_map,
+                args.semantic_candidates,
+                args.decisions,
+                out_path=args.out,
+                report_path=args.report,
+            )
+        except OSError as exc:
+            print(f"merge-semantic-candidates failed: {exc}", file=sys.stderr)
+            return 1
+        status = report["semantic_candidate_merge_report"]["status"]
+        return 0 if status in {"success", "partial"} else 1
+    if args.command == "prepare-author-review":
+        try:
+            screenplay = read_yaml(args.screenplay)
+            review_report = read_yaml(args.review_report)
+            quality_report = read_yaml(args.quality_report)
+            quality_dashboard = read_text(args.quality_dashboard)
+        except OSError as exc:
+            print(f"prepare-author-review failed: {exc}", file=sys.stderr)
+            return 1
+        source_paths = {
+            "screenplay": args.screenplay,
+            "review_report": args.review_report,
+            "quality_report": args.quality_report,
+            "quality_dashboard": args.quality_dashboard,
+        }
+        packet = render_author_review_packet(
+            screenplay,
+            review_report,
+            quality_report,
+            quality_dashboard,
+            source_paths=source_paths,
+        )
+        packet_path = Path(args.packet)
+        packet_path.parent.mkdir(parents=True, exist_ok=True)
+        packet_path.write_text(packet, encoding="utf-8", newline="\n")
+        write_yaml(
+            build_author_review_decisions_template(source_paths=source_paths),
+            args.decisions,
+        )
+        return 0
     if args.command == "check-real-creative-draft-readiness":
         try:
             report = write_creative_draft_readiness_report(
@@ -544,50 +594,6 @@ def main(argv: Sequence[str] | None = None) -> int:
             print(f"apply-stage24-selected-to-artifacts failed: {exc}", file=sys.stderr)
             return 1
         status = report["stage26_selected_candidate_apply_report"]["status"]
-        return 0 if status in {"success", "partial"} else 1
-    if args.command == "prepare-author-review":
-        try:
-            screenplay = read_yaml(args.screenplay)
-            review_report = read_yaml(args.review_report)
-            quality_report = read_yaml(args.quality_report)
-            quality_dashboard = read_text(args.quality_dashboard)
-        except OSError as exc:
-            print(f"prepare-author-review failed: {exc}", file=sys.stderr)
-            return 1
-        source_paths = {
-            "screenplay": args.screenplay,
-            "review_report": args.review_report,
-            "quality_report": args.quality_report,
-            "quality_dashboard": args.quality_dashboard,
-        }
-        packet = render_author_review_packet(
-            screenplay,
-            review_report,
-            quality_report,
-            quality_dashboard,
-            source_paths=source_paths,
-        )
-        packet_path = Path(args.packet)
-        packet_path.parent.mkdir(parents=True, exist_ok=True)
-        packet_path.write_text(packet, encoding="utf-8", newline="\n")
-        write_yaml(
-            build_author_review_decisions_template(source_paths=source_paths),
-            args.decisions,
-        )
-        return 0
-    if args.command == "merge-semantic-candidates":
-        try:
-            report = merge_semantic_candidates(
-                args.story_map,
-                args.semantic_candidates,
-                args.decisions,
-                out_path=args.out,
-                report_path=args.report,
-            )
-        except OSError as exc:
-            print(f"merge-semantic-candidates failed: {exc}", file=sys.stderr)
-            return 1
-        status = report["semantic_candidate_merge_report"]["status"]
         return 0 if status in {"success", "partial"} else 1
     return 2
 

@@ -1,0 +1,99 @@
+dialogue_optimizer_agent_candidates:
+  schema_version: 0.1.0
+  agent_id: dialogue_optimizer_agent
+  provider_profile: kimi_creative
+  dry_run: false
+  human_approval_required: true
+  source_artifacts:
+    character_bible: examples/output/test1_sanguo_character_bible.yaml
+    screenplay: examples/output/test1_sanguo_screenplay.enhanced.yaml
+    review_report: examples/output/test1_sanguo_review_report.enhanced.yaml
+    quality_report: examples/output/test1_sanguo_quality_report.enhanced.yaml
+  candidates:
+  - id: dialogueopt_001
+    type: dialogue_rewrite
+    target:
+      artifact: screenplay
+      scene_id: scene_001
+      beat_id: beat_001
+      character_id: char_001
+      path: scenes[0].elements[0]
+    proposed_text: '(turning from the notice, shoulders heavy)
+
+
+      LIU BEI
+
+      (sighs, low and long)
+
+
+      Another day. Another call to arms I''ll never answer.
+
+
+      A VOICE (O.S.)
+
+      (sharp, cutting)
+
+
+      A real man doesn''t sigh at his country''s wounds!
+
+
+      Liu Bei turns. Behind him, ZHANG FEI — a towering figure, eyes blazing with
+      contempt.'
+    proposed_change: {}
+    rationale: Converts expository narration into dramatic dialogue with visual blocking,
+      subtext (Liu Bei's unspoken ambition vs. self-pity), and character-revealing
+      confrontation. The sigh externalizes internal conflict; Zhang Fei's interruption
+      creates immediate dramatic tension and establishes their dynamic from first
+      meeting.
+    source_trace:
+      chapter_id: ch_001
+      event_ids:
+      - evt_001
+      note: 动作或状态变化关键词命中
+      outline_scene_ids:
+      - osp_001
+      paragraph_ids:
+      - p_004
+      quote_preview: 刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家…
+    source_trace_ids:
+      chapter_id: ch_001
+      event_ids:
+      - evt_001
+      outline_scene_ids:
+      - osp_001
+      paragraph_ids:
+      - p_004
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes: []
+    constraints_observed:
+    - character_bible
+    - screenplay
+    risks:
+    - Zhang Fei's voice may need calibration against character_bible if he has established
+      dialect or formality level
+    - Original '厉声' intensity could be modulated; current 'sharp, cutting' may underplay
+      or overplay depending on director's vision
+    - Parenthetical 'turning from the notice' assumes staging not in source—may conflict
+      with production design
+    confidence: medium
+    merge_policy: human_approval_required
+    requires_author_approval: true
+  errors: []
+  metadata:
+    prompt_retained: false
+    model_response_retained: false
+    provider_payload_retained: false
+    full_source_text_retained: false
+    run_log: examples/output/test1_sanguo_dialogue_optimizer_agent_run_log.real_kimi.yaml
+    output: examples/output/test1_sanguo_dialogue_optimizer_agent_candidates.real_kimi.yaml
+    intended_provider_profile: kimi_creative
+    resolved_provider_profile: kimi_creative
+    model: kimi-k2.6
+    finish_reason: stop
+    usage:
+      input_tokens: 444
+      output_tokens: 426
+      total_tokens: 870

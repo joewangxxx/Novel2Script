@@ -1,0 +1,25 @@
+adaptation_planner_run_log:
+  schema_version: 0.1.0
+  agent_id: adaptation_planner
+  provider_profile: kimi_creative
+  intended_provider_profile: kimi_creative
+  dry_run: false
+  trace_id: trace_adaptation_planner_7c7680c31a48
+  status: completed
+  model: kimi-k2.6
+  finish_reason: stop
+  usage:
+    input_tokens: 390
+    output_tokens: 650
+    total_tokens: 1040
+  prompt_hash: f24fe33502f0e017086aa56c2e97f2715d80f8668425eb3cbbf35eaecbfdb3dc
+  candidate_count: 1
+  error_count: 0
+  stored_prompt: false
+  model_response_retained: false
+  provider_payload_retained: false
+  source_artifacts:
+    story_map: examples/output/test1_sanguo_story_map.merged.yaml
+    outline: examples/output/test1_sanguo_outline.yaml
+    quality_report: examples/output/test1_sanguo_quality_report.yaml
+  errors: []

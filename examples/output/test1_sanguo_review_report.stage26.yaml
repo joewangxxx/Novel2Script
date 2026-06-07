@@ -1,0 +1,72 @@
+review_report:
+  schema_version: 0.1.0
+  source_screenplay: examples/output/test1_sanguo_screenplay.stage26.yaml
+  source_artifacts:
+    character_bible: examples/output/test1_sanguo_character_bible.stage26.yaml
+    story_map: examples/output/test1_sanguo_story_map.merged.yaml
+    outline: examples/output/test1_sanguo_outline.stage26.yaml
+  generated_at: '2026-06-05'
+  review_profile: deterministic_review_contract_v0
+  reviewers:
+  - character_consistency
+  - pacing
+  - dialogue_naturalness
+  - shootability
+  reviewer_results:
+  - reviewer: character_consistency
+    status: completed
+    issues_found: 0
+    notes: []
+  - reviewer: pacing
+    status: completed
+    issues_found: 0
+    notes: []
+  - reviewer: dialogue_naturalness
+    status: completed
+    issues_found: 1
+    notes: []
+  - reviewer: shootability
+    status: completed
+    issues_found: 0
+    notes: []
+  summary:
+    total_issues: 1
+    by_severity:
+      low: 0
+      medium: 1
+      high: 0
+    blocking: false
+    requires_human_approval_count: 1
+  issues:
+  - id: issue_001
+    reviewer: dialogue_naturalness
+    target_id: scene_001.element_005
+    target:
+      type: element
+      id: scene_001.element_005
+      yaml_path: scenes[0].elements[4]
+    severity: medium
+    confidence: high
+    issue: Dialogue line is very long.
+    evidence:
+      description: Dialogue length is 297; threshold is 120.
+      source_trace:
+        note: 动作或状态变化关键词命中
+        paragraph_range:
+        - 4
+        - 4
+        chapter: 1
+      source_trace_ids:
+        paragraph_ids:
+        - p_004
+        chapter_id: ch_001
+        outline_scene_ids:
+        - osp_001
+        event_ids:
+        - evt_001
+    suggestion: Review whether the line should be split or compressed.
+    suggested_patch:
+      operation: note_only
+      yaml_path: scenes[0].elements[4]
+      value: null
+    requires_human_approval: true

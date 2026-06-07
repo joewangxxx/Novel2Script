@@ -1,0 +1,561 @@
+outline:
+  schema_version: 0.1.0
+  source_story_map:
+    schema_version: 0.1.0
+    story_map_file: examples/output/test1_sanguo_story_map.merged.yaml
+  logline:
+    text: 汉灵帝在核心地点被卷入异常事件，并必须回应最终转折：The Yellow Turban Rebellion erupts due to corruption
+      and illness, marki…
+    source_trace:
+    - chapter_id: ch_001
+      paragraph_ids:
+      - p_004
+      quote_preview: 刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_001
+    - chapter_id: ch_001
+      paragraph_ids:
+      - p_005
+      quote_preview: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_002
+    - chapter_id: ch_001
+      paragraph_ids:
+      - p_011
+      quote_preview: 张飞折下柳条，朝督邮腿上奋力鞭打，一连打折了十几根柳条。围观百姓拍手称快。刘备…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_003
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Heuristic logline assembled from primary character, location, and key events.
+  theme_candidates:
+  - id: theme_001
+    theme: 未知威胁下的信任与选择
+    rationale: Based on repeated warnings, uncertain figures, and the protagonist's
+      response to danger.
+    source_trace:
+    - chapter_id: ch_001
+      paragraph_ids:
+      - p_004
+      quote_preview: 刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_001
+    - chapter_id: ch_001
+      paragraph_ids:
+      - p_005
+      quote_preview: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_002
+    - chapter_id: ch_002
+      paragraph_ids:
+      - p_015
+      quote_preview: 晚上投宿客店，曹操先睡，陈宫寻思：“我本来以为曹操是个好人，弃官跟他，谁知是这…
+      note: 心理关键词命中：以为
+    ai_tags:
+      inferred: true
+      confidence: low
+      needs_human_review: true
+      notes:
+      - Theme is heuristic and must be reviewed before use as canon.
+  act_structure:
+  - id: act_001
+    index: 1
+    act_type: act_1
+    title: Setup
+    summary: 刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家出力，叹什么气！”刘备回头看说话的人，只见他身高八尺，豹头环眼，…
+    source_trace:
+    - chapter_id: ch_001
+      paragraph_ids:
+      - p_004
+      quote_preview: 刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_001
+    - chapter_id: ch_001
+      paragraph_ids:
+      - p_005
+      quote_preview: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_002
+    - chapter_id: ch_001
+      paragraph_ids:
+      - p_011
+      quote_preview: 张飞折下柳条，朝督邮腿上奋力鞭打，一连打折了十几根柳条。围观百姓拍手称快。刘备…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_003
+    - chapter_id: ch_002
+      paragraph_ids:
+      - p_007
+      quote_preview: 次日，曹操佩刀来到相府，见董卓坐于床上，吕布侍立一旁。曹操推说马慢来迟，董卓便…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_004
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Act grouping is deterministic and based on key_event order.
+    scene_ids:
+    - osp_001
+    - osp_002
+    - osp_003
+    - osp_004
+  - id: act_002
+    index: 2
+    act_type: act_2
+    title: Confrontation
+    summary: 二人走了三日，来到成皋。成皋吕伯奢是曹操父亲的好友，二人便到吕家投宿。吕伯奢热情款待，问过情形，便骑驴出门打酒去了。 / 曹操与陈宫坐了好久，…
+    source_trace:
+    - chapter_id: ch_002
+      paragraph_ids:
+      - p_011
+      quote_preview: 二人走了三日，来到成皋。成皋吕伯奢是曹操父亲的好友，二人便到吕家投宿。吕伯奢热…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_005
+    - chapter_id: ch_002
+      paragraph_ids:
+      - p_012
+      quote_preview: 曹操与陈宫坐了好久，忽然听见庄后有磨刀的声音。曹操道：“吕伯奢不是我的至亲，此…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_006
+    - chapter_id: ch_003
+      paragraph_ids:
+      - p_005
+      quote_preview: 袁绍话音未落，只听见阶下有人高声叫道：“小将愿去斩了华雄首级，献于帐下！”只见…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_007
+    - chapter_id: ch_003
+      paragraph_ids:
+      - p_006
+      quote_preview: 曹操叫人斟了一杯热酒，让关羽饮了再上马。关羽道：“酒且放下，我去去就来！”出帐…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_008
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Act grouping is deterministic and based on key_event order.
+    scene_ids:
+    - osp_005
+    - osp_006
+    - osp_007
+    - osp_008
+  - id: act_003
+    index: 3
+    act_type: act_3
+    title: Resolution
+    summary: 一天夜里，司徒王允想到董卓的残暴，睡不着觉，便趁着月光来到后花园，仰天落泪。忽然，听到牡丹亭旁边有人在长吁短叹。王允走近一看，原来叹气的是府中…
+    source_trace:
+    - chapter_id: ch_004
+      paragraph_ids:
+      - p_002
+      quote_preview: 一天夜里，司徒王允想到董卓的残暴，睡不着觉，便趁着月光来到后花园，仰天落泪。忽…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_009
+    - chapter_id: ch_004
+      paragraph_ids:
+      - p_010
+      quote_preview: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_010
+    - chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      - p_002
+      note: Human-approved semantic candidate semcand_001.
+      event_ids:
+      - evt_011
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Act grouping is deterministic and based on key_event order.
+    scene_ids:
+    - osp_009
+    - osp_010
+    - osp_011
+  scene_plan:
+  - id: osp_001
+    order: 1
+    title: Scene candidate 1
+    purpose: '刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家出力，叹什么气！”刘备回头看说话的人，只见他身高八尺，豹头环眼，…
+
+
+      Stage 24 accepted adaptation note:
+
+      SCENE 001 — 桃园初聚（刘备视角，内/外·市集→桃园）
+
+      BEAT 1 触发（0:00-0:45）：刘备于涿县市集观招募黄巾榜文，长叹。张飞厉声喝断——"大丈夫不为国家出力，何故长叹？"二人目光交锋，张力建立。
+
+      BEAT 2 结识（0:45-2:30）：移步酒馆，关羽携刀入。三人互报姓名，各述来历——刘备织席贩履之隐忍、张飞屠户之豪纵、关羽亡命之孤冷。价值观试探："乱世之中，何为大丈夫？"
+
+      BEAT 3 立誓（2:30-4:00）：次日桃园，乌牛白马祭礼。誓词核心："不求同生，但求同死"——以死契换生路，反讽乱世逻辑。刘备执杯先饮，确立隐性主导。
+
+      BEAT 4 定名（4:00-5:00）：铸造兵器，分授职分。刘备双股剑（双刃/两难隐喻），关羽青龙偃月（长柄/距离感），张飞丈八蛇矛（突刺/冲动性）。
+
+      视觉锚点：桃花纷飞贯穿全场景，花瓣沾血（BEAT 3祭刀）、落酒（BEAT 3举杯）、埋入泥土（BEAT 4兵器淬火）——"绚烂即凋零"的预设意象。
+
+      声效设计：市集鼓噪→酒馆寂静→桃园风声渐起，空间声学标记情绪升级。'
+    source_event_ids:
+    - evt_001
+    character_ids:
+    - char_002
+    - char_003
+    - char_006
+    - char_016
+    - char_037
+    location_ids: []
+    source_trace:
+    - chapter_id: ch_001
+      paragraph_ids:
+      - p_004
+      quote_preview: 刘备当日见了榜文，长长地叹息了一声。忽然听见身后一人厉声喝道：“大丈夫不为国家…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_001
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Scene candidate mirrors a Stage 3 key_event; it is not screenplay scene output.
+      - stage24/adaptplan_001
+    uncertainty_ids: []
+  - id: osp_002
+    order: 2
+    title: Scene candidate 2
+    purpose: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城去投军。”刘备打量此人，见他身高九尺，须长二尺，丹凤眼、卧蚕眉，…
+    source_event_ids:
+    - evt_002
+    character_ids:
+    - char_004
+    - char_005
+    - char_006
+    - char_007
+    - char_008
+    - char_016
+    location_ids: []
+    source_trace:
+    - chapter_id: ch_001
+      paragraph_ids:
+      - p_005
+      quote_preview: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_002
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Scene candidate mirrors a Stage 3 key_event; it is not screenplay scene output.
+    uncertainty_ids: []
+  - id: osp_003
+    order: 3
+    title: Scene candidate 3
+    purpose: 张飞折下柳条，朝督邮腿上奋力鞭打，一连打折了十几根柳条。围观百姓拍手称快。刘备听见门前喧闹，急忙出去观看，见被捆打的正是督邮。刘备惊问张飞，张…
+    source_event_ids:
+    - evt_003
+    character_ids:
+    - char_006
+    - char_016
+    location_ids: []
+    source_trace:
+    - chapter_id: ch_001
+      paragraph_ids:
+      - p_011
+      quote_preview: 张飞折下柳条，朝督邮腿上奋力鞭打，一连打折了十几根柳条。围观百姓拍手称快。刘备…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_003
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Scene candidate mirrors a Stage 3 key_event; it is not screenplay scene output.
+    uncertainty_ids: []
+  - id: osp_004
+    order: 4
+    title: Scene candidate 4
+    purpose: 次日，曹操佩刀来到相府，见董卓坐于床上，吕布侍立一旁。曹操推说马慢来迟，董卓便让吕布去选一匹西凉好马赐给曹操。曹操见吕布走开，心中暗想：“董贼…
+    source_event_ids:
+    - evt_004
+    character_ids:
+    - char_019
+    - char_020
+    - char_050
+    - char_060
+    - char_069
+    location_ids: []
+    source_trace:
+    - chapter_id: ch_002
+      paragraph_ids:
+      - p_007
+      quote_preview: 次日，曹操佩刀来到相府，见董卓坐于床上，吕布侍立一旁。曹操推说马慢来迟，董卓便…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_004
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Scene candidate mirrors a Stage 3 key_event; it is not screenplay scene output.
+    uncertainty_ids: []
+  - id: osp_005
+    order: 5
+    title: Scene candidate 5
+    purpose: 二人走了三日，来到成皋。成皋吕伯奢是曹操父亲的好友，二人便到吕家投宿。吕伯奢热情款待，问过情形，便骑驴出门打酒去了。
+    source_event_ids:
+    - evt_005
+    character_ids:
+    - char_060
+    location_ids: []
+    source_trace:
+    - chapter_id: ch_002
+      paragraph_ids:
+      - p_011
+      quote_preview: 二人走了三日，来到成皋。成皋吕伯奢是曹操父亲的好友，二人便到吕家投宿。吕伯奢热…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_005
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Scene candidate mirrors a Stage 3 key_event; it is not screenplay scene output.
+    uncertainty_ids: []
+  - id: osp_006
+    order: 6
+    title: Scene candidate 6
+    purpose: 曹操与陈宫坐了好久，忽然听见庄后有磨刀的声音。曹操道：“吕伯奢不是我的至亲，此去可疑，应该去偷偷听听动静。”二人悄悄来到草堂后面，只听见有人道…
+    source_event_ids:
+    - evt_006
+    character_ids:
+    - char_002
+    - char_021
+    - char_052
+    - char_060
+    location_ids: []
+    source_trace:
+    - chapter_id: ch_002
+      paragraph_ids:
+      - p_012
+      quote_preview: 曹操与陈宫坐了好久，忽然听见庄后有磨刀的声音。曹操道：“吕伯奢不是我的至亲，此…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_006
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Scene candidate mirrors a Stage 3 key_event; it is not screenplay scene output.
+    uncertainty_ids: []
+  - id: osp_007
+    order: 7
+    title: Scene candidate 7
+    purpose: 袁绍话音未落，只听见阶下有人高声叫道：“小将愿去斩了华雄首级，献于帐下！”只见此人身长九尺，髯长二尺，丹凤眼，卧蚕眉，面如重枣。袁绍问是何人，…
+    source_event_ids:
+    - evt_007
+    character_ids:
+    - char_025
+    - char_060
+    location_ids: []
+    source_trace:
+    - chapter_id: ch_003
+      paragraph_ids:
+      - p_005
+      quote_preview: 袁绍话音未落，只听见阶下有人高声叫道：“小将愿去斩了华雄首级，献于帐下！”只见…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_007
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Scene candidate mirrors a Stage 3 key_event; it is not screenplay scene output.
+    uncertainty_ids: []
+  - id: osp_008
+    order: 8
+    title: Scene candidate 8
+    purpose: 曹操叫人斟了一杯热酒，让关羽饮了再上马。关羽道：“酒且放下，我去去就来！”出帐提大刀飞身上马。众人只听见关外鼓声大震，喊声连天，如天崩地裂一般…
+    source_event_ids:
+    - evt_008
+    character_ids:
+    - char_026
+    - char_027
+    - char_060
+    location_ids: []
+    source_trace:
+    - chapter_id: ch_003
+      paragraph_ids:
+      - p_006
+      quote_preview: 曹操叫人斟了一杯热酒，让关羽饮了再上马。关羽道：“酒且放下，我去去就来！”出帐…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_008
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Scene candidate mirrors a Stage 3 key_event; it is not screenplay scene output.
+    uncertainty_ids: []
+  - id: osp_009
+    order: 9
+    title: Scene candidate 9
+    purpose: 一天夜里，司徒王允想到董卓的残暴，睡不着觉，便趁着月光来到后花园，仰天落泪。忽然，听到牡丹亭旁边有人在长吁短叹。王允走近一看，原来叹气的是府中…
+    source_event_ids:
+    - evt_009
+    character_ids:
+    - char_002
+    - char_034
+    - char_035
+    - char_042
+    - char_046
+    - char_050
+    location_ids: []
+    source_trace:
+    - chapter_id: ch_004
+      paragraph_ids:
+      - p_002
+      quote_preview: 一天夜里，司徒王允想到董卓的残暴，睡不着觉，便趁着月光来到后花园，仰天落泪。忽…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_009
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Scene candidate mirrors a Stage 3 key_event; it is not screenplay scene output.
+    uncertainty_ids: []
+  - id: osp_010
+    order: 10
+    title: Scene candidate 10
+    purpose: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起画戟大喝一声。吕布大惊，转身就逃。董卓身体肥胖，追不上，便用力将…
+    source_event_ids:
+    - evt_010
+    character_ids:
+    - char_046
+    - char_050
+    - char_051
+    - char_052
+    - char_053
+    - char_054
+    - char_055
+    - char_056
+    - char_069
+    location_ids: []
+    source_trace:
+    - chapter_id: ch_004
+      paragraph_ids:
+      - p_010
+      quote_preview: 这边，董卓来到了后园。他看到吕布的画戟靠在一边，两人在亭中说话，不由大怒，抓起…
+      note: 动作或状态变化关键词命中
+      event_ids:
+      - evt_010
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Scene candidate mirrors a Stage 3 key_event; it is not screenplay scene output.
+    uncertainty_ids: []
+  - id: osp_011
+    order: 11
+    title: Scene candidate 11
+    purpose: The Yellow Turban Rebellion erupts due to corruption and illness, marki…
+    source_event_ids:
+    - evt_011
+    character_ids: []
+    location_ids: []
+    source_trace:
+    - chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      - p_002
+      note: Human-approved semantic candidate semcand_001.
+      event_ids:
+      - evt_011
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Scene candidate mirrors a Stage 3 key_event; it is not screenplay scene output.
+    uncertainty_ids: []
+  source_coverage:
+    story_event_count: 11
+    covered_event_ids:
+    - evt_001
+    - evt_002
+    - evt_003
+    - evt_004
+    - evt_005
+    - evt_006
+    - evt_007
+    - evt_008
+    - evt_009
+    - evt_010
+    - evt_011
+    uncovered_event_ids: []
+    notes:
+    - Each key_event is represented by one outline scene candidate.
+  uncertainties:
+  - id: out_unc_001
+    category: other
+    description: 启发式低置信判断：'他们' 可能需要人工确认。
+    source_trace:
+    - chapter_id: ch_001
+      paragraph_ids:
+      - p_005
+      quote_preview: 饮酒之间，看见一个大汉推着车子停在店门口，进店就喊酒保：“快拿酒来，我等着进城…
+      note: 不确定性关键词命中：他们
+    severity: low
+    suggested_resolution: 由后续人工审阅或更强解析阶段确认。
+  - id: out_unc_002
+    category: other
+    description: 启发式低置信判断：'他们' 可能需要人工确认。
+    source_trace:
+    - chapter_id: ch_001
+      paragraph_ids:
+      - p_006
+      quote_preview: 他们招来能工巧匠打造兵器：刘备打造双股剑；关羽造青龙偃月刀，重八十二斤；张飞造…
+      note: 不确定性关键词命中：他们
+    severity: low
+    suggested_resolution: 由后续人工审阅或更强解析阶段确认。
+  - id: out_unc_003
+    category: other
+    description: 启发式低置信判断：'他们' 可能需要人工确认。
+    source_trace:
+    - chapter_id: ch_004
+      paragraph_ids:
+      - p_004
+      quote_preview: 王允听了，心里有了主意。他把貂蝉叫进里屋，朝貂蝉跪下便拜。貂蝉吃惊地跪倒在地，…
+      note: 不确定性关键词命中：他们
+    severity: low
+    suggested_resolution: 由后续人工审阅或更强解析阶段确认。

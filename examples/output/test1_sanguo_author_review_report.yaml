@@ -1,0 +1,47 @@
+author_review_report:
+  schema_version: 0.1.0
+  source_decisions: examples/output/test1_sanguo_author_review_decisions.yaml
+  source_artifacts:
+    screenplay: examples/output/test1_sanguo_screenplay.yaml
+    review_report: examples/output/test1_sanguo_review_report.yaml
+    quality_report: examples/output/test1_sanguo_quality_report.yaml
+    quality_dashboard: examples/output/test1_sanguo_quality_dashboard.md
+  generated_at: '2026-06-06T18:55:00+08:00'
+  status: approved
+  summary: Author approved the current structure, characters, beats, and quality gate; dialogue drafting is requested before creative polish.
+  decision_outcomes:
+    structure_decision: approve
+    character_decision: approve
+    beat_decision: approve
+    dialogue_decision: request_dialogue_draft
+    quality_decision: approve
+  next_stage_authorization: kimi_dialogue_draft
+  blocking_reasons: []
+  requested_changes:
+    - id: change_001
+      area: dialogue
+      description: Draft scene/dialogue enhancements while preserving approved structure, character grounding, source traces, and Stage 15 quality evidence.
+      linked_issue_ids: []
+      linked_artifacts:
+        - examples/output/test1_sanguo_quality_report.yaml
+        - examples/output/test1_sanguo_quality_dashboard.md
+  metadata:
+    ready_for_next_stage: true
+    authorized_next_stage: kimi_dialogue_draft
+    author_confirmed:
+      structure: true
+      characters: true
+      beats: true
+      quality_gate: true
+    still_needs_human_polish:
+      - dialogue_naturalness
+      - final scene prose polish
+    kimi_creative_scope:
+      allowed:
+        - dialogue_draft
+        - scene_prose_enhancement
+      forbidden:
+        - changing approved story_map source_trace
+        - changing approved structure without a new author decision
+        - overwriting screenplay in place
+        - calling a model without explicit future-stage network authorization

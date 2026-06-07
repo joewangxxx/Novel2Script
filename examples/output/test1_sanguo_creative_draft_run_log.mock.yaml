@@ -1,0 +1,17 @@
+creative_draft_run_log:
+  schema_version: 0.1.0
+  agent_id: kimi_dialogue_scene_drafter
+  provider_profile: mock_dry_run
+  intended_provider_profile: kimi_creative
+  dry_run: true
+  trace_id: trace_creative_4b9f5fa5a6ed
+  status: completed
+  candidate_count: 3
+  error_count: 0
+  stored_prompt: false
+  source_artifacts:
+    screenplay: examples/output/test1_sanguo_screenplay.yaml
+    author_review_report: examples/output/test1_sanguo_author_review_report.yaml
+    review_report: examples/output/test1_sanguo_review_report.yaml
+    quality_report: examples/output/test1_sanguo_quality_report.yaml
+  errors: []

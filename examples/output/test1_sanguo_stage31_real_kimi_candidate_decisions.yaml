@@ -1,0 +1,37 @@
+stage31_real_kimi_candidate_decisions:
+  schema_version: 0.1.0
+  generated_at: '2026-06-07T17:09:13+08:00'
+  status: reviewed
+  reviewed_by: human_author_via_user_instruction
+  source_candidate_sidecar: examples/output/test1_sanguo_creative_draft_candidates.stage26.real_kimi.yaml
+  source_run_log: examples/output/test1_sanguo_creative_draft_run_log.stage26.real_kimi.yaml
+  decision_summary:
+    total_count: 1
+    accepted_count: 1
+    edited_count: 0
+    rejected_count: 0
+    pending_count: 0
+  decisions:
+    - agent_id: kimi_dialogue_scene_drafter
+      candidate_id: crecand_001
+      candidate_type: beat_externalization
+      target:
+        scene_id: scene_001
+        beat_id: beat_001
+        character_id: char_001
+      decision: accept
+      reviewed_by: human_author_via_user_instruction
+      reviewed_at: '2026-06-07T17:09:13+08:00'
+      review_notes:
+        - User instructed the project to proceed to the next operation.
+        - Candidate remains subject to protected apply in a later stage.
+      edited_text: ''
+      requires_author_approval: true
+      auto_apply_allowed: false
+  metadata:
+    prompt_retained: false
+    raw_response_retained: false
+    provider_payload_retained: false
+    candidate_text_copied_into_decisions: false
+    full_source_text_retained: false
+    source_screenplay_mutated: false

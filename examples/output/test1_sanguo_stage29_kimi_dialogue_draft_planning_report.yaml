@@ -1,0 +1,44 @@
+stage29_kimi_dialogue_draft_planning_report:
+  schema_version: 0.1.0
+  generated_at: '2026-06-07T16:57:54+08:00'
+  status: ready_pending_explicit_network_authorization
+  stage: stage_29_kimi_dialogue_draft_planning_for_stage26_package
+  agent_id: kimi_dialogue_scene_drafter
+  provider_profile_for_future_real_run: kimi_creative
+  model_for_future_real_run: kimi-k2.6
+  source_artifacts:
+    screenplay: examples/output/test1_sanguo_screenplay.stage26.yaml
+    author_review_report: examples/output/test1_sanguo_author_review_report.stage26.yaml
+    review_report: examples/output/test1_sanguo_review_report.stage26.yaml
+    quality_report: examples/output/test1_sanguo_quality_report.stage26.yaml
+    quality_dashboard: examples/output/test1_sanguo_quality_dashboard.stage26.md
+  generated_artifacts:
+    mock_candidates: examples/output/test1_sanguo_creative_draft_candidates.stage26.mock.yaml
+    mock_run_log: examples/output/test1_sanguo_creative_draft_run_log.stage26.mock.yaml
+    phase_plan: docs/dev/PHASE_29_KIMI_DIALOGUE_DRAFT_STAGE26_PLANNING.md
+  checks:
+    author_review_report_schema_valid: true
+    next_stage_authorization: kimi_dialogue_draft
+    ready_for_next_stage: true
+    dry_run_executed: true
+    dry_run_network_call_made: false
+    dry_run_candidate_schema_valid: true
+    dry_run_candidate_count: 3
+    dry_run_unresolved_targets: 0
+    stored_prompt: false
+    model_response_retained: false
+    provider_payload_retained: false
+    source_screenplay_mutated: false
+  future_real_run_policy:
+    explicit_user_network_authorization_required: true
+    max_attempts: 1
+    automatic_retry_allowed: false
+    provider_internal_retry_allowed: false
+    fallback_to_mock_allowed: false
+    qwen_allowed: false
+    deepseek_allowed: false
+    prompt_retention_allowed: false
+    raw_model_text_retention_allowed: false
+    provider_payload_retention_allowed: false
+    auto_apply_allowed: false
+  blocking_codes: []

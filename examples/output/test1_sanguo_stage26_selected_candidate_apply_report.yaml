@@ -1,0 +1,43 @@
+stage26_selected_candidate_apply_report:
+  schema_version: 0.1.0
+  status: success
+  source_selected_candidates: examples/output/test1_sanguo_stage24_selected_candidates.yaml
+  source_artifacts:
+    outline: examples/output/test1_sanguo_outline.yaml
+    character_bible: examples/output/test1_sanguo_character_bible.yaml
+    screenplay: examples/output/test1_sanguo_screenplay.enhanced.yaml
+  output_artifacts:
+    outline: examples/output/test1_sanguo_outline.stage26.yaml
+    character_bible: examples/output/test1_sanguo_character_bible.stage26.yaml
+    screenplay: examples/output/test1_sanguo_screenplay.stage26.yaml
+  applied_count: 4
+  skipped_count: 0
+  blocked_count: 0
+  applied:
+  - agent_id: adaptation_planner
+    candidate_id: adaptplan_001
+    path: outline.scene_plan[0].purpose
+  - agent_id: character_bible_agent
+    candidate_id: charbible_001
+    path: character_bible.characters[char_001].flaw
+  - agent_id: scene_writer_agent
+    candidate_id: scenewrite_001
+    path: screenplay.scenes[scene_001].elements[]
+  - agent_id: dialogue_optimizer_agent
+    candidate_id: dialogueopt_001
+    path: screenplay.scenes[scene_001].elements[]
+  skipped: []
+  blocked: []
+  source_hashes_before:
+    outline: sha256:46657e73380659f144a99367a400eaa5f8efe36723290b8949cb039c2afc1d2a
+    character_bible: sha256:65d7565385cdf66f9354f468b7e5220198de66c16fae6cd9c9c1dd50c7d8a536
+    screenplay: sha256:34350f247f9a086dc01c5b5f9e5d43bf610b91214004b1c40b687e65aea7ff6c
+  source_hashes_after:
+    outline: sha256:46657e73380659f144a99367a400eaa5f8efe36723290b8949cb039c2afc1d2a
+    character_bible: sha256:65d7565385cdf66f9354f468b7e5220198de66c16fae6cd9c9c1dd50c7d8a536
+    screenplay: sha256:34350f247f9a086dc01c5b5f9e5d43bf610b91214004b1c40b687e65aea7ff6c
+  output_hashes:
+    outline: sha256:42d1e3b4245b0b7b31e6dbaabd8701c0468f4da8cc0e58d3628576db46d3d000
+    character_bible: sha256:c81ba44d262a53afa8c0a5819788a0e612f0cd98f04739e28a84628429e7891c
+    screenplay: sha256:3291a66b76473837b9ccdc1636a5191abb69b95c7c5445dd8cafbeeb5b17dbc9
+  preserved_original_artifacts: true

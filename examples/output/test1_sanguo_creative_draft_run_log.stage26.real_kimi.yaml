@@ -1,0 +1,26 @@
+creative_draft_run_log:
+  schema_version: 0.1.0
+  agent_id: kimi_dialogue_scene_drafter
+  provider_profile: kimi_creative
+  intended_provider_profile: kimi_creative
+  dry_run: false
+  trace_id: trace_creative_797196c0a6ac
+  status: completed
+  model: kimi-k2.6
+  finish_reason: stop
+  usage:
+    input_tokens: 491
+    output_tokens: 172
+    total_tokens: 663
+  prompt_hash: cb8ab3bd46e4fdff0ac89ecc7004b35aaa15713e2f6bb2113dd7704a3194c84c
+  candidate_count: 1
+  error_count: 0
+  stored_prompt: false
+  model_response_retained: false
+  provider_payload_retained: false
+  source_artifacts:
+    screenplay: examples/output/test1_sanguo_screenplay.stage26.yaml
+    author_review_report: examples/output/test1_sanguo_author_review_report.stage26.yaml
+    review_report: examples/output/test1_sanguo_review_report.stage26.yaml
+    quality_report: examples/output/test1_sanguo_quality_report.stage26.yaml
+  errors: []

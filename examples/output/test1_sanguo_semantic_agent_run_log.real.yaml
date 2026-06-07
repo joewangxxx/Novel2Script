@@ -1,0 +1,25 @@
+llm_run_records:
+- run_id: llm_run_77e69358adec
+  trace_id: trace_sem_6ffb3e02de45
+  agent_id: story_semantic_parser
+  task_type: semantic_candidate_generation
+  provider: qwen_long
+  model: qwen-long
+  status: completed
+  finish_reason: stop
+  prompt_hash: sha256:bf125e0737c7cba62c79720ce5fc7ac4c5300808342044536bdabb991d696b9d
+  prompt_chars: 2980
+  stored_prompt: false
+  usage:
+    input_tokens: 1096
+    output_tokens: 442
+    total_tokens: 1538
+  latency_ms: 10833
+  intended_profile: qwen_long
+  resolved_profile: qwen_long
+errors: []
+provider_response:
+  run_id: llm_run_77e69358adec
+  provider: qwen_long
+  model: qwen-long
+  finish_reason: stop
