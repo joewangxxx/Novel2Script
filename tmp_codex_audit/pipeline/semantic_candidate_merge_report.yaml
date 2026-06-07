@@ -1,0 +1,83 @@
+semantic_candidate_merge_report:
+  schema_version: 0.1.0
+  source_story_map: tmp_codex_audit\pipeline\story_map.yaml
+  source_semantic_candidates: tmp_codex_audit\pipeline\semantic_candidates.yaml
+  decision_file: tmp_codex_audit\pipeline\decisions.yaml
+  output_story_map: tmp_codex_audit\pipeline\story_map.merged.yaml
+  generated_at: '2026-06-07T23:43:45+08:00'
+  merge_profile: deterministic_semantic_candidate_merge_v0
+  status: success
+  summary:
+    candidates_total: 3
+    decisions_total: 3
+    accepted: 3
+    rejected: 0
+    edited: 0
+    skipped: 0
+    blocked: 0
+    applied_changes: 3
+  decisions:
+  - decision_id: dec_001
+    candidate_id: semcand_001
+    candidate_type: event_candidate
+    target_story_map_field: key_events
+    requested_decision: accept
+    outcome: accepted
+    human_approval:
+      approved: true
+      reviewer_id: pipeline_auto
+      approved_at: '2026-06-07T23:43:45+08:00'
+    reviewer: pipeline_auto
+    reviewed_at: '2026-06-07T23:43:45+08:00'
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+    candidate_hash: sha256:72395e72bddd10de13ec2a7d29cd42595a6a95ab8734f6cc8c3da8c9f396b290
+    created_id: evt_007
+    applied_yaml_path: story_map.key_events[6]
+  - decision_id: dec_002
+    candidate_id: semcand_002
+    candidate_type: psychological_passage_candidate
+    target_story_map_field: psychological_passages
+    requested_decision: accept
+    outcome: accepted
+    human_approval:
+      approved: true
+      reviewer_id: pipeline_auto
+      approved_at: '2026-06-07T23:43:45+08:00'
+    reviewer: pipeline_auto
+    reviewed_at: '2026-06-07T23:43:45+08:00'
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+    candidate_hash: sha256:384676bede10d2e4a26167845f4519e341255fc0ae47c3863ec61187921e87b2
+    created_id: psy_002
+    applied_yaml_path: story_map.psychological_passages[1]
+  - decision_id: dec_003
+    candidate_id: semcand_003
+    candidate_type: timeline_candidate
+    target_story_map_field: timeline
+    requested_decision: accept
+    outcome: accepted
+    human_approval:
+      approved: true
+      reviewer_id: pipeline_auto
+      approved_at: '2026-06-07T23:43:45+08:00'
+    reviewer: pipeline_auto
+    reviewed_at: '2026-06-07T23:43:45+08:00'
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+    candidate_hash: sha256:fe18801626d7db788cdd9b7d6dfabcf15b78952f7af6e38e92d4c4dc1f57d868
+    created_id: tl_005
+    applied_yaml_path: story_map.timeline[4]
+  errors: []
+  audit:
+    preserved_original_story_map: true
+    story_map_hash_before: sha256:c16ac434c0a17fb7d3e02c4da708d1bfb672b4499bd6924a66ad4270a49688d7
+    story_map_hash_after: sha256:d0db5db49833432c4e93fcfc1907d7a9a5e0adf36f2933bb136f06debecdffdb
+    semantic_candidates_hash: sha256:b7fb6bf7fd67e531d7142c603900bd150b5bac6c1c54e0889225632b132b817b
+    decision_file_hash: sha256:e714b263480bcacb4a35e0b6dad20916291e460054a8aafda5fae8948886e004

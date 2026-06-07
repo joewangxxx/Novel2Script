@@ -19,6 +19,8 @@ DIMENSION_IDS = [
     "shootability",
     "fountain_roundtrip_safety",
     "semantic_staleness",
+    "character_goal_clarity",
+    "dramatic_conflict_intensity",
     "overall_readiness",
 ]
 REVIEWER_DIMENSIONS = {
@@ -37,9 +39,15 @@ def build_quality_report(
     roundtrip_report_doc: dict[str, Any] | None = None,
     source_paths: dict[str, str] | None = None,
     generated_at: str = DEFAULT_GENERATED_AT,
+    llm_scores: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Aggregate deterministic quality evidence without mutating inputs."""
+    """Aggregate quality evidence including optional LLM scores without mutating inputs."""
     paths = source_paths or {}
+    
+    reviewer_dims = ["character_consistency", "pacing", "shootability"]
+    if not llm_scores:
+        reviewer_dims.append("dialogue_naturalness")
+
     dimensions = [
         _schema_validity(validation_report),
         _source_trace_coverage(validation_report),
@@ -47,16 +55,24 @@ def build_quality_report(
         _reference_integrity(validation_report),
         *[
             _reviewer_dimension(review_report_doc, reviewer)
-            for reviewer in [
-                "character_consistency",
-                "pacing",
-                "dialogue_naturalness",
-                "shootability",
-            ]
+            for reviewer in reviewer_dims
         ],
         _roundtrip_safety(roundtrip_report_doc),
         _semantic_staleness(screenplay),
     ]
+
+    if llm_scores:
+        dimensions.extend([
+            _llm_dimension("dialogue_naturalness", llm_scores.get("dialogue_naturalness", {})),
+            _llm_dimension("character_goal_clarity", llm_scores.get("character_goal_clarity", {})),
+            _llm_dimension("dramatic_conflict_intensity", llm_scores.get("dramatic_conflict_intensity", {})),
+        ])
+    else:
+        dimensions.extend([
+            _reviewer_dimension(review_report_doc, "dialogue_naturalness"),
+            _fallback_dimension("character_goal_clarity"),
+            _fallback_dimension("dramatic_conflict_intensity"),
+        ])
     readiness = _overall_readiness(dimensions, review_report_doc)
     dimensions.append(
         {
@@ -531,3 +547,37 @@ def _next_actions(
 
 def _escape_markdown_table(value: str) -> str:
     return value.replace("|", "\\|").replace("\n", " ")
+
+
+def _llm_dimension(dimension_id: str, data: dict[str, Any]) -> dict[str, Any]:
+    score = int(data.get("score", 90))
+    status = _status_from_score(score)
+    summary = str(data.get("summary", ""))
+    reasoning = str(data.get("reasoning", ""))
+    return _dimension(
+        dimension_id,
+        status,
+        score,
+        False,
+        summary,
+        "llm_evaluation",
+        f"llm_scores.{dimension_id}",
+        {"score": score, "summary": summary, "reasoning": reasoning},
+        {"score": score},
+        [f"Review LLM reasoning for {dimension_id}: {reasoning}"],
+    )
+
+
+def _fallback_dimension(dimension_id: str) -> dict[str, Any]:
+    return _dimension(
+        dimension_id,
+        "pass",
+        100,
+        False,
+        f"Deterministic fallback: {dimension_id} was not evaluated by LLM.",
+        "quality_policy",
+        f"llm_scores.{dimension_id}",
+        None,
+        {"score": 100},
+        [],
+    )

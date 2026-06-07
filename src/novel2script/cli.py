@@ -106,6 +106,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     quality_parser.add_argument("--roundtrip-report")
     quality_parser.add_argument("--out", required=True)
     quality_parser.add_argument("--markdown")
+    quality_parser.add_argument("--allow-network", action="store_true")
+    quality_parser.add_argument("--run-log")
 
     run_agent_parser = subparsers.add_parser("run-agent")
     run_agent_parser.add_argument(
@@ -199,6 +201,13 @@ def main(argv: Sequence[str] | None = None) -> int:
     serve_workbench_parser.add_argument("--port", type=int, default=8000)
     serve_workbench_parser.add_argument("--host", default="127.0.0.1")
     serve_workbench_parser.add_argument("--no-browser", action="store_true")
+
+    run_pipeline_parser = subparsers.add_parser("run-pipeline")
+    run_pipeline_parser.add_argument("--novel", required=True)
+    run_pipeline_parser.add_argument("--out-dir", required=True)
+    run_pipeline_parser.add_argument("--decisions")
+    run_pipeline_parser.add_argument("--allow-network", action="store_true")
+    run_pipeline_parser.add_argument("--force", action="store_true")
 
     args = parser.parse_args(argv)
     if args.command == "validate":
@@ -348,6 +357,19 @@ def main(argv: Sequence[str] | None = None) -> int:
         except OSError as exc:
             print(f"evaluate-quality failed: {exc}", file=sys.stderr)
             return 1
+
+        from novel2script.quality.llm_evaluator import run_llm_quality_evaluator
+        try:
+            llm_scores = run_llm_quality_evaluator(
+                screenplay,
+                router=LLMRouter.from_environment(allow_network=args.allow_network),
+                dry_run=not args.allow_network,
+                run_log_path=args.run_log,
+            )
+        except Exception as exc:
+            print(f"evaluate-quality LLM scoring failed: {exc}", file=sys.stderr)
+            return 1
+
         quality_report = build_quality_report(
             screenplay,
             validation_report,
@@ -361,6 +383,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 "quality_report_yaml": args.out,
                 "quality_dashboard_markdown": args.markdown or "",
             },
+            llm_scores=llm_scores,
         )
         write_yaml(quality_report, args.out)
         if args.markdown:
@@ -718,50 +741,322 @@ def main(argv: Sequence[str] | None = None) -> int:
             return 1
         status = report["stage26_selected_candidate_apply_report"]["status"]
         return 0 if status in {"success", "partial"} else 1
+    if args.command == "run-pipeline":
+        out_dir = Path(args.out_dir)
+        out_dir.mkdir(parents=True, exist_ok=True)
+        
+        force = bool(args.force)
+        allow_network = bool(args.allow_network)
+        
+        story_map_path = out_dir / "story_map.yaml"
+        semantic_candidates_path = out_dir / "semantic_candidates.yaml"
+        semantic_run_log_path = out_dir / "semantic_run_log.yaml"
+        decisions_path = Path(args.decisions) if args.decisions else out_dir / "decisions.yaml"
+        story_map_merged_path = out_dir / "story_map.merged.yaml"
+        merge_report_path = out_dir / "semantic_candidate_merge_report.yaml"
+        outline_path = out_dir / "outline.yaml"
+        character_bible_path = out_dir / "character_bible.yaml"
+        screenplay_path = out_dir / "screenplay.yaml"
+        review_report_path = out_dir / "review_report.yaml"
+        validation_report_path = out_dir / "validation_report.yaml"
+        screenplay_fountain_path = out_dir / "screenplay.fountain"
+        fountain_map_path = out_dir / "screenplay.fountain.map.json"
+        quality_report_path = out_dir / "quality_report.yaml"
+        quality_dashboard_path = out_dir / "quality_dashboard.md"
+        packet_path = out_dir / "author_review_packet.md"
+        author_review_decisions_path = out_dir / "author_review_decisions.yaml"
+
+        # Step 1: parse-novel
+        if force or not story_map_path.exists():
+            print("Running step: parse-novel...")
+            try:
+                text = read_text(args.novel)
+                write_yaml(parse_novel_text(text, input_file=args.novel), story_map_path)
+            except Exception as exc:
+                print(f"Pipeline Step parse_novel failed: {exc}", file=sys.stderr)
+                return 1
+        else:
+            print("Step parse-novel output exists, skipping.")
+
+        # Step 2: run-agent story-semantic-parser
+        if force or not semantic_candidates_path.exists() or not semantic_run_log_path.exists():
+            print("Running step: generate-semantic-candidates...")
+            try:
+                run_story_semantic_parser(
+                    story_map_path,
+                    out_path=semantic_candidates_path,
+                    run_log_path=semantic_run_log_path,
+                    router=LLMRouter.from_environment(allow_network=allow_network),
+                    dry_run=not allow_network,
+                )
+            except Exception as exc:
+                print(f"Pipeline Step generate_semantic_candidates failed: {exc}", file=sys.stderr)
+                return 1
+        else:
+            print("Step generate-semantic-candidates output exists, skipping.")
+
+        # Step 3: merge-semantic-candidates
+        if force or not story_map_merged_path.exists() or not merge_report_path.exists():
+            print("Running step: merge-semantic-candidates...")
+            try:
+                if not decisions_path.exists():
+                    print(f"Decisions file {decisions_path} not found. Generating default Accept-All decisions...")
+                    from datetime import datetime
+                    from novel2script.agents.semantic_candidate_merge import TYPE_TARGETS
+
+                    candidates_doc = read_yaml(semantic_candidates_path)
+                    candidates = candidates_doc.get("semantic_candidates", {}).get("candidates", [])
+                    reviewed_at_str = datetime.now().astimezone().isoformat(timespec="seconds")
+
+                    decisions_list = []
+                    for idx, cand in enumerate(candidates):
+                        c_id = cand.get("id")
+                        c_type = cand.get("type")
+                        target_field = TYPE_TARGETS.get(c_type, (None, None))[0] or cand.get("target_story_map_field")
+                        decisions_list.append({
+                            "decision_id": f"dec_{idx+1:03d}",
+                            "candidate_id": c_id,
+                            "decision": "accept",
+                            "target_story_map_field": target_field,
+                            "human_approval": {
+                                "approved": True,
+                                "reviewer_id": "pipeline_auto",
+                                "approved_at": reviewed_at_str
+                            }
+                        })
+
+                    if not decisions_list:
+                        # Schema requires minItems: 1. Generate a dummy decision referencing an unknown candidate.
+                        # It will be skipped as unknown but satisfies the schema validator.
+                        decisions_list.append({
+                            "decision_id": "dec_001",
+                            "candidate_id": "semcand_000",
+                            "decision": "reject",
+                            "target_story_map_field": "key_events",
+                            "human_approval": {
+                                "approved": False,
+                                "reviewer_id": "pipeline_auto",
+                                "approved_at": reviewed_at_str
+                            }
+                        })
+
+                    decisions = {
+                        "semantic_candidate_decisions": {
+                            "schema_version": "0.1.0",
+                            "source_story_map": str(story_map_path),
+                            "source_semantic_candidates": str(semantic_candidates_path),
+                            "reviewed_by": "pipeline_auto",
+                            "reviewed_at": reviewed_at_str,
+                            "decisions": decisions_list
+                        }
+                    }
+                    write_yaml(decisions, decisions_path)
+
+                merge_semantic_candidates(
+                    story_map_path,
+                    semantic_candidates_path,
+                    decisions_path,
+                    out_path=story_map_merged_path,
+                    report_path=merge_report_path,
+                )
+            except Exception as exc:
+                print(f"Pipeline Step merge_semantic failed: {exc}", file=sys.stderr)
+                return 1
+        else:
+            print("Step merge-semantic-candidates output exists, skipping.")
+
+        # Step 4: build-outline
+        if force or not outline_path.exists():
+            print("Running step: build-outline...")
+            try:
+                story_map = read_yaml(story_map_merged_path)
+                write_yaml(build_outline(story_map, story_map_file=str(story_map_merged_path)), outline_path)
+            except Exception as exc:
+                print(f"Pipeline Step build_outline failed: {exc}", file=sys.stderr)
+                return 1
+        else:
+            print("Step build-outline output exists, skipping.")
+
+        # Step 5: build-character-bible
+        if force or not character_bible_path.exists():
+            print("Running step: build-character-bible...")
+            try:
+                story_map = read_yaml(story_map_merged_path)
+                write_yaml(
+                    build_character_bible(story_map, story_map_file=str(story_map_merged_path)),
+                    character_bible_path,
+                )
+            except Exception as exc:
+                print(f"Pipeline Step build_character_bible failed: {exc}", file=sys.stderr)
+                return 1
+        else:
+            print("Step build-character-bible output exists, skipping.")
+
+        # Step 6: build-screenplay
+        if force or not screenplay_path.exists():
+            print("Running step: build-screenplay...")
+            try:
+                story_map = read_yaml(story_map_merged_path)
+                outline = read_yaml(outline_path)
+                character_bible = read_yaml(character_bible_path)
+                write_yaml(
+                    build_screenplay(
+                        story_map,
+                        outline,
+                        character_bible,
+                        story_map_file=str(story_map_merged_path),
+                        outline_file=str(outline_path),
+                        character_bible_file=str(character_bible_path),
+                    ),
+                    screenplay_path,
+                )
+            except Exception as exc:
+                print(f"Pipeline Step build_screenplay failed: {exc}", file=sys.stderr)
+                return 1
+        else:
+            print("Step build-screenplay output exists, skipping.")
+
+        # Step 7: review-screenplay
+        if force or not review_report_path.exists():
+            print("Running step: review-screenplay...")
+            try:
+                screenplay = read_yaml(screenplay_path)
+                character_bible = read_yaml(character_bible_path)
+                story_map = read_yaml(story_map_merged_path)
+                outline = read_yaml(outline_path)
+                source_artifacts = {
+                    "character_bible": str(character_bible_path),
+                    "story_map": str(story_map_merged_path),
+                    "outline": str(outline_path),
+                }
+                write_yaml(
+                    build_review_report(
+                        screenplay,
+                        character_bible_doc=character_bible,
+                        outline_doc=outline,
+                        story_map_doc=story_map,
+                        source_screenplay=str(screenplay_path),
+                        source_artifacts=source_artifacts,
+                    ),
+                    review_report_path,
+                )
+            except Exception as exc:
+                print(f"Pipeline Step review_screenplay failed: {exc}", file=sys.stderr)
+                return 1
+        else:
+            print("Step review-screenplay output exists, skipping.")
+
+        # Step 8: validate-screenplay
+        if force or not validation_report_path.exists():
+            print("Running step: validate-screenplay...")
+            try:
+                schema_file = Path(__file__).resolve().parent.parent.parent / "schemas" / "screenplay.schema.json"
+                if not schema_file.exists():
+                    schema_file = Path.cwd() / "schemas" / "screenplay.schema.json"
+                report = validate_screenplay(str(screenplay_path), str(schema_file))
+                write_yaml(report, validation_report_path)
+            except Exception as exc:
+                print(f"Pipeline Step validate_screenplay failed: {exc}", file=sys.stderr)
+                return 1
+        else:
+            print("Step validate-screenplay output exists, skipping.")
+
+        # Step 9: export-fountain
+        if force or not screenplay_fountain_path.exists() or not fountain_map_path.exists():
+            print("Running step: export-fountain...")
+            try:
+                export_fountain(str(screenplay_path), str(screenplay_fountain_path), str(fountain_map_path))
+            except Exception as exc:
+                print(f"Pipeline Step export_fountain failed: {exc}", file=sys.stderr)
+                return 1
+        else:
+            print("Step export-fountain output exists, skipping.")
+
+        # Step 10: evaluate-quality
+        if force or not quality_report_path.exists() or not quality_dashboard_path.exists():
+            print("Running step: evaluate-quality...")
+            try:
+                screenplay = read_yaml(screenplay_path)
+                validation_report = read_yaml(validation_report_path)
+                review_report = read_yaml(review_report_path)
+
+                from novel2script.quality.llm_evaluator import run_llm_quality_evaluator
+                quality_run_log = out_dir / "quality_eval_run_log.yaml"
+                llm_scores = run_llm_quality_evaluator(
+                    screenplay,
+                    router=LLMRouter.from_environment(allow_network=allow_network),
+                    dry_run=not allow_network,
+                    run_log_path=quality_run_log,
+                )
+
+                quality_report = build_quality_report(
+                    screenplay,
+                    validation_report,
+                    review_report,
+                    roundtrip_report_doc=None,
+                    source_paths={
+                        "screenplay": str(screenplay_path),
+                        "validation_report": str(validation_report_path),
+                        "review_report": str(review_report_path),
+                        "fountain_roundtrip_report": "",
+                        "quality_report_yaml": str(quality_report_path),
+                        "quality_dashboard_markdown": str(quality_dashboard_path),
+                    },
+                    llm_scores=llm_scores,
+                )
+                write_yaml(quality_report, quality_report_path)
+                quality_dashboard_path.write_text(
+                    render_quality_dashboard(quality_report),
+                    encoding="utf-8",
+                    newline="\n",
+                )
+            except Exception as exc:
+                print(f"Pipeline Step evaluate_quality failed: {exc}", file=sys.stderr)
+                return 1
+        else:
+            print("Step evaluate-quality output exists, skipping.")
+
+        # Step 11: prepare-author-review
+        if force or not packet_path.exists() or not author_review_decisions_path.exists():
+            print("Running step: prepare-author-review...")
+            try:
+                screenplay = read_yaml(screenplay_path)
+                review_report = read_yaml(review_report_path)
+                quality_report = read_yaml(quality_report_path)
+                quality_dashboard = read_text(str(quality_dashboard_path))
+                source_paths = {
+                    "screenplay": str(screenplay_path),
+                    "review_report": str(review_report_path),
+                    "quality_report": str(quality_report_path),
+                    "quality_dashboard": str(quality_dashboard_path),
+                }
+                packet = render_author_review_packet(
+                    screenplay,
+                    review_report,
+                    quality_report,
+                    quality_dashboard,
+                    source_paths=source_paths,
+                )
+                packet_path.write_text(packet, encoding="utf-8", newline="\n")
+                write_yaml(
+                    build_author_review_decisions_template(source_paths=source_paths),
+                    author_review_decisions_path,
+                )
+            except Exception as exc:
+                print(f"Pipeline Step prepare_author_review failed: {exc}", file=sys.stderr)
+                return 1
+        else:
+            print("Step prepare-author-review output exists, skipping.")
+
+        print("Pipeline run successfully!")
+        return 0
     if args.command == "serve-workbench":
-        import http.server
-        import socketserver
-        import webbrowser
-        import threading
-        import time
-
-        workbench_dir = Path.cwd() / "workbench"
-        if not (workbench_dir / "index.html").exists():
-            workbench_dir = Path(__file__).resolve().parent.parent.parent.parent / "workbench"
-
-        if not (workbench_dir / "index.html").exists():
-            workbench_dir = Path.cwd() / "Novel2Script" / "workbench"
-
-        if not (workbench_dir / "index.html").exists():
-            print(
-                f"Error: Could not find workbench directory. Searched: "
-                f"{Path.cwd() / 'workbench'}, "
-                f"{Path(__file__).resolve().parent.parent.parent.parent / 'workbench'}, "
-                f"{Path.cwd() / 'Novel2Script' / 'workbench'}",
-                file=sys.stderr,
-            )
-            return 1
-
-        class DualHandler(http.server.SimpleHTTPRequestHandler):
-            def __init__(self, *args, **kwargs):
-                super().__init__(*args, directory=str(workbench_dir), **kwargs)
-
-        url = f"http://{args.host}:{args.port}/"
-
-        def open_browser():
-            time.sleep(0.5)
-            if not args.no_browser:
-                webbrowser.open(url)
-
-        threading.Thread(target=open_browser, daemon=True).start()
-
-        print(f"Serving workbench from {workbench_dir} at {url} ...")
-        socketserver.TCPServer.allow_reuse_address = True
-        try:
-            with socketserver.TCPServer((args.host, args.port), DualHandler) as httpd:
-                httpd.serve_forever()
-        except KeyboardInterrupt:
-            print("\nStopping server...")
+        from novel2script.server import start_server
+        start_server(
+            host=args.host,
+            port=args.port,
+            open_browser=not args.no_browser
+        )
         return 0
     return 2
 

@@ -1,0 +1,494 @@
+story_map:
+  schema_version: 0.1.0
+  source:
+    type: novel
+    input_file: examples/input/sample_novel_3_chapters.md
+    chapter_count: 3
+    trace_unit: chapter_paragraph
+    parser_profile: deterministic_heuristic_v0
+  chapters:
+  - id: ch_001
+    index: 1
+    title: 雾里的钟声
+    source_heading: '## 第一章：雾里的钟声'
+    paragraphs:
+    - id: p_001
+      index: 1
+      text_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她以为是风，直到柜台下方滑出一封没有邮票的蓝色信封。
+      char_count: 64
+    - id: p_002
+      index: 2
+      text_preview: 信封上写着她父亲的名字。父亲七年前出海失踪，镇上的人早已不再提起。林岚拆开信，里面只有一句话：如果灯塔亮起，别让他们上船。
+      char_count: 61
+  - id: ch_002
+    index: 2
+    title: 不该亮的灯
+    source_heading: '## 第二章：不该亮的灯'
+    paragraphs:
+    - id: p_001
+      index: 1
+      text_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把信递给他，周澈沉默很久，只说当年最后见过她父亲的人并不只有他。
+      char_count: 70
+    - id: p_002
+      index: 2
+      text_preview: 夜里，远处废弃灯塔突然亮了。雾像被光切开，一艘没有编号的旧船停在礁石外。船上有人影挥手，像是在招呼镇民靠近。
+      char_count: 54
+  - id: ch_003
+    index: 3
+    title: 回声
+    source_heading: '## 第三章：回声'
+    paragraphs:
+    - id: p_001
+      index: 1
+      text_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只旧录音机交给她，里面有她父亲最后的留言：船不是回来，是在找替身。
+      char_count: 71
+    - id: p_002
+      index: 2
+      text_preview: 林岚冲进钟楼，敲响旧钟。钟声压过海浪，灯塔的光忽然熄灭。旧船在雾中后退，甲板上的人影同时转身，看向她。
+      char_count: 51
+  characters_detected:
+  - id: char_001
+    name: 林岚
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+      note: 角色候选：林岚
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+      note: 角色候选：林岚
+    confidence: medium
+  - id: char_002
+    name: 周澈
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_001
+      quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+      note: 角色候选：周澈
+    source_trace:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_001
+      quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+      note: 角色候选：周澈
+    confidence: medium
+  - id: char_003
+    name: 镇长
+    aliases: []
+    description_hint: ''
+    first_seen:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_001
+      quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+      note: 角色候选：镇长
+    source_trace:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_001
+      quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+      note: 角色候选：镇长
+    confidence: medium
+  locations_detected:
+  - id: loc_001
+    name: 邮局
+    location_type: keyword
+    description_hint: ''
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+      note: 关键词命中：邮局
+    confidence: high
+  - id: loc_002
+    name: 灯塔
+    location_type: keyword
+    description_hint: ''
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_002
+      quote_preview: 信封上写着她父亲的名字。父亲七年前出海失踪，镇上的人早已不再提起。林岚拆开信，…
+      note: 关键词命中：灯塔
+    confidence: high
+  - id: loc_003
+    name: 码头
+    location_type: keyword
+    description_hint: ''
+    source_trace:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_001
+      quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+      note: 关键词命中：码头
+    confidence: high
+  - id: loc_004
+    name: 海边
+    location_type: keyword
+    description_hint: ''
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+      note: 关键词命中：海边
+    confidence: high
+  - id: loc_005
+    name: 船
+    location_type: keyword
+    description_hint: ''
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_002
+      quote_preview: 信封上写着她父亲的名字。父亲七年前出海失踪，镇上的人早已不再提起。林岚拆开信，…
+      note: 关键词命中：船
+    confidence: high
+  - id: loc_006
+    name: 钟楼
+    location_type: keyword
+    description_hint: ''
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+      note: 关键词命中：钟楼
+    confidence: high
+  props_detected:
+  - id: prop_001
+    name: 信封
+    prop_type: keyword
+    description_hint: ''
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+      note: 关键词命中：信封
+    confidence: high
+  - id: prop_002
+    name: 录音机
+    prop_type: keyword
+    description_hint: ''
+    source_trace:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_001
+      quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+      note: 关键词命中：录音机
+    confidence: high
+  - id: prop_003
+    name: 灯
+    prop_type: keyword
+    description_hint: ''
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_002
+      quote_preview: 信封上写着她父亲的名字。父亲七年前出海失踪，镇上的人早已不再提起。林岚拆开信，…
+      note: 关键词命中：灯
+    confidence: high
+  - id: prop_004
+    name: 船
+    prop_type: keyword
+    description_hint: ''
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_002
+      quote_preview: 信封上写着她父亲的名字。父亲七年前出海失踪，镇上的人早已不再提起。林岚拆开信，…
+      note: 关键词命中：船
+    confidence: high
+  - id: prop_005
+    name: 信
+    prop_type: keyword
+    description_hint: ''
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+      note: 关键词命中：信
+    confidence: high
+  key_events:
+  - id: evt_001
+    sequence_index: 1
+    summary: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她以为是风，直到柜台下方滑出一封没有邮票的蓝色信封。
+    event_type: surface_action
+    character_ids:
+    - char_001
+    location_ids:
+    - loc_001
+    - loc_004
+    - loc_006
+    prop_ids:
+    - prop_001
+    - prop_005
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+      note: 动作或状态变化关键词命中
+    confidence: medium
+  - id: evt_002
+    sequence_index: 2
+    summary: 信封上写着她父亲的名字。父亲七年前出海失踪，镇上的人早已不再提起。林岚拆开信，里面只有一句话：如果灯塔亮起，别让他们上船。
+    event_type: surface_action
+    character_ids:
+    - char_001
+    location_ids:
+    - loc_002
+    - loc_005
+    prop_ids:
+    - prop_001
+    - prop_003
+    - prop_004
+    - prop_005
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_002
+      quote_preview: 信封上写着她父亲的名字。父亲七年前出海失踪，镇上的人早已不再提起。林岚拆开信，…
+      note: 动作或状态变化关键词命中
+    confidence: medium
+  - id: evt_003
+    sequence_index: 3
+    summary: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把信递给他，周澈沉默很久，只说当年最后见过她父亲的人并不只有他。
+    event_type: surface_action
+    character_ids:
+    - char_001
+    - char_002
+    location_ids:
+    - loc_001
+    - loc_002
+    prop_ids:
+    - prop_003
+    - prop_005
+    source_trace:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_001
+      quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+      note: 动作或状态变化关键词命中
+    confidence: medium
+  - id: evt_004
+    sequence_index: 4
+    summary: 夜里，远处废弃灯塔突然亮了。雾像被光切开，一艘没有编号的旧船停在礁石外。船上有人影挥手，像是在招呼镇民靠近。
+    event_type: surface_action
+    character_ids: []
+    location_ids:
+    - loc_002
+    - loc_005
+    prop_ids:
+    - prop_003
+    - prop_004
+    source_trace:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_002
+      quote_preview: 夜里，远处废弃灯塔突然亮了。雾像被光切开，一艘没有编号的旧船停在礁石外。船上有…
+      note: 动作或状态变化关键词命中
+    confidence: medium
+  - id: evt_005
+    sequence_index: 5
+    summary: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只旧录音机交给她，里面有她父亲最后的留言：船不是回来，是在找替身。
+    event_type: surface_action
+    character_ids:
+    - char_001
+    - char_002
+    - char_003
+    location_ids:
+    - loc_003
+    - loc_005
+    prop_ids:
+    - prop_002
+    - prop_004
+    source_trace:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_001
+      quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+      note: 动作或状态变化关键词命中
+    confidence: medium
+  - id: evt_006
+    sequence_index: 6
+    summary: 林岚冲进钟楼，敲响旧钟。钟声压过海浪，灯塔的光忽然熄灭。旧船在雾中后退，甲板上的人影同时转身，看向她。
+    event_type: surface_action
+    character_ids:
+    - char_001
+    location_ids:
+    - loc_002
+    - loc_005
+    - loc_006
+    prop_ids:
+    - prop_003
+    - prop_004
+    source_trace:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_002
+      quote_preview: 林岚冲进钟楼，敲响旧钟。钟声压过海浪，灯塔的光忽然熄灭。旧船在雾中后退，甲板上…
+      note: 动作或状态变化关键词命中
+    confidence: medium
+  - id: evt_007
+    sequence_index: 7
+    summary: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她以为是风，直到柜台下方滑出一封没有邮票的蓝色信封。
+    event_type: surface_action
+    character_ids: []
+    location_ids: []
+    prop_ids: []
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+      note: Human-approved semantic candidate semcand_001.
+    confidence: medium
+  timeline:
+  - id: tl_001
+    order: 1
+    label: 连续三晚
+    time_text: 连续三晚
+    event_ids:
+    - evt_001
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+      note: 时间表达命中
+    confidence: medium
+  - id: tl_002
+    order: 2
+    label: 七年前
+    time_text: 七年前
+    event_ids:
+    - evt_002
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_002
+      quote_preview: 信封上写着她父亲的名字。父亲七年前出海失踪，镇上的人早已不再提起。林岚拆开信，…
+      note: 时间表达命中
+    confidence: medium
+  - id: tl_003
+    order: 3
+    label: 第二天傍晚
+    time_text: 第二天傍晚
+    event_ids:
+    - evt_003
+    source_trace:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_001
+      quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+      note: 时间表达命中
+    confidence: medium
+  - id: tl_004
+    order: 4
+    label: 夜里
+    time_text: 夜里
+    event_ids:
+    - evt_004
+    source_trace:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_002
+      quote_preview: 夜里，远处废弃灯塔突然亮了。雾像被光切开，一艘没有编号的旧船停在礁石外。船上有…
+      note: 时间表达命中
+    confidence: medium
+  - id: tl_005
+    order: 5
+    label: 连续三晚
+    time_text: 连续三晚
+    event_ids: []
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+      note: Human-approved semantic candidate semcand_003.
+    confidence: medium
+  psychological_passages:
+  - id: psy_001
+    character_ids:
+    - char_001
+    passage_type: motivation
+    summary: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她以为是风，直到柜台下方滑出一封没有邮票的蓝色信封。
+    externalization_hint: 后续改编时需要判断是否外化为可拍摄行动。
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+      note: 心理关键词命中：以为
+    confidence: medium
+  - id: psy_002
+    character_ids: []
+    passage_type: motivation
+    summary: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她以为是风，直到柜台下方滑出一封没有邮票的蓝色信封。
+    externalization_hint: ''
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+      note: Human-approved semantic candidate semcand_002.
+    confidence: medium
+  uncertainties:
+  - id: unc_001
+    category: ambiguous_character
+    description: 启发式低置信判断：'他们' 可能需要人工确认。
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_002
+      quote_preview: 信封上写着她父亲的名字。父亲七年前出海失踪，镇上的人早已不再提起。林岚拆开信，…
+      note: 不确定性关键词命中：他们
+    suggested_resolution: 由后续人工审阅或更强解析阶段确认。
+    severity: low
+  - id: unc_002
+    category: implicit_causality
+    description: 启发式低置信判断：'并不只有' 可能需要人工确认。
+    source_trace:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_001
+      quote_preview: 第二天傍晚，修灯工周澈来到邮局。他说灯塔的电路早被切断，不可能自行亮起。林岚把…
+      note: 不确定性关键词命中：并不只有
+    suggested_resolution: 由后续人工审阅或更强解析阶段确认。
+    severity: low
+  - id: unc_003
+    category: ambiguous_character
+    description: 启发式低置信判断：'有人影' 可能需要人工确认。
+    source_trace:
+      chapter_id: ch_002
+      paragraph_ids:
+      - p_002
+      quote_preview: 夜里，远处废弃灯塔突然亮了。雾像被光切开，一艘没有编号的旧船停在礁石外。船上有…
+      note: 不确定性关键词命中：有人影
+    suggested_resolution: 由后续人工审阅或更强解析阶段确认。
+    severity: low
+  - id: unc_004
+    category: ambiguous_character
+    description: 启发式低置信判断：'他们' 可能需要人工确认。
+    source_trace:
+      chapter_id: ch_003
+      paragraph_ids:
+      - p_001
+      quote_preview: 镇长组织人去码头，声称那可能是失踪渔船。林岚拦住他们，却拿不出证据。周澈把一只…
+      note: 不确定性关键词命中：他们
+    suggested_resolution: 由后续人工审阅或更强解析阶段确认。
+    severity: low

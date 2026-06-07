@@ -142,6 +142,8 @@ def test_build_quality_report_aggregates_existing_reports_and_matches_schema():
         "shootability",
         "fountain_roundtrip_safety",
         "semantic_staleness",
+        "character_goal_clarity",
+        "dramatic_conflict_intensity",
         "overall_readiness",
     }
     assert _dimension(report, "schema_validity")["score"] == 100

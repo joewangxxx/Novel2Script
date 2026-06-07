@@ -1,0 +1,52 @@
+yaml_repair_agent_candidates:
+  schema_version: 0.1.0
+  agent_id: yaml_repair_agent
+  provider_profile: mock_dry_run
+  dry_run: true
+  human_approval_required: true
+  source_artifacts:
+    story_map: tmp_codex_audit/pipeline/story_map.yaml
+    outline: tmp_codex_audit/pipeline/outline.yaml
+    character_bible: tmp_codex_audit/pipeline/character_bible.yaml
+    screenplay: tmp_codex_audit/pipeline/screenplay.yaml
+    review_report: tmp_codex_audit/pipeline/review_report.yaml
+  candidates:
+  - id: yamlrep_001
+    type: field_alignment
+    target:
+      artifact: screenplay
+      path: screenplay.metadata
+    proposed_text: 检测到 screenplay.yaml 中的 validation_report 拼写错误，建议更正为规范结构。
+    proposed_change:
+      summary: 检测到 screenplay.yaml 中的 validation_report 拼写错误，建议更正为规范结构。
+    rationale: Mock dry-run reviewer candidate requires human approval before merge.
+    source_trace: {}
+    source_trace_ids: {}
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Mock dry-run reviewer tag.
+    constraints_observed:
+    - preserved_source_trace
+    - did_not_modify_source_artifacts
+    - requires_author_approval
+    risks:
+    - requires review before merge
+    confidence: medium
+    merge_policy: human_approval_required
+    requires_author_approval: true
+  errors: []
+  metadata:
+    prompt_retained: false
+    model_response_retained: false
+    provider_payload_retained: false
+    full_source_text_retained: false
+    run_log: tmp_codex_audit/agent_yaml-repair-agent.log.yaml
+    output: tmp_codex_audit/agent_yaml-repair-agent.yaml
+    intended_provider_profile: deepseek_reasoning
+    resolved_provider_profile: mock_dry_run
+    model: ''
+    finish_reason: ''
+    usage: {}

@@ -281,7 +281,7 @@ def test_story_semantic_parser_rejects_truncated_real_response(tmp_path: Path) -
         STORY_MAP,
         out_path=tmp_path / "semantic_candidates.yaml",
         run_log_path=tmp_path / "semantic_run_log.yaml",
-        router=RealLikeRouter(finish_reason="length"),
+        router=RealLikeRouter(text='{"candidates": [{"type":', finish_reason="length"),
         dry_run=False,
     )
 
@@ -405,3 +405,124 @@ def test_story_semantic_parser_rejects_more_than_three_real_candidates(
             "retryable": False,
         }
     ]
+
+
+def test_story_semantic_parser_repairs_json_with_trailing_comma(tmp_path: Path) -> None:
+    text = '{"candidates": [{"type": "event_candidate", "confidence": "high", "evidence": {"summary": "A concrete event."}, "source_trace_ids": {"chapter_id": "ch_001", "paragraph_ids": ["p_001"]}, "target_story_map_field": "key_events", "proposed_fields": {"summary": "Event summary", "event_type": "discovery"}},]}'
+    result = run_story_semantic_parser(
+        STORY_MAP,
+        out_path=tmp_path / "semantic_candidates.yaml",
+        run_log_path=tmp_path / "semantic_run_log.yaml",
+        router=RealLikeRouter(text=text),
+        dry_run=False,
+    )
+    semantic = result["semantic_candidates"]
+    assert semantic["errors"] == []
+    assert len(semantic["candidates"]) == 1
+    assert semantic["candidates"][0]["proposed_fields"]["summary"] == "Event summary"
+
+
+def test_story_semantic_parser_repairs_json_with_missing_brackets(tmp_path: Path) -> None:
+    text = '{"candidates": [{"type": "event_candidate", "confidence": "high", "evidence": {"summary": "A concrete event."}, "source_trace_ids": {"chapter_id": "ch_001", "paragraph_ids": ["p_001"]}, "target_story_map_field": "key_events", "proposed_fields": {"summary": "Event summary", "event_type": "discovery"}}]'
+    result = run_story_semantic_parser(
+        STORY_MAP,
+        out_path=tmp_path / "semantic_candidates.yaml",
+        run_log_path=tmp_path / "semantic_run_log.yaml",
+        router=RealLikeRouter(text=text),
+        dry_run=False,
+    )
+    semantic = result["semantic_candidates"]
+    assert semantic["errors"] == []
+    assert len(semantic["candidates"]) == 1
+
+
+def test_story_semantic_parser_repairs_truncated_json_recovering_partial_candidates(tmp_path: Path) -> None:
+    text = (
+        '{"candidates": ['
+        '{"type": "event_candidate", "confidence": "high", "evidence": {"summary": "A concrete event."}, "source_trace_ids": {"chapter_id": "ch_001", "paragraph_ids": ["p_001"]}, "target_story_map_field": "key_events", "proposed_fields": {"summary": "Event 1", "event_type": "discovery"}}, '
+        '{"type": "event_candidate", "confidence": "low", "evidence": {"summary": "Truncated eve'
+    )
+    result = run_story_semantic_parser(
+        STORY_MAP,
+        out_path=tmp_path / "semantic_candidates.yaml",
+        run_log_path=tmp_path / "semantic_run_log.yaml",
+        router=RealLikeRouter(text=text, finish_reason="length"),
+        dry_run=False,
+    )
+    semantic = result["semantic_candidates"]
+    assert any(err["code"] == "truncated_model_output" for err in semantic["errors"])
+    assert len(semantic["candidates"]) == 1
+    assert semantic["candidates"][0]["proposed_fields"]["summary"] == "Event 1"
+
+
+class FaultyRouter:
+    def __init__(self, exc: Exception) -> None:
+        self.exc = exc
+
+    def dispatch(self, request: LLMRequest) -> RoutedLLMResult:
+        raise self.exc
+
+
+def test_story_semantic_parser_degrades_gracefully_on_auth_failure(tmp_path: Path) -> None:
+    from novel2script.llm.openai_compatible_provider import ProviderConfigurationError
+    router = FaultyRouter(ProviderConfigurationError("Missing N2S_QWEN_API_KEY"))
+    result = run_story_semantic_parser(
+        STORY_MAP,
+        out_path=tmp_path / "semantic_candidates.yaml",
+        run_log_path=tmp_path / "semantic_run_log.yaml",
+        router=router,  # type: ignore
+        dry_run=False,
+    )
+    semantic = result["semantic_candidates"]
+    assert semantic["candidates"] == []
+    assert len(semantic["errors"]) == 1
+    assert semantic["errors"][0]["code"] == "provider_authentication_failed"
+    assert "Missing N2S_QWEN_API_KEY" in semantic["errors"][0]["message"]
+
+
+def test_story_semantic_parser_degrades_gracefully_on_rate_limit(tmp_path: Path) -> None:
+    from novel2script.llm.openai_compatible_provider import ProviderRuntimeError
+    err = ProviderRuntimeError(category="rate_limited", status_code=429)
+    result = run_story_semantic_parser(
+        STORY_MAP,
+        out_path=tmp_path / "semantic_candidates.yaml",
+        run_log_path=tmp_path / "semantic_run_log.yaml",
+        router=FaultyRouter(err),  # type: ignore
+        dry_run=False,
+    )
+    semantic = result["semantic_candidates"]
+    assert semantic["candidates"] == []
+    assert len(semantic["errors"]) == 1
+    assert semantic["errors"][0]["code"] == "provider_rate_limited"
+
+
+def test_story_semantic_parser_degrades_gracefully_on_timeout(tmp_path: Path) -> None:
+    from novel2script.llm.openai_compatible_provider import ProviderRuntimeError
+    err = ProviderRuntimeError(category="timeout")
+    result = run_story_semantic_parser(
+        STORY_MAP,
+        out_path=tmp_path / "semantic_candidates.yaml",
+        run_log_path=tmp_path / "semantic_run_log.yaml",
+        router=FaultyRouter(err),  # type: ignore
+        dry_run=False,
+    )
+    semantic = result["semantic_candidates"]
+    assert semantic["candidates"] == []
+    assert len(semantic["errors"]) == 1
+    assert semantic["errors"][0]["code"] == "provider_timeout"
+
+
+def test_story_semantic_parser_degrades_gracefully_on_connection_error(tmp_path: Path) -> None:
+    from novel2script.llm.openai_compatible_provider import ProviderRuntimeError
+    err = ProviderRuntimeError(category="connection_error")
+    result = run_story_semantic_parser(
+        STORY_MAP,
+        out_path=tmp_path / "semantic_candidates.yaml",
+        run_log_path=tmp_path / "semantic_run_log.yaml",
+        router=FaultyRouter(err),  # type: ignore
+        dry_run=False,
+    )
+    semantic = result["semantic_candidates"]
+    assert semantic["candidates"] == []
+    assert len(semantic["errors"]) == 1
+    assert semantic["errors"][0]["code"] == "provider_connection_failed"

@@ -1,0 +1,24 @@
+yaml_repair_agent_run_log:
+  schema_version: 0.1.0
+  agent_id: yaml_repair_agent
+  provider_profile: mock_dry_run
+  intended_provider_profile: deepseek_reasoning
+  dry_run: true
+  trace_id: trace_yaml_repair_agent_9a91dcbfb7a7
+  status: completed
+  model: ''
+  finish_reason: ''
+  usage: {}
+  prompt_hash: ''
+  candidate_count: 1
+  error_count: 0
+  stored_prompt: false
+  model_response_retained: false
+  provider_payload_retained: false
+  source_artifacts:
+    story_map: tmp_codex_audit/pipeline/story_map.yaml
+    outline: tmp_codex_audit/pipeline/outline.yaml
+    character_bible: tmp_codex_audit/pipeline/character_bible.yaml
+    screenplay: tmp_codex_audit/pipeline/screenplay.yaml
+    review_report: tmp_codex_audit/pipeline/review_report.yaml
+  errors: []

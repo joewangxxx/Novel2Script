@@ -1,0 +1,268 @@
+quality_report:
+  schema_version: 0.1.0
+  generated_at: '2026-06-05'
+  report_profile: deterministic_quality_eval_v0
+  source_artifacts:
+    screenplay: tmp_codex_audit/pipeline/screenplay.yaml
+    validation_report: tmp_codex_audit/pipeline/validation_report.yaml
+    review_report: tmp_codex_audit/pipeline/review_report.yaml
+    fountain_roundtrip_report: tmp_codex_audit/screenplay.audit.roundtrip_report.yaml
+    quality_report_yaml: tmp_codex_audit/quality.audit.yaml
+    quality_dashboard_markdown: tmp_codex_audit/quality.audit.md
+  status_policy:
+    allowed_statuses:
+    - pass
+    - warn
+    - fail
+    - blocked
+    hard_gates_precede_average_score: true
+    notes:
+    - No model call, network call, or screenplay rewrite is used.
+  scoring_policy:
+    score_min: 0
+    score_max: 100
+    default_pass_threshold: 90
+    default_warn_threshold: 70
+    weights:
+      schema_validity: 1
+      source_trace_coverage: 1
+      beat_completeness: 1
+      reference_integrity: 1
+      character_consistency: 1
+      pacing: 1
+      dialogue_naturalness: 1
+      shootability: 1
+      fountain_roundtrip_safety: 1
+      semantic_staleness: 1
+      character_goal_clarity: 1
+      dramatic_conflict_intensity: 1
+  dimensions:
+  - id: schema_validity
+    status: pass
+    score: 100
+    hard_gate: true
+    summary: Screenplay schema validation passed.
+    evidence:
+    - source: validation_report
+      path: schema_validity.passed
+      summary: Screenplay schema validation passed.
+      value: true
+    metrics:
+      errors: 0
+    recommendations: []
+  - id: source_trace_coverage
+    status: pass
+    score: 100
+    hard_gate: true
+    summary: Source trace coverage is complete.
+    evidence:
+    - source: validation_report
+      path: source_coverage.score
+      summary: Source trace coverage is complete.
+      value: 1.0
+    metrics:
+      checked_targets: 28
+      missing_targets: 0
+      invalid_targets: 0
+    recommendations: []
+  - id: beat_completeness
+    status: pass
+    score: 100
+    hard_gate: false
+    summary: Beat fields are complete.
+    evidence:
+    - source: validation_report
+      path: beat_completeness.score
+      summary: Beat fields are complete.
+      value: 1.0
+    metrics:
+      total_beats: 7
+      incomplete_beats: 0
+    recommendations: []
+  - id: reference_integrity
+    status: pass
+    score: 100
+    hard_gate: true
+    summary: All references resolve.
+    evidence:
+    - source: validation_report
+      path: reference_integrity.passed
+      summary: All references resolve.
+      value: true
+    metrics:
+      missing_references: 0
+    recommendations: []
+  - id: character_consistency
+    status: pass
+    score: 100
+    hard_gate: false
+    summary: character_consistency reported no issues.
+    evidence:
+    - source: review_report
+      path: issues[reviewer=character_consistency]
+      summary: character_consistency reported no issues.
+      value: 0
+    metrics:
+      issues: 0
+      low: 0
+      medium: 0
+      high: 0
+      skipped: false
+    recommendations: []
+  - id: pacing
+    status: pass
+    score: 100
+    hard_gate: false
+    summary: pacing reported no issues.
+    evidence:
+    - source: review_report
+      path: issues[reviewer=pacing]
+      summary: pacing reported no issues.
+      value: 0
+    metrics:
+      issues: 0
+      low: 0
+      medium: 0
+      high: 0
+      skipped: false
+    recommendations: []
+  - id: shootability
+    status: pass
+    score: 100
+    hard_gate: false
+    summary: shootability reported no issues.
+    evidence:
+    - source: review_report
+      path: issues[reviewer=shootability]
+      summary: shootability reported no issues.
+      value: 0
+    metrics:
+      issues: 0
+      low: 0
+      medium: 0
+      high: 0
+      skipped: false
+    recommendations: []
+  - id: fountain_roundtrip_safety
+    status: pass
+    score: 100
+    hard_gate: true
+    summary: Fountain roundtrip is safe.
+    evidence:
+    - source: fountain_roundtrip_report
+      path: status
+      summary: Fountain roundtrip is safe.
+      value: skipped
+    metrics:
+      applied_changes: 0
+      skipped_changes: 0
+      blocking_issues: 0
+      line_drift_detected: false
+      map_match: true
+    recommendations: []
+  - id: semantic_staleness
+    status: pass
+    score: 100
+    hard_gate: false
+    summary: Semantic fields are not marked stale.
+    evidence:
+    - source: screenplay_metadata
+      path: metadata.semantic_fields_stale
+      summary: Semantic fields are not marked stale.
+      value: false
+    metrics:
+      semantic_fields_stale: false
+    recommendations: []
+  - id: dialogue_naturalness
+    status: pass
+    score: 92
+    hard_gate: false
+    summary: 对白口语化及历史符合度良好，部分行文可精简。
+    evidence:
+    - source: llm_evaluation
+      path: llm_scores.dialogue_naturalness
+      summary: 对白口语化及历史符合度良好，部分行文可精简。
+      value:
+        score: 92
+        summary: 对白口语化及历史符合度良好，部分行文可精简。
+        reasoning: 对白契合历史氛围，无明显出戏的现代词汇。建议个别过长对白作进一步提炼。
+    metrics:
+      score: 92
+    recommendations:
+    - priority: medium
+      action: 'Review LLM reasoning for dialogue_naturalness: 对白契合历史氛围，无明显出戏的现代词汇。建议个别过长对白作进一步提炼。'
+  - id: character_goal_clarity
+    status: warn
+    score: 88
+    hard_gate: false
+    summary: 绝大部分场景目标清晰，动作外化程度高。
+    evidence:
+    - source: llm_evaluation
+      path: llm_scores.character_goal_clarity
+      summary: 绝大部分场景目标清晰，动作外化程度高。
+      value:
+        score: 88
+        summary: 绝大部分场景目标清晰，动作外化程度高。
+        reasoning: 各 Scene 与 Beat 中人物目的性明确，外化动作充分，角色内驱力合理。
+    metrics:
+      score: 88
+    recommendations:
+    - priority: medium
+      action: 'Review LLM reasoning for character_goal_clarity: 各 Scene 与 Beat 中人物目的性明确，外化动作充分，角色内驱力合理。'
+  - id: dramatic_conflict_intensity
+    status: warn
+    score: 85
+    hard_gate: false
+    summary: 戏剧冲突设计有效，动作与对白具有良好张力。
+    evidence:
+    - source: llm_evaluation
+      path: llm_scores.dramatic_conflict_intensity
+      summary: 戏剧冲突设计有效，动作与对白具有良好张力。
+      value:
+        score: 85
+        summary: 戏剧冲突设计有效，动作与对白具有良好张力。
+        reasoning: 招兵与结义等核心场景中冲突设计有效，可以通过更精细的戏剧化设计进一步放大阻碍。
+    metrics:
+      score: 85
+    recommendations:
+    - priority: medium
+      action: 'Review LLM reasoning for dramatic_conflict_intensity: 招兵与结义等核心场景中冲突设计有效，可以通过更精细的戏剧化设计进一步放大阻碍。'
+  - id: overall_readiness
+    status: pass
+    score: 97
+    hard_gate: false
+    summary: 'Overall decision: ready_for_author_review.'
+    evidence:
+    - source: quality_policy
+      path: overall_readiness
+      summary: Hard gates are applied before average score.
+      value: ready_for_author_review
+    metrics:
+      hard_gate_failures: 0
+    recommendations:
+    - priority: medium
+      action: 'Review LLM reasoning for character_goal_clarity: 各 Scene 与 Beat 中人物目的性明确，外化动作充分，角色内驱力合理。'
+    - priority: medium
+      action: 'Review LLM reasoning for dramatic_conflict_intensity: 招兵与结义等核心场景中冲突设计有效，可以通过更精细的戏剧化设计进一步放大阻碍。'
+    blocking_reasons: []
+  overall_readiness:
+    status: pass
+    score: 97
+    decision: ready_for_author_review
+    hard_gate_failures: []
+    next_actions:
+    - 'Review LLM reasoning for character_goal_clarity: 各 Scene 与 Beat 中人物目的性明确，外化动作充分，角色内驱力合理。'
+    - 'Review LLM reasoning for dramatic_conflict_intensity: 招兵与结义等核心场景中冲突设计有效，可以通过更精细的戏剧化设计进一步放大阻碍。'
+  dashboard:
+    format: markdown
+    path: tmp_codex_audit/quality.audit.md
+    sections:
+    - summary
+    - gate_decision
+    - dimension_scores
+    - blocking_items
+    - recommended_next_actions
+    - source_artifacts
+    - limitations
+  notes:
+  - Quality evaluation aggregates existing deterministic reports only.

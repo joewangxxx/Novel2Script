@@ -1,0 +1,67 @@
+semantic_candidates:
+  schema_version: 0.1.0
+  source_story_map: tmp_codex_audit/pipeline/story_map.yaml
+  agent_id: story_semantic_parser
+  provider_profile: mock_dry_run
+  dry_run: true
+  candidates:
+  - id: semcand_001
+    type: event_candidate
+    confidence: medium
+    evidence:
+      summary: Mock dry-run semantic pass flagged a plot event candidate.
+      quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+      reasoning_note: Generated through mock_dry_run for contract verification.
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+    proposed_fields:
+      summary: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她以为是风，直到柜台下方滑出一封没有邮票的蓝色信封。
+      event_type: surface_action
+      source_event_id: evt_001
+    merge_policy: human_approval_required
+    target_story_map_field: key_events
+  - id: semcand_002
+    type: psychological_passage_candidate
+    confidence: medium
+    evidence:
+      summary: Mock dry-run semantic pass flagged an interiority candidate.
+      quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+      reasoning_note: Generated through mock_dry_run for contract verification.
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+    proposed_fields:
+      summary: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她以为是风，直到柜台下方滑出一封没有邮票的蓝色信封。
+      passage_type: motivation
+      source_psychological_passage_id: psy_001
+    merge_policy: human_approval_required
+    target_story_map_field: psychological_passages
+  - id: semcand_003
+    type: timeline_candidate
+    confidence: medium
+    evidence:
+      summary: Mock dry-run semantic pass flagged a timeline candidate.
+      quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+      reasoning_note: Generated through mock_dry_run for contract verification.
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+    proposed_fields:
+      time_text: 连续三晚
+      label: 连续三晚
+      source_timeline_id: tl_001
+    merge_policy: human_approval_required
+    target_story_map_field: timeline
+  errors: []
+  human_approval_required: true
+  run_log: tmp_codex_audit/agent_story-semantic-parser.log.yaml
+  metadata:
+    intended_provider_profile: qwen_long
+    resolved_provider_profile: mock_dry_run
+    llm_run_id: llm_run_797aab0024c2
+    quality_report: tmp_codex_audit/pipeline/quality_report.yaml
+    provider_finish_reason: dry_run

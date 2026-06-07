@@ -1,0 +1,25 @@
+llm_run_records:
+- run_id: llm_run_418194bcccdf
+  trace_id: trace_sem_c79f7e2afaac
+  agent_id: story_semantic_parser
+  task_type: semantic_candidate_generation
+  provider: mock_dry_run
+  model: mock-model
+  status: dry_run
+  finish_reason: dry_run
+  prompt_hash: sha256:4347f804db0ad45aa7bffb3cc813610b0f1763d9ac9244eff510f7f36866e69e
+  prompt_chars: 2693
+  stored_prompt: false
+  usage:
+    input_tokens: 674
+    output_tokens: 35
+    total_tokens: 709
+  latency_ms: 0
+  intended_profile: qwen_long
+  resolved_profile: mock_dry_run
+errors: []
+provider_response:
+  run_id: llm_run_418194bcccdf
+  provider: mock_dry_run
+  model: mock-model
+  finish_reason: dry_run

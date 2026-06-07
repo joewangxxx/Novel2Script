@@ -1,0 +1,84 @@
+semantic_candidate_merge_report:
+  schema_version: 0.1.0
+  source_story_map: tmp_codex_audit\pipeline\story_map.yaml
+  source_semantic_candidates: tmp_codex_audit\pipeline\semantic_candidates.yaml
+  decision_file: tmp_codex_audit\manual_decisions.yaml
+  output_story_map: tmp_codex_audit\story_map.manual_merged.yaml
+  generated_at: '2026-06-07T23:45:25+08:00'
+  merge_profile: deterministic_semantic_candidate_merge_v0
+  status: success
+  summary:
+    candidates_total: 3
+    decisions_total: 3
+    accepted: 1
+    rejected: 1
+    edited: 1
+    skipped: 0
+    blocked: 0
+    applied_changes: 2
+  decisions:
+  - decision_id: dec_001
+    candidate_id: semcand_001
+    candidate_type: event_candidate
+    target_story_map_field: key_events
+    requested_decision: accept
+    outcome: accepted
+    human_approval:
+      approved: true
+      reviewer_id: codex_audit
+      approved_at: '2026-06-07T23:45:00+08:00'
+    reviewer: codex_audit
+    reviewed_at: '2026-06-07T23:45:00+08:00'
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+    candidate_hash: sha256:72395e72bddd10de13ec2a7d29cd42595a6a95ab8734f6cc8c3da8c9f396b290
+    reviewer_note: Accept event candidate during audit.
+    created_id: evt_007
+    applied_yaml_path: story_map.key_events[6]
+  - decision_id: dec_002
+    candidate_id: semcand_002
+    candidate_type: psychological_passage_candidate
+    target_story_map_field: psychological_passages
+    requested_decision: reject
+    outcome: rejected
+    human_approval:
+      approved: false
+      reviewer_id: codex_audit
+      approved_at: '2026-06-07T23:45:00+08:00'
+    reviewer: codex_audit
+    reviewed_at: '2026-06-07T23:45:00+08:00'
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+    candidate_hash: sha256:384676bede10d2e4a26167845f4519e341255fc0ae47c3863ec61187921e87b2
+    reviewer_note: Reject psychological candidate during audit.
+  - decision_id: dec_003
+    candidate_id: semcand_003
+    candidate_type: timeline_candidate
+    target_story_map_field: timeline
+    requested_decision: edit
+    outcome: edited
+    human_approval:
+      approved: true
+      reviewer_id: codex_audit
+      approved_at: '2026-06-07T23:45:00+08:00'
+    reviewer: codex_audit
+    reviewed_at: '2026-06-07T23:45:00+08:00'
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+    candidate_hash: sha256:fe18801626d7db788cdd9b7d6dfabcf15b78952f7af6e38e92d4c4dc1f57d868
+    reviewer_note: Edit timeline candidate during audit.
+    created_id: tl_005
+    applied_yaml_path: story_map.timeline[4]
+  errors: []
+  audit:
+    preserved_original_story_map: true
+    story_map_hash_before: sha256:c16ac434c0a17fb7d3e02c4da708d1bfb672b4499bd6924a66ad4270a49688d7
+    story_map_hash_after: sha256:fd4bf13e0dc2f57648767f88111ef5c6609127685f773fe789d35852165a21ee
+    semantic_candidates_hash: sha256:b7fb6bf7fd67e531d7142c603900bd150b5bac6c1c54e0889225632b132b817b
+    decision_file_hash: sha256:b2d9a3ee4c8378bdc77d245c9e0480e264de76face77c77aa0cf8cf72727692d

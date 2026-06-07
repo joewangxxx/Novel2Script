@@ -1,0 +1,25 @@
+character_bible_agent_run_log:
+  schema_version: 0.1.0
+  agent_id: character_bible_agent
+  provider_profile: mock_dry_run
+  intended_provider_profile: kimi_creative
+  dry_run: true
+  trace_id: trace_character_bible_agent_2e26037ca1ae
+  status: completed
+  model: ''
+  finish_reason: ''
+  usage: {}
+  prompt_hash: ''
+  candidate_count: 1
+  error_count: 0
+  stored_prompt: false
+  model_response_retained: false
+  provider_payload_retained: false
+  source_artifacts:
+    story_map: tmp_codex_audit/pipeline/story_map.yaml
+    outline: tmp_codex_audit/pipeline/outline.yaml
+    character_bible: tmp_codex_audit/pipeline/character_bible.yaml
+    screenplay: tmp_codex_audit/pipeline/screenplay.yaml
+    review_report: tmp_codex_audit/pipeline/review_report.yaml
+    quality_report: tmp_codex_audit/pipeline/quality_report.yaml
+  errors: []

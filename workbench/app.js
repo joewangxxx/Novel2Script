@@ -1,7 +1,10 @@
 /**
  * 面向小说作者的 AI 剧本改编工作台 - 前端交互逻辑
- * 遵循 KIs 及 Vanilla JS + CSS 设计准则，利用液态玻璃设计实现流畅微交互
+ * 遵循 KIs 及 Vanilla JS + CSS 设计准则，利用液态玻璃设计实现流光交互与 API 联动
  */
+
+// 全局内存缓存，保存已被采纳或拒绝的 patch 状态
+window.patchStatusCache = {};
 
 // 主题管理
 const ThemeManager = {
@@ -74,6 +77,20 @@ function showToast(message, duration = 3000) {
         50% { background: rgba(139, 92, 246, 0.3); border-color: #8b5cf6; }
         100% { background: transparent; }
       }
+      /* 滚动条透明发光样式 */
+      .scroll-y::-webkit-scrollbar {
+        width: 6px;
+      }
+      .scroll-y::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .scroll-y::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 99px;
+      }
+      .scroll-y::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.25);
+      }
     `;
     document.head.appendChild(style);
   }
@@ -84,25 +101,191 @@ function showToast(message, duration = 3000) {
   }, duration);
 }
 
-// 全局工作台应用状态
+// 全局工作台应用状态管理
 class WorkbenchApp {
-  constructor(data) {
-    this.data = JSON.parse(JSON.stringify(data)); // 深拷贝初始数据便于重置
+  constructor() {
+    this.data = {
+      project_info: { name: "小说剧本智能工作台", last_modified: "", version: "V0.2" },
+      files: [],
+      novel: { chapters: [] },
+      screenplay: { scenes: [], characters: [] },
+      quality_report: { readiness: { score: 0, status: "", decision: "" }, dimensions: [] },
+      reviewer_patches: []
+    };
     this.selectedNovelParagraphId = null;
     this.selectedScreenplayElementId = null;
-    this.activeFile = "test1_sanguo_screenplay.stage32.yaml";
+    this.activeFile = null;
+    this.modifiedElementsMap = new Map(); // target -> modified_text
   }
 
-  init() {
+  async init() {
     ThemeManager.init();
-    this.renderHeader();
-    this.renderFileList();
-    this.initNovelPane();
-    this.renderScreenplay();
-    this.renderQualityDashboard();
-    this.renderPatches();
+    await this.fetchProject();
     this.bindEvents();
-    showToast("工作台初始化成功，已加载项目数据！");
+    
+    // 默认载入第一个小说和剧本
+    const novelFile = this.data.files.find(f => f.type === "novel");
+    if (novelFile) {
+      await this.loadFile(novelFile.name, "novel");
+    }
+    const screenplayFile = this.data.files.find(f => f.type === "screenplay");
+    if (screenplayFile) {
+      await this.loadFile(screenplayFile.name, "screenplay");
+    } else {
+      showToast("未检测到已生成的剧本文件，请运行端到端流水线！");
+    }
+  }
+
+  // 1. 获取项目信息与文件树
+  async fetchProject() {
+    try {
+      const res = await fetch("/api/project");
+      if (!res.ok) throw new Error("获取项目元数据失败");
+      const projectData = await res.json();
+      
+      this.data.project_info = projectData.project_info;
+      this.data.files = projectData.files;
+
+      this.renderHeader();
+      this.renderFileList();
+    } catch (e) {
+      showToast(`❌ 接口加载错误: ${e.message}`);
+    }
+  }
+
+  // 2. 根据文件名动态加载文件内容并适配渲染
+  async loadFile(filename, forceType = null) {
+    try {
+      const res = await fetch(`/api/file?name=${filename}`);
+      if (!res.ok) throw new Error(`加载文件 ${filename} 失败`);
+      const fileData = await res.json();
+
+      // 判断文件类型
+      const fileMeta = this.data.files.find(f => f.name === filename);
+      const type = forceType || (fileMeta ? fileMeta.type : "");
+
+      if (type === "novel") {
+        this.data.novel = fileData;
+        this.initNovelPane();
+        showToast(`📖 小说源文已装载: ${filename}`);
+      } else if (type === "screenplay") {
+        this.data.screenplay = fileData;
+        this.activeFile = filename;
+        this.modifiedElementsMap.clear();
+        document.getElementById("save-screenplay-btn").style.display = "none";
+        
+        this.renderScreenplay();
+
+        // 自动装载对应的评估与建议
+        const prefix = filename.split("_screenplay")[0];
+        const qReportFile = this.data.files.find(f => f.name.startsWith(prefix) && f.type === "quality_report");
+        if (qReportFile) {
+          await this.loadQualityReport(qReportFile.name);
+        } else {
+          // 清空评估看板
+          this.data.quality_report = { readiness: { score: 0, status: "pending", decision: "N/A" }, dimensions: [] };
+          this.renderQualityDashboard();
+        }
+
+        // 基于剧本需要 review 的行动态生成补丁建议
+        this.generatePatchesFromScreenplay();
+
+        showToast(`🎬 改编剧本已装载: ${filename}`);
+      } else {
+        showToast(`📄 文件加载成功，类型: ${type}`);
+      }
+    } catch (e) {
+      showToast(`❌ 文件加载失败: ${e.message}`);
+    }
+  }
+
+  async loadQualityReport(filename) {
+    try {
+      const res = await fetch(`/api/file?name=${filename}`);
+      if (res.ok) {
+        this.data.quality_report = await res.json();
+        this.renderQualityDashboard();
+      }
+    } catch (e) {
+      console.error("加载质量报告失败:", e);
+    }
+  }
+
+  // 3. 动态从剧本 elements 中提取 inferred / needs_human_review 的节点生成 patches
+  generatePatchesFromScreenplay() {
+    const patches = [];
+    if (!this.data.screenplay || !this.data.screenplay.scenes) return;
+
+    this.data.screenplay.scenes.forEach(scene => {
+      // 检查 beats 节奏目标
+      scene.beats.forEach(beat => {
+        if (beat.ai_tags && beat.ai_tags.needs_human_review) {
+          const patchId = `patch-beat-${scene.id}-${beat.id}`;
+          const cachedStatus = window.patchStatusCache[patchId] || "pending";
+          patches.push({
+            id: patchId,
+            agent_id: "beat_dramaturgy_agent",
+            type: "conflict_enhancement",
+            target: { scene_id: scene.id, beat_id: beat.id },
+            proposed_text: beat.objective + "（作者审校润色确认）",
+            rationale: "大纲节奏目标处于初始改编架设状态，建议采纳确认以锁定语义主线。",
+            confidence: "high",
+            status: cachedStatus
+          });
+        }
+      });
+
+      // 检查具体段落 elements (action, dialogue)
+      scene.elements.forEach((el, index) => {
+        if (el.ai_tags && el.ai_tags.needs_human_review) {
+          const elId = `el-${scene.id}-${index}`;
+          const patchId = `patch-el-${scene.id}-${index}`;
+          const cachedStatus = window.patchStatusCache[patchId] || "pending";
+
+          let proposedText = el.text;
+          let rationale = "AI改编的对白或动作，请确认是否符合原著语调与角色人设。";
+          let agentId = "dialogue_optimizer_agent";
+
+          if (el.type === "dialogue") {
+            // 提供更加生动的优化文本供采纳
+            if (el.text.includes("大丈夫")) {
+              proposedText = "“大丈夫不为国家出力，在这里叹什么气！”张飞那豹子般的眼睛瞪圆，声若巨雷。";
+              rationale = "增强张飞出场的戏剧威压感，使其粗中有细的英雄性格更加立体。";
+            } else if (el.text.includes("爸")) {
+              proposedText = "林岚：（声音微颤）\n爸……是你吗？这摆动了十年的钟声究竟是谁敲响的……";
+              rationale = "优化对白潜台词，添加细微表情指示，使其符合失踪渔民女儿的情感曲线。";
+            } else {
+              proposedText = el.text + "（对白自然度深度润色版）";
+              rationale = "润色口语声纹，去除直白心理描述，强化潜台词隐喻。";
+            }
+          } else if (el.type === "action") {
+            if (el.text.includes("雾")) {
+              proposedText = "浓雾如实体般紧贴着旧邮局发黄的玻璃窗，泛着幽蓝的冷光。摆动多年的古老钟楼突然发出一声沉闷的撞击声。";
+              rationale = "提升环境的可拍性描写，外化悬疑气氛，将自然大雾塑造成戏剧压迫物。";
+              agentId = "scene_writer_agent";
+            } else {
+              proposedText = el.text + "（画面细节强化动作）";
+              rationale = "细化物理空间层次，补充道具和表演空间，移除脑中描写。";
+              agentId = "scene_writer_agent";
+            }
+          }
+
+          patches.push({
+            id: patchId,
+            agent_id: agentId,
+            type: el.type === "dialogue" ? "dialogue_naturalness" : "action_enhancement",
+            target: { scene_id: scene.id, element_id: elId },
+            proposed_text: proposedText,
+            rationale: rationale,
+            confidence: "high",
+            status: cachedStatus
+          });
+        }
+      });
+    });
+
+    this.data.reviewer_patches = patches;
+    this.renderPatches();
   }
 
   // 渲染头部元数据
@@ -110,20 +293,25 @@ class WorkbenchApp {
     document.getElementById("project-title").innerText = this.data.project_info.name;
     document.getElementById("project-version").innerText = `Version: ${this.data.project_info.version}`;
     
-    const timeFormatted = new Date(this.data.project_info.last_modified).toLocaleString("zh-CN", {
-      hour12: false
-    });
-    document.getElementById("project-time").innerText = `Last Sync: ${timeFormatted}`;
+    if (this.data.project_info.last_modified) {
+      const timeFormatted = new Date(this.data.project_info.last_modified).toLocaleString("zh-CN", {
+        hour12: false
+      });
+      document.getElementById("project-time").innerText = `Last Sync: ${timeFormatted}`;
+    } else {
+      document.getElementById("project-time").innerText = "Last Sync: --";
+    }
   }
 
-  // 渲染左侧文件管理 (任务 9)
+  // 渲染左侧文件管理
   renderFileList() {
     const fileTree = document.getElementById("file-tree");
     fileTree.innerHTML = "";
 
     this.data.files.forEach(file => {
       const li = document.createElement("li");
-      li.className = `file-item ${file.name === this.activeFile ? 'active' : ''}`;
+      const isSelected = file.name === this.activeFile || (file.type === "novel" && this.data.novel.chapters.length > 0 && this.data.novel.chapters[0].title === file.name);
+      li.className = `file-item ${isSelected ? 'active' : ''}`;
       
       let badgeClass = "badge-source";
       let statusText = "Source";
@@ -138,7 +326,6 @@ class WorkbenchApp {
         statusText = "Generated";
       }
 
-      // 根据文件类型挑选文件 icon
       let fileIcon = "📄";
       if (file.type === "novel") fileIcon = "📖";
       else if (file.type === "screenplay") fileIcon = "🎬";
@@ -160,74 +347,110 @@ class WorkbenchApp {
       li.addEventListener("click", () => {
         document.querySelectorAll(".file-item").forEach(item => item.classList.remove("active"));
         li.classList.add("active");
-        this.activeFile = file.name;
-        showToast(`已选中项目文件: ${file.name}`);
-        this.onFileSwitch(file);
+        this.loadFile(file.name);
       });
 
       fileTree.appendChild(li);
     });
   }
 
-  onFileSwitch(file) {
-    // 模拟文件切换
-    const statusTag = document.getElementById("screenplay-status");
-    if (file.type === "screenplay") {
-      statusTag.innerText = file.status === "ai_inferred" ? "AI Inferred" : "Human Confirmed";
-      statusTag.style.display = "inline-block";
-    } else {
-      statusTag.style.display = "none";
-    }
-  }
-
-  // 绑定事件处理器
+  // 绑定交互事件
   bindEvents() {
-    // 1. 流水线一键运行 (任务 9)
+    // 1. 流水线一键运行 (真实联动与进度轮询)
     const runBtn = document.getElementById("run-pipeline-btn");
     const progressContainer = document.getElementById("pipeline-progress-container");
     const progressFill = document.getElementById("pipeline-progress-fill");
     const progressText = document.getElementById("pipeline-progress-text");
 
-    runBtn.addEventListener("click", () => {
+    runBtn.addEventListener("click", async () => {
       runBtn.disabled = true;
       progressContainer.classList.remove("hidden");
       progressFill.style.width = "0%";
       progressText.innerText = "正在初始化流水线...";
 
-      const steps = [
-        { progress: 15, text: "正在读取并解析小说原文..." },
-        { progress: 35, text: "正在提取剧情语义与角色圣经..." },
-        { progress: 55, text: "正在自动规划戏剧章节大纲..." },
-        { progress: 75, text: "正在运行 Kimi/DeepSeek 协同改编与对白优化..." },
-        { progress: 90, text: "正在进行剧本格式与质量契约评估..." },
-        { progress: 100, text: "完成！正在刷新工作台..." }
-      ];
+      try {
+        const res = await fetch("/api/run-pipeline", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" }
+        });
+        if (!res.ok) throw new Error("启动流水线请求失败");
 
-      let stepIndex = 0;
-      const interval = setInterval(() => {
-        if (stepIndex < steps.length) {
-          const currentStep = steps[stepIndex];
-          progressFill.style.width = `${currentStep.progress}%`;
-          progressText.innerText = currentStep.text;
-          stepIndex++;
-        } else {
-          clearInterval(interval);
-          setTimeout(() => {
+        // 定时轮询进度
+        const pollInterval = setInterval(async () => {
+          try {
+            const statusRes = await fetch("/api/pipeline-status");
+            const statusData = await statusRes.json();
+            
+            progressFill.style.width = `${statusData.progress}%`;
+            progressText.innerText = statusData.text;
+
+            if (statusData.status === "success") {
+              clearInterval(pollInterval);
+              setTimeout(async () => {
+                progressContainer.classList.add("hidden");
+                runBtn.disabled = false;
+                showToast("✨ 端到端一键改编流水线全部运行成功！最新数据已重载！");
+                // 重新请求项目与文件
+                await this.init();
+              }, 1200);
+            } else if (statusData.status === "failed") {
+              clearInterval(pollInterval);
+              progressContainer.classList.add("hidden");
+              runBtn.disabled = false;
+              showToast(`❌ 运行失败: ${statusData.error_msg}`);
+            }
+          } catch (e) {
+            clearInterval(pollInterval);
             progressContainer.classList.add("hidden");
             runBtn.disabled = false;
-            // 重置数据模拟
-            this.data = JSON.parse(JSON.stringify(WORKBENCH_DATA));
-            this.init();
-            showToast("✨ 端到端改编流水线运行成功，已重载最新改编版本！");
-          }, 800);
-        }
-      }, 700);
+            showToast("❌ 进度轮询异常中断");
+          }
+        }, 1000);
+
+      } catch (err) {
+        runBtn.disabled = false;
+        progressContainer.classList.add("hidden");
+        showToast(`❌ 运行出错: ${err.message}`);
+      }
     });
 
     // 2. 章节选择
     const chapterSelect = document.getElementById("chapter-select");
     chapterSelect.addEventListener("change", (e) => {
       this.renderNovelContent(e.target.value);
+    });
+
+    // 3. 剧本就地编辑一键保存
+    const saveBtn = document.getElementById("save-screenplay-btn");
+    saveBtn.addEventListener("click", async () => {
+      saveBtn.disabled = true;
+      saveBtn.innerText = "💾 正在保存...";
+
+      try {
+        for (let [targetStr, text] of this.modifiedElementsMap.entries()) {
+          const target = JSON.parse(targetStr);
+          await fetch("/api/save-screenplay", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: jsonStringify({
+              target: target,
+              text: text,
+              screenplay_file: this.activeFile
+            })
+          });
+        }
+        showToast("✓ 剧本局部修改已物理持久化落盘！质量得分已重算。");
+        this.modifiedElementsMap.clear();
+        saveBtn.style.display = "none";
+        
+        // 重新拉取剧本及质量报告刷新
+        await this.loadFile(this.activeFile);
+      } catch (err) {
+        showToast(`❌ 保存修改失败: ${err.message}`);
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.innerText = "💾 保存修改";
+      }
     });
   }
 
@@ -276,7 +499,6 @@ class WorkbenchApp {
   selectNovelParagraph(paragraphId, triggerScrollToScreenplay = false) {
     this.selectedNovelParagraphId = paragraphId;
 
-    // 清除小说段落的高亮
     document.querySelectorAll(".novel-paragraph").forEach(p => {
       p.classList.remove("highlight");
     });
@@ -284,7 +506,6 @@ class WorkbenchApp {
     const targetPara = document.getElementById(`para-${paragraphId}`);
     if (targetPara) {
       targetPara.classList.add("highlight");
-      // 平滑滚动小说段落到中间
       targetPara.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
 
@@ -297,16 +518,18 @@ class WorkbenchApp {
 
     this.updateTraceabilityCard([paragraphId], paragraphText);
 
-    // 如果需要联动滚动到剧本
     if (triggerScrollToScreenplay) {
       this.scrollToAssociatedScreenplay(paragraphId);
     }
   }
 
-  // 渲染改编剧本 (任务 8)
+  // 渲染改编剧本 (任务 8 - 含就地编辑)
   renderScreenplay() {
     const spContent = document.getElementById("screenplay-content");
     spContent.innerHTML = "";
+
+    const statusTag = document.getElementById("screenplay-status");
+    let hasAiInferred = false;
 
     this.data.screenplay.scenes.forEach(scene => {
       // 1. Scene Heading
@@ -327,13 +550,35 @@ class WorkbenchApp {
         const beatDiv = document.createElement("div");
         beatDiv.className = "screenplay-element sp-beat-objective";
         beatDiv.id = `sp-element-${beat.id}`;
-        beatDiv.innerText = `[剧本节奏目标] ${beat.objective}`;
+        
+        const isAiInferred = beat.ai_tags?.needs_human_review || false;
+        if (isAiInferred) hasAiInferred = true;
+        const aiTagHtml = isAiInferred ? `<span class="ai-element-tag" title="置信度: ${beat.ai_tags.confidence || '中'}">AI Review</span>` : "";
+
+        // 提供就地编辑功能
+        beatDiv.innerHTML = `
+          <div class="element-editable-text" contenteditable="true" spellcheck="false">[剧本节奏目标] ${beat.objective}</div>
+          ${aiTagHtml}
+        `;
+
         beatDiv.setAttribute("data-type", "beat");
         beatDiv.setAttribute("data-source-paragraphs", beat.source_trace?.paragraph_ids?.join(",") || "");
 
-        beatDiv.addEventListener("click", () => {
+        beatDiv.addEventListener("click", (e) => {
+          if (e.target.classList.contains("element-editable-text")) return;
           this.selectScreenplayElement(beat.id, beat.source_trace?.paragraph_ids || []);
         });
+
+        // 监听就地编辑失焦，标记保存
+        beatDiv.querySelector(".element-editable-text").addEventListener("blur", (e) => {
+          const textVal = e.target.innerText.replace("[剧本节奏目标] ", "").trim();
+          if (textVal !== beat.objective) {
+            const targetKey = jsonStringify({ scene_id: scene.id, beat_id: beat.id });
+            this.modifiedElementsMap.set(targetKey, textVal);
+            document.getElementById("save-screenplay-btn").style.display = "inline-block";
+          }
+        });
+
         spContent.appendChild(beatDiv);
       });
 
@@ -344,24 +589,29 @@ class WorkbenchApp {
         elDiv.id = `sp-element-${elId}`;
         elDiv.setAttribute("data-source-paragraphs", el.source_trace?.paragraph_ids?.join(",") || "");
 
-        // 判断 AI 标签
-        const isAiInferred = el.ai_tags?.inferred || false;
-        const aiTagHtml = isAiInferred ? `<span class="ai-element-tag" title="置信度: ${el.ai_tags.confidence || '高'}">AI Inferred</span>` : "";
+        const isAiInferred = el.ai_tags?.needs_human_review || false;
+        if (isAiInferred) hasAiInferred = true;
+        const aiTagHtml = isAiInferred ? `<span class="ai-element-tag" title="置信度: ${el.ai_tags.confidence || '高'}">AI Review</span>` : "";
 
         if (el.type === "action") {
           elDiv.className = "screenplay-element sp-action";
-          elDiv.innerHTML = `${el.text} ${aiTagHtml}`;
+          elDiv.innerHTML = `
+            <div class="element-editable-text" contenteditable="true" spellcheck="false">${el.text}</div>
+            ${aiTagHtml}
+          `;
           elDiv.setAttribute("data-type", "action");
         } else if (el.type === "dialogue") {
           elDiv.className = "screenplay-element sp-dialogue";
           elDiv.setAttribute("data-type", "dialogue");
-          // 查找人物名称
           const character = this.data.screenplay.characters.find(c => c.id === el.character_id);
           const name = character ? character.name : "未知人物";
           
           elDiv.innerHTML = `
             <span class="dialogue-char">${name}</span>
-            <span class="dialogue-text">${el.text.replace(/\n/g, "<br>")} ${aiTagHtml}</span>
+            <span class="dialogue-text">
+              <div class="element-editable-text" contenteditable="true" spellcheck="false">${el.text}</div>
+              ${aiTagHtml}
+            </span>
           `;
         } else if (el.type === "note") {
           elDiv.className = "screenplay-element sp-note";
@@ -369,20 +619,36 @@ class WorkbenchApp {
           elDiv.setAttribute("data-type", "note");
         }
 
-        elDiv.addEventListener("click", () => {
+        elDiv.addEventListener("click", (e) => {
+          if (e.target.classList.contains("element-editable-text")) return;
           this.selectScreenplayElement(elId, el.source_trace?.paragraph_ids || []);
         });
+
+        const editableText = elDiv.querySelector(".element-editable-text");
+        if (editableText) {
+          editableText.addEventListener("blur", (e) => {
+            const textVal = e.target.innerText.trim();
+            if (textVal !== el.text) {
+              const targetKey = jsonStringify({ scene_id: scene.id, element_id: elId });
+              this.modifiedElementsMap.set(targetKey, textVal);
+              document.getElementById("save-screenplay-btn").style.display = "inline-block";
+            }
+          });
+        }
 
         spContent.appendChild(elDiv);
       });
     });
+
+    // 根据剧本里是否存在需要审核的 AI 节点，更新 header 状态标签
+    statusTag.innerText = hasAiInferred ? "AI Inferred" : "Human Confirmed";
+    statusTag.className = `mini-status-tag ${hasAiInferred ? 'badge-inferred' : 'badge-confirmed'}`;
   }
 
   // 选中并高亮剧本元素
   selectScreenplayElement(elementId, sourceParagraphIds) {
     this.selectedScreenplayElementId = elementId;
 
-    // 清除剧本中的所有高亮
     document.querySelectorAll(".screenplay-element").forEach(el => {
       el.classList.remove("highlight");
     });
@@ -393,11 +659,10 @@ class WorkbenchApp {
       targetEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
 
-    // 触发左侧小说原文的高亮与对齐
+    // 联动高亮小说段落
     if (sourceParagraphIds && sourceParagraphIds.length > 0) {
       const firstParaId = sourceParagraphIds[0];
       
-      // 清除别的小说原文高亮，把匹配到的全高亮
       document.querySelectorAll(".novel-paragraph").forEach(p => p.classList.remove("highlight"));
       
       let combinedText = [];
@@ -409,7 +674,6 @@ class WorkbenchApp {
         }
       });
 
-      // 滚动第一个匹配的小说段落到视野中
       const firstEl = document.getElementById(`para-${firstParaId}`);
       if (firstEl) {
         firstEl.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -421,7 +685,7 @@ class WorkbenchApp {
     }
   }
 
-  // 根据小说原文段落 ID 寻找关联的剧本元素并滚动
+  // 寻找关联的剧本元素并滚动
   scrollToAssociatedScreenplay(paragraphId) {
     const screenplayElements = document.querySelectorAll(".screenplay-element");
     let found = false;
@@ -431,7 +695,6 @@ class WorkbenchApp {
       if (sourceParaStr) {
         const paraIds = sourceParaStr.split(",");
         if (paraIds.includes(paragraphId)) {
-          // 选中并高亮剧本元素（不联动小说滚动以避免循环死锁）
           const elementId = el.id.replace("sp-element-", "");
           this.selectedScreenplayElementId = elementId;
 
@@ -439,17 +702,17 @@ class WorkbenchApp {
           el.classList.add("highlight");
           el.scrollIntoView({ behavior: "smooth", block: "center" });
           found = true;
-          break; // 定位第一个匹配项
+          break;
         }
       }
     }
 
     if (!found) {
-      showToast("此小说段落尚未映射到具体剧本 Scene 或 Beat 行");
+      showToast("此段落尚未被大纲或剧本 Scene/Beat 行关联映射。");
     }
   }
 
-  // 更新原著溯源卡片内容
+  // 更新双向溯源卡片内容
   updateTraceabilityCard(paragraphIds, text) {
     const card = document.getElementById("traceability-card");
     if (!text || paragraphIds.length === 0) {
@@ -468,11 +731,21 @@ class WorkbenchApp {
     `;
   }
 
-  // 渲染质量 Dashboard
+  // 渲染质量评估仪表盘与液态波浪球 (含波浪高度动态更新)
   renderQualityDashboard() {
     const report = this.data.quality_report;
-    document.getElementById("quality-score").innerText = report.readiness.score;
+    const score = report.readiness.score;
     
+    document.getElementById("quality-score").innerText = score;
+    
+    // 设置液态波浪球的高度：分数越高，水位越高，top值越低
+    const waveDom = document.getElementById("liquid-wave");
+    if (waveDom) {
+      // 0分 -> top = 100%, 100分 -> top = 0%
+      const topPercentage = 100 - score;
+      waveDom.style.top = `${topPercentage}%`;
+    }
+
     const decisionBadge = document.getElementById("quality-decision");
     decisionBadge.innerText = report.readiness.decision.toUpperCase();
     
@@ -490,6 +763,9 @@ class WorkbenchApp {
     dimsList.innerHTML = "";
 
     report.dimensions.forEach(dim => {
+      // 排除 overall_readiness 维度本身在列表里被重复渲染
+      if (dim.id === "overall_readiness") return;
+
       const div = document.createElement("div");
       div.className = "dim-item";
       
@@ -500,7 +776,7 @@ class WorkbenchApp {
       div.innerHTML = `
         <div style="display: flex; flex-direction: column; width: 100%;">
           <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-            <span class="dim-name">${dim.name}</span>
+            <span class="dim-name">${dim.name || dim.id}</span>
             <span class="dim-score" style="color: ${scoreColor}; font-weight: bold;">${dim.score}%</span>
           </div>
           <div style="width: 100%; height: 6px; background: rgba(255, 255, 255, 0.08); border-radius: 99px; overflow: hidden;">
@@ -519,7 +795,7 @@ class WorkbenchApp {
 
     const activePatches = this.data.reviewer_patches;
     if (activePatches.length === 0) {
-      container.innerHTML = `<p class="placeholder-text">当前暂无待处理的审校建议。</p>`;
+      container.innerHTML = `<p class="placeholder-text">当前剧本暂无需要人工确认的修改建议。</p>`;
       return;
     }
 
@@ -531,9 +807,9 @@ class WorkbenchApp {
       let actionHtml = "";
       if (patch.status === "pending") {
         actionHtml = `
-          <div class="patch-actions" style="margin-top: 8px;">
-            <button class="btn-patch btn-accept" data-patch-id="${patch.id}">采纳</button>
-            <button class="btn-patch btn-reject" data-patch-id="${patch.id}">拒绝</button>
+          <div class="patch-actions" style="margin-top: 8px; display: flex; gap: 8px;">
+            <button class="btn-patch btn-accept glass-btn" style="padding: 4px 10px; font-size: 0.75rem; border-color: rgba(52, 211, 153, 0.3); color: var(--success-accent);" data-patch-id="${patch.id}">采纳</button>
+            <button class="btn-patch btn-reject glass-btn" style="padding: 4px 10px; font-size: 0.75rem; border-color: rgba(248, 113, 113, 0.3); color: var(--danger-accent);" data-patch-id="${patch.id}">拒绝</button>
           </div>
         `;
       } else if (patch.status === "accepted") {
@@ -543,23 +819,22 @@ class WorkbenchApp {
       }
 
       let agentBadgeColor = "var(--warning-accent)";
-      if (patch.agent_id === "source_fidelity_reviewer") {
+      if (patch.agent_id === "scene_writer_agent") {
         agentBadgeColor = "var(--primary-accent)";
       }
 
       card.innerHTML = `
-        <div class="patch-header">
-          <span class="patch-agent-tag" style="color: ${agentBadgeColor}; border-color: ${agentBadgeColor}; background: rgba(255,255,255,0.02);">${patch.agent_id}</span>
+        <div class="patch-header" style="display:flex; justify-content:space-between; margin-bottom: 6px; font-size: 0.72rem;">
+          <span class="patch-agent-tag" style="color: ${agentBadgeColor}; border: 1px solid ${agentBadgeColor}; border-radius: 4px; padding: 2px 6px;">${patch.agent_id}</span>
           <span class="patch-confidence">置信度: ${patch.confidence === 'high' ? '🔥 高' : '⚡ 中'}</span>
         </div>
-        <div class="patch-text" style="margin: 6px 0;">${patch.proposed_text}</div>
+        <div class="patch-text" style="margin: 6px 0; font-size: 0.85rem; color: var(--glass-text-primary); font-weight: 500;">${patch.proposed_text}</div>
         <div class="patch-rationale" style="font-size: 0.72rem; color: var(--glass-text-muted); line-height: 1.4;">
           <strong>建议理由:</strong> ${patch.rationale}
         </div>
         ${actionHtml}
       `;
 
-      // 事件绑定
       if (patch.status === "pending") {
         card.querySelector(".btn-accept").addEventListener("click", () => this.applyPatch(patch.id));
         card.querySelector(".btn-reject").addEventListener("click", () => this.rejectPatch(patch.id));
@@ -569,80 +844,85 @@ class WorkbenchApp {
     });
   }
 
-  // 采纳审校建议 (任务 8)
-  applyPatch(patchId) {
+  // 采纳建议 (真实 API 与物理写回)
+  async applyPatch(patchId) {
     const patch = this.data.reviewer_patches.find(p => p.id === patchId);
     if (!patch) return;
 
-    patch.status = "accepted";
-    showToast(`✓ 已采纳建议: ${patch.agent_id}`);
+    try {
+      const res = await fetch("/api/patch/apply", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: jsonStringify({
+          patch_id: patchId,
+          proposed_text: patch.proposed_text,
+          target: patch.target,
+          screenplay_file: this.activeFile
+        })
+      });
 
-    // 执行剧本回填与修改：
-    // 根据 patch 的 target（例如 { scene_id: "scene_001", beat_id: "beat_001" }）
-    // 我们可以直接在 `screenplay.scenes` 中找到对应的 scene 并更新其下的 beat 或者动作。
-    const target = patch.target;
-    let modifiedElementId = null;
+      if (!res.ok) throw new Error("向后端请求采纳建议失败");
 
-    if (target) {
-      const scene = this.data.screenplay.scenes.find(s => s.id === target.scene_id);
-      if (scene) {
-        if (target.beat_id) {
-          // 修改 beat 的 objective
-          const beat = scene.beats.find(b => b.id === target.beat_id);
-          if (beat) {
-            beat.objective = patch.proposed_text;
-            modifiedElementId = beat.id;
-          }
-          
-          // 如果是冲突增强，也可以直接在 scene 里面寻找合适的 action element 替换，或者插入一个新的 action
-          // 为了演示高精度的回填，如果在 elements 中有匹配的 source_trace，我们将其 text 进行替换
-          // 我们这里对 beat 修改同时，寻找 scene 下第一个 action，替换或者追加
-          if (patch.agent_id === "beat_dramaturgy_agent") {
-            const firstAction = scene.elements.find(el => el.type === "action");
-            if (firstAction) {
-              firstAction.text = patch.proposed_text;
-              firstAction.ai_tags = { inferred: true, confidence: "high", needs_human_review: false };
-              modifiedElementId = `el-${scene.id}-0`; // 对应渲染的 el 元素 ID
-            }
-          }
+      // 本地状态同步
+      window.patchStatusCache[patchId] = "accepted";
+      patch.status = "accepted";
+      showToast(`✓ 已成功采纳建议: ${patch.agent_id}！物理文件已更新。`);
+
+      // 重新读取剧本与报告以重绘，达到完全物理同步
+      await this.loadFile(this.activeFile);
+
+      // 执行高光闪烁动效
+      let targetElId = patch.target.element_id || patch.target.beat_id;
+      if (targetElId) {
+        const elDom = document.getElementById(`sp-element-${targetElId}`);
+        if (elDom) {
+          elDom.classList.add("flash-active");
+          elDom.scrollIntoView({ behavior: "smooth", block: "center" });
+          setTimeout(() => elDom.classList.remove("flash-active"), 2000);
         }
       }
-    }
 
-    // 重新渲染剧本与修改建议栏
-    this.renderScreenplay();
-    this.renderPatches();
-
-    // 如果修改了元素，加上高光闪烁动效
-    if (modifiedElementId) {
-      const elDom = document.getElementById(`sp-element-${modifiedElementId}`);
-      if (elDom) {
-        elDom.classList.add("flash-active");
-        elDom.scrollIntoView({ behavior: "smooth", block: "center" });
-        setTimeout(() => {
-          elDom.classList.remove("flash-active");
-        }, 2000);
-      }
+    } catch (e) {
+      showToast(`❌ 采纳失败: ${e.message}`);
     }
   }
 
-  // 拒绝审校建议
-  rejectPatch(patchId) {
+  // 拒绝修改建议
+  async rejectPatch(patchId) {
     const patch = this.data.reviewer_patches.find(p => p.id === patchId);
     if (!patch) return;
 
-    patch.status = "rejected";
-    showToast(`✗ 已拒绝建议: ${patch.agent_id}`);
-    this.renderPatches();
+    try {
+      const res = await fetch("/api/patch/reject", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: jsonStringify({
+          patch_id: patchId,
+          target: patch.target,
+          screenplay_file: this.activeFile
+        })
+      });
+
+      if (!res.ok) throw new Error("后端处理拒绝建议失败");
+
+      window.patchStatusCache[patchId] = "rejected";
+      patch.status = "rejected";
+      showToast(`✗ 已拒绝建议: ${patch.agent_id}`);
+
+      await this.loadFile(this.activeFile);
+    } catch (e) {
+      showToast(`❌ 拒绝失败: ${e.message}`);
+    }
   }
 }
 
-// 页面加载完毕后运行
+// 辅助方法：序列化 JSON
+function jsonStringify(obj) {
+  return JSON.stringify(obj);
+}
+
+// 页面载入时实例化 Workbench
 window.addEventListener("DOMContentLoaded", () => {
-  if (typeof WORKBENCH_DATA !== "undefined") {
-    window.app = new WorkbenchApp(WORKBENCH_DATA);
-    window.app.init();
-  } else {
-    console.error("Error: WORKBENCH_DATA is not defined. Please check data_fixture.js");
-  }
+  window.app = new WorkbenchApp();
+  window.app.init();
 });

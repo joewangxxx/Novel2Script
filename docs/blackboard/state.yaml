@@ -262,7 +262,7 @@ contract_status:
     schemas/dialogue_optimizer_agent_candidates.schema.json: "sha256:ff4d8bec92391800f47bbb443cf14fd90726f8611165f7b0d56f8ad2f10c1390"
     schemas/fountain_roundtrip_report.schema.json: "sha256:16c74aa1e746ad57130d25dfeaedc4d8dab9bc3008132e5962391a2e9826bf38"
     schemas/outline.schema.json: "sha256:b25a02c8616238cd7480cde67ab3b1970ace4e57d68687ec7991f8d66962506b"
-    schemas/quality_report.schema.json: "sha256:05ed81a5aeb7be32bb7488c6e0b98dff419b362ae9b034d93628e9d2d04516e8"
+    schemas/quality_report.schema.json: "sha256:d6c6bee1e99ee23edbb083a7b203e58cd600a5fde23fc32b73d17bb25b2d85aa"
     schemas/qwen_semantic_model_output.schema.json: "sha256:0ee3fe1caf6a350f8137276f0c25bd8b2cee5f554f467c8e7a6d8f2f241bfba1"
     schemas/review_report.schema.json: "sha256:a3b63e188d861f03d2a4493717cbc73d6db3c42ddd639fa2e63e2010182da63b"
     schemas/scene_writer_agent_candidates.schema.json: "sha256:858637e8a3b102ceb722168ae77f07d4dd9a86d627d78db0d94ae0c32bb04383"

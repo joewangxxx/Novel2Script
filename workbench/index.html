@@ -76,9 +76,12 @@
 
         <!-- 剧本改编分栏 -->
         <section class="pane-column pane-screenplay">
-          <div class="pane-header">
+          <div class="pane-header" style="display: flex; align-items: center; justify-content: space-between;">
             <h2>🎬 改编剧本 (Scene & Beats)</h2>
-            <span class="mini-status-tag" id="screenplay-status">AI Inferred</span>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="mini-status-tag" id="screenplay-status">AI Inferred</span>
+              <button class="btn btn-save glass-btn" id="save-screenplay-btn" style="display: none; padding: 6px 12px; font-size: 0.8rem; border-radius: 99px;">💾 保存修改</button>
+            </div>
           </div>
           <div class="pane-content scroll-y" id="screenplay-content">
             <!-- 动态渲染剧本 -->
@@ -102,8 +105,11 @@
           <h3>📊 剧本质量评估</h3>
           <div class="quality-score-summary glass-subcard">
             <div class="liquid-score-circle">
-              <span class="score-num" id="quality-score">0</span>
-              <span class="score-label">Readiness</span>
+              <div class="water-wave" id="liquid-wave"></div>
+              <div class="score-text-container" style="z-index: 5; text-align: center; display: flex; flex-direction: column;">
+                <span class="score-num" id="quality-score">0</span>
+                <span class="score-label">Readiness</span>
+              </div>
             </div>
             <div class="quality-decision-area">
               <span class="decision-badge" id="quality-decision">--</span>
@@ -129,7 +135,6 @@
   </div>
 
   <!-- 载入脚本 -->
-  <script src="data_fixture.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

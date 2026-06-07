@@ -1,9 +1,65 @@
 import http.server
+import socket
 import socketserver
+import subprocess
+import sys
+import time
+import urllib.request
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 from novel2script.cli import main
+
+
+def _free_port() -> int:
+    with socket.socket() as sock:
+        sock.bind(("127.0.0.1", 0))
+        return int(sock.getsockname()[1])
+
+
+def test_serve_workbench_cli_serves_api_routes():
+    port = _free_port()
+    proc = subprocess.Popen(
+        [
+            sys.executable,
+            "-m",
+            "novel2script.cli",
+            "serve-workbench",
+            "--host",
+            "127.0.0.1",
+            "--port",
+            str(port),
+            "--no-browser",
+        ],
+        cwd=Path(__file__).resolve().parents[1],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+    )
+    try:
+        ready = False
+        for _ in range(40):
+            if proc.poll() is not None:
+                break
+            try:
+                with urllib.request.urlopen(f"http://127.0.0.1:{port}/index.html", timeout=0.5) as response:
+                    ready = response.status == 200
+                    if ready:
+                        break
+            except OSError:
+                time.sleep(0.25)
+        assert ready, "workbench CLI server did not become ready"
+
+        with urllib.request.urlopen(f"http://127.0.0.1:{port}/api/project", timeout=2) as response:
+            assert response.status == 200
+            assert "application/json" in response.headers.get("Content-Type", "")
+    finally:
+        proc.terminate()
+        try:
+            proc.wait(timeout=5)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+            proc.wait(timeout=5)
 
 
 def test_serve_workbench_cli_success():

@@ -1,0 +1,67 @@
+source_fidelity_reviewer_candidates:
+  schema_version: 0.1.0
+  agent_id: source_fidelity_reviewer
+  provider_profile: mock_dry_run
+  dry_run: true
+  human_approval_required: true
+  source_artifacts:
+    story_map: tmp_codex_audit/pipeline/story_map.yaml
+    outline: tmp_codex_audit/pipeline/outline.yaml
+    character_bible: tmp_codex_audit/pipeline/character_bible.yaml
+    screenplay: tmp_codex_audit/pipeline/screenplay.yaml
+    review_report: tmp_codex_audit/pipeline/review_report.yaml
+  candidates:
+  - id: fidrev_001
+    type: fidelity_warning
+    target:
+      artifact: screenplay
+      scene_id: scene_001
+      path: scenes[0].beats[0]
+      beat_id: beat_001
+      element_id: elem_001
+    proposed_text: 复核发现剧本第2场中新增的侍卫对话未在小说原文第1章查到依据，涉嫌轻微幻觉。
+    proposed_change:
+      summary: 复核发现剧本第2场中新增的侍卫对话未在小说原文第1章查到依据，涉嫌轻微幻觉。
+    rationale: Mock dry-run reviewer candidate requires human approval before merge.
+    source_trace:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+      event_ids:
+      - evt_001
+      outline_scene_ids:
+      - osp_001
+      quote_preview: 海边小镇连续三晚起雾。林岚在旧邮局值夜班时，听见已经停摆十年的钟楼响了一下。她…
+      note: 动作或状态变化关键词命中
+    source_trace_ids:
+      chapter_id: ch_001
+      paragraph_ids:
+      - p_001
+    ai_tags:
+      inferred: true
+      confidence: medium
+      needs_human_review: true
+      notes:
+      - Mock dry-run reviewer tag.
+    constraints_observed:
+    - preserved_source_trace
+    - did_not_modify_source_artifacts
+    - requires_author_approval
+    risks:
+    - requires review before merge
+    confidence: medium
+    merge_policy: human_approval_required
+    requires_author_approval: true
+  errors: []
+  metadata:
+    prompt_retained: false
+    model_response_retained: false
+    provider_payload_retained: false
+    full_source_text_retained: false
+    run_log: tmp_codex_audit/agent_source-fidelity-reviewer.log.yaml
+    output: tmp_codex_audit/agent_source-fidelity-reviewer.yaml
+    intended_provider_profile: deepseek_reasoning
+    resolved_provider_profile: mock_dry_run
+    model: ''
+    finish_reason: ''
+    usage: {}

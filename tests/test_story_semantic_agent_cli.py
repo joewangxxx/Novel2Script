@@ -133,8 +133,10 @@ def test_run_agent_story_semantic_parser_allow_network_requires_qwen_key(
     )
 
     assert exit_code != 0
-    assert not out_path.exists()
-    assert not run_log_path.exists()
+    assert out_path.exists()
+    assert run_log_path.exists()
+    data = _load_yaml(out_path)
+    assert data["semantic_candidates"]["errors"][0]["code"] == "provider_authentication_failed"
 
 
 class CLIFakeRealRouter:
@@ -241,7 +243,7 @@ def test_run_agent_story_semantic_parser_cli_parses_fake_real_json(
     [
         ('{"candidates": [}', "stop", "malformed_model_json"),
         (" ", "stop", "empty_model_output"),
-        (_valid_model_json(), "length", "truncated_model_output"),
+        ('{"candidates": [{"type":', "length", "truncated_model_output"),
     ],
 )
 def test_run_agent_story_semantic_parser_cli_returns_nonzero_for_blocked_real_output(

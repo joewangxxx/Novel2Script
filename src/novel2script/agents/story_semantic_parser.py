@@ -9,6 +9,10 @@ from jsonschema import Draft202012Validator
 from jsonschema.exceptions import ValidationError
 
 from novel2script.io import read_json, read_yaml, write_yaml
+from novel2script.llm.openai_compatible_provider import (
+    ProviderConfigurationError,
+    ProviderRuntimeError,
+)
 from novel2script.llm.router import LLMRouter
 from novel2script.llm.types import LLMRequest
 
@@ -59,7 +63,50 @@ def run_story_semantic_parser(
         quality_report_doc=quality_report_doc,
         dry_run=dry_run,
     )
-    routed = (router or LLMRouter.default()).dispatch(request)
+    try:
+        routed = (router or LLMRouter.default()).dispatch(request)
+    except ProviderConfigurationError as exc:
+        errors = [
+            _model_error(
+                "provider_authentication_failed",
+                f"LLM provider authentication failed or key missing. Details: {str(exc)}",
+            )
+        ]
+        return _write_fallback_report(
+            story_map_path, out_path, run_log_path, errors, intended_profile="qwen_long", dry_run=dry_run, quality_report_path=quality_report_path
+        )
+    except ProviderRuntimeError as exc:
+        category = exc.category
+        code = "provider_service_error"
+        if category == "authentication":
+            code = "provider_authentication_failed"
+        elif category == "rate_limited":
+            code = "provider_rate_limited"
+        elif category == "timeout":
+            code = "provider_timeout"
+        elif category in ("dns_error", "tls_error", "connection_error", "transport_failure"):
+            code = "provider_connection_failed"
+            
+        errors = [
+            _model_error(
+                code,
+                f"LLM provider error occurred: {category}. Details: {str(exc)}",
+            )
+        ]
+        return _write_fallback_report(
+            story_map_path, out_path, run_log_path, errors, intended_profile="qwen_long", dry_run=dry_run, quality_report_path=quality_report_path, runtime_error=exc
+        )
+    except Exception as exc:
+        errors = [
+            _model_error(
+                "provider_service_error",
+                f"An unexpected LLM service error occurred. Details: {str(exc)}",
+            )
+        ]
+        return _write_fallback_report(
+            story_map_path, out_path, run_log_path, errors, intended_profile="qwen_long", dry_run=dry_run, quality_report_path=quality_report_path
+        )
+
     if dry_run:
         candidates = _build_candidates(story_map_doc)
         errors = _candidate_trace_errors(candidates)
@@ -128,6 +175,52 @@ def _semantic_candidates_doc(
             "metadata": metadata,
         }
     }
+
+
+def _write_fallback_report(
+    story_map_path: str | Path,
+    out_path: str | Path,
+    run_log_path: str | Path,
+    errors: list[dict[str, Any]],
+    intended_profile: str,
+    dry_run: bool,
+    quality_report_path: str | Path | None = None,
+    runtime_error: ProviderRuntimeError | None = None,
+) -> dict[str, Any]:
+    metadata = {
+        "intended_provider_profile": intended_profile,
+        "resolved_provider_profile": "mock_dry_run" if dry_run else intended_profile,
+        "quality_report": str(quality_report_path or ""),
+    }
+    if runtime_error:
+        metadata["runtime_error_details"] = runtime_error.to_dict()
+
+    report = _semantic_candidates_doc(
+        story_map_path,
+        run_log_path,
+        candidates=[],
+        errors=errors,
+        provider_profile="mock_dry_run" if dry_run else intended_profile,
+        dry_run=dry_run,
+        metadata=metadata,
+    )
+    write_yaml(report, out_path)
+
+    run_record_err = {
+        "status": "failed",
+        "error": errors[0],
+    }
+    if runtime_error:
+        run_record_err["runtime_error"] = runtime_error.to_dict()
+
+    write_yaml(
+        {
+            "llm_run_records": [run_record_err],
+            "errors": errors,
+        },
+        run_log_path,
+    )
+    return report
 
 
 def _build_request(
@@ -229,28 +322,33 @@ def _parse_real_candidates(
     finish_reason: str,
     excerpts: list[dict[str, str]],
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    errors: list[dict[str, Any]] = []
+
     if finish_reason == "length":
-        return [], [
+        errors.append(
             _model_error(
                 "truncated_model_output",
-                "Provider stopped because the output token limit was reached.",
+                "Provider stopped because the output token limit was reached. Partial candidates might be recovered.",
             )
-        ]
+        )
+
     if not text.strip():
-        return [], [_model_error("empty_model_output", "Provider returned no JSON content.")]
+        return [], errors + [_model_error("empty_model_output", "Provider returned no JSON content.")]
+
     try:
-        model_doc = json.loads(text)
-    except json.JSONDecodeError:
-        return [], [
+        model_doc = _attempt_json_repair(text)
+    except Exception as exc:
+        return [], errors + [
             _model_error(
                 "malformed_model_json",
-                "Provider response was not valid JSON.",
+                f"Provider response was not valid JSON and could not be repaired. Details: {str(exc)}",
             )
         ]
+
     try:
         Draft202012Validator(read_json(MODEL_OUTPUT_SCHEMA)).validate(model_doc)
     except ValidationError:
-        return [], [
+        return [], errors + [
             _model_error(
                 "invalid_model_output_schema",
                 "Provider JSON did not match qwen semantic model-output schema.",
@@ -264,7 +362,6 @@ def _parse_real_candidates(
         )
 
     candidates: list[dict[str, Any]] = []
-    errors: list[dict[str, Any]] = []
     seen: set[str] = set()
     for draft in model_doc["candidates"]:
         trace = draft["source_trace_ids"]
@@ -517,3 +614,87 @@ def _preview(text: str, limit: int) -> str:
     if len(compact) <= limit:
         return compact
     return compact[: limit - 1] + "..."
+
+
+def _attempt_json_repair(text: str) -> Any:
+    """尝试智能强修复损坏的 JSON 结构。"""
+    cleaned = text.strip()
+    if not cleaned:
+        raise ValueError("Empty response text")
+
+    # 1. 尝试直接解析
+    try:
+        return json.loads(cleaned)
+    except json.JSONDecodeError:
+        pass
+
+    # 2. 提取 markdown 代码块
+    import re
+    block_match = re.search(r"```(?:json)?\s*(.*?)\s*```", cleaned, re.DOTALL | re.IGNORECASE)
+    if block_match:
+        cleaned = block_match.group(1).strip()
+        try:
+            return json.loads(cleaned)
+        except json.JSONDecodeError:
+            pass
+
+    # 3. 正则修复对象或数组尾部的多余逗号
+    cleaned = re.sub(r",\s*\}", "}", cleaned)
+    cleaned = re.sub(r",\s*\]", "]", cleaned)
+    try:
+        return json.loads(cleaned)
+    except json.JSONDecodeError:
+        pass
+
+    # 4. 堆栈补足闭合括号
+    try:
+        repaired = _close_unmatched_brackets(cleaned)
+        return json.loads(repaired)
+    except Exception:
+        pass
+
+    # 5. 截断残破修复：丢弃尾部残残不全的候选对象
+    for i in range(len(cleaned) - 1, -1, -1):
+        if cleaned[i] == '}':
+            candidate_part = cleaned[:i+1]
+            for suffix in ("]}", "}"):
+                try:
+                    return json.loads(candidate_part + suffix)
+                except json.JSONDecodeError:
+                    pass
+
+    # 兜底：若修复均失败，抛出原始解析错
+    return json.loads(text)
+
+
+def _close_unmatched_brackets(text: str) -> str:
+    stack = []
+    in_string = False
+    escape = False
+    for char in text:
+        if in_string:
+            if escape:
+                escape = False
+            elif char == '\\':
+                escape = True
+            elif char == '"':
+                in_string = False
+        else:
+            if char == '"':
+                in_string = True
+            elif char in ('{', '['):
+                stack.append(char)
+            elif char == '}':
+                if stack and stack[-1] == '{':
+                    stack.pop()
+            elif char == ']':
+                if stack and stack[-1] == '[':
+                    stack.pop()
+    repaired = text
+    while stack:
+        op = stack.pop()
+        if op == '{':
+            repaired += '}'
+        elif op == '[':
+            repaired += ']'
+    return repaired

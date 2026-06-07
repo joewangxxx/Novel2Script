@@ -21,6 +21,7 @@ AGENT_PROVIDER_ROUTES = {
     "beat_dramaturgy_agent": "deepseek_reasoning",
     "source_fidelity_reviewer": "qwen_long+deepseek_reasoning",
     "yaml_repair_agent": "deepseek_reasoning",
+    "quality_evaluator": "deepseek_reasoning",
 }
 
 

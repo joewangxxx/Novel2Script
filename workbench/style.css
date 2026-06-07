@@ -620,31 +620,48 @@ body {
   margin-bottom: 14px;
 }
 
-/* 液态圆环 */
+/* 液态圆环评分器 */
 .liquid-score-circle {
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--success-accent) 0%, var(--primary-accent) 100%);
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px solid rgba(255, 255, 255, 0.15);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 0 16px var(--primary-glow);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
   position: relative;
   overflow: hidden;
+  backdrop-filter: blur(8px);
 }
 
-.liquid-score-circle::before {
+.water-wave {
+  position: absolute;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(180deg, var(--primary-accent) 0%, #3b82f6 50%, #1d4ed8 100%);
+  border-radius: 38%;
+  opacity: 0.8;
+  top: 100%; /* 默认水位在底部，用 JS 计算后控制 top */
+  animation: liquid-spin 12s infinite linear;
+  transition: top 1.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  z-index: 1;
+}
+
+.water-wave::before {
   content: '';
   position: absolute;
-  top: -20%;
-  left: -20%;
-  width: 140%;
-  height: 140%;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 40%;
-  animation: liquid-spin 6s infinite linear;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, var(--success-accent) 0%, rgba(52, 211, 153, 0.6) 100%);
+  border-radius: 35%;
+  opacity: 0.5;
+  animation: liquid-spin 8s infinite linear;
 }
 
 @keyframes liquid-spin {
@@ -652,18 +669,28 @@ body {
   100% { transform: rotate(360deg); }
 }
 
+.score-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
 .score-num {
-  font-size: 1.3rem;
-  font-weight: 700;
+  font-size: 1.4rem;
+  font-weight: 800;
   color: white;
-  z-index: 2;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .score-label {
   font-size: 0.6rem;
-  color: rgba(255, 255, 255, 0.8);
-  z-index: 2;
-  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .quality-decision-area {

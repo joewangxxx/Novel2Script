@@ -1,0 +1,118 @@
+{
+  "source_yaml": "tmp_codex_audit/pipeline/screenplay.yaml",
+  "fountain_file": "tmp_codex_audit/screenplay.audit.fountain",
+  "mappings": [
+    {
+      "line_start": 5,
+      "line_end": 5,
+      "scene_id": "scene_001",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[0].heading"
+    },
+    {
+      "line_start": 6,
+      "line_end": 6,
+      "scene_id": "scene_001",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[0].elements[0].text"
+    },
+    {
+      "line_start": 8,
+      "line_end": 8,
+      "scene_id": "scene_002",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[1].heading"
+    },
+    {
+      "line_start": 9,
+      "line_end": 9,
+      "scene_id": "scene_002",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[1].elements[0].text"
+    },
+    {
+      "line_start": 11,
+      "line_end": 11,
+      "scene_id": "scene_003",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[2].heading"
+    },
+    {
+      "line_start": 12,
+      "line_end": 12,
+      "scene_id": "scene_003",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[2].elements[0].text"
+    },
+    {
+      "line_start": 14,
+      "line_end": 14,
+      "scene_id": "scene_004",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[3].heading"
+    },
+    {
+      "line_start": 15,
+      "line_end": 15,
+      "scene_id": "scene_004",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[3].elements[0].text"
+    },
+    {
+      "line_start": 17,
+      "line_end": 17,
+      "scene_id": "scene_005",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[4].heading"
+    },
+    {
+      "line_start": 18,
+      "line_end": 18,
+      "scene_id": "scene_005",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[4].elements[0].text"
+    },
+    {
+      "line_start": 20,
+      "line_end": 20,
+      "scene_id": "scene_006",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[5].heading"
+    },
+    {
+      "line_start": 21,
+      "line_end": 21,
+      "scene_id": "scene_006",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[5].elements[0].text"
+    },
+    {
+      "line_start": 23,
+      "line_end": 23,
+      "scene_id": "scene_007",
+      "beat_id": null,
+      "element_index": null,
+      "yaml_path": "scenes[6].heading"
+    },
+    {
+      "line_start": 24,
+      "line_end": 24,
+      "scene_id": "scene_007",
+      "beat_id": null,
+      "element_index": 0,
+      "yaml_path": "scenes[6].elements[0].text"
+    }
+  ]
+}

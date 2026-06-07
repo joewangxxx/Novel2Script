@@ -44,7 +44,7 @@
         },
         "dimensions": {
           "type": "array",
-          "minItems": 11,
+          "minItems": 13,
           "items": {
             "$ref": "#/$defs/dimension"
           }
@@ -353,6 +353,8 @@
         "shootability",
         "fountain_roundtrip_safety",
         "semantic_staleness",
+        "character_goal_clarity",
+        "dramatic_conflict_intensity",
         "overall_readiness"
       ]
     },
@@ -363,7 +365,8 @@
         "review_report",
         "fountain_roundtrip_report",
         "screenplay_metadata",
-        "quality_policy"
+        "quality_policy",
+        "llm_evaluation"
       ]
     },
     "status": {

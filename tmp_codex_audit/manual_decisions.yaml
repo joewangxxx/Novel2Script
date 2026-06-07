@@ -1,0 +1,37 @@
+semantic_candidate_decisions:
+  schema_version: 0.1.0
+  source_story_map: tmp_codex_audit\pipeline\story_map.yaml
+  source_semantic_candidates: tmp_codex_audit\pipeline\semantic_candidates.yaml
+  reviewed_by: codex_audit
+  reviewed_at: '2026-06-07T23:45:00+08:00'
+  decisions:
+  - decision_id: dec_001
+    candidate_id: semcand_001
+    decision: accept
+    target_story_map_field: key_events
+    reviewer_note: Accept event candidate during audit.
+    human_approval:
+      approved: true
+      reviewer_id: codex_audit
+      approved_at: '2026-06-07T23:45:00+08:00'
+  - decision_id: dec_002
+    candidate_id: semcand_002
+    decision: reject
+    target_story_map_field: psychological_passages
+    reviewer_note: Reject psychological candidate during audit.
+    human_approval:
+      approved: false
+      reviewer_id: codex_audit
+      approved_at: '2026-06-07T23:45:00+08:00'
+  - decision_id: dec_003
+    candidate_id: semcand_003
+    decision: edit
+    target_story_map_field: timeline
+    edited_fields:
+      label: Audit edited timeline label
+      time_text: Audit edited timeline time
+    reviewer_note: Edit timeline candidate during audit.
+    human_approval:
+      approved: true
+      reviewer_id: codex_audit
+      approved_at: '2026-06-07T23:45:00+08:00'
