@@ -1,0 +1,240 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://novel2script.local/schemas/yaml_repair_agent_candidates.schema.json",
+  "title": "Novel2Script YAML Repair Agent Candidates",
+  "type": "object",
+  "required": ["yaml_repair_agent_candidates"],
+  "additionalProperties": false,
+  "properties": {
+    "yaml_repair_agent_candidates": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "agent_id",
+        "provider_profile",
+        "dry_run",
+        "human_approval_required",
+        "candidates",
+        "errors",
+        "metadata"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "0.1.0"
+        },
+        "source_artifacts": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "agent_id": {
+          "const": "yaml_repair_agent"
+        },
+        "provider_profile": {
+          "enum": ["deepseek_reasoning", "mock_dry_run"]
+        },
+        "dry_run": {
+          "type": "boolean"
+        },
+        "human_approval_required": {
+          "const": true
+        },
+        "candidates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/candidate"
+          }
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/error"
+          }
+        },
+        "metadata": {
+          "$ref": "#/$defs/metadata"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "candidate": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "target",
+        "proposed_text",
+        "rationale",
+        "source_trace",
+        "source_trace_ids",
+        "ai_tags",
+        "constraints_observed",
+        "risks",
+        "confidence",
+        "merge_policy",
+        "requires_author_approval"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^yamlrep_[0-9]{3}$"
+        },
+        "type": {
+          "enum": [
+            "syntax_repair",
+            "field_alignment",
+            "reference_fix",
+            "reviewer_note"
+          ]
+        },
+        "target": {
+          "$ref": "#/$defs/target"
+        },
+        "proposed_text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "proposed_change": {
+          "type": "object"
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "source_trace": {
+          "$ref": "#/$defs/source_trace"
+        },
+        "source_trace_ids": {
+          "$ref": "#/$defs/source_trace_ids"
+        },
+        "ai_tags": {
+          "$ref": "#/$defs/ai_tags"
+        },
+        "constraints_observed": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "risks": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "confidence": {
+          "type": "string",
+          "minLength": 1
+        },
+        "merge_policy": {
+          "const": "human_approval_required"
+        },
+        "requires_author_approval": {
+          "const": true
+        }
+      }
+    },
+    "target": {
+      "type": "object",
+      "required": ["path"],
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scene_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "beat_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "element_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "character_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "artifact": {
+          "type": "string"
+        }
+      }
+    },
+    "source_trace": {
+      "type": "object",
+      "required": [],
+      "additionalProperties": true
+    },
+    "source_trace_ids": {
+      "type": "object",
+      "required": [],
+      "additionalProperties": true
+    },
+    "error": {
+      "type": "object",
+      "required": ["code", "message", "severity"],
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        },
+        "severity": {
+          "enum": ["low", "medium", "high", "blocking"]
+        },
+        "target": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "ai_tags": {
+      "type": "object",
+      "required": ["inferred", "confidence", "needs_human_review"],
+      "additionalProperties": false,
+      "properties": {
+        "inferred": {"type": "boolean"},
+        "confidence": {"enum": ["low", "medium", "high"]},
+        "needs_human_review": {"const": true},
+        "notes": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "required": [
+        "prompt_retained",
+        "model_response_retained",
+        "provider_payload_retained"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "prompt_retained": {
+          "const": false
+        },
+        "model_response_retained": {
+          "const": false
+        },
+        "provider_payload_retained": {
+          "const": false
+        }
+      }
+    }
+  }
+}
