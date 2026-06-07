@@ -1,0 +1,15 @@
+creative_draft_apply_report:
+  schema_version: 0.1.0
+  source_screenplay: examples/output/test1_sanguo_screenplay.stage26.yaml
+  source_creative_candidates: examples/output/test1_sanguo_creative_draft_candidates.stage26.real_kimi.yaml
+  output_screenplay: examples/output/test1_sanguo_screenplay.stage32.yaml
+  applied_count: 1
+  skipped_count: 0
+  blocked_count: 0
+  candidate_ids:
+  - crecand_001
+  source_screenplay_hash_before: sha256:e8a1d8f7f49c4de4c7637c34662b25854315e7f2aa1e895df59cecd9335fa7eb
+  source_screenplay_hash_after: sha256:e8a1d8f7f49c4de4c7637c34662b25854315e7f2aa1e895df59cecd9335fa7eb
+  enhanced_screenplay_hash: sha256:418fc500684991da41be2b9f71c30e61a4f0dae903a90e493a77e9a16ea716cd
+  preserved_original_screenplay: true
+  errors: []

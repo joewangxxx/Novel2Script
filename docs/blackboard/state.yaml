@@ -1,7 +1,6 @@
-phase: uat
-goal: "Stage 31 recorded human review acceptance of the one Stage 30 real Kimi dialogue candidate and preserved the no-apply boundary."
-ready_for:
-  - stage_32_protected_apply_real_kimi_dialogue_candidate
+phase: release
+goal: "Stage 32 applied the human-accepted Stage 30 real Kimi dialogue candidate and completed the full end-to-end QA evaluation chain."
+ready_for: []
 blocked_by: []
 artifacts:
   prd: null
@@ -237,6 +236,17 @@ artifacts:
   design_notes: null
   qa_report: "docs/qa/report.md"
   release_notes: null
+  stage_32_screenplay: "examples/output/test1_sanguo_screenplay.stage32.yaml"
+  stage_32_apply_report: "examples/output/test1_sanguo_creative_draft_apply_report.stage32.yaml"
+  stage_32_screenplay_validation_report: "examples/output/test1_sanguo_screenplay.stage32_validation_report.yaml"
+  stage_32_fountain: "examples/output/test1_sanguo_screenplay.stage32.fountain"
+  stage_32_fountain_map: "examples/output/test1_sanguo_screenplay.stage32.fountain.map.json"
+  stage_32_review_report: "examples/output/test1_sanguo_review_report.stage32.yaml"
+  stage_32_roundtrip_screenplay: "examples/output/test1_sanguo_screenplay.stage32_roundtrip.yaml"
+  stage_32_roundtrip_report: "examples/output/test1_sanguo_screenplay.stage32_roundtrip_report.yaml"
+  stage_32_roundtrip_validation_report: "examples/output/test1_sanguo_screenplay.stage32_roundtrip_validation_report.yaml"
+  stage_32_quality_report: "examples/output/test1_sanguo_quality_report.stage32.yaml"
+  stage_32_quality_dashboard: "examples/output/test1_sanguo_quality_dashboard.stage32.md"
 contract_status:
   state: draft
   frozen_at: null
@@ -526,3 +536,6 @@ history:
   - at: "2026-06-07T17:09:13+08:00"
     actor: parent_orchestrator
     event: "Stage 31 recorded human review acceptance of the one Stage 30 real Kimi dialogue candidate, generated review packet, decisions, and review report, retained candidate text only in the original sidecar, and kept application deferred to a protected Stage 32 artifact apply."
+  - at: "2026-06-07T17:40:00+08:00"
+    actor: parent_orchestrator
+    event: "Stage 32 applied the human-accepted Stage 30 real Kimi dialogue candidate, and completed the full downstream end-to-end validation, export, review, roundtrip, and quality dashboard QA chain."

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>面向小说作者的 AI 剧本改编工作台</title>
+  <!-- 引入现代字体 Outfit 和 Noto Sans SC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 液态渐变背景层 -->
+  <div class="liquid-bg">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+  </div>
+
+  <!-- 主工作台玻璃框体 -->
+  <div class="workbench-container glass-card">
+    
+    <!-- 头部区域 -->
+    <header class="workbench-header">
+      <div class="logo-area">
+        <span class="icon">✨</span>
+        <h1 id="project-title">Novel2Script AI 改编工作台</h1>
+      </div>
+      <div class="project-meta">
+        <span class="tag glass-tag version-tag" id="project-version">Version: --</span>
+        <span class="tag glass-tag time-tag" id="project-time">Last Sync: --</span>
+        <button class="theme-toggle" id="theme-btn">🌗</button>
+      </div>
+    </header>
+
+    <!-- 工作台主体分栏 -->
+    <div class="workbench-body">
+      
+      <!-- 1. 左侧栏：项目文件管理 (任务 9) -->
+      <aside class="sidebar-left glass-sidebar">
+        <div class="panel-section">
+          <h3>📂 项目文件树</h3>
+          <ul class="file-list" id="file-tree">
+            <!-- 动态渲染文件 -->
+          </ul>
+        </div>
+        <div class="panel-section run-control">
+          <h3>⚡ 流水线控制</h3>
+          <button class="btn btn-primary glass-btn" id="run-pipeline-btn">
+            运行端到端流水线
+          </button>
+          <div class="progress-container hidden" id="pipeline-progress-container">
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="pipeline-progress-fill"></div>
+            </div>
+            <span class="progress-text" id="pipeline-progress-text">就绪...</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- 2. 中间：双栏对照改编编辑器 (任务 8) -->
+      <main class="editor-main">
+        <!-- 小说原文分栏 -->
+        <section class="pane-column pane-novel">
+          <div class="pane-header">
+            <h2>📖 小说原文</h2>
+            <div class="chapter-select-container">
+              <select id="chapter-select" class="glass-select"></select>
+            </div>
+          </div>
+          <div class="pane-content scroll-y" id="novel-content">
+            <!-- 动态渲染小说段落 -->
+          </div>
+        </section>
+
+        <!-- 剧本改编分栏 -->
+        <section class="pane-column pane-screenplay">
+          <div class="pane-header">
+            <h2>🎬 改编剧本 (Scene & Beats)</h2>
+            <span class="mini-status-tag" id="screenplay-status">AI Inferred</span>
+          </div>
+          <div class="pane-content scroll-y" id="screenplay-content">
+            <!-- 动态渲染剧本 -->
+          </div>
+        </section>
+      </main>
+
+      <!-- 3. 右侧栏：智能副驾驶控制台 (任务 8 & 9) -->
+      <aside class="sidebar-right glass-sidebar">
+        
+        <!-- 双向溯源卡片 -->
+        <div class="panel-section traceability-section">
+          <h3>🔗 智能原著溯源</h3>
+          <div id="traceability-card" class="empty-traceability-card glass-subcard">
+            <p class="placeholder-text">点击左侧剧本中的 AI 片段或行以触发原著平滑双向溯源定位...</p>
+          </div>
+        </div>
+
+        <!-- 质量评估面板 -->
+        <div class="panel-section quality-section">
+          <h3>📊 剧本质量评估</h3>
+          <div class="quality-score-summary glass-subcard">
+            <div class="liquid-score-circle">
+              <span class="score-num" id="quality-score">0</span>
+              <span class="score-label">Readiness</span>
+            </div>
+            <div class="quality-decision-area">
+              <span class="decision-badge" id="quality-decision">--</span>
+              <p class="status-explanation">根据 Schema 契约、一致性审校及往返有限回写的综合评估。</p>
+            </div>
+          </div>
+          <div class="quality-dimensions-list" id="quality-dimensions">
+            <!-- 动态渲染维度分数 -->
+          </div>
+        </div>
+
+        <!-- 审校建议 Patch -->
+        <div class="panel-section review-patches-section">
+          <h3>🛠️ 审校 Agent 修改建议 (Patch)</h3>
+          <div class="patches-list" id="patches-container">
+            <!-- 动态渲染建议卡片 -->
+          </div>
+        </div>
+
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- 载入脚本 -->
+  <script src="data_fixture.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
