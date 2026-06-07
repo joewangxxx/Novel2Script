@@ -68,6 +68,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     import_parser.add_argument("--map", required=True, dest="map_path")
     import_parser.add_argument("--out", required=True)
     import_parser.add_argument("--report", required=True)
+    import_parser.add_argument("--character-bible")
+    import_parser.add_argument("--story-map")
+    import_parser.add_argument("--outline")
+    import_parser.add_argument("--review-report-out")
+    import_parser.add_argument("--review-out")
 
     parse_novel_parser = subparsers.add_parser("parse-novel")
     parse_novel_parser.add_argument("input_path")
@@ -205,7 +210,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0
     if args.command == "import-fountain":
         try:
-            sync_fountain_to_yaml(
+            report = sync_fountain_to_yaml(
                 args.screenplay,
                 args.fountain,
                 args.map_path,
@@ -215,6 +220,49 @@ def main(argv: Sequence[str] | None = None) -> int:
         except OSError as exc:
             print(f"import-fountain failed: {exc}", file=sys.stderr)
             return 1
+
+        rt_report = report.get("fountain_roundtrip_report", {})
+        applied_changes = rt_report.get("summary", {}).get("applied_changes", 0)
+        status = rt_report.get("status")
+
+        if status != "blocked" and applied_changes > 0:
+            new_screenplay = read_yaml(args.out)
+            character_bible = read_yaml(args.character_bible) if args.character_bible else None
+            outline = read_yaml(args.outline) if args.outline else None
+            story_map = read_yaml(args.story_map) if args.story_map else None
+
+            source_artifacts = {}
+            if args.character_bible:
+                source_artifacts["character_bible"] = args.character_bible
+            if args.story_map:
+                source_artifacts["story_map"] = args.story_map
+            if args.outline:
+                source_artifacts["outline"] = args.outline
+
+            review_report = build_review_report(
+                new_screenplay,
+                character_bible_doc=character_bible,
+                outline_doc=outline,
+                story_map_doc=story_map,
+                source_screenplay=args.out,
+                source_artifacts=source_artifacts,
+            )
+
+            if args.review_report_out:
+                write_yaml(review_report, args.review_report_out)
+
+            if args.review_out:
+                from novel2script.importers.fountain_importer import (
+                    generate_roundtrip_review_markdown,
+                )
+
+                md_content = generate_roundtrip_review_markdown(
+                    report, review_report, new_screenplay
+                )
+                md_path = Path(args.review_out)
+                md_path.parent.mkdir(parents=True, exist_ok=True)
+                md_path.write_text(md_content, encoding="utf-8", newline="\n")
+
         return 0
     if args.command == "parse-novel":
         try:

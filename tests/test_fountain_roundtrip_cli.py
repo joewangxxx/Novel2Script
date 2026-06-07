@@ -110,3 +110,60 @@ def test_import_fountain_cli_reports_unsafe_mapping_without_output_yaml(tmp_path
     report = yaml.safe_load(report_path.read_text(encoding="utf-8"))
     assert report["fountain_roundtrip_report"]["status"] == "blocked"
     assert report["fountain_roundtrip_report"]["issues"][0]["code"] == "unsafe_yaml_path"
+
+
+def test_import_fountain_cli_with_review_loop(tmp_path):
+    edited_fountain, edited_map = _copy_fountain_and_map(tmp_path)
+    # 制造一处安全的 heading 修改以触发同步
+    _replace_mapped_text(edited_fountain, edited_map, "scenes[0].heading", "INT. 涿县城门口 - 黄昏")
+
+    output_path = tmp_path / "roundtrip.yaml"
+    report_path = tmp_path / "roundtrip_report.yaml"
+    review_report_path = tmp_path / "roundtrip_review.yaml"
+    review_markdown_path = tmp_path / "roundtrip_review.md"
+
+    # 使用 stage26 fixture 做可选审查输入
+    char_bible = ROOT / "examples" / "output" / "test1_sanguo_character_bible.stage26.yaml"
+    outline = ROOT / "examples" / "output" / "test1_sanguo_outline.stage26.yaml"
+    story_map = ROOT / "examples" / "output" / "test1_sanguo_story_map.merged.yaml"
+
+    exit_code = main(
+        [
+            "import-fountain",
+            "--screenplay",
+            str(SCREENPLAY),
+            "--fountain",
+            str(edited_fountain),
+            "--map",
+            str(edited_map),
+            "--out",
+            str(output_path),
+            "--report",
+            str(report_path),
+            "--character-bible",
+            str(char_bible),
+            "--outline",
+            str(outline),
+            "--story-map",
+            str(story_map),
+            "--review-report-out",
+            str(review_report_path),
+            "--review-out",
+            str(review_markdown_path),
+        ]
+    )
+
+    assert exit_code == 0
+    assert output_path.exists()
+    assert report_path.exists()
+    assert review_report_path.exists()
+    assert review_markdown_path.exists()
+
+    # 验证 Markdown 报告的内容
+    md_content = review_markdown_path.read_text(encoding="utf-8")
+    assert "# Fountain 双向同步与审校闭环报告" in md_content
+    assert "语义陈旧 Beat 复核指引" in md_content
+    # 应该列出了受 heading 影响的场景下的 beat
+    assert "beat_001" in md_content or "刘备见榜叹气" in md_content
+    assert "自动审校问题汇总" in md_content
+

@@ -443,3 +443,89 @@ def _same_file(left: Any, right: str) -> bool:
 def _write_report(report: dict[str, Any], report_path: str | None) -> None:
     if report_path:
         write_yaml(report, report_path)
+
+
+def generate_roundtrip_review_markdown(
+    sync_report: dict[str, Any],
+    review_report: dict[str, Any] | None,
+    screenplay: dict[str, Any],
+) -> str:
+    """Generate a formatted Markdown report highlighting applied roundtrip changes and stale beats."""
+    lines: list[str] = []
+    lines.append("# Fountain 双向同步与审校闭环报告")
+    lines.append("")
+
+    rt_rep = sync_report.get("fountain_roundtrip_report", {})
+    summary = rt_rep.get("summary", {})
+    status = rt_rep.get("status", "unknown")
+
+    lines.append("## 1. 同步概述")
+    lines.append(f"- **同步状态**: {status.upper()}")
+    lines.append(f"- **总映射区域数**: {summary.get('mapped_regions', 0)}")
+    lines.append(f"- **已应用修改数**: {summary.get('applied_changes', 0)}")
+    lines.append(f"- **被阻断或跳过问题数**: {summary.get('blocking_issues', 0)}")
+    lines.append("")
+
+    changes = rt_rep.get("changes", [])
+    if changes:
+        lines.append("## 2. 详细回写变更")
+        lines.append("| 场景 ID | 元素索引 | 原始文本 | 导入新文本 | 安全校验 |")
+        lines.append("|---|---|---|---|---|")
+        for change in changes:
+            lines.append(
+                f"| `{change.get('scene_id')}` | {change.get('element_index')} | "
+                f"\"{change.get('original_text')}\" | \"{change.get('new_text')}\" | "
+                f"{'✓ 安全' if change.get('safe_field') else '✗ 警告'} |"
+            )
+        lines.append("")
+
+        # 找出受到影响的场景
+        affected_scenes = {change.get("scene_id") for change in changes if change.get("scene_id")}
+
+        # 3. 语义陈旧 Beat 复核警示
+        lines.append("## ⚠️ 3. 语义陈旧 Beat 复核指引 (Stale Beat Review Warnings)")
+        lines.append("由于下列场景中的动作或对白在 Fountain 中被编辑修改，其关联的戏剧节拍（Beats）语义字段可能与最新剧本文字不符，**必须由作者重新进行复核与确认**：")
+        lines.append("")
+
+        stale_found = False
+        for scene in screenplay.get("scenes", []):
+            if scene.get("id") in affected_scenes:
+                beats = scene.get("beats", [])
+                if beats:
+                    stale_found = True
+                    lines.append(f"### 🎬 场景: {scene.get('heading')} (ID: {scene.get('id')})")
+                    for beat in beats:
+                        lines.append(f"- **节拍目标 (Objective) [ID: {beat.get('id')}]**: {beat.get('objective')}")
+                        lines.append(f"  - *角色策略 (Tactic)*: {beat.get('tactic')}")
+                        lines.append(f"  - *剧情阻碍 (Obstacle)*: {beat.get('obstacle')}")
+                        lines.append(f"  - *戏剧冲突 (Conflict)*: {beat.get('conflict')}")
+                        lines.append(f"  - *输赢代价 (Stakes)*: {beat.get('stakes')}")
+                        lines.append(f"  - *戏剧转折 (Turn)*: {beat.get('turn')}")
+                        lines.append(f"  - *外化行动 (Externalized Action)*: {beat.get('externalized_action')}")
+                        lines.append("  - 🔴 **复核建议**: Fountain 文字回写已发生变化，请作者复核上述戏剧参数以保障情节因果链与心理描写外化逻辑的完整性。")
+                    lines.append("")
+        if not stale_found:
+            lines.append("没有发现受变动影响的节拍。")
+            lines.append("")
+    else:
+        lines.append("没有应用任何修改，无需复核 Beat 语义。")
+        lines.append("")
+
+    if review_report and "review_report" in review_report:
+        rev_rep = review_report["review_report"]
+        issues = rev_rep.get("issues", [])
+        lines.append("## 4. 自动审校问题汇总")
+        if issues:
+            lines.append(f"本次自动审校共发现 **{len(issues)}** 处潜在问题，列表如下：")
+            lines.append("")
+            for issue in issues:
+                lines.append(
+                    f"- **[{issue.get('severity').upper()}]** ({issue.get('reviewer')}): "
+                    f"{issue.get('issue')} (目标: `{issue.get('target_id')}`)"
+                )
+                lines.append(f"  - *修改建议*: {issue.get('suggestion')}")
+        else:
+            lines.append("✓ 重新运行的角色一致性、对白自然度和 Beat 语义审查全部通过，未发现新问题。")
+
+    return "\n".join(lines)
+
