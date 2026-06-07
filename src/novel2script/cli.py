@@ -14,6 +14,13 @@ from novel2script.agents.kimi_creative_agents import (
     KIMI_CREATIVE_AGENT_IDS,
     run_kimi_creative_agent,
 )
+from novel2script.agents.stage24_candidate_review import (
+    apply_stage24_candidate_decisions,
+    prepare_stage24_candidate_review,
+)
+from novel2script.agents.stage26_selected_candidate_apply import (
+    apply_stage24_selected_candidates_to_artifacts,
+)
 from novel2script.agents.semantic_candidate_merge import merge_semantic_candidates
 from novel2script.agents.story_semantic_parser import run_story_semantic_parser
 from novel2script.exporters.fountain_exporter import export_fountain
@@ -130,6 +137,31 @@ def main(argv: Sequence[str] | None = None) -> int:
     apply_creative_parser.add_argument("--creative-candidates", required=True)
     apply_creative_parser.add_argument("--out", required=True)
     apply_creative_parser.add_argument("--report", required=True)
+
+    stage24_review_parser = subparsers.add_parser("prepare-stage24-candidate-review")
+    stage24_review_parser.add_argument(
+        "--candidate-sidecar", action="append", required=True
+    )
+    stage24_review_parser.add_argument("--packet", required=True)
+    stage24_review_parser.add_argument("--decisions", required=True)
+
+    stage24_apply_parser = subparsers.add_parser("apply-stage24-candidates")
+    stage24_apply_parser.add_argument(
+        "--candidate-sidecar", action="append", required=True
+    )
+    stage24_apply_parser.add_argument("--decisions", required=True)
+    stage24_apply_parser.add_argument("--selected", required=True)
+    stage24_apply_parser.add_argument("--report", required=True)
+
+    stage26_apply_parser = subparsers.add_parser("apply-stage24-selected-to-artifacts")
+    stage26_apply_parser.add_argument("--selected", required=True)
+    stage26_apply_parser.add_argument("--outline", required=True)
+    stage26_apply_parser.add_argument("--character-bible", required=True)
+    stage26_apply_parser.add_argument("--screenplay", required=True)
+    stage26_apply_parser.add_argument("--outline-out", required=True)
+    stage26_apply_parser.add_argument("--character-bible-out", required=True)
+    stage26_apply_parser.add_argument("--screenplay-out", required=True)
+    stage26_apply_parser.add_argument("--report", required=True)
 
     merge_semantic_parser = subparsers.add_parser("merge-semantic-candidates")
     merge_semantic_parser.add_argument("--story-map", required=True)
@@ -460,6 +492,47 @@ def main(argv: Sequence[str] | None = None) -> int:
             return 1
         blocked = report["creative_draft_apply_report"]["blocked_count"]
         return 0 if blocked == 0 else 1
+    if args.command == "prepare-stage24-candidate-review":
+        try:
+            prepare_stage24_candidate_review(
+                candidate_paths=args.candidate_sidecar,
+                packet_path=args.packet,
+                decisions_path=args.decisions,
+            )
+        except OSError as exc:
+            print(f"prepare-stage24-candidate-review failed: {exc}", file=sys.stderr)
+            return 1
+        return 0
+    if args.command == "apply-stage24-candidates":
+        try:
+            report = apply_stage24_candidate_decisions(
+                candidate_paths=args.candidate_sidecar,
+                decisions_path=args.decisions,
+                selected_candidates_path=args.selected,
+                report_path=args.report,
+            )
+        except OSError as exc:
+            print(f"apply-stage24-candidates failed: {exc}", file=sys.stderr)
+            return 1
+        status = report["stage24_candidate_apply_report"]["status"]
+        return 0 if status in {"success", "partial", "blocked_pending_author_review"} else 1
+    if args.command == "apply-stage24-selected-to-artifacts":
+        try:
+            report = apply_stage24_selected_candidates_to_artifacts(
+                selected_candidates_path=args.selected,
+                outline_path=args.outline,
+                character_bible_path=args.character_bible,
+                screenplay_path=args.screenplay,
+                outline_out_path=args.outline_out,
+                character_bible_out_path=args.character_bible_out,
+                screenplay_out_path=args.screenplay_out,
+                report_path=args.report,
+            )
+        except OSError as exc:
+            print(f"apply-stage24-selected-to-artifacts failed: {exc}", file=sys.stderr)
+            return 1
+        status = report["stage26_selected_candidate_apply_report"]["status"]
+        return 0 if status in {"success", "partial"} else 1
     if args.command == "merge-semantic-candidates":
         try:
             report = merge_semantic_candidates(
