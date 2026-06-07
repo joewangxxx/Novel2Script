@@ -1,0 +1,39 @@
+fountain_roundtrip_report:
+  schema_version: 0.1.0
+  source_yaml: examples/output/test1_sanguo_screenplay.stage32.yaml
+  fountain_file: examples/output/test1_sanguo_screenplay.stage32_temp.fountain
+  map_file: examples/output/test1_sanguo_screenplay.stage32_temp.fountain.map.json
+  generated_at: '2026-06-05'
+  status: applied
+  summary:
+    mapped_regions: 26
+    changed_regions: 1
+    applied_changes: 1
+    skipped_changes: 0
+    blocking_issues: 0
+  line_policy:
+    expected_line_count: 69
+    actual_line_count: 69
+    line_drift_detected: false
+    map_match: true
+  changes:
+  - id: rt_change_001
+    yaml_path: scenes[0].heading
+    target_type: scene_heading
+    scene_id: scene_001
+    element_index: null
+    line_start: 5
+    line_end: 5
+    original_text: INT./EXT. UNKNOWN - TIME UNKNOWN
+    new_text: INT./EXT. UNKNOWN - TIME UNKNOWN - DAY
+    normalized_text: INT./EXT. UNKNOWN - TIME UNKNOWN - DAY
+    action: applied
+    safe_field: true
+  issues: []
+  metadata_update:
+    semantic_fields_stale: true
+    roundtrip:
+      imported_at: '2026-06-05'
+      fountain_file: examples/output/test1_sanguo_screenplay.stage32_temp.fountain
+      map_file: examples/output/test1_sanguo_screenplay.stage32_temp.fountain.map.json
+      applied_changes: 1

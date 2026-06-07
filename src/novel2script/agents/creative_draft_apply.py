@@ -23,6 +23,7 @@ def apply_creative_draft(
     creative_candidates_path: str | Path,
     out_path: str | Path,
     report_path: str | Path,
+    decisions_path: str | Path | None = None,
 ) -> dict[str, Any]:
     screenplay = read_yaml(screenplay_path)
     candidates_doc = read_yaml(creative_candidates_path)
@@ -45,6 +46,21 @@ def apply_creative_draft(
             "errors": [],
         }
     }
+    
+    decision_map = {}
+    if decisions_path is not None:
+        decisions_doc = read_yaml(decisions_path)
+        root_key = next((k for k in decisions_doc if k.endswith("_decisions")), "")
+        if root_key:
+            decisions_list = decisions_doc[root_key].get("decisions", [])
+        else:
+            decisions_list = decisions_doc.get("decisions", [])
+        decision_map = {
+            str(d.get("candidate_id")): d
+            for d in decisions_list
+            if d.get("candidate_id")
+        }
+
     scenes = {scene.get("id"): scene for scene in enhanced.get("scenes", [])}
     original_scenes = {scene.get("id"): scene for scene in screenplay.get("scenes", [])}
     candidates = candidates_doc.get("creative_draft_candidates", {}).get(
@@ -60,6 +76,20 @@ def apply_creative_draft(
         ):
             _block(report, candidate_id, "candidate_target_unresolved")
             continue
+        
+        if decisions_path is not None:
+            decision = decision_map.get(candidate_id)
+            if not decision:
+                _block(report, candidate_id, "missing_decision")
+                continue
+            decision_val = str(decision.get("decision") or "pending")
+            if decision_val not in {"accept", "edit"}:
+                report["creative_draft_apply_report"]["skipped_count"] += 1
+                continue
+            if decision_val == "edit" and decision.get("edited_text"):
+                candidate = copy.deepcopy(candidate)
+                candidate["proposed_text"] = str(decision["edited_text"])
+
         candidate_type = str(candidate.get("type") or "")
         if candidate_type in APPLY_TYPES:
             scene.setdefault("elements", []).append(_element_for(candidate))
